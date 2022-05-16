@@ -129,19 +129,19 @@ __all__ = (
     'TLInterfaceType_names', 'TLInterfaceType_values', 'TLPOEStatus_names',
     'TLPOEStatus_values', 'TLFilterDriverStatus_names',
     'TLFilterDriverStatus_values', 'TLTLType_names', 'TLTLType_values',
-    'spinNodeType_names', 'spinNodeType_values', 'spinSign_names',
-    'spinSign_values', 'spinAccessMode_names', 'spinAccessMode_values',
-    'spinVisibility_names', 'spinVisibility_values', 'spinCachingMode_names',
-    'spinCachingMode_values', 'spinRepresentation_names',
-    'spinRepresentation_values', 'spinEndianess_names', 'spinEndianess_values',
-    'spinNameSpace_names', 'spinNameSpace_values', 'spinStandardNameSpace_names',
-    'spinStandardNameSpace_values', 'spinYesNo_names', 'spinYesNo_values',
-    'spinSlope_names', 'spinSlope_values', 'spinXMLValidation_names',
-    'spinXMLValidation_values', 'spinDisplayNotation_names',
-    'spinDisplayNotation_values', 'spinInterfaceType_names',
-    'spinInterfaceType_values', 'spinLinkType_names', 'spinLinkType_values',
-    'spinIncMode_names', 'spinIncMode_values', 'spinInputDirection_names',
-    'spinInputDirection_values', 'LUTSelector_names', 'LUTSelector_values',
+    'NodeType_names', 'NodeType_values', 'Sign_names',
+    'Sign_values', 'AccessMode_names', 'AccessMode_values',
+    'Visibility_names', 'Visibility_values', 'CachingMode_names',
+    'CachingMode_values', 'Representation_names',
+    'Representation_values', 'Endianess_names', 'Endianess_values',
+    'NameSpace_names', 'NameSpace_values', 'StandardNameSpace_names',
+    'StandardNameSpace_values', 'YesNo_names', 'YesNo_values',
+    'Slope_names', 'Slope_values', 'XMLValidation_names',
+    'XMLValidation_values', 'DisplayNotation_names',
+    'DisplayNotation_values', 'InterfaceType_names',
+    'InterfaceType_values', 'LinkType_names', 'LinkType_values',
+    'IncMode_names', 'IncMode_values', 'InputDirection_names',
+    'InputDirection_values', 'LUTSelector_names', 'LUTSelector_values',
     'ExposureMode_names', 'ExposureMode_values', 'AcquisitionMode_names',
     'AcquisitionMode_values', 'TriggerSource_names', 'TriggerSource_values',
     'TriggerActivation_names', 'TriggerActivation_values',
@@ -424,57 +424,56 @@ TLFilterDriverStatus_values = _invert_dict(TLFilterDriverStatus_names)
 TLTLType_names = _split_name(1, _spinTLTLTypeEnums)
 TLTLType_values = _invert_dict(TLTLType_names)
 
+NodeType_names = _to_dict(_spinNodeType)
+NodeType_values = _invert_dict(NodeType_names)
 
-spinNodeType_names = _to_dict(_spinNodeType)
-spinNodeType_values = _invert_dict(spinNodeType_names)
+Sign_names = _to_dict(_spinSign)
+Sign_values = _invert_dict(Sign_names)
 
-spinSign_names = _to_dict(_spinSign)
-spinSign_values = _invert_dict(spinSign_names)
+AccessMode_names = _to_dict(_spinAccessMode)
+AccessMode_values = _invert_dict(AccessMode_names)
 
-spinAccessMode_names = _to_dict(_spinAccessMode)
-spinAccessMode_values = _invert_dict(spinAccessMode_names)
+Visibility_names = _to_dict(_spinVisibility)
+Visibility_values = _invert_dict(Visibility_names)
 
-spinVisibility_names = _to_dict(_spinVisibility)
-spinVisibility_values = _invert_dict(spinVisibility_names)
+CachingMode_names = _to_dict(_spinCachingMode)
+CachingMode_values = _invert_dict(CachingMode_names)
 
-spinCachingMode_names = _to_dict(_spinCachingMode)
-spinCachingMode_values = _invert_dict(spinCachingMode_names)
+Representation_names = _to_dict(_spinRepresentation)
+Representation_values = _invert_dict(Representation_names)
 
-spinRepresentation_names = _to_dict(_spinRepresentation)
-spinRepresentation_values = _invert_dict(spinRepresentation_names)
+Endianess_names = _to_dict(_spinEndianess)
+Endianess_values = _invert_dict(Endianess_names)
 
-spinEndianess_names = _to_dict(_spinEndianess)
-spinEndianess_values = _invert_dict(spinEndianess_names)
+NameSpace_names = _to_dict(_spinNameSpace)
+NameSpace_values = _invert_dict(NameSpace_names)
 
-spinNameSpace_names = _to_dict(_spinNameSpace)
-spinNameSpace_values = _invert_dict(spinNameSpace_names)
+StandardNameSpace_names = _to_dict(_spinStandardNameSpace)
+StandardNameSpace_values = _invert_dict(StandardNameSpace_names)
 
-spinStandardNameSpace_names = _to_dict(_spinStandardNameSpace)
-spinStandardNameSpace_values = _invert_dict(spinStandardNameSpace_names)
+YesNo_names = _to_dict(_spinYesNo)
+YesNo_values = _invert_dict(YesNo_names)
 
-spinYesNo_names = _to_dict(_spinYesNo)
-spinYesNo_values = _invert_dict(spinYesNo_names)
+Slope_names = _to_dict(_spinSlope)
+Slope_values = _invert_dict(Slope_names)
 
-spinSlope_names = _to_dict(_spinSlope)
-spinSlope_values = _invert_dict(spinSlope_names)
+XMLValidation_names = _remove_prefix('xv', _spinXMLValidation)
+XMLValidation_values = _invert_dict(XMLValidation_names)
 
-spinXMLValidation_names = _remove_prefix('xv', _spinXMLValidation)
-spinXMLValidation_values = _invert_dict(spinXMLValidation_names)
+DisplayNotation_names = _remove_prefix('fn', _spinDisplayNotation)
+DisplayNotation_values = _invert_dict(DisplayNotation_names)
 
-spinDisplayNotation_names = _remove_prefix('fn', _spinDisplayNotation)
-spinDisplayNotation_values = _invert_dict(spinDisplayNotation_names)
+InterfaceType_names = _remove_prefix('intfI', _spinInterfaceType)
+InterfaceType_values = _invert_dict(InterfaceType_names)
 
-spinInterfaceType_names = _remove_prefix('intfI', _spinInterfaceType)
-spinInterfaceType_values = _invert_dict(spinInterfaceType_names)
+LinkType_names = _remove_prefix('ct', _spinLinkType)
+LinkType_values = _invert_dict(LinkType_names)
 
-spinLinkType_names = _remove_prefix('ct', _spinLinkType)
-spinLinkType_values = _invert_dict(spinLinkType_names)
+IncMode_names = _to_dict(_spinIncMode)
+IncMode_values = _invert_dict(IncMode_names)
 
-spinIncMode_names = _to_dict(_spinIncMode)
-spinIncMode_values = _invert_dict(spinIncMode_names)
-
-spinInputDirection_names = _remove_prefix('id', _spinInputDirection)
-spinInputDirection_values = _invert_dict(spinInputDirection_names)
+InputDirection_names = _remove_prefix('id', _spinInputDirection)
+InputDirection_values = _invert_dict(InputDirection_names)
 
 LUTSelector_names = _split_name(1, _spinLUTSelectorEnums)
 LUTSelector_values = _invert_dict(LUTSelector_names)
