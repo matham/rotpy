@@ -1,24 +1,24 @@
 cdef extern from "CameraDefsC.h" nogil:
 
-    cdef enum _spinLUTSelectorEnums:
+    cpdef enum _spinLUTSelectorEnums:
         LUTSelector_LUT1
         NUM_LUTSELECTOR
     ctypedef _spinLUTSelectorEnums spinLUTSelectorEnums
 
-    cdef enum _spinExposureModeEnums:
+    cpdef enum _spinExposureModeEnums:
         ExposureMode_Timed
         ExposureMode_TriggerWidth
         NUM_EXPOSUREMODE
     ctypedef _spinExposureModeEnums spinExposureModeEnums
 
-    cdef enum _spinAcquisitionModeEnums:
+    cpdef enum _spinAcquisitionModeEnums:
         AcquisitionMode_Continuous
         AcquisitionMode_SingleFrame
         AcquisitionMode_MultiFrame
         NUM_ACQUISITIONMODE
     ctypedef _spinAcquisitionModeEnums spinAcquisitionModeEnums
 
-    cdef enum _spinTriggerSourceEnums:
+    cpdef enum _spinTriggerSourceEnums:
         TriggerSource_Software
         TriggerSource_Line0
         TriggerSource_Line1
@@ -38,7 +38,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_TRIGGERSOURCE
     ctypedef _spinTriggerSourceEnums spinTriggerSourceEnums
 
-    cdef enum _spinTriggerActivationEnums:
+    cpdef enum _spinTriggerActivationEnums:
         TriggerActivation_LevelLow
         TriggerActivation_LevelHigh
         TriggerActivation_FallingEdge
@@ -47,60 +47,60 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_TRIGGERACTIVATION
     ctypedef _spinTriggerActivationEnums spinTriggerActivationEnums
 
-    cdef enum _spinSensorShutterModeEnums:
+    cpdef enum _spinSensorShutterModeEnums:
         SensorShutterMode_Global
         SensorShutterMode_Rolling
         SensorShutterMode_GlobalReset
         NUM_SENSORSHUTTERMODE
     ctypedef _spinSensorShutterModeEnums spinSensorShutterModeEnums
 
-    cdef enum _spinTriggerModeEnums:
+    cpdef enum _spinTriggerModeEnums:
         TriggerMode_Off
         TriggerMode_On
         NUM_TRIGGERMODE
     ctypedef _spinTriggerModeEnums spinTriggerModeEnums
 
-    cdef enum _spinTriggerOverlapEnums:
+    cpdef enum _spinTriggerOverlapEnums:
         TriggerOverlap_Off
         TriggerOverlap_ReadOut
         TriggerOverlap_PreviousFrame
         NUM_TRIGGEROVERLAP
     ctypedef _spinTriggerOverlapEnums spinTriggerOverlapEnums
 
-    cdef enum _spinTriggerSelectorEnums:
+    cpdef enum _spinTriggerSelectorEnums:
         TriggerSelector_AcquisitionStart
         TriggerSelector_FrameStart
         TriggerSelector_FrameBurstStart
         NUM_TRIGGERSELECTOR
     ctypedef _spinTriggerSelectorEnums spinTriggerSelectorEnums
 
-    cdef enum _spinExposureAutoEnums:
+    cpdef enum _spinExposureAutoEnums:
         ExposureAuto_Off
         ExposureAuto_Once
         ExposureAuto_Continuous
         NUM_EXPOSUREAUTO
     ctypedef _spinExposureAutoEnums spinExposureAutoEnums
 
-    cdef enum _spinEventSelectorEnums:
+    cpdef enum _spinEventSelectorEnums:
         EventSelector_Error
         EventSelector_ExposureEnd
         EventSelector_SerialPortReceive
         NUM_EVENTSELECTOR
     ctypedef _spinEventSelectorEnums spinEventSelectorEnums
 
-    cdef enum _spinEventNotificationEnums:
+    cpdef enum _spinEventNotificationEnums:
         EventNotification_On
         EventNotification_Off
         NUM_EVENTNOTIFICATION
     ctypedef _spinEventNotificationEnums spinEventNotificationEnums
 
-    cdef enum _spinLogicBlockSelectorEnums:
+    cpdef enum _spinLogicBlockSelectorEnums:
         LogicBlockSelector_LogicBlock0
         LogicBlockSelector_LogicBlock1
         NUM_LOGICBLOCKSELECTOR
     ctypedef _spinLogicBlockSelectorEnums spinLogicBlockSelectorEnums
 
-    cdef enum _spinLogicBlockLUTInputActivationEnums:
+    cpdef enum _spinLogicBlockLUTInputActivationEnums:
         LogicBlockLUTInputActivation_LevelLow
         LogicBlockLUTInputActivation_LevelHigh
         LogicBlockLUTInputActivation_FallingEdge
@@ -109,7 +109,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_LOGICBLOCKLUTINPUTACTIVATION
     ctypedef _spinLogicBlockLUTInputActivationEnums spinLogicBlockLUTInputActivationEnums
 
-    cdef enum _spinLogicBlockLUTInputSelectorEnums:
+    cpdef enum _spinLogicBlockLUTInputSelectorEnums:
         LogicBlockLUTInputSelector_Input0
         LogicBlockLUTInputSelector_Input1
         LogicBlockLUTInputSelector_Input2
@@ -117,7 +117,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_LOGICBLOCKLUTINPUTSELECTOR
     ctypedef _spinLogicBlockLUTInputSelectorEnums spinLogicBlockLUTInputSelectorEnums
 
-    cdef enum _spinLogicBlockLUTInputSourceEnums:
+    cpdef enum _spinLogicBlockLUTInputSourceEnums:
         LogicBlockLUTInputSource_Zero
         LogicBlockLUTInputSource_Line0
         LogicBlockLUTInputSource_Line1
@@ -140,19 +140,19 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_LOGICBLOCKLUTINPUTSOURCE
     ctypedef _spinLogicBlockLUTInputSourceEnums spinLogicBlockLUTInputSourceEnums
 
-    cdef enum _spinLogicBlockLUTSelectorEnums:
+    cpdef enum _spinLogicBlockLUTSelectorEnums:
         LogicBlockLUTSelector_Value
         LogicBlockLUTSelector_Enable
         NUM_LOGICBLOCKLUTSELECTOR
     ctypedef _spinLogicBlockLUTSelectorEnums spinLogicBlockLUTSelectorEnums
 
-    cdef enum _spinColorTransformationSelectorEnums:
+    cpdef enum _spinColorTransformationSelectorEnums:
         ColorTransformationSelector_RGBtoRGB
         ColorTransformationSelector_RGBtoYUV
         NUM_COLORTRANSFORMATIONSELECTOR
     ctypedef _spinColorTransformationSelectorEnums spinColorTransformationSelectorEnums
 
-    cdef enum _spinRgbTransformLightSourceEnums:
+    cpdef enum _spinRgbTransformLightSourceEnums:
         RgbTransformLightSource_General
         RgbTransformLightSource_Tungsten2800K
         RgbTransformLightSource_WarmFluorescent3000K
@@ -164,7 +164,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_RGBTRANSFORMLIGHTSOURCE
     ctypedef _spinRgbTransformLightSourceEnums spinRgbTransformLightSourceEnums
 
-    cdef enum _spinColorTransformationValueSelectorEnums:
+    cpdef enum _spinColorTransformationValueSelectorEnums:
         ColorTransformationValueSelector_Gain00
         ColorTransformationValueSelector_Gain01
         ColorTransformationValueSelector_Gain02
@@ -180,24 +180,24 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_COLORTRANSFORMATIONVALUESELECTOR
     ctypedef _spinColorTransformationValueSelectorEnums spinColorTransformationValueSelectorEnums
 
-    cdef enum _spinDeviceRegistersEndiannessEnums:
+    cpdef enum _spinDeviceRegistersEndiannessEnums:
         DeviceRegistersEndianness_Little
         DeviceRegistersEndianness_Big
         NUM_DEVICEREGISTERSENDIANNESS
     ctypedef _spinDeviceRegistersEndiannessEnums spinDeviceRegistersEndiannessEnums
 
-    cdef enum _spinDeviceScanTypeEnums:
+    cpdef enum _spinDeviceScanTypeEnums:
         DeviceScanType_Areascan
         NUM_DEVICESCANTYPE
     ctypedef _spinDeviceScanTypeEnums spinDeviceScanTypeEnums
 
-    cdef enum _spinDeviceCharacterSetEnums:
+    cpdef enum _spinDeviceCharacterSetEnums:
         DeviceCharacterSet_UTF8
         DeviceCharacterSet_ASCII
         NUM_DEVICECHARACTERSET
     ctypedef _spinDeviceCharacterSetEnums spinDeviceCharacterSetEnums
 
-    cdef enum _spinDeviceTLTypeEnums:
+    cpdef enum _spinDeviceTLTypeEnums:
         DeviceTLType_GigEVision
         DeviceTLType_CameraLink
         DeviceTLType_CameraLinkHS
@@ -207,30 +207,30 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_DEVICETLTYPE
     ctypedef _spinDeviceTLTypeEnums spinDeviceTLTypeEnums
 
-    cdef enum _spinDevicePowerSupplySelectorEnums:
+    cpdef enum _spinDevicePowerSupplySelectorEnums:
         DevicePowerSupplySelector_External
         NUM_DEVICEPOWERSUPPLYSELECTOR
     ctypedef _spinDevicePowerSupplySelectorEnums spinDevicePowerSupplySelectorEnums
 
-    cdef enum _spinDeviceTemperatureSelectorEnums:
+    cpdef enum _spinDeviceTemperatureSelectorEnums:
         DeviceTemperatureSelector_Sensor
         NUM_DEVICETEMPERATURESELECTOR
     ctypedef _spinDeviceTemperatureSelectorEnums spinDeviceTemperatureSelectorEnums
 
-    cdef enum _spinDeviceIndicatorModeEnums:
+    cpdef enum _spinDeviceIndicatorModeEnums:
         DeviceIndicatorMode_Inactive
         DeviceIndicatorMode_Active
         DeviceIndicatorMode_ErrorStatus
         NUM_DEVICEINDICATORMODE
     ctypedef _spinDeviceIndicatorModeEnums spinDeviceIndicatorModeEnums
 
-    cdef enum _spinAutoExposureControlPriorityEnums:
+    cpdef enum _spinAutoExposureControlPriorityEnums:
         AutoExposureControlPriority_Gain
         AutoExposureControlPriority_ExposureTime
         NUM_AUTOEXPOSURECONTROLPRIORITY
     ctypedef _spinAutoExposureControlPriorityEnums spinAutoExposureControlPriorityEnums
 
-    cdef enum _spinAutoExposureMeteringModeEnums:
+    cpdef enum _spinAutoExposureMeteringModeEnums:
         AutoExposureMeteringMode_Average
         AutoExposureMeteringMode_Spot
         AutoExposureMeteringMode_Partial
@@ -239,25 +239,25 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_AUTOEXPOSUREMETERINGMODE
     ctypedef _spinAutoExposureMeteringModeEnums spinAutoExposureMeteringModeEnums
 
-    cdef enum _spinBalanceWhiteAutoProfileEnums:
+    cpdef enum _spinBalanceWhiteAutoProfileEnums:
         BalanceWhiteAutoProfile_Indoor
         BalanceWhiteAutoProfile_Outdoor
         NUM_BALANCEWHITEAUTOPROFILE
     ctypedef _spinBalanceWhiteAutoProfileEnums spinBalanceWhiteAutoProfileEnums
 
-    cdef enum _spinAutoAlgorithmSelectorEnums:
+    cpdef enum _spinAutoAlgorithmSelectorEnums:
         AutoAlgorithmSelector_Awb
         AutoAlgorithmSelector_Ae
         NUM_AUTOALGORITHMSELECTOR
     ctypedef _spinAutoAlgorithmSelectorEnums spinAutoAlgorithmSelectorEnums
 
-    cdef enum _spinAutoExposureTargetGreyValueAutoEnums:
+    cpdef enum _spinAutoExposureTargetGreyValueAutoEnums:
         AutoExposureTargetGreyValueAuto_Off
         AutoExposureTargetGreyValueAuto_Continuous
         NUM_AUTOEXPOSURETARGETGREYVALUEAUTO
     ctypedef _spinAutoExposureTargetGreyValueAutoEnums spinAutoExposureTargetGreyValueAutoEnums
 
-    cdef enum _spinAutoExposureLightingModeEnums:
+    cpdef enum _spinAutoExposureLightingModeEnums:
         AutoExposureLightingMode_AutoDetect
         AutoExposureLightingMode_Backlight
         AutoExposureLightingMode_Frontlight
@@ -265,7 +265,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_AUTOEXPOSURELIGHTINGMODE
     ctypedef _spinAutoExposureLightingModeEnums spinAutoExposureLightingModeEnums
 
-    cdef enum _spinGevIEEE1588StatusEnums:
+    cpdef enum _spinGevIEEE1588StatusEnums:
         GevIEEE1588Status_Initializing
         GevIEEE1588Status_Faulty
         GevIEEE1588Status_Disabled
@@ -278,25 +278,25 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_GEVIEEE1588STATUS
     ctypedef _spinGevIEEE1588StatusEnums spinGevIEEE1588StatusEnums
 
-    cdef enum _spinGevIEEE1588ModeEnums:
+    cpdef enum _spinGevIEEE1588ModeEnums:
         GevIEEE1588Mode_Auto
         GevIEEE1588Mode_SlaveOnly
         NUM_GEVIEEE1588MODE
     ctypedef _spinGevIEEE1588ModeEnums spinGevIEEE1588ModeEnums
 
-    cdef enum _spinGevIEEE1588ClockAccuracyEnums:
+    cpdef enum _spinGevIEEE1588ClockAccuracyEnums:
         GevIEEE1588ClockAccuracy_Unknown
         NUM_GEVIEEE1588CLOCKACCURACY
     ctypedef _spinGevIEEE1588ClockAccuracyEnums spinGevIEEE1588ClockAccuracyEnums
 
-    cdef enum _spinGevCCPEnums:
+    cpdef enum _spinGevCCPEnums:
         GevCCP_OpenAccess
         GevCCP_ExclusiveAccess
         GevCCP_ControlAccess
         NUM_GEVCCP
     ctypedef _spinGevCCPEnums spinGevCCPEnums
 
-    cdef enum _spinGevSupportedOptionSelectorEnums:
+    cpdef enum _spinGevSupportedOptionSelectorEnums:
         GevSupportedOptionSelector_UserDefinedName
         GevSupportedOptionSelector_SerialNumber
         GevSupportedOptionSelector_HeartbeatDisable
@@ -322,60 +322,60 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_GEVSUPPORTEDOPTIONSELECTOR
     ctypedef _spinGevSupportedOptionSelectorEnums spinGevSupportedOptionSelectorEnums
 
-    cdef enum _spinBlackLevelSelectorEnums:
+    cpdef enum _spinBlackLevelSelectorEnums:
         BlackLevelSelector_All
         BlackLevelSelector_Analog
         BlackLevelSelector_Digital
         NUM_BLACKLEVELSELECTOR
     ctypedef _spinBlackLevelSelectorEnums spinBlackLevelSelectorEnums
 
-    cdef enum _spinBalanceWhiteAutoEnums:
+    cpdef enum _spinBalanceWhiteAutoEnums:
         BalanceWhiteAuto_Off
         BalanceWhiteAuto_Once
         BalanceWhiteAuto_Continuous
         NUM_BALANCEWHITEAUTO
     ctypedef _spinBalanceWhiteAutoEnums spinBalanceWhiteAutoEnums
 
-    cdef enum _spinGainAutoEnums:
+    cpdef enum _spinGainAutoEnums:
         GainAuto_Off
         GainAuto_Once
         GainAuto_Continuous
         NUM_GAINAUTO
     ctypedef _spinGainAutoEnums spinGainAutoEnums
 
-    cdef enum _spinBalanceRatioSelectorEnums:
+    cpdef enum _spinBalanceRatioSelectorEnums:
         BalanceRatioSelector_Red
         BalanceRatioSelector_Blue
         NUM_BALANCERATIOSELECTOR
     ctypedef _spinBalanceRatioSelectorEnums spinBalanceRatioSelectorEnums
 
-    cdef enum _spinGainSelectorEnums:
+    cpdef enum _spinGainSelectorEnums:
         GainSelector_All
         NUM_GAINSELECTOR
     ctypedef _spinGainSelectorEnums spinGainSelectorEnums
 
-    cdef enum _spinDefectCorrectionModeEnums:
+    cpdef enum _spinDefectCorrectionModeEnums:
         DefectCorrectionMode_Average
         DefectCorrectionMode_Highlight
         DefectCorrectionMode_Zero
         NUM_DEFECTCORRECTIONMODE
     ctypedef _spinDefectCorrectionModeEnums spinDefectCorrectionModeEnums
 
-    cdef enum _spinUserSetSelectorEnums:
+    cpdef enum _spinUserSetSelectorEnums:
         UserSetSelector_Default
         UserSetSelector_UserSet0
         UserSetSelector_UserSet1
         NUM_USERSETSELECTOR
     ctypedef _spinUserSetSelectorEnums spinUserSetSelectorEnums
 
-    cdef enum _spinUserSetDefaultEnums:
+    cpdef enum _spinUserSetDefaultEnums:
         UserSetDefault_Default
         UserSetDefault_UserSet0
         UserSetDefault_UserSet1
         NUM_USERSETDEFAULT
     ctypedef _spinUserSetDefaultEnums spinUserSetDefaultEnums
 
-    cdef enum _spinSerialPortBaudRateEnums:
+    cpdef enum _spinSerialPortBaudRateEnums:
         SerialPortBaudRate_Baud300
         SerialPortBaudRate_Baud600
         SerialPortBaudRate_Baud1200
@@ -393,7 +393,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_SERIALPORTBAUDRATE
     ctypedef _spinSerialPortBaudRateEnums spinSerialPortBaudRateEnums
 
-    cdef enum _spinSerialPortParityEnums:
+    cpdef enum _spinSerialPortParityEnums:
         SerialPortParity_None
         SerialPortParity_Odd
         SerialPortParity_Even
@@ -402,19 +402,19 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_SERIALPORTPARITY
     ctypedef _spinSerialPortParityEnums spinSerialPortParityEnums
 
-    cdef enum _spinSerialPortSelectorEnums:
+    cpdef enum _spinSerialPortSelectorEnums:
         SerialPortSelector_SerialPort0
         NUM_SERIALPORTSELECTOR
     ctypedef _spinSerialPortSelectorEnums spinSerialPortSelectorEnums
 
-    cdef enum _spinSerialPortStopBitsEnums:
+    cpdef enum _spinSerialPortStopBitsEnums:
         SerialPortStopBits_Bits1
         SerialPortStopBits_Bits1AndAHalf
         SerialPortStopBits_Bits2
         NUM_SERIALPORTSTOPBITS
     ctypedef _spinSerialPortStopBitsEnums spinSerialPortStopBitsEnums
 
-    cdef enum _spinSerialPortSourceEnums:
+    cpdef enum _spinSerialPortSourceEnums:
         SerialPortSource_Line0
         SerialPortSource_Line1
         SerialPortSource_Line2
@@ -423,25 +423,25 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_SERIALPORTSOURCE
     ctypedef _spinSerialPortSourceEnums spinSerialPortSourceEnums
 
-    cdef enum _spinSequencerModeEnums:
+    cpdef enum _spinSequencerModeEnums:
         SequencerMode_Off
         SequencerMode_On
         NUM_SEQUENCERMODE
     ctypedef _spinSequencerModeEnums spinSequencerModeEnums
 
-    cdef enum _spinSequencerConfigurationValidEnums:
+    cpdef enum _spinSequencerConfigurationValidEnums:
         SequencerConfigurationValid_No
         SequencerConfigurationValid_Yes
         NUM_SEQUENCERCONFIGURATIONVALID
     ctypedef _spinSequencerConfigurationValidEnums spinSequencerConfigurationValidEnums
 
-    cdef enum _spinSequencerSetValidEnums:
+    cpdef enum _spinSequencerSetValidEnums:
         SequencerSetValid_No
         SequencerSetValid_Yes
         NUM_SEQUENCERSETVALID
     ctypedef _spinSequencerSetValidEnums spinSequencerSetValidEnums
 
-    cdef enum _spinSequencerTriggerActivationEnums:
+    cpdef enum _spinSequencerTriggerActivationEnums:
         SequencerTriggerActivation_RisingEdge
         SequencerTriggerActivation_FallingEdge
         SequencerTriggerActivation_AnyEdge
@@ -450,37 +450,37 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_SEQUENCERTRIGGERACTIVATION
     ctypedef _spinSequencerTriggerActivationEnums spinSequencerTriggerActivationEnums
 
-    cdef enum _spinSequencerConfigurationModeEnums:
+    cpdef enum _spinSequencerConfigurationModeEnums:
         SequencerConfigurationMode_Off
         SequencerConfigurationMode_On
         NUM_SEQUENCERCONFIGURATIONMODE
     ctypedef _spinSequencerConfigurationModeEnums spinSequencerConfigurationModeEnums
 
-    cdef enum _spinSequencerTriggerSourceEnums:
+    cpdef enum _spinSequencerTriggerSourceEnums:
         SequencerTriggerSource_Off
         SequencerTriggerSource_FrameStart
         NUM_SEQUENCERTRIGGERSOURCE
     ctypedef _spinSequencerTriggerSourceEnums spinSequencerTriggerSourceEnums
 
-    cdef enum _spinTransferQueueModeEnums:
+    cpdef enum _spinTransferQueueModeEnums:
         TransferQueueMode_FirstInFirstOut
         NUM_TRANSFERQUEUEMODE
     ctypedef _spinTransferQueueModeEnums spinTransferQueueModeEnums
 
-    cdef enum _spinTransferOperationModeEnums:
+    cpdef enum _spinTransferOperationModeEnums:
         TransferOperationMode_Continuous
         TransferOperationMode_MultiBlock
         NUM_TRANSFEROPERATIONMODE
     ctypedef _spinTransferOperationModeEnums spinTransferOperationModeEnums
 
-    cdef enum _spinTransferControlModeEnums:
+    cpdef enum _spinTransferControlModeEnums:
         TransferControlMode_Basic
         TransferControlMode_Automatic
         TransferControlMode_UserControlled
         NUM_TRANSFERCONTROLMODE
     ctypedef _spinTransferControlModeEnums spinTransferControlModeEnums
 
-    cdef enum _spinChunkGainSelectorEnums:
+    cpdef enum _spinChunkGainSelectorEnums:
         ChunkGainSelector_All
         ChunkGainSelector_Red
         ChunkGainSelector_Green
@@ -488,7 +488,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_CHUNKGAINSELECTOR
     ctypedef _spinChunkGainSelectorEnums spinChunkGainSelectorEnums
 
-    cdef enum _spinChunkSelectorEnums:
+    cpdef enum _spinChunkSelectorEnums:
         ChunkSelector_Image
         ChunkSelector_CRC
         ChunkSelector_FrameID
@@ -507,12 +507,12 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_CHUNKSELECTOR
     ctypedef _spinChunkSelectorEnums spinChunkSelectorEnums
 
-    cdef enum _spinChunkBlackLevelSelectorEnums:
+    cpdef enum _spinChunkBlackLevelSelectorEnums:
         ChunkBlackLevelSelector_All
         NUM_CHUNKBLACKLEVELSELECTOR
     ctypedef _spinChunkBlackLevelSelectorEnums spinChunkBlackLevelSelectorEnums
 
-    cdef enum _spinChunkPixelFormatEnums:
+    cpdef enum _spinChunkPixelFormatEnums:
         ChunkPixelFormat_Mono8
         ChunkPixelFormat_Mono12Packed
         ChunkPixelFormat_Mono16
@@ -526,21 +526,21 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_CHUNKPIXELFORMAT
     ctypedef _spinChunkPixelFormatEnums spinChunkPixelFormatEnums
 
-    cdef enum _spinFileOperationStatusEnums:
+    cpdef enum _spinFileOperationStatusEnums:
         FileOperationStatus_Success
         FileOperationStatus_Failure
         FileOperationStatus_Overflow
         NUM_FILEOPERATIONSTATUS
     ctypedef _spinFileOperationStatusEnums spinFileOperationStatusEnums
 
-    cdef enum _spinFileOpenModeEnums:
+    cpdef enum _spinFileOpenModeEnums:
         FileOpenMode_Read
         FileOpenMode_Write
         FileOpenMode_ReadWrite
         NUM_FILEOPENMODE
     ctypedef _spinFileOpenModeEnums spinFileOpenModeEnums
 
-    cdef enum _spinFileOperationSelectorEnums:
+    cpdef enum _spinFileOperationSelectorEnums:
         FileOperationSelector_Open
         FileOperationSelector_Close
         FileOperationSelector_Read
@@ -549,7 +549,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_FILEOPERATIONSELECTOR
     ctypedef _spinFileOperationSelectorEnums spinFileOperationSelectorEnums
 
-    cdef enum _spinFileSelectorEnums:
+    cpdef enum _spinFileSelectorEnums:
         FileSelector_UserSetDefault
         FileSelector_UserSet0
         FileSelector_UserSet1
@@ -558,33 +558,33 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_FILESELECTOR
     ctypedef _spinFileSelectorEnums spinFileSelectorEnums
 
-    cdef enum _spinBinningSelectorEnums:
+    cpdef enum _spinBinningSelectorEnums:
         BinningSelector_All
         BinningSelector_Sensor
         BinningSelector_ISP
         NUM_BINNINGSELECTOR
     ctypedef _spinBinningSelectorEnums spinBinningSelectorEnums
 
-    cdef enum _spinTestPatternGeneratorSelectorEnums:
+    cpdef enum _spinTestPatternGeneratorSelectorEnums:
         TestPatternGeneratorSelector_Sensor
         TestPatternGeneratorSelector_PipelineStart
         NUM_TESTPATTERNGENERATORSELECTOR
     ctypedef _spinTestPatternGeneratorSelectorEnums spinTestPatternGeneratorSelectorEnums
 
-    cdef enum _spinCompressionSaturationPriorityEnums:
+    cpdef enum _spinCompressionSaturationPriorityEnums:
         CompressionSaturationPriority_DropFrame
         CompressionSaturationPriority_ReduceFrameRate
         NUM_COMPRESSIONSATURATIONPRIORITY
     ctypedef _spinCompressionSaturationPriorityEnums spinCompressionSaturationPriorityEnums
 
-    cdef enum _spinTestPatternEnums:
+    cpdef enum _spinTestPatternEnums:
         TestPattern_Off
         TestPattern_Increment
         TestPattern_SensorTestPattern
         NUM_TESTPATTERN
     ctypedef _spinTestPatternEnums spinTestPatternEnums
 
-    cdef enum _spinPixelColorFilterEnums:
+    cpdef enum _spinPixelColorFilterEnums:
         PixelColorFilter_None
         PixelColorFilter_BayerRG
         PixelColorFilter_BayerGB
@@ -593,7 +593,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_PIXELCOLORFILTER
     ctypedef _spinPixelColorFilterEnums spinPixelColorFilterEnums
 
-    cdef enum _spinAdcBitDepthEnums:
+    cpdef enum _spinAdcBitDepthEnums:
         AdcBitDepth_Bit8
         AdcBitDepth_Bit10
         AdcBitDepth_Bit12
@@ -601,18 +601,18 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_ADCBITDEPTH
     ctypedef _spinAdcBitDepthEnums spinAdcBitDepthEnums
 
-    cdef enum _spinDecimationHorizontalModeEnums:
+    cpdef enum _spinDecimationHorizontalModeEnums:
         DecimationHorizontalMode_Discard
         NUM_DECIMATIONHORIZONTALMODE
     ctypedef _spinDecimationHorizontalModeEnums spinDecimationHorizontalModeEnums
 
-    cdef enum _spinBinningVerticalModeEnums:
+    cpdef enum _spinBinningVerticalModeEnums:
         BinningVerticalMode_Sum
         BinningVerticalMode_Average
         NUM_BINNINGVERTICALMODE
     ctypedef _spinBinningVerticalModeEnums spinBinningVerticalModeEnums
 
-    cdef enum _spinPixelSizeEnums:
+    cpdef enum _spinPixelSizeEnums:
         PixelSize_Bpp1
         PixelSize_Bpp2
         PixelSize_Bpp4
@@ -632,25 +632,25 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_PIXELSIZE
     ctypedef _spinPixelSizeEnums spinPixelSizeEnums
 
-    cdef enum _spinDecimationSelectorEnums:
+    cpdef enum _spinDecimationSelectorEnums:
         DecimationSelector_All
         DecimationSelector_Sensor
         NUM_DECIMATIONSELECTOR
     ctypedef _spinDecimationSelectorEnums spinDecimationSelectorEnums
 
-    cdef enum _spinImageCompressionModeEnums:
+    cpdef enum _spinImageCompressionModeEnums:
         ImageCompressionMode_Off
         ImageCompressionMode_Lossless
         NUM_IMAGECOMPRESSIONMODE
     ctypedef _spinImageCompressionModeEnums spinImageCompressionModeEnums
 
-    cdef enum _spinBinningHorizontalModeEnums:
+    cpdef enum _spinBinningHorizontalModeEnums:
         BinningHorizontalMode_Sum
         BinningHorizontalMode_Average
         NUM_BINNINGHORIZONTALMODE
     ctypedef _spinBinningHorizontalModeEnums spinBinningHorizontalModeEnums
 
-    cdef enum _spinPixelFormatEnums:
+    cpdef enum _spinPixelFormatEnums:
         PixelFormat_Mono8
         PixelFormat_Mono16
         PixelFormat_RGB8Packed
@@ -906,18 +906,18 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_PIXELFORMAT
     ctypedef _spinPixelFormatEnums spinPixelFormatEnums
 
-    cdef enum _spinDecimationVerticalModeEnums:
+    cpdef enum _spinDecimationVerticalModeEnums:
         DecimationVerticalMode_Discard
         NUM_DECIMATIONVERTICALMODE
     ctypedef _spinDecimationVerticalModeEnums spinDecimationVerticalModeEnums
 
-    cdef enum _spinLineModeEnums:
+    cpdef enum _spinLineModeEnums:
         LineMode_Input
         LineMode_Output
         NUM_LINEMODE
     ctypedef _spinLineModeEnums spinLineModeEnums
 
-    cdef enum _spinLineSourceEnums:
+    cpdef enum _spinLineSourceEnums:
         LineSource_Off
         LineSource_Line0
         LineSource_Line1
@@ -940,13 +940,13 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_LINESOURCE
     ctypedef _spinLineSourceEnums spinLineSourceEnums
 
-    cdef enum _spinLineInputFilterSelectorEnums:
+    cpdef enum _spinLineInputFilterSelectorEnums:
         LineInputFilterSelector_Deglitch
         LineInputFilterSelector_Debounce
         NUM_LINEINPUTFILTERSELECTOR
     ctypedef _spinLineInputFilterSelectorEnums spinLineInputFilterSelectorEnums
 
-    cdef enum _spinUserOutputSelectorEnums:
+    cpdef enum _spinUserOutputSelectorEnums:
         UserOutputSelector_UserOutput0
         UserOutputSelector_UserOutput1
         UserOutputSelector_UserOutput2
@@ -954,7 +954,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_USEROUTPUTSELECTOR
     ctypedef _spinUserOutputSelectorEnums spinUserOutputSelectorEnums
 
-    cdef enum _spinLineFormatEnums:
+    cpdef enum _spinLineFormatEnums:
         LineFormat_NoConnect
         LineFormat_TriState
         LineFormat_TTL
@@ -965,7 +965,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_LINEFORMAT
     ctypedef _spinLineFormatEnums spinLineFormatEnums
 
-    cdef enum _spinLineSelectorEnums:
+    cpdef enum _spinLineSelectorEnums:
         LineSelector_Line0
         LineSelector_Line1
         LineSelector_Line2
@@ -973,14 +973,14 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_LINESELECTOR
     ctypedef _spinLineSelectorEnums spinLineSelectorEnums
 
-    cdef enum _spinExposureActiveModeEnums:
+    cpdef enum _spinExposureActiveModeEnums:
         ExposureActiveMode_Line1
         ExposureActiveMode_AnyPixels
         ExposureActiveMode_AllPixels
         NUM_EXPOSUREACTIVEMODE
     ctypedef _spinExposureActiveModeEnums spinExposureActiveModeEnums
 
-    cdef enum _spinCounterTriggerActivationEnums:
+    cpdef enum _spinCounterTriggerActivationEnums:
         CounterTriggerActivation_LevelLow
         CounterTriggerActivation_LevelHigh
         CounterTriggerActivation_FallingEdge
@@ -989,13 +989,13 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_COUNTERTRIGGERACTIVATION
     ctypedef _spinCounterTriggerActivationEnums spinCounterTriggerActivationEnums
 
-    cdef enum _spinCounterSelectorEnums:
+    cpdef enum _spinCounterSelectorEnums:
         CounterSelector_Counter0
         CounterSelector_Counter1
         NUM_COUNTERSELECTOR
     ctypedef _spinCounterSelectorEnums spinCounterSelectorEnums
 
-    cdef enum _spinCounterStatusEnums:
+    cpdef enum _spinCounterStatusEnums:
         CounterStatus_CounterIdle
         CounterStatus_CounterTriggerWait
         CounterStatus_CounterActive
@@ -1004,7 +1004,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_COUNTERSTATUS
     ctypedef _spinCounterStatusEnums spinCounterStatusEnums
 
-    cdef enum _spinCounterTriggerSourceEnums:
+    cpdef enum _spinCounterTriggerSourceEnums:
         CounterTriggerSource_Off
         CounterTriggerSource_Line0
         CounterTriggerSource_Line1
@@ -1026,7 +1026,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_COUNTERTRIGGERSOURCE
     ctypedef _spinCounterTriggerSourceEnums spinCounterTriggerSourceEnums
 
-    cdef enum _spinCounterResetSourceEnums:
+    cpdef enum _spinCounterResetSourceEnums:
         CounterResetSource_Off
         CounterResetSource_Line0
         CounterResetSource_Line1
@@ -1048,7 +1048,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_COUNTERRESETSOURCE
     ctypedef _spinCounterResetSourceEnums spinCounterResetSourceEnums
 
-    cdef enum _spinCounterEventSourceEnums:
+    cpdef enum _spinCounterEventSourceEnums:
         CounterEventSource_Off
         CounterEventSource_MHzTick
         CounterEventSource_Line0
@@ -1071,7 +1071,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_COUNTEREVENTSOURCE
     ctypedef _spinCounterEventSourceEnums spinCounterEventSourceEnums
 
-    cdef enum _spinCounterEventActivationEnums:
+    cpdef enum _spinCounterEventActivationEnums:
         CounterEventActivation_LevelLow
         CounterEventActivation_LevelHigh
         CounterEventActivation_FallingEdge
@@ -1080,7 +1080,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_COUNTEREVENTACTIVATION
     ctypedef _spinCounterEventActivationEnums spinCounterEventActivationEnums
 
-    cdef enum _spinCounterResetActivationEnums:
+    cpdef enum _spinCounterResetActivationEnums:
         CounterResetActivation_LevelLow
         CounterResetActivation_LevelHigh
         CounterResetActivation_FallingEdge
@@ -1089,7 +1089,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_COUNTERRESETACTIVATION
     ctypedef _spinCounterResetActivationEnums spinCounterResetActivationEnums
 
-    cdef enum _spinDeviceTypeEnums:
+    cpdef enum _spinDeviceTypeEnums:
         DeviceType_Transmitter
         DeviceType_Receiver
         DeviceType_Transceiver
@@ -1097,49 +1097,49 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_DEVICETYPE
     ctypedef _spinDeviceTypeEnums spinDeviceTypeEnums
 
-    cdef enum _spinDeviceConnectionStatusEnums:
+    cpdef enum _spinDeviceConnectionStatusEnums:
         DeviceConnectionStatus_Active
         DeviceConnectionStatus_Inactive
         NUM_DEVICECONNECTIONSTATUS
     ctypedef _spinDeviceConnectionStatusEnums spinDeviceConnectionStatusEnums
 
-    cdef enum _spinDeviceLinkThroughputLimitModeEnums:
+    cpdef enum _spinDeviceLinkThroughputLimitModeEnums:
         DeviceLinkThroughputLimitMode_On
         DeviceLinkThroughputLimitMode_Off
         NUM_DEVICELINKTHROUGHPUTLIMITMODE
     ctypedef _spinDeviceLinkThroughputLimitModeEnums spinDeviceLinkThroughputLimitModeEnums
 
-    cdef enum _spinDeviceLinkHeartbeatModeEnums:
+    cpdef enum _spinDeviceLinkHeartbeatModeEnums:
         DeviceLinkHeartbeatMode_On
         DeviceLinkHeartbeatMode_Off
         NUM_DEVICELINKHEARTBEATMODE
     ctypedef _spinDeviceLinkHeartbeatModeEnums spinDeviceLinkHeartbeatModeEnums
 
-    cdef enum _spinDeviceStreamChannelTypeEnums:
+    cpdef enum _spinDeviceStreamChannelTypeEnums:
         DeviceStreamChannelType_Transmitter
         DeviceStreamChannelType_Receiver
         NUM_DEVICESTREAMCHANNELTYPE
     ctypedef _spinDeviceStreamChannelTypeEnums spinDeviceStreamChannelTypeEnums
 
-    cdef enum _spinDeviceStreamChannelEndiannessEnums:
+    cpdef enum _spinDeviceStreamChannelEndiannessEnums:
         DeviceStreamChannelEndianness_Big
         DeviceStreamChannelEndianness_Little
         NUM_DEVICESTREAMCHANNELENDIANNESS
     ctypedef _spinDeviceStreamChannelEndiannessEnums spinDeviceStreamChannelEndiannessEnums
 
-    cdef enum _spinDeviceClockSelectorEnums:
+    cpdef enum _spinDeviceClockSelectorEnums:
         DeviceClockSelector_Sensor
         DeviceClockSelector_SensorDigitization
         DeviceClockSelector_CameraLink
         NUM_DEVICECLOCKSELECTOR
     ctypedef _spinDeviceClockSelectorEnums spinDeviceClockSelectorEnums
 
-    cdef enum _spinDeviceSerialPortSelectorEnums:
+    cpdef enum _spinDeviceSerialPortSelectorEnums:
         DeviceSerialPortSelector_CameraLink
         NUM_DEVICESERIALPORTSELECTOR
     ctypedef _spinDeviceSerialPortSelectorEnums spinDeviceSerialPortSelectorEnums
 
-    cdef enum _spinDeviceSerialPortBaudRateEnums:
+    cpdef enum _spinDeviceSerialPortBaudRateEnums:
         DeviceSerialPortBaudRate_Baud9600
         DeviceSerialPortBaudRate_Baud19200
         DeviceSerialPortBaudRate_Baud38400
@@ -1151,7 +1151,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_DEVICESERIALPORTBAUDRATE
     ctypedef _spinDeviceSerialPortBaudRateEnums spinDeviceSerialPortBaudRateEnums
 
-    cdef enum _spinSensorTapsEnums:
+    cpdef enum _spinSensorTapsEnums:
         SensorTaps_One
         SensorTaps_Two
         SensorTaps_Three
@@ -1161,7 +1161,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_SENSORTAPS
     ctypedef _spinSensorTapsEnums spinSensorTapsEnums
 
-    cdef enum _spinSensorDigitizationTapsEnums:
+    cpdef enum _spinSensorDigitizationTapsEnums:
         SensorDigitizationTaps_One
         SensorDigitizationTaps_Two
         SensorDigitizationTaps_Three
@@ -1171,7 +1171,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_SENSORDIGITIZATIONTAPS
     ctypedef _spinSensorDigitizationTapsEnums spinSensorDigitizationTapsEnums
 
-    cdef enum _spinRegionSelectorEnums:
+    cpdef enum _spinRegionSelectorEnums:
         RegionSelector_Region0
         RegionSelector_Region1
         RegionSelector_Region2
@@ -1179,20 +1179,20 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_REGIONSELECTOR
     ctypedef _spinRegionSelectorEnums spinRegionSelectorEnums
 
-    cdef enum _spinRegionModeEnums:
+    cpdef enum _spinRegionModeEnums:
         RegionMode_Off
         RegionMode_On
         NUM_REGIONMODE
     ctypedef _spinRegionModeEnums spinRegionModeEnums
 
-    cdef enum _spinRegionDestinationEnums:
+    cpdef enum _spinRegionDestinationEnums:
         RegionDestination_Stream0
         RegionDestination_Stream1
         RegionDestination_Stream2
         NUM_REGIONDESTINATION
     ctypedef _spinRegionDestinationEnums spinRegionDestinationEnums
 
-    cdef enum _spinImageComponentSelectorEnums:
+    cpdef enum _spinImageComponentSelectorEnums:
         ImageComponentSelector_Intensity
         ImageComponentSelector_Color
         ImageComponentSelector_Infrared
@@ -1204,7 +1204,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_IMAGECOMPONENTSELECTOR
     ctypedef _spinImageComponentSelectorEnums spinImageComponentSelectorEnums
 
-    cdef enum _spinPixelFormatInfoSelectorEnums:
+    cpdef enum _spinPixelFormatInfoSelectorEnums:
         PixelFormatInfoSelector_Mono1p
         PixelFormatInfoSelector_Mono2p
         PixelFormatInfoSelector_Mono4p
@@ -1439,20 +1439,20 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_PIXELFORMATINFOSELECTOR
     ctypedef _spinPixelFormatInfoSelectorEnums spinPixelFormatInfoSelectorEnums
 
-    cdef enum _spinDeinterlacingEnums:
+    cpdef enum _spinDeinterlacingEnums:
         Deinterlacing_Off
         Deinterlacing_LineDuplication
         Deinterlacing_Weave
         NUM_DEINTERLACING
     ctypedef _spinDeinterlacingEnums spinDeinterlacingEnums
 
-    cdef enum _spinImageCompressionRateOptionEnums:
+    cpdef enum _spinImageCompressionRateOptionEnums:
         ImageCompressionRateOption_FixBitrate
         ImageCompressionRateOption_FixQuality
         NUM_IMAGECOMPRESSIONRATEOPTION
     ctypedef _spinImageCompressionRateOptionEnums spinImageCompressionRateOptionEnums
 
-    cdef enum _spinImageCompressionJPEGFormatOptionEnums:
+    cpdef enum _spinImageCompressionJPEGFormatOptionEnums:
         ImageCompressionJPEGFormatOption_Lossless
         ImageCompressionJPEGFormatOption_BaselineStandard
         ImageCompressionJPEGFormatOption_BaselineOptimized
@@ -1460,7 +1460,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_IMAGECOMPRESSIONJPEGFORMATOPTION
     ctypedef _spinImageCompressionJPEGFormatOptionEnums spinImageCompressionJPEGFormatOptionEnums
 
-    cdef enum _spinAcquisitionStatusSelectorEnums:
+    cpdef enum _spinAcquisitionStatusSelectorEnums:
         AcquisitionStatusSelector_AcquisitionTriggerWait
         AcquisitionStatusSelector_AcquisitionActive
         AcquisitionStatusSelector_AcquisitionTransfer
@@ -1470,13 +1470,13 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_ACQUISITIONSTATUSSELECTOR
     ctypedef _spinAcquisitionStatusSelectorEnums spinAcquisitionStatusSelectorEnums
 
-    cdef enum _spinExposureTimeModeEnums:
+    cpdef enum _spinExposureTimeModeEnums:
         ExposureTimeMode_Common
         ExposureTimeMode_Individual
         NUM_EXPOSURETIMEMODE
     ctypedef _spinExposureTimeModeEnums spinExposureTimeModeEnums
 
-    cdef enum _spinExposureTimeSelectorEnums:
+    cpdef enum _spinExposureTimeSelectorEnums:
         ExposureTimeSelector_Common
         ExposureTimeSelector_Red
         ExposureTimeSelector_Green
@@ -1491,28 +1491,28 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_EXPOSURETIMESELECTOR
     ctypedef _spinExposureTimeSelectorEnums spinExposureTimeSelectorEnums
 
-    cdef enum _spinGainAutoBalanceEnums:
+    cpdef enum _spinGainAutoBalanceEnums:
         GainAutoBalance_Off
         GainAutoBalance_Once
         GainAutoBalance_Continuous
         NUM_GAINAUTOBALANCE
     ctypedef _spinGainAutoBalanceEnums spinGainAutoBalanceEnums
 
-    cdef enum _spinBlackLevelAutoEnums:
+    cpdef enum _spinBlackLevelAutoEnums:
         BlackLevelAuto_Off
         BlackLevelAuto_Once
         BlackLevelAuto_Continuous
         NUM_BLACKLEVELAUTO
     ctypedef _spinBlackLevelAutoEnums spinBlackLevelAutoEnums
 
-    cdef enum _spinBlackLevelAutoBalanceEnums:
+    cpdef enum _spinBlackLevelAutoBalanceEnums:
         BlackLevelAutoBalance_Off
         BlackLevelAutoBalance_Once
         BlackLevelAutoBalance_Continuous
         NUM_BLACKLEVELAUTOBALANCE
     ctypedef _spinBlackLevelAutoBalanceEnums spinBlackLevelAutoBalanceEnums
 
-    cdef enum _spinWhiteClipSelectorEnums:
+    cpdef enum _spinWhiteClipSelectorEnums:
         WhiteClipSelector_All
         WhiteClipSelector_Red
         WhiteClipSelector_Green
@@ -1525,14 +1525,14 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_WHITECLIPSELECTOR
     ctypedef _spinWhiteClipSelectorEnums spinWhiteClipSelectorEnums
 
-    cdef enum _spinTimerSelectorEnums:
+    cpdef enum _spinTimerSelectorEnums:
         TimerSelector_Timer0
         TimerSelector_Timer1
         TimerSelector_Timer2
         NUM_TIMERSELECTOR
     ctypedef _spinTimerSelectorEnums spinTimerSelectorEnums
 
-    cdef enum _spinTimerStatusEnums:
+    cpdef enum _spinTimerStatusEnums:
         TimerStatus_TimerIdle
         TimerStatus_TimerTriggerWait
         TimerStatus_TimerActive
@@ -1540,7 +1540,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_TIMERSTATUS
     ctypedef _spinTimerStatusEnums spinTimerStatusEnums
 
-    cdef enum _spinTimerTriggerSourceEnums:
+    cpdef enum _spinTimerTriggerSourceEnums:
         TimerTriggerSource_Off
         TimerTriggerSource_AcquisitionTrigger
         TimerTriggerSource_AcquisitionStart
@@ -1588,7 +1588,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_TIMERTRIGGERSOURCE
     ctypedef _spinTimerTriggerSourceEnums spinTimerTriggerSourceEnums
 
-    cdef enum _spinTimerTriggerActivationEnums:
+    cpdef enum _spinTimerTriggerActivationEnums:
         TimerTriggerActivation_RisingEdge
         TimerTriggerActivation_FallingEdge
         TimerTriggerActivation_AnyEdge
@@ -1597,14 +1597,14 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_TIMERTRIGGERACTIVATION
     ctypedef _spinTimerTriggerActivationEnums spinTimerTriggerActivationEnums
 
-    cdef enum _spinEncoderSelectorEnums:
+    cpdef enum _spinEncoderSelectorEnums:
         EncoderSelector_Encoder0
         EncoderSelector_Encoder1
         EncoderSelector_Encoder2
         NUM_ENCODERSELECTOR
     ctypedef _spinEncoderSelectorEnums spinEncoderSelectorEnums
 
-    cdef enum _spinEncoderSourceAEnums:
+    cpdef enum _spinEncoderSourceAEnums:
         EncoderSourceA_Off
         EncoderSourceA_Line0
         EncoderSourceA_Line1
@@ -1612,7 +1612,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_ENCODERSOURCEA
     ctypedef _spinEncoderSourceAEnums spinEncoderSourceAEnums
 
-    cdef enum _spinEncoderSourceBEnums:
+    cpdef enum _spinEncoderSourceBEnums:
         EncoderSourceB_Off
         EncoderSourceB_Line0
         EncoderSourceB_Line1
@@ -1620,13 +1620,13 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_ENCODERSOURCEB
     ctypedef _spinEncoderSourceBEnums spinEncoderSourceBEnums
 
-    cdef enum _spinEncoderModeEnums:
+    cpdef enum _spinEncoderModeEnums:
         EncoderMode_FourPhase
         EncoderMode_HighResolution
         NUM_ENCODERMODE
     ctypedef _spinEncoderModeEnums spinEncoderModeEnums
 
-    cdef enum _spinEncoderOutputModeEnums:
+    cpdef enum _spinEncoderOutputModeEnums:
         EncoderOutputMode_Off
         EncoderOutputMode_PositionUp
         EncoderOutputMode_PositionDown
@@ -1636,7 +1636,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_ENCODEROUTPUTMODE
     ctypedef _spinEncoderOutputModeEnums spinEncoderOutputModeEnums
 
-    cdef enum _spinEncoderStatusEnums:
+    cpdef enum _spinEncoderStatusEnums:
         EncoderStatus_EncoderUp
         EncoderStatus_EncoderDown
         EncoderStatus_EncoderIdle
@@ -1644,7 +1644,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_ENCODERSTATUS
     ctypedef _spinEncoderStatusEnums spinEncoderStatusEnums
 
-    cdef enum _spinEncoderResetSourceEnums:
+    cpdef enum _spinEncoderResetSourceEnums:
         EncoderResetSource_Off
         EncoderResetSource_AcquisitionTrigger
         EncoderResetSource_AcquisitionStart
@@ -1684,7 +1684,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_ENCODERRESETSOURCE
     ctypedef _spinEncoderResetSourceEnums spinEncoderResetSourceEnums
 
-    cdef enum _spinEncoderResetActivationEnums:
+    cpdef enum _spinEncoderResetActivationEnums:
         EncoderResetActivation_RisingEdge
         EncoderResetActivation_FallingEdge
         EncoderResetActivation_AnyEdge
@@ -1693,20 +1693,20 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_ENCODERRESETACTIVATION
     ctypedef _spinEncoderResetActivationEnums spinEncoderResetActivationEnums
 
-    cdef enum _spinSoftwareSignalSelectorEnums:
+    cpdef enum _spinSoftwareSignalSelectorEnums:
         SoftwareSignalSelector_SoftwareSignal0
         SoftwareSignalSelector_SoftwareSignal1
         SoftwareSignalSelector_SoftwareSignal2
         NUM_SOFTWARESIGNALSELECTOR
     ctypedef _spinSoftwareSignalSelectorEnums spinSoftwareSignalSelectorEnums
 
-    cdef enum _spinActionUnconditionalModeEnums:
+    cpdef enum _spinActionUnconditionalModeEnums:
         ActionUnconditionalMode_Off
         ActionUnconditionalMode_On
         NUM_ACTIONUNCONDITIONALMODE
     ctypedef _spinActionUnconditionalModeEnums spinActionUnconditionalModeEnums
 
-    cdef enum _spinSourceSelectorEnums:
+    cpdef enum _spinSourceSelectorEnums:
         SourceSelector_Source0
         SourceSelector_Source1
         SourceSelector_Source2
@@ -1714,7 +1714,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_SOURCESELECTOR
     ctypedef _spinSourceSelectorEnums spinSourceSelectorEnums
 
-    cdef enum _spinTransferSelectorEnums:
+    cpdef enum _spinTransferSelectorEnums:
         TransferSelector_Stream0
         TransferSelector_Stream1
         TransferSelector_Stream2
@@ -1722,7 +1722,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_TRANSFERSELECTOR
     ctypedef _spinTransferSelectorEnums spinTransferSelectorEnums
 
-    cdef enum _spinTransferTriggerSelectorEnums:
+    cpdef enum _spinTransferTriggerSelectorEnums:
         TransferTriggerSelector_TransferStart
         TransferTriggerSelector_TransferStop
         TransferTriggerSelector_TransferAbort
@@ -1734,13 +1734,13 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_TRANSFERTRIGGERSELECTOR
     ctypedef _spinTransferTriggerSelectorEnums spinTransferTriggerSelectorEnums
 
-    cdef enum _spinTransferTriggerModeEnums:
+    cpdef enum _spinTransferTriggerModeEnums:
         TransferTriggerMode_Off
         TransferTriggerMode_On
         NUM_TRANSFERTRIGGERMODE
     ctypedef _spinTransferTriggerModeEnums spinTransferTriggerModeEnums
 
-    cdef enum _spinTransferTriggerSourceEnums:
+    cpdef enum _spinTransferTriggerSourceEnums:
         TransferTriggerSource_Line0
         TransferTriggerSource_Line1
         TransferTriggerSource_Line2
@@ -1765,7 +1765,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_TRANSFERTRIGGERSOURCE
     ctypedef _spinTransferTriggerSourceEnums spinTransferTriggerSourceEnums
 
-    cdef enum _spinTransferTriggerActivationEnums:
+    cpdef enum _spinTransferTriggerActivationEnums:
         TransferTriggerActivation_RisingEdge
         TransferTriggerActivation_FallingEdge
         TransferTriggerActivation_AnyEdge
@@ -1774,7 +1774,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_TRANSFERTRIGGERACTIVATION
     ctypedef _spinTransferTriggerActivationEnums spinTransferTriggerActivationEnums
 
-    cdef enum _spinTransferStatusSelectorEnums:
+    cpdef enum _spinTransferStatusSelectorEnums:
         TransferStatusSelector_Streaming
         TransferStatusSelector_Paused
         TransferStatusSelector_Stopping
@@ -1783,7 +1783,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_TRANSFERSTATUSSELECTOR
     ctypedef _spinTransferStatusSelectorEnums spinTransferStatusSelectorEnums
 
-    cdef enum _spinTransferComponentSelectorEnums:
+    cpdef enum _spinTransferComponentSelectorEnums:
         TransferComponentSelector_Red
         TransferComponentSelector_Green
         TransferComponentSelector_Blue
@@ -1791,20 +1791,20 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_TRANSFERCOMPONENTSELECTOR
     ctypedef _spinTransferComponentSelectorEnums spinTransferComponentSelectorEnums
 
-    cdef enum _spinScan3dDistanceUnitEnums:
+    cpdef enum _spinScan3dDistanceUnitEnums:
         Scan3dDistanceUnit_Millimeter
         Scan3dDistanceUnit_Inch
         NUM_SCAN3DDISTANCEUNIT
     ctypedef _spinScan3dDistanceUnitEnums spinScan3dDistanceUnitEnums
 
-    cdef enum _spinScan3dCoordinateSystemEnums:
+    cpdef enum _spinScan3dCoordinateSystemEnums:
         Scan3dCoordinateSystem_Cartesian
         Scan3dCoordinateSystem_Spherical
         Scan3dCoordinateSystem_Cylindrical
         NUM_SCAN3DCOORDINATESYSTEM
     ctypedef _spinScan3dCoordinateSystemEnums spinScan3dCoordinateSystemEnums
 
-    cdef enum _spinScan3dOutputModeEnums:
+    cpdef enum _spinScan3dOutputModeEnums:
         Scan3dOutputMode_UncalibratedC
         Scan3dOutputMode_CalibratedABC_Grid
         Scan3dOutputMode_CalibratedABC_PointCloud
@@ -1819,20 +1819,20 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_SCAN3DOUTPUTMODE
     ctypedef _spinScan3dOutputModeEnums spinScan3dOutputModeEnums
 
-    cdef enum _spinScan3dCoordinateSystemReferenceEnums:
+    cpdef enum _spinScan3dCoordinateSystemReferenceEnums:
         Scan3dCoordinateSystemReference_Anchor
         Scan3dCoordinateSystemReference_Transformed
         NUM_SCAN3DCOORDINATESYSTEMREFERENCE
     ctypedef _spinScan3dCoordinateSystemReferenceEnums spinScan3dCoordinateSystemReferenceEnums
 
-    cdef enum _spinScan3dCoordinateSelectorEnums:
+    cpdef enum _spinScan3dCoordinateSelectorEnums:
         Scan3dCoordinateSelector_CoordinateA
         Scan3dCoordinateSelector_CoordinateB
         Scan3dCoordinateSelector_CoordinateC
         NUM_SCAN3DCOORDINATESELECTOR
     ctypedef _spinScan3dCoordinateSelectorEnums spinScan3dCoordinateSelectorEnums
 
-    cdef enum _spinScan3dCoordinateTransformSelectorEnums:
+    cpdef enum _spinScan3dCoordinateTransformSelectorEnums:
         Scan3dCoordinateTransformSelector_RotationX
         Scan3dCoordinateTransformSelector_RotationY
         Scan3dCoordinateTransformSelector_RotationZ
@@ -1842,7 +1842,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_SCAN3DCOORDINATETRANSFORMSELECTOR
     ctypedef _spinScan3dCoordinateTransformSelectorEnums spinScan3dCoordinateTransformSelectorEnums
 
-    cdef enum _spinScan3dCoordinateReferenceSelectorEnums:
+    cpdef enum _spinScan3dCoordinateReferenceSelectorEnums:
         Scan3dCoordinateReferenceSelector_RotationX
         Scan3dCoordinateReferenceSelector_RotationY
         Scan3dCoordinateReferenceSelector_RotationZ
@@ -1852,7 +1852,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_SCAN3DCOORDINATEREFERENCESELECTOR
     ctypedef _spinScan3dCoordinateReferenceSelectorEnums spinScan3dCoordinateReferenceSelectorEnums
 
-    cdef enum _spinChunkImageComponentEnums:
+    cpdef enum _spinChunkImageComponentEnums:
         ChunkImageComponent_Intensity
         ChunkImageComponent_Color
         ChunkImageComponent_Infrared
@@ -1864,28 +1864,28 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_CHUNKIMAGECOMPONENT
     ctypedef _spinChunkImageComponentEnums spinChunkImageComponentEnums
 
-    cdef enum _spinChunkCounterSelectorEnums:
+    cpdef enum _spinChunkCounterSelectorEnums:
         ChunkCounterSelector_Counter0
         ChunkCounterSelector_Counter1
         ChunkCounterSelector_Counter2
         NUM_CHUNKCOUNTERSELECTOR
     ctypedef _spinChunkCounterSelectorEnums spinChunkCounterSelectorEnums
 
-    cdef enum _spinChunkTimerSelectorEnums:
+    cpdef enum _spinChunkTimerSelectorEnums:
         ChunkTimerSelector_Timer0
         ChunkTimerSelector_Timer1
         ChunkTimerSelector_Timer2
         NUM_CHUNKTIMERSELECTOR
     ctypedef _spinChunkTimerSelectorEnums spinChunkTimerSelectorEnums
 
-    cdef enum _spinChunkEncoderSelectorEnums:
+    cpdef enum _spinChunkEncoderSelectorEnums:
         ChunkEncoderSelector_Encoder0
         ChunkEncoderSelector_Encoder1
         ChunkEncoderSelector_Encoder2
         NUM_CHUNKENCODERSELECTOR
     ctypedef _spinChunkEncoderSelectorEnums spinChunkEncoderSelectorEnums
 
-    cdef enum _spinChunkEncoderStatusEnums:
+    cpdef enum _spinChunkEncoderStatusEnums:
         ChunkEncoderStatus_EncoderUp
         ChunkEncoderStatus_EncoderDown
         ChunkEncoderStatus_EncoderIdle
@@ -1893,7 +1893,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_CHUNKENCODERSTATUS
     ctypedef _spinChunkEncoderStatusEnums spinChunkEncoderStatusEnums
 
-    cdef enum _spinChunkExposureTimeSelectorEnums:
+    cpdef enum _spinChunkExposureTimeSelectorEnums:
         ChunkExposureTimeSelector_Common
         ChunkExposureTimeSelector_Red
         ChunkExposureTimeSelector_Green
@@ -1908,21 +1908,21 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_CHUNKEXPOSURETIMESELECTOR
     ctypedef _spinChunkExposureTimeSelectorEnums spinChunkExposureTimeSelectorEnums
 
-    cdef enum _spinChunkSourceIDEnums:
+    cpdef enum _spinChunkSourceIDEnums:
         ChunkSourceID_Source0
         ChunkSourceID_Source1
         ChunkSourceID_Source2
         NUM_CHUNKSOURCEID
     ctypedef _spinChunkSourceIDEnums spinChunkSourceIDEnums
 
-    cdef enum _spinChunkRegionIDEnums:
+    cpdef enum _spinChunkRegionIDEnums:
         ChunkRegionID_Region0
         ChunkRegionID_Region1
         ChunkRegionID_Region2
         NUM_CHUNKREGIONID
     ctypedef _spinChunkRegionIDEnums spinChunkRegionIDEnums
 
-    cdef enum _spinChunkTransferStreamIDEnums:
+    cpdef enum _spinChunkTransferStreamIDEnums:
         ChunkTransferStreamID_Stream0
         ChunkTransferStreamID_Stream1
         ChunkTransferStreamID_Stream2
@@ -1930,13 +1930,13 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_CHUNKTRANSFERSTREAMID
     ctypedef _spinChunkTransferStreamIDEnums spinChunkTransferStreamIDEnums
 
-    cdef enum _spinChunkScan3dDistanceUnitEnums:
+    cpdef enum _spinChunkScan3dDistanceUnitEnums:
         ChunkScan3dDistanceUnit_Millimeter
         ChunkScan3dDistanceUnit_Inch
         NUM_CHUNKSCAN3DDISTANCEUNIT
     ctypedef _spinChunkScan3dDistanceUnitEnums spinChunkScan3dDistanceUnitEnums
 
-    cdef enum _spinChunkScan3dOutputModeEnums:
+    cpdef enum _spinChunkScan3dOutputModeEnums:
         ChunkScan3dOutputMode_UncalibratedC
         ChunkScan3dOutputMode_CalibratedABC_Grid
         ChunkScan3dOutputMode_CalibratedABC_PointCloud
@@ -1951,27 +1951,27 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_CHUNKSCAN3DOUTPUTMODE
     ctypedef _spinChunkScan3dOutputModeEnums spinChunkScan3dOutputModeEnums
 
-    cdef enum _spinChunkScan3dCoordinateSystemEnums:
+    cpdef enum _spinChunkScan3dCoordinateSystemEnums:
         ChunkScan3dCoordinateSystem_Cartesian
         ChunkScan3dCoordinateSystem_Spherical
         ChunkScan3dCoordinateSystem_Cylindrical
         NUM_CHUNKSCAN3DCOORDINATESYSTEM
     ctypedef _spinChunkScan3dCoordinateSystemEnums spinChunkScan3dCoordinateSystemEnums
 
-    cdef enum _spinChunkScan3dCoordinateSystemReferenceEnums:
+    cpdef enum _spinChunkScan3dCoordinateSystemReferenceEnums:
         ChunkScan3dCoordinateSystemReference_Anchor
         ChunkScan3dCoordinateSystemReference_Transformed
         NUM_CHUNKSCAN3DCOORDINATESYSTEMREFERENCE
     ctypedef _spinChunkScan3dCoordinateSystemReferenceEnums spinChunkScan3dCoordinateSystemReferenceEnums
 
-    cdef enum _spinChunkScan3dCoordinateSelectorEnums:
+    cpdef enum _spinChunkScan3dCoordinateSelectorEnums:
         ChunkScan3dCoordinateSelector_CoordinateA
         ChunkScan3dCoordinateSelector_CoordinateB
         ChunkScan3dCoordinateSelector_CoordinateC
         NUM_CHUNKSCAN3DCOORDINATESELECTOR
     ctypedef _spinChunkScan3dCoordinateSelectorEnums spinChunkScan3dCoordinateSelectorEnums
 
-    cdef enum _spinChunkScan3dCoordinateTransformSelectorEnums:
+    cpdef enum _spinChunkScan3dCoordinateTransformSelectorEnums:
         ChunkScan3dCoordinateTransformSelector_RotationX
         ChunkScan3dCoordinateTransformSelector_RotationY
         ChunkScan3dCoordinateTransformSelector_RotationZ
@@ -1981,7 +1981,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_CHUNKSCAN3DCOORDINATETRANSFORMSELECTOR
     ctypedef _spinChunkScan3dCoordinateTransformSelectorEnums spinChunkScan3dCoordinateTransformSelectorEnums
 
-    cdef enum _spinChunkScan3dCoordinateReferenceSelectorEnums:
+    cpdef enum _spinChunkScan3dCoordinateReferenceSelectorEnums:
         ChunkScan3dCoordinateReferenceSelector_RotationX
         ChunkScan3dCoordinateReferenceSelector_RotationY
         ChunkScan3dCoordinateReferenceSelector_RotationZ
@@ -1991,7 +1991,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_CHUNKSCAN3DCOORDINATEREFERENCESELECTOR
     ctypedef _spinChunkScan3dCoordinateReferenceSelectorEnums spinChunkScan3dCoordinateReferenceSelectorEnums
 
-    cdef enum _spinDeviceTapGeometryEnums:
+    cpdef enum _spinDeviceTapGeometryEnums:
         DeviceTapGeometry_Geometry_1X_1Y
         DeviceTapGeometry_Geometry_1X2_1Y
         DeviceTapGeometry_Geometry_1X2_1Y2
@@ -2040,7 +2040,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_DEVICETAPGEOMETRY
     ctypedef _spinDeviceTapGeometryEnums spinDeviceTapGeometryEnums
 
-    cdef enum _spinGevPhysicalLinkConfigurationEnums:
+    cpdef enum _spinGevPhysicalLinkConfigurationEnums:
         GevPhysicalLinkConfiguration_SingleLink
         GevPhysicalLinkConfiguration_MultiLink
         GevPhysicalLinkConfiguration_StaticLAG
@@ -2048,7 +2048,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_GEVPHYSICALLINKCONFIGURATION
     ctypedef _spinGevPhysicalLinkConfigurationEnums spinGevPhysicalLinkConfigurationEnums
 
-    cdef enum _spinGevCurrentPhysicalLinkConfigurationEnums:
+    cpdef enum _spinGevCurrentPhysicalLinkConfigurationEnums:
         GevCurrentPhysicalLinkConfiguration_SingleLink
         GevCurrentPhysicalLinkConfiguration_MultiLink
         GevCurrentPhysicalLinkConfiguration_StaticLAG
@@ -2056,7 +2056,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_GEVCURRENTPHYSICALLINKCONFIGURATION
     ctypedef _spinGevCurrentPhysicalLinkConfigurationEnums spinGevCurrentPhysicalLinkConfigurationEnums
 
-    cdef enum _spinGevIPConfigurationStatusEnums:
+    cpdef enum _spinGevIPConfigurationStatusEnums:
         GevIPConfigurationStatus_None
         GevIPConfigurationStatus_PersistentIP
         GevIPConfigurationStatus_DHCP
@@ -2065,19 +2065,19 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_GEVIPCONFIGURATIONSTATUS
     ctypedef _spinGevIPConfigurationStatusEnums spinGevIPConfigurationStatusEnums
 
-    cdef enum _spinGevGVCPExtendedStatusCodesSelectorEnums:
+    cpdef enum _spinGevGVCPExtendedStatusCodesSelectorEnums:
         GevGVCPExtendedStatusCodesSelector_Version1_1
         GevGVCPExtendedStatusCodesSelector_Version2_0
         NUM_GEVGVCPEXTENDEDSTATUSCODESSELECTOR
     ctypedef _spinGevGVCPExtendedStatusCodesSelectorEnums spinGevGVCPExtendedStatusCodesSelectorEnums
 
-    cdef enum _spinGevGVSPExtendedIDModeEnums:
+    cpdef enum _spinGevGVSPExtendedIDModeEnums:
         GevGVSPExtendedIDMode_Off
         GevGVSPExtendedIDMode_On
         NUM_GEVGVSPEXTENDEDIDMODE
     ctypedef _spinGevGVSPExtendedIDModeEnums spinGevGVSPExtendedIDModeEnums
 
-    cdef enum _spinClConfigurationEnums:
+    cpdef enum _spinClConfigurationEnums:
         ClConfiguration_Base
         ClConfiguration_Medium
         ClConfiguration_Full
@@ -2086,14 +2086,14 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_CLCONFIGURATION
     ctypedef _spinClConfigurationEnums spinClConfigurationEnums
 
-    cdef enum _spinClTimeSlotsCountEnums:
+    cpdef enum _spinClTimeSlotsCountEnums:
         ClTimeSlotsCount_One
         ClTimeSlotsCount_Two
         ClTimeSlotsCount_Three
         NUM_CLTIMESLOTSCOUNT
     ctypedef _spinClTimeSlotsCountEnums spinClTimeSlotsCountEnums
 
-    cdef enum _spinCxpLinkConfigurationStatusEnums:
+    cpdef enum _spinCxpLinkConfigurationStatusEnums:
         CxpLinkConfigurationStatus_None
         CxpLinkConfigurationStatus_Pending
         CxpLinkConfigurationStatus_CXP1_X1
@@ -2129,7 +2129,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_CXPLINKCONFIGURATIONSTATUS
     ctypedef _spinCxpLinkConfigurationStatusEnums spinCxpLinkConfigurationStatusEnums
 
-    cdef enum _spinCxpLinkConfigurationPreferredEnums:
+    cpdef enum _spinCxpLinkConfigurationPreferredEnums:
         CxpLinkConfigurationPreferred_CXP1_X1
         CxpLinkConfigurationPreferred_CXP2_X1
         CxpLinkConfigurationPreferred_CXP3_X1
@@ -2163,7 +2163,7 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_CXPLINKCONFIGURATIONPREFERRED
     ctypedef _spinCxpLinkConfigurationPreferredEnums spinCxpLinkConfigurationPreferredEnums
 
-    cdef enum _spinCxpLinkConfigurationEnums:
+    cpdef enum _spinCxpLinkConfigurationEnums:
         CxpLinkConfiguration_Auto
         CxpLinkConfiguration_CXP1_X1
         CxpLinkConfiguration_CXP2_X1
@@ -2198,13 +2198,13 @@ cdef extern from "CameraDefsC.h" nogil:
         NUM_CXPLINKCONFIGURATION
     ctypedef _spinCxpLinkConfigurationEnums spinCxpLinkConfigurationEnums
 
-    cdef enum _spinCxpConnectionTestModeEnums:
+    cpdef enum _spinCxpConnectionTestModeEnums:
         CxpConnectionTestMode_Off
         CxpConnectionTestMode_Mode1
         NUM_CXPCONNECTIONTESTMODE
     ctypedef _spinCxpConnectionTestModeEnums spinCxpConnectionTestModeEnums
 
-    cdef enum _spinCxpPoCxpStatusEnums:
+    cpdef enum _spinCxpPoCxpStatusEnums:
         CxpPoCxpStatus_Auto
         CxpPoCxpStatus_Off
         CxpPoCxpStatus_Tripped

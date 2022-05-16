@@ -45,7 +45,7 @@ if lib:
     library_dirs.extend(lib.split(pathsep))
 
 
-mods = ['interface', '_interface', 'system', 'camera']
+mods = ['interface', '_interface', 'system', 'camera', 'names']
 mod_suffix = '.pyx'
 include_dirs.append(join(abspath(dirname(__file__)), 'rotpy', 'includes'))
 

@@ -8,7 +8,7 @@ cdef extern from "SpinnakerGenApiDefsC.h" nogil:
 
     ctypedef void (*spinNodeCallbackFunction)(spinNodeHandle hNode)
 
-    cdef enum _spinNodeType:
+    cpdef enum _spinNodeType:
         ValueNode
         BaseNode
         IntegerNode
@@ -24,13 +24,13 @@ cdef extern from "SpinnakerGenApiDefsC.h" nogil:
         UnknownNode = -1
     ctypedef _spinNodeType spinNodeType
 
-    cdef enum _spinSign:
+    cpdef enum _spinSign:
         Signed
         Unsigned
         _UndefinedSign
     ctypedef _spinSign spinSign
 
-    cdef enum _spinAccessMode:
+    cpdef enum _spinAccessMode:
         NI
         NA
         WO
@@ -40,7 +40,7 @@ cdef extern from "SpinnakerGenApiDefsC.h" nogil:
         _CycleDetectAccesMode
     ctypedef _spinAccessMode spinAccessMode
 
-    cdef enum _spinVisibility:
+    cpdef enum _spinVisibility:
         Beginner = 0
         Expert = 1
         Guru = 2
@@ -48,14 +48,14 @@ cdef extern from "SpinnakerGenApiDefsC.h" nogil:
         _UndefinedVisibility = 99
     ctypedef _spinVisibility spinVisibility
 
-    cdef enum _spinCachingMode:
+    cpdef enum _spinCachingMode:
         NoCache
         WriteThrough
         WriteAround
         _UndefinedCachingMode
     ctypedef _spinCachingMode spinCachingMode
 
-    cdef enum _spinRepresentation:
+    cpdef enum _spinRepresentation:
         Linear
         Logarithmic
         Boolean
@@ -66,20 +66,20 @@ cdef extern from "SpinnakerGenApiDefsC.h" nogil:
         _UndefinedRepresentation
     ctypedef _spinRepresentation spinRepresentation
 
-    cdef enum _spinEndianess:
+    cpdef enum _spinEndianess:
         BigEndian
         LittleEndian
         _UndefinedEndian
     ctypedef _spinEndianess spinEndianess
 
-    cdef enum _spinNameSpace:
+    cpdef enum _spinNameSpace:
         Custom
         Standard
         _UndefinedNameSpace
     ctypedef _spinNameSpace spinNameSpace
 
-    cdef enum _spinStandardNameSpace:
-        None
+    cpdef enum _spinStandardNameSpace:
+        none "None"
         GEV
         IIDC
         CL
@@ -87,13 +87,13 @@ cdef extern from "SpinnakerGenApiDefsC.h" nogil:
         _UndefinedStandardNameSpace
     ctypedef _spinStandardNameSpace spinStandardNameSpace
 
-    cdef enum _spinYesNo:
+    cpdef enum _spinYesNo:
         Yes = 1
         No = 0
         _UndefinedYesNo = 2
     ctypedef _spinYesNo spinYesNo
 
-    cdef enum _spinSlope:
+    cpdef enum _spinSlope:
         Increasing
         Decreasing
         Varying
@@ -101,7 +101,7 @@ cdef extern from "SpinnakerGenApiDefsC.h" nogil:
         _UndefinedESlope
     ctypedef _spinSlope spinSlope
 
-    cdef enum _spinXMLValidation:
+    cpdef enum _spinXMLValidation:
         xvLoad = 0x00000001L
         xvCycles = 0x00000002L
         xvSFNC = 0x00000004L
@@ -110,14 +110,14 @@ cdef extern from "SpinnakerGenApiDefsC.h" nogil:
         _UndefinedEXMLValidation = 0x8000000L
     ctypedef _spinXMLValidation spinXMLValidation
 
-    cdef enum _spinDisplayNotation:
+    cpdef enum _spinDisplayNotation:
         fnAutomatic
         fnFixed
         fnScientific
         _UndefinedEDisplayNotation
     ctypedef _spinDisplayNotation spinDisplayNotation
 
-    cdef enum _spinInterfaceType:
+    cpdef enum _spinInterfaceType:
         intfIValue
         intfIBase
         intfIInteger
@@ -132,7 +132,7 @@ cdef extern from "SpinnakerGenApiDefsC.h" nogil:
         intfIPort
     ctypedef _spinInterfaceType spinInterfaceType
 
-    cdef enum _spinLinkType:
+    cpdef enum _spinLinkType:
         ctAllDependingNodes
         ctAllTerminalNodes
         ctInvalidators
@@ -141,13 +141,13 @@ cdef extern from "SpinnakerGenApiDefsC.h" nogil:
         ctDependingChildren
     ctypedef _spinLinkType spinLinkType
 
-    cdef enum _spinIncMode:
+    cpdef enum _spinIncMode:
         noIncrement
         fixedIncrement
         listIncrement
     ctypedef _spinIncMode spinIncMode
 
-    cdef enum _spinInputDirection:
+    cpdef enum _spinInputDirection:
         idFrom
         idTo
         idNone

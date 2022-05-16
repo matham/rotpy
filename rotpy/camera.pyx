@@ -108,3 +108,13 @@ cdef class Camera:
             self, SpinCameraList cam_list, const char* serial):
         check_ret(spinCameraListGetBySerial(cam_list._cam_list, serial, &self._camera))
         self._cam_set = 1
+
+    cpdef init_cam(self):
+        """Initializes a camera, allowing for much more interaction.
+        """
+        check_ret(spinCameraInit(self._camera))
+
+    cpdef deinit_cam(self):
+        """De-initializes a camera that was initialized with :meth:`init_cam`.
+        """
+        check_ret(spinCameraDeInit(self._camera))

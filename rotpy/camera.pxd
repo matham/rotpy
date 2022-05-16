@@ -25,3 +25,5 @@ cdef class Camera:
     cdef object set_camera_by_index(self, SpinCameraList cam_list, size_t index)
     cdef object set_camera_by_serial(
         self, SpinCameraList cam_list, const char * serial)
+    cpdef init_cam(self)
+    cpdef deinit_cam(self)

@@ -44,7 +44,7 @@ cdef extern from "SpinnakerDefsC.h" nogil:
 
     ctypedef void (*spinLogEventFunction)(const spinLogEventData hEventData, void* pUserData)
 
-    cdef enum _spinError:
+    cpdef enum _spinError:
         SPINNAKER_ERR_SUCCESS = 0
         SPINNAKER_ERR_ERROR = -1001
         SPINNAKER_ERR_NOT_INITIALIZED = -1002
@@ -89,7 +89,7 @@ cdef extern from "SpinnakerDefsC.h" nogil:
         SPINNAKER_ERR_CUSTOM_ID = -10000
     ctypedef _spinError spinError
 
-    cdef enum _spinColorProcessingAlgorithm:
+    cpdef enum _spinColorProcessingAlgorithm:
         DEFAULT
         NO_COLOR_PROCESSING
         NEAREST_NEIGHBOR
@@ -103,7 +103,7 @@ cdef extern from "SpinnakerDefsC.h" nogil:
         WEIGHTED_DIRECTIONAL_FILTER
     ctypedef _spinColorProcessingAlgorithm spinColorProcessingAlgorithm
 
-    cdef enum _spinStatisticsChannel:
+    cpdef enum _spinStatisticsChannel:
         GREY
         RED
         GREEN
@@ -114,7 +114,7 @@ cdef extern from "SpinnakerDefsC.h" nogil:
         NUM_STATISTICS_CHANNELS
     ctypedef _spinStatisticsChannel spinStatisticsChannel
 
-    cdef enum _spinImageFileFormat:
+    cpdef enum _spinImageFileFormat:
         FROM_FILE_EXT = -1
         PGM
         PPM
@@ -127,7 +127,7 @@ cdef extern from "SpinnakerDefsC.h" nogil:
         IMAGE_FILE_FORMAT_FORCE_32BITS = 0x7FFFFFFF
     ctypedef _spinImageFileFormat spinImageFileFormat
 
-    cdef enum _spinPixelFormatNamespaceID:
+    cpdef enum _spinPixelFormatNamespaceID:
         SPINNAKER_PIXELFORMAT_NAMESPACE_UNKNOWN = 0
         SPINNAKER_PIXELFORMAT_NAMESPACE_GEV = 1
         SPINNAKER_PIXELFORMAT_NAMESPACE_IIDC = 2
@@ -136,7 +136,7 @@ cdef extern from "SpinnakerDefsC.h" nogil:
         SPINNAKER_PIXELFORMAT_NAMESPACE_CUSTOM_ID = 1000
     ctypedef _spinPixelFormatNamespaceID spinPixelFormatNamespaceID
 
-    cdef enum _spinImageStatus:
+    cpdef enum _spinImageStatus:
         IMAGE_UNKNOWN_ERROR = -1
         IMAGE_NO_ERROR = 0
         IMAGE_CRC_CHECK_FAILED = 1
@@ -153,7 +153,7 @@ cdef extern from "SpinnakerDefsC.h" nogil:
         IMAGE_NO_SYSTEM_RESOURCES = 12
     ctypedef _spinImageStatus spinImageStatus
 
-    cdef enum _spinLogLevel:
+    cpdef enum _spinLogLevel:
         LOG_LEVEL_OFF = -1
         LOG_LEVEL_FATAL = 0
         LOG_LEVEL_ALERT = 100
@@ -166,7 +166,7 @@ cdef extern from "SpinnakerDefsC.h" nogil:
         LOG_LEVEL_NOTSET = 800
     ctypedef _spinLogLevel spinnakerLogLevel
 
-    cdef enum _spinPayloadTypeInfoIDs:
+    cpdef enum _spinPayloadTypeInfoIDs:
         PAYLOAD_TYPE_UNKNOWN = 0
         PAYLOAD_TYPE_IMAGE = 1
         PAYLOAD_TYPE_RAW_DATA = 2
@@ -203,7 +203,7 @@ cdef extern from "SpinnakerDefsC.h" nogil:
         unsigned int reserved[16]
     ctypedef _spinPGMOption spinPGMOption
 
-    cdef enum CompressionMethod:
+    cpdef enum CompressionMethod:
         NONE = 1
         PACKBITS
         DEFLATE
@@ -265,7 +265,7 @@ cdef extern from "SpinnakerDefsC.h" nogil:
         unsigned int build
     ctypedef _spinLibraryVersion spinLibraryVersion
 
-    cdef enum _actionCommandStatus:
+    cpdef enum _actionCommandStatus:
         ACTION_COMMAND_STATUS_OK = 0
         ACTION_COMMAND_STATUS_NO_REF_TIME = 0x8013
         ACTION_COMMAND_STATUS_OVERFLOW = 0x8015

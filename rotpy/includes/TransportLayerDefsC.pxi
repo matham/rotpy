@@ -1,6 +1,6 @@
 cdef extern from "TransportLayerDefsC.h" nogil:
 
-    cdef enum _spinTLStreamTypeEnums:
+    cpdef enum _spinTLStreamTypeEnums:
         StreamType_GigEVision
         StreamType_CameraLink
         StreamType_CameraLinkHS
@@ -10,20 +10,20 @@ cdef extern from "TransportLayerDefsC.h" nogil:
         NUMSTREAMTYPE
     ctypedef _spinTLStreamTypeEnums spinTLStreamTypeEnums
 
-    cdef enum _spinTLStreamModeEnums:
+    cpdef enum _spinTLStreamModeEnums:
         StreamMode_Socket
         StreamMode_LWF
         StreamMode_MVA
         NUMSTREAMMODE
     ctypedef _spinTLStreamModeEnums spinTLStreamModeEnums
 
-    cdef enum _spinTLStreamBufferCountModeEnums:
+    cpdef enum _spinTLStreamBufferCountModeEnums:
         StreamBufferCountMode_Manual
         StreamBufferCountMode_Auto
         NUMSTREAMBUFFERCOUNTMODE
     ctypedef _spinTLStreamBufferCountModeEnums spinTLStreamBufferCountModeEnums
 
-    cdef enum _spinTLStreamBufferHandlingModeEnums:
+    cpdef enum _spinTLStreamBufferHandlingModeEnums:
         StreamBufferHandlingMode_OldestFirst
         StreamBufferHandlingMode_OldestFirstOverwrite
         StreamBufferHandlingMode_NewestOnly
@@ -31,7 +31,7 @@ cdef extern from "TransportLayerDefsC.h" nogil:
         NUMSTREAMBUFFERHANDLINGMODE
     ctypedef _spinTLStreamBufferHandlingModeEnums spinTLStreamBufferHandlingModeEnums
 
-    cdef enum _spinTLDeviceTypeEnums:
+    cpdef enum _spinTLDeviceTypeEnums:
         DeviceType_GigEVision
         DeviceType_CameraLink
         DeviceType_CameraLinkHS
@@ -41,7 +41,7 @@ cdef extern from "TransportLayerDefsC.h" nogil:
         NUMDEVICETYPE
     ctypedef _spinTLDeviceTypeEnums spinTLDeviceTypeEnums
 
-    cdef enum _spinTLDeviceAccessStatusEnums:
+    cpdef enum _spinTLDeviceAccessStatusEnums:
         DeviceAccessStatus_Unknown
         DeviceAccessStatus_ReadWrite
         DeviceAccessStatus_ReadOnly
@@ -52,32 +52,32 @@ cdef extern from "TransportLayerDefsC.h" nogil:
         NUMDEVICEACCESSSTATUS
     ctypedef _spinTLDeviceAccessStatusEnums spinTLDeviceAccessStatusEnums
 
-    cdef enum _spinTLGevCCPEnums:
+    cpdef enum _spinTLGevCCPEnums:
         GevCCP_EnumEntry_GevCCP_OpenAccess
         GevCCP_EnumEntry_GevCCP_ExclusiveAccess
         GevCCP_EnumEntry_GevCCP_ControlAccess
         NUMGEVCCP
     ctypedef _spinTLGevCCPEnums spinTLGevCCPEnums
 
-    cdef enum _spinTLGUIXMLLocationEnums:
+    cpdef enum _spinTLGUIXMLLocationEnums:
         GUIXMLLocation_Device
         GUIXMLLocation_Host
         NUMGUIXMLLOCATION
     ctypedef _spinTLGUIXMLLocationEnums spinTLGUIXMLLocationEnums
 
-    cdef enum _spinTLGenICamXMLLocationEnums:
+    cpdef enum _spinTLGenICamXMLLocationEnums:
         GenICamXMLLocation_Device
         GenICamXMLLocation_Host
         NUMGENICAMXMLLOCATION
     ctypedef _spinTLGenICamXMLLocationEnums spinTLGenICamXMLLocationEnums
 
-    cdef enum _spinTLDeviceEndianessMechanismEnums:
+    cpdef enum _spinTLDeviceEndianessMechanismEnums:
         DeviceEndianessMechanism_Legacy
         DeviceEndianessMechanism_Standard
         NUMDEVICEENDIANESSMECHANISM
     ctypedef _spinTLDeviceEndianessMechanismEnums spinTLDeviceEndianessMechanismEnums
 
-    cdef enum _spinTLDeviceCurrentSpeedEnums:
+    cpdef enum _spinTLDeviceCurrentSpeedEnums:
         DeviceCurrentSpeed_UnknownSpeed
         DeviceCurrentSpeed_LowSpeed
         DeviceCurrentSpeed_FullSpeed
@@ -86,7 +86,7 @@ cdef extern from "TransportLayerDefsC.h" nogil:
         NUMDEVICECURRENTSPEED
     ctypedef _spinTLDeviceCurrentSpeedEnums spinTLDeviceCurrentSpeedEnums
 
-    cdef enum _spinTLInterfaceTypeEnums:
+    cpdef enum _spinTLInterfaceTypeEnums:
         InterfaceType_GigEVision
         InterfaceType_CameraLink
         InterfaceType_CameraLinkHS
@@ -96,21 +96,21 @@ cdef extern from "TransportLayerDefsC.h" nogil:
         NUMINTERFACETYPE
     ctypedef _spinTLInterfaceTypeEnums spinTLInterfaceTypeEnums
 
-    cdef enum _spinTLPOEStatusEnums:
+    cpdef enum _spinTLPOEStatusEnums:
         POEStatus_NotSupported
         POEStatus_PowerOff
         POEStatus_PowerOn
         NUMPOESTATUS
     ctypedef _spinTLPOEStatusEnums spinTLPOEStatusEnums
 
-    cdef enum _spinTLFilterDriverStatusEnums:
+    cpdef enum _spinTLFilterDriverStatusEnums:
         FilterDriverStatus_NotSupported
         FilterDriverStatus_Disabled
         FilterDriverStatus_Enabled
         NUMFILTERDRIVERSTATUS
     ctypedef _spinTLFilterDriverStatusEnums spinTLFilterDriverStatusEnums
 
-    cdef enum _spinTLTLTypeEnums:
+    cpdef enum _spinTLTLTypeEnums:
         TLType_GigEVision
         TLType_CameraLink
         TLType_CameraLinkHS
