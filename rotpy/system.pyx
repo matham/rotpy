@@ -8,7 +8,8 @@ ctypedef spinError (*buf_func)(char*, size_t*) nogil
 cdef inline str read_buffer(buf_func f):
     cdef char msg[MAX_BUFF_LEN]
     cdef size_t n = MAX_BUFF_LEN
-    check_ret(f(msg, &n))
+    with nogil:
+        check_ret(f(msg, &n))
     return msg[:max(n - 1, 0)]
 
 
@@ -20,7 +21,8 @@ cdef class SpinError:
         """Retrieves the error code of the last error.
         """
         cdef spinError err
-        check_ret(spinErrorGetLast(&err))
+        with nogil:
+            check_ret(spinErrorGetLast(&err))
         return err
 
     cpdef str get_last_message(self):
@@ -57,14 +59,15 @@ cdef class SpinError:
         """Retrieves the error message of the last error.
         """
         cdef int64_t line
-        check_ret(spinErrorGetLastLineNumber(&line))
+        with nogil:
+            check_ret(spinErrorGetLastLineNumber(&line))
         return line
 
     cpdef dict get_error_data(self):
         """Returns a dict with the error info of all the other functions:
-        
+
         .. code-block:: python
-        
+
             >>> SpinError().get_error_data()
             {'code': 0,
              'message': '',
@@ -75,7 +78,7 @@ cdef class SpinError:
              'function': '',
              'line_num': 0,
              }
-        
+
         """
         return {
             'code': self.get_last_error(),
@@ -99,10 +102,12 @@ cdef class SpinSystem:
         self._system_set = 0
 
     def __int__(self):
-        check_ret(spinSystemGetInstance(&self._system))
+        with nogil:
+            check_ret(spinSystemGetInstance(&self._system))
         self._system_set = 1
 
     def __dealloc__(self):
         if self._system_set:
             self._system_set = 0
-            check_ret(spinSystemReleaseInstance(self._system))
+            with nogil:
+                check_ret(spinSystemReleaseInstance(self._system))
