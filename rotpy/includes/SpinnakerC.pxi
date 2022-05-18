@@ -164,6 +164,8 @@ cdef extern from "SpinnakerC.h" nogil:
 
     spinError spinCameraForceIP()
 
+    spinError spinImageCreateEmpty(spinImage * phImage)
+
     spinError spinImageCreate(spinImage hSrcImage, spinImage* phDestImage)
 
     spinError spinImageCreateEx(spinImage* phImage, size_t width, size_t height, size_t offsetX, size_t offsetY, spinPixelFormatEnums pixelFormat, void* pData)
