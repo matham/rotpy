@@ -4,9 +4,9 @@ from.names import AccessMode_names, AccessMode_values
 cimport cpython.array
 from array import array
 
-DEF MAX_BUFF_LEN = 256
-
 __all__ = ('SpinCameraList', 'Camera')
+
+DEF MAX_BUFF_LEN = 256
 
 
 cdef class SpinCameraList:
@@ -36,7 +36,8 @@ cdef class SpinCameraList:
         system.
 
         :param update_interfaces: Whether to update the interface list.
-        :param update_cams: Whether to update the camera list.
+        :param update_cams: Whether to update the camera list to detect
+            new/removed cameras.
         """
         cdef spinSystem system = self.system._system
         if update_interfaces or update_cams:
@@ -131,7 +132,8 @@ cdef class Camera:
     cpdef init_cam(self):
         """Initializes a camera, allowing for much more interaction.
         """
-        check_ret(spinCameraInit(self._camera))
+        with nogil:
+            check_ret(spinCameraInit(self._camera))
 
     cpdef deinit_cam(self):
         """De-initializes a camera that was initialized with :meth:`init_cam`.

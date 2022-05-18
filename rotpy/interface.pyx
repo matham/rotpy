@@ -11,6 +11,7 @@ from cpython.ref cimport PyObject
 
 DEF MAX_BUFF_LEN = 256
 
+
 cdef int query_interface(spinInterface interface) except 1:
     cdef unsigned int i = 0
     cdef quickSpinTLInterface qsi

@@ -1,3 +1,4 @@
+from .names import log_level_names, log_level_values
 
 __all__ = ('SpinError', 'SpinSystem')
 
@@ -111,3 +112,133 @@ cdef class SpinSystem:
             self._system_set = 0
             with nogil:
                 check_ret(spinSystemReleaseInstance(self._system))
+
+    cpdef set_logging_level(self, str level):
+        """Sets the logging level for all logging events on the system.
+
+        :param level: The name of the level as listed in
+            :attr:`~rotpy.names.log_level_names`.
+        """
+        cdef spinnakerLogLevel log_level = log_level_names[level]
+        with nogil:
+            check_ret(spinSystemSetLoggingLevel(self._system, log_level))
+
+    cpdef str get_logging_level(self):
+        """Gets the logging level (as listed in
+        :attr:`~rotpy.names.log_level_names`) for all logging events on the
+        system.
+        """
+        cdef spinnakerLogLevel log_level
+        with nogil:
+            check_ret(spinSystemGetLoggingLevel(self._system, &log_level))
+        return log_level_values[log_level]
+
+    cpdef str detach_all_log_handlers(self):
+        """Detaches all the attached log event handlers that have been
+        previously attached.
+        """
+        with nogil:
+            check_ret(spinSystemUnregisterAllLogEventHandlers(self._system))
+
+    cpdef object get_in_use(self):
+        """Checks whether the system is currently in use.
+        """
+        cdef bool8_t is_used
+        with nogil:
+            check_ret(spinSystemIsInUse(self._system, &is_used))
+        return bool(is_used)
+
+    cpdef object refresh_camera_list(self, int update_interfaces=False):
+        """Updates the list of cameras on the system, returning a bool
+        indicating whether there has been any changes and cameras have arrived
+        or been removed.
+
+        :param update_interfaces: If True, the interface lists will also be
+            updated.
+        """
+        cdef bool8_t changed
+        if update_interfaces:
+            with nogil:
+                check_ret(spinSystemUpdateCamerasEx(self._system, 1, &changed))
+        else:
+            with nogil:
+                check_ret(spinSystemUpdateCameras(self._system, &changed))
+        return bool(changed)
+
+    cpdef tuple get_library_version(self):
+        """Gets the current Spinnaker library version as a 4 tuple of
+        ``(major, minor, type, build)``.
+        """
+        cdef spinLibraryVersion version
+        with nogil:
+            check_ret(spinSystemGetLibraryVersion(self._system, &version))
+        return version.major, version.minor, version.type, version.build
+
+
+cdef class InterfaceDeviceList:
+    """Provides access to a list of the interface devices to which cameras
+    can be attached (e.g. USB, ethernet etc.). This includes updating, size, and
+    camera retrieval.
+    """
+
+    def __cinit__(self, SpinSystem system):
+        self._list_set = 0
+        self.system = system
+
+    def __init__(self, SpinSystem system):
+        with nogil:
+            check_ret(spinInterfaceListCreateEmpty(&self._interface_list))
+        self._list_set = 1
+
+    def __dealloc__(self):
+        if self._list_set:
+            self._list_set = 0
+            with nogil:
+                check_ret(spinInterfaceListClear(self._interface_list))
+                check_ret(spinInterfaceListDestroy(self._interface_list))
+
+    cpdef refresh_interfaces(self):
+        """Retrieves the list of detected (and enumerable) interface devices on
+        the system.
+        """
+        cdef spinSystem system = self.system._system
+        with nogil:
+            check_ret(spinSystemGetInterfaces(system, self._interface_list))
+
+    cpdef int get_size(self):
+        """Retrieves the number of interface devices in the interface device
+        list.
+        """
+        cdef size_t n
+        with nogil:
+            check_ret(spinInterfaceListGetSize(self._interface_list, &n))
+        return n
+
+    cpdef InterfaceDevice create_interface(self, int index):
+        """Retrieves an interface device from this interface device list using
+        an index.
+
+        :param index: The index of the interface device.
+        :return: A :class:`InterfaceDevice`.
+        """
+        dev = InterfaceDevice()
+        dev.set_interface(self, index)
+        return dev
+
+
+cdef class InterfaceDevice:
+
+    def __cinit__(self):
+        self._interface_set = 0
+
+    def __dealloc__(self):
+        if self._interface_set:
+            self._interface_set = 0
+            with nogil:
+                check_ret(spinInterfaceRelease(self._interface))
+
+    cdef object set_interface(self, InterfaceDeviceList dev_list, int index):
+        with nogil:
+            check_ret(
+                spinInterfaceListGet(dev_list._interface_list, index, &self._interface))
+        self._interface_set = 1
