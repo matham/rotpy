@@ -1,5 +1,6 @@
 from ._interface cimport *
 from .system cimport SpinSystem
+from .image cimport Image
 
 
 cdef class SpinCameraList:
@@ -39,3 +40,4 @@ cdef class Camera:
     cpdef is_init(self)
     cpdef get_max_packet_size(self)
     # cpdef force_ip(self)
+    cpdef Image get_next_image(self, timeout=*)

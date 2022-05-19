@@ -11,7 +11,7 @@ cdef inline str read_buffer(buf_func f):
     cdef size_t n = MAX_BUFF_LEN
     with nogil:
         check_ret(f(msg, &n))
-    return msg[:max(n - 1, 0)]
+    return msg[:max(n - 1, 0)].decode()
 
 
 cdef class SpinError:

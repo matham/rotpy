@@ -1,5 +1,5 @@
 from .system import SpinSystem
-from.names import AccessMode_names, AccessMode_values
+from.names import AccessMode_names, AccessMode_values, img_status_values
 
 cimport cpython.array
 from array import array
@@ -268,3 +268,52 @@ cdef class Camera:
     #     """
     #     with nogil:
     #         check_ret(spinCameraForceIP())
+
+    cpdef Image get_next_image(self, timeout=None):
+        """Gets the next image from the camera's buffer queue.
+
+        :param timeout: Optional timeout in seconds. If not provided, it may
+            wait indefinitely until an image becomes available. If provided,
+            if it times out before an image is available it returns None.
+        :return: An :class:`~rotpy.image.Image` or None if it timed out.
+
+        .. warning::
+
+            Make sure to call :meth:`~rotpy.image.Image.release` as quickly as
+            possible after getting the image. Because until the image is
+            released, the camera cannot re-use the buffer. So, if too many
+            buffers are held, the camera may run out of buffers in which to
+            store images.
+        """
+        cdef spinError ret
+        cdef uint64_t to
+        cdef spinImage raw_img
+        cdef bool8_t incomplete
+        cdef spinImageStatus status
+        cdef char msg[MAX_BUFF_LEN]
+        cdef size_t n = MAX_BUFF_LEN
+
+        if timeout is None:
+            with nogil:
+                ret = spinCameraGetNextImage(self._camera, &raw_img)
+        else:
+            to = timeout * 1000
+            with nogil:
+                ret = spinCameraGetNextImageEx(self._camera, to, &raw_img)
+
+        if ret == SPINNAKER_ERR_TIMEOUT or ret == GENICAM_ERR_TIMEOUT:
+            return None
+        check_ret(ret)
+
+        with nogil:
+            check_ret(spinImageIsIncomplete(raw_img, &incomplete))
+            if incomplete:
+                check_ret(spinImageGetStatus(raw_img, &status))
+                check_ret(spinImageGetStatusDescription(status, msg, &n))
+                check_ret(spinImageRelease(raw_img))
+
+        if incomplete:
+            raise ValueError(
+                f'Image incomplete: "{msg[:max(n - 1, 0)].decode()}" '
+                f'"({img_status_values[status]})"')
+        return Image.create_from_camera(raw_img)
