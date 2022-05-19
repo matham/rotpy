@@ -6,6 +6,8 @@ from .names import PixelFormat_names, PixelFormat_values, payload_type_names, \
     color_processing_algo_values, pix_fmt_namespace_names, \
     pix_fmt_namespace_values
 
+DEF MAX_BUFF_LEN = 256
+
 __all__ = ('Image',)
 
 
@@ -314,6 +316,8 @@ cdef class Image:
 
     cpdef get_image_data(self):
         """Gets the image's buffer data as a bytearray.
+
+        TODO: Understand the format of the data.
         """
         cdef size_t n
         cdef void* buf
@@ -433,6 +437,20 @@ cdef class Image:
         with nogil:
             check_ret(spinImageGetPixelFormat(self._image, &n))
         return PixelFormat_values[n]
+
+    cpdef str get_pix_fmt2(self):
+        """Gets the image's pixel format as a string from the image settings.
+
+        It's not clear how this is different from :meth:`get_pix_fmt`, so
+        :meth:`get_pix_fmt` should be preferred.
+
+        TODO: understand why this function exists.
+        """
+        cdef char msg[MAX_BUFF_LEN]
+        cdef size_t n = MAX_BUFF_LEN
+        with nogil:
+            check_ret(spinImageGetPixelFormatName(self._image, msg, &n))
+        return msg[:max(n - 1, 0)].decode()
 
     cpdef str get_tl_pix_fmt(self):
         """Gets the image's underlying transport layer pixel format.
@@ -571,3 +589,13 @@ cdef class Image:
             check_ret(
                 spinImageChunkDataGetFloatValue(self._image, name_c, &val))
         return val
+
+    cpdef get_layout(self):
+        """Gets the data layout of this image.
+
+        TODO: Understand what this means.
+        """
+        cdef uint64_t n
+        with nogil:
+            check_ret(spinImageGetChunkLayoutID(self._image, &n))
+        return n
