@@ -317,3 +317,42 @@ cdef class Camera:
                 f'Image incomplete: "{msg[:max(n - 1, 0)].decode()}" '
                 f'"({img_status_values[status]})"')
         return Image.create_from_camera(raw_img)
+
+    cpdef NodeMap get_node_map(self):
+        """Gets the camera nodemap from the camera.
+
+        :return: A :class:`~rotpy.node.NodeMap`.
+        """
+        cdef spinNodeMapHandle handle
+        cdef NodeMap node_map = NodeMap()
+        with nogil:
+            check_ret(spinCameraGetNodeMap(self._camera, &handle))
+            node_map.set_handle(handle)
+
+        return node_map
+
+    cpdef NodeMap get_tl_node_map(self):
+        """Gets the transport layer device nodemap from the camera.
+
+        :return: A :class:`~rotpy.node.NodeMap`.
+        """
+        cdef spinNodeMapHandle handle
+        cdef NodeMap node_map = NodeMap()
+        with nogil:
+            check_ret(spinCameraGetTLDeviceNodeMap(self._camera, &handle))
+            node_map.set_handle(handle)
+
+        return node_map
+
+    cpdef NodeMap get_tl_stream_node_map(self):
+        """Gets the transport layer stream nodemap from the camera.
+
+        :return: A :class:`~rotpy.node.NodeMap`.
+        """
+        cdef spinNodeMapHandle handle
+        cdef NodeMap node_map = NodeMap()
+        with nogil:
+            check_ret(spinCameraGetTLStreamNodeMap(self._camera, &handle))
+            node_map.set_handle(handle)
+
+        return node_map

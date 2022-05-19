@@ -102,7 +102,7 @@ cdef class SpinSystem:
     def __cinit__(self):
         self._system_set = 0
 
-    def __int__(self):
+    def __init__(self):
         with nogil:
             check_ret(spinSystemGetInstance(&self._system))
         self._system_set = 1
@@ -174,6 +174,19 @@ cdef class SpinSystem:
             check_ret(spinSystemGetLibraryVersion(self._system, &version))
         return version.major, version.minor, version.type, version.build
 
+    cpdef NodeMap get_tl_node_map(self):
+        """Gets the transport layer nodemap from the system.
+
+        :return: A :class:`~rotpy.node.NodeMap`.
+        """
+        cdef spinNodeMapHandle handle
+        cdef NodeMap node_map = NodeMap()
+        with nogil:
+            check_ret(spinSystemGetTLNodeMap(self._system, &handle))
+            node_map.set_handle(handle)
+
+        return node_map
+
 
 cdef class InterfaceDeviceList:
     """Provides access to a list of the interface devices to which cameras
@@ -242,3 +255,16 @@ cdef class InterfaceDevice:
             check_ret(
                 spinInterfaceListGet(dev_list._interface_list, index, &self._interface))
         self._interface_set = 1
+
+    cpdef NodeMap get_tl_node_map(self):
+        """Gets the transport layer nodemap from the interface.
+
+        :return: A :class:`~rotpy.node.NodeMap`.
+        """
+        cdef spinNodeMapHandle handle
+        cdef NodeMap node_map = NodeMap()
+        with nogil:
+            check_ret(spinInterfaceGetTLNodeMap(self._interface, &handle))
+            node_map.set_handle(handle)
+
+        return node_map

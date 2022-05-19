@@ -1,4 +1,5 @@
 from ._interface cimport *
+from .node cimport NodeMap
 
 cdef class SpinError:
 
@@ -24,6 +25,7 @@ cdef class SpinSystem:
     cpdef object get_in_use(self)
     cpdef object refresh_camera_list(self, int update_interfaces=*)
     cpdef tuple get_library_version(self)
+    cpdef NodeMap get_tl_node_map(self)
 
 
 cdef class InterfaceDeviceList:
@@ -43,3 +45,4 @@ cdef class InterfaceDevice:
     cdef int _interface_set
 
     cdef object set_interface(self, InterfaceDeviceList dev_list, int index)
+    cpdef NodeMap get_tl_node_map(self)

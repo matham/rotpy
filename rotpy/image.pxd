@@ -50,3 +50,6 @@ cdef class Image:
     cpdef get_bits_per_pixel(self)
     cpdef get_size(self)
     cpdef get_stride(self)
+    cpdef get_data_property(self, str name)
+    cpdef get_data_int_property(self, str name)
+    cpdef get_data_float_property(self, str name)

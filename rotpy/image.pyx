@@ -11,6 +11,28 @@ __all__ = ('Image',)
 
 cdef class Image:
 
+    data_float_properties = set(
+        'BlackLevel', 'ExposureTime', 'CompressionRatio', 'Gain', 'TimerValue',
+        'Scan3dCoordinateScale', 'Scan3dCoordinateOffset',
+        'Scan3dInvalidDataValue', 'Scan3dAxisMin', 'Scan3dAxisMax',
+        'Scan3dTransformValue', 'Scan3dCoordinateReferenceValue',
+        'InferenceConfidence')
+    """Floating point number properties that can be gotten with
+    :meth:`get_data_property`.
+    """
+
+    data_int_properties = set(
+        'FrameID', 'CompressionMode', 'Timestamp', 'ExposureEndLineStatusAll',
+        'Width', 'Image', 'Height', 'SequencerSetActive', 'CRC', 'OffsetX',
+        'OffsetY', 'SerialDataLength', 'PartSelector', 'PixelDynamicRangeMin',
+        'PixelDynamicRangeMax', 'TimestampLatchValue', 'LineStatusAll',
+        'CounterValue', 'ScanLineSelector', 'EncoderValue', 'LinePitch',
+        'TransferBlockID', 'TransferQueueCurrentBlockCount', 'StreamChannelID',
+        'InferenceFrameId', 'InferenceResult')
+    """Integer number properties that can be gotten with
+    :meth:`get_data_property`.
+    """
+
     def __cinit__(self):
         self._needs_destroy = 0
         self._needs_release = 0
@@ -481,3 +503,71 @@ cdef class Image:
         with nogil:
             check_ret(spinImageGetStride(self._image, &n))
         return n
+
+    cpdef get_data_property(self, str name):
+        """Gets a named data property of the image.
+
+        The property names are listed in :attr:`data_float_properties` and
+        :attr:`data_int_properties`. If ``name`` is in neither set, an error is
+        raised.
+
+        :param name: The name of the property.
+        :return: Either a int or float, depending on the property.
+        """
+        cdef int is_float
+        cdef double d_val
+        cdef int64_t i_val
+        cdef bytes name_b = name.encode()
+        cdef const char* name_c = name_b
+
+        if name in self.data_int_properties:
+            is_float = 0
+        elif name in self.data_float_properties:
+            is_float = 1
+        else:
+            raise ValueError(f'"{name}" is not a recognized data property')
+
+        if is_float:
+            with nogil:
+                check_ret(spinImageChunkDataGetFloatValue(self._image, name_c, &d_val))
+            return d_val
+        else:
+            with nogil:
+                check_ret(spinImageChunkDataGetIntValue(self._image, name_c, &i_val))
+            return i_val
+
+    cpdef get_data_int_property(self, str name):
+        """Gets a integer named data property of the image.
+
+        The property names are listed in :attr:`data_int_properties`, but we
+        don't verify that ``name`` is a valid property, unlike
+        :meth:`get_data_property`.
+
+        :param name: The name of the property.
+        :return: An integer.
+        """
+        cdef int64_t val
+        cdef bytes name_b = name.encode()
+        cdef const char * name_c = name_b
+        with nogil:
+            check_ret(
+                spinImageChunkDataGetIntValue(self._image, name_c, &val))
+        return val
+
+    cpdef get_data_float_property(self, str name):
+        """Gets a float named data property of the image.
+
+        The property names are listed in :attr:`data_float_properties`, but we
+        don't verify that ``name`` is a valid property, unlike
+        :meth:`get_data_property`.
+
+        :param name: The name of the property.
+        :return: A floating point number.
+        """
+        cdef double val
+        cdef bytes name_b = name.encode()
+        cdef const char * name_c = name_b
+        with nogil:
+            check_ret(
+                spinImageChunkDataGetFloatValue(self._image, name_c, &val))
+        return val
