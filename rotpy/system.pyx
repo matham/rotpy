@@ -183,7 +183,7 @@ cdef class SpinSystem:
         cdef NodeMap node_map = NodeMap()
         with nogil:
             check_ret(spinSystemGetTLNodeMap(self._system, &handle))
-            node_map.set_handle(handle)
+        node_map.set_handle(handle)
 
         return node_map
 
@@ -265,6 +265,6 @@ cdef class InterfaceDevice:
         cdef NodeMap node_map = NodeMap()
         with nogil:
             check_ret(spinInterfaceGetTLNodeMap(self._interface, &handle))
-            node_map.set_handle(handle)
+        node_map.set_handle(handle)
 
         return node_map

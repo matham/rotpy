@@ -143,7 +143,7 @@ cdef class Camera:
 
     cpdef get_access_mode(self):
         """Returns the access mode of the camera as a string from
-        :attr:`~rotpy.names.AccessMode_values`.
+        :attr:`~rotpy.names.AccessMode_names`.
         """
         cdef spinAccessMode mode
         with nogil:
@@ -327,7 +327,7 @@ cdef class Camera:
         cdef NodeMap node_map = NodeMap()
         with nogil:
             check_ret(spinCameraGetNodeMap(self._camera, &handle))
-            node_map.set_handle(handle)
+        node_map.set_handle(handle)
 
         return node_map
 
@@ -340,7 +340,7 @@ cdef class Camera:
         cdef NodeMap node_map = NodeMap()
         with nogil:
             check_ret(spinCameraGetTLDeviceNodeMap(self._camera, &handle))
-            node_map.set_handle(handle)
+        node_map.set_handle(handle)
 
         return node_map
 
@@ -353,6 +353,6 @@ cdef class Camera:
         cdef NodeMap node_map = NodeMap()
         with nogil:
             check_ret(spinCameraGetTLStreamNodeMap(self._camera, &handle))
-            node_map.set_handle(handle)
+        node_map.set_handle(handle)
 
         return node_map

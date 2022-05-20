@@ -1,4 +1,4 @@
-cdef extern from "SpinnakerGenApiC.h":
+cdef extern from "SpinnakerGenApiC.h" nogil:
 
     spinError spinNodeMapGetNode(spinNodeMapHandle hNodeMap, const char* pName, spinNodeHandle* phNode)
 

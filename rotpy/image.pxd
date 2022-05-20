@@ -42,6 +42,7 @@ cdef class Image:
     cpdef str get_payload_type(self)
     cpdef str get_tl_payload_type(self)
     cpdef str get_pix_fmt(self)
+    cpdef str get_pix_fmt2(self)
     cpdef str get_tl_pix_fmt(self)
     cpdef str get_tl_pix_fmt_namespace(self)
     cpdef get_valid_data_size(self)
@@ -53,3 +54,4 @@ cdef class Image:
     cpdef get_data_property(self, str name)
     cpdef get_data_int_property(self, str name)
     cpdef get_data_float_property(self, str name)
+    cpdef get_layout(self)
