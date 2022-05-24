@@ -13,24 +13,24 @@ __all__ = ('Image',)
 
 cdef class Image:
 
-    data_float_properties = set(
+    data_float_properties = {
         'BlackLevel', 'ExposureTime', 'CompressionRatio', 'Gain', 'TimerValue',
         'Scan3dCoordinateScale', 'Scan3dCoordinateOffset',
         'Scan3dInvalidDataValue', 'Scan3dAxisMin', 'Scan3dAxisMax',
         'Scan3dTransformValue', 'Scan3dCoordinateReferenceValue',
-        'InferenceConfidence')
+        'InferenceConfidence'}
     """Floating point number properties that can be gotten with
     :meth:`get_data_property`.
     """
 
-    data_int_properties = set(
+    data_int_properties = {
         'FrameID', 'CompressionMode', 'Timestamp', 'ExposureEndLineStatusAll',
         'Width', 'Image', 'Height', 'SequencerSetActive', 'CRC', 'OffsetX',
         'OffsetY', 'SerialDataLength', 'PartSelector', 'PixelDynamicRangeMin',
         'PixelDynamicRangeMax', 'TimestampLatchValue', 'LineStatusAll',
         'CounterValue', 'ScanLineSelector', 'EncoderValue', 'LinePitch',
         'TransferBlockID', 'TransferQueueCurrentBlockCount', 'StreamChannelID',
-        'InferenceFrameId', 'InferenceResult')
+        'InferenceFrameId', 'InferenceResult'}
     """Integer number properties that can be gotten with
     :meth:`get_data_property`.
     """
