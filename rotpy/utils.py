@@ -30,8 +30,8 @@ variable_pat = compile(
     '(?: *\\[([ \\w]*)\\] *)?;?$'
 )
 struct_pat = compile(
-    'typedef +(struct|enum) +([\\w]+)[ \n]*\\{([\\w ,=\n;\\-\\*\\[\\]]+)\\}'
-    '[ \n]*([\\w ,]+) *;', re.DOTALL
+    '(?:typedef)? *(struct|enum) +([\\w]+)[ \\n]*\\{([\\w ,=\\n;\\-\\*\\[\\]]+)\\}'
+    '[ \\n]*([\\w ,]*) *;', re.DOTALL
 )
 typedef_pat = compile('typedef +(.+?);')
 
@@ -114,10 +114,11 @@ def parse_struct(type_name, body, name):
     return StructSpec(type_name, [n.strip() for n in name.split(',')], members)
 
 
-def parse_enum(type_name, body, name):
+def parse_enum(type_name, body: str, name):
     '''Returns a :attr:`EnumSpec` instance from the input.
     '''
     type_name, name = type_name.strip(), name.strip()
+    body = body.replace('=\n', '= ')
     lines = [l.strip(' ,') for l in body.splitlines() if l.strip(', ')]
     members = []
 
@@ -206,7 +207,8 @@ def format_enum(enum_def):
             text.append('{}{}'.format(tab, member.name))
 
     for name in enum_def.names:
-        text.append('ctypedef {} {}'.format(enum_def.tp_name, name))
+        if name and name != enum_def.tp_name:
+            text.append('ctypedef {} {}'.format(enum_def.tp_name, name))
 
     return text
 
@@ -238,7 +240,8 @@ def format_struct(struct_def):
     )
 
     for name in struct_def.names:
-        text.append('ctypedef {} {}'.format(struct_def.tp_name, name))
+        if name and name != struct_def.tp_name:
+            text.append('ctypedef {} {}'.format(struct_def.tp_name, name))
 
     return text
 
@@ -267,9 +270,9 @@ def dump_cython(content, name, ofile):
 
 if __name__ == '__main__':
     from os.path import join
-    include = r'E:\FLIR\Spinnaker\include\spinc'
+    include = r'e:\FLIR\Spinnaker\include'
 
-    for name in ('SpinnakerC', 'CameraDefsC', 'SpinnakerDefsC'):
+    for name in ('CameraDefs', ):
         content = parse_header(join(include, '{}.h'.format(name)))
         dump_cython(content, '{}.h'.format(name), '{}.pxi'.format(name))
 

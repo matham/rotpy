@@ -1,10 +1,11 @@
 cdef extern from "string.h" nogil:
     void *memcpy(void *, const void *, size_t)
 
-from .names import PixelFormat_names, PixelFormat_values, payload_type_names, \
+from .names import PixelFormat_names, payload_type_names, \
     payload_type_values, color_processing_algo_names, \
-    color_processing_algo_values, pix_fmt_namespace_names, \
-    pix_fmt_namespace_values
+    color_processing_algo_values, \
+    pix_fmt_namespace_values, PixelFormat_values, pix_fmt_int_values,\
+    img_status_values, img_status_names
 
 DEF MAX_BUFF_LEN = 256
 
@@ -12,28 +13,6 @@ __all__ = ('Image',)
 
 
 cdef class Image:
-
-    data_float_properties = {
-        'BlackLevel', 'ExposureTime', 'CompressionRatio', 'Gain', 'TimerValue',
-        'Scan3dCoordinateScale', 'Scan3dCoordinateOffset',
-        'Scan3dInvalidDataValue', 'Scan3dAxisMin', 'Scan3dAxisMax',
-        'Scan3dTransformValue', 'Scan3dCoordinateReferenceValue',
-        'InferenceConfidence'}
-    """Floating point number properties that can be gotten with
-    :meth:`get_data_property`.
-    """
-
-    data_int_properties = {
-        'FrameID', 'CompressionMode', 'Timestamp', 'ExposureEndLineStatusAll',
-        'Width', 'Image', 'Height', 'SequencerSetActive', 'CRC', 'OffsetX',
-        'OffsetY', 'SerialDataLength', 'PartSelector', 'PixelDynamicRangeMin',
-        'PixelDynamicRangeMax', 'TimestampLatchValue', 'LineStatusAll',
-        'CounterValue', 'ScanLineSelector', 'EncoderValue', 'LinePitch',
-        'TransferBlockID', 'TransferQueueCurrentBlockCount', 'StreamChannelID',
-        'InferenceFrameId', 'InferenceResult'}
-    """Integer number properties that can be gotten with
-    :meth:`get_data_property`.
-    """
 
     def __cinit__(self):
         self._needs_destroy = 0
@@ -44,7 +23,7 @@ cdef class Image:
         self.release()
 
     @staticmethod
-    cdef Image create_from_camera(spinImage spin_img):
+    cdef Image create_from_camera(ImagePtr spin_img):
         cdef Image img = Image()
         img._image = spin_img
         img._needs_release = 1
@@ -60,7 +39,7 @@ cdef class Image:
     cdef Image create_empty_c():
         cdef Image img = Image()
         with nogil:
-            check_ret(spinImageCreateEmpty(&img._image))
+            img._image = CImage.Create0()
             img._needs_destroy = 1
 
         return img
@@ -81,11 +60,20 @@ cdef class Image:
         :param data: An optional bytes buffer or array containing the data to
             initialize the image with. If None, data is not set.
         :param data_type: The payload type of the data as named in
-            :attr:`~rotpy.names.payload_type_names`. See also
-            :meth:`get_payload_type`.
+            :attr:`~rotpy.names.payload_type_names` (such as compressed). See
+            also :meth:`get_payload_type`.
         :param data_len: The size of the ``data`` if provided. This is only used
             if the ``data_type`` is also given.
         :return: :class:`Image`.
+
+        .. note::
+
+            Note that images with chunk payload types are saved with only the
+            image data preserved. Remember to specify the non-chunk equivalent
+            payload type when creating images with these chunk payload types.
+            For example, images need to be created with PAYLOAD_TYPE_IMAGE
+            payload type if the original image had PAYLOAD_TYPE_EXTENDED_CHUNK
+            payload type.
         """
         return Image.create_image_c(
             width, height, x_offset, y_offset, pix_fmt, data, data_type,
@@ -96,8 +84,8 @@ cdef class Image:
             int width, int height, int x_offset, int y_offset, str pix_fmt,
             data=None, str data_type='', size_t data_len=0
     ):
-        cdef spinPixelFormatEnums int_fmt = PixelFormat_names[pix_fmt]
-        cdef spinPayloadTypeInfoIDs payload = PAYLOAD_TYPE_UNKNOWN
+        cdef PixelFormatEnums int_fmt = PixelFormat_names[pix_fmt]
+        cdef PayloadTypeInfoIDs payload = PAYLOAD_TYPE_UNKNOWN
         cdef unsigned char* buffer = NULL
         cdef Image img = Image()
 
@@ -113,65 +101,58 @@ cdef class Image:
 
         if data_type:
             with nogil:
-                check_ret(spinImageCreateEx2(
-                    &img._image, width, height, x_offset, y_offset, int_fmt,
+                img._image = CImage.Create8(
+                    width, height, x_offset, y_offset, int_fmt,
                     buffer, payload, data_len
-                ))
+                )
         else:
             with nogil:
-                check_ret(spinImageCreateEx(
-                    &img._image, width, height, x_offset, y_offset, int_fmt,
-                    buffer))
+                img._image = CImage.Create6(
+                    width, height, x_offset, y_offset, int_fmt,
+                    buffer)
         img._needs_destroy = 1
 
         return img
 
     @staticmethod
-    def create_image_ref(Image image) -> Image:
-        """Creates and returns an image referencing the data from another image
-        without copying all its data.
-        """
-        return Image.create_image_ref_c(image)
-
-    @staticmethod
-    cdef Image create_image_ref_c(Image image):
-        cdef Image dest = Image()
-        dest._image_data_ref = image._image_data_ref
-        with nogil:
-            check_ret(spinImageCreate(image._image, &dest._image))
-            dest._needs_destroy = 1
-
-        return dest
-
-    @staticmethod
     def deep_copy_image(Image image) -> Image:
         """Creates and returns an image by copying all the data from the other
-        image.
+        image so they don't share buffers.
         """
         return Image.deep_copy_image_c(image)
 
     @staticmethod
     cdef Image deep_copy_image_c(Image image):
         cdef Image dest = Image()
-        dest._image_data_ref = image._image_data_ref
         with nogil:
-            check_ret(spinImageCreateEmpty(&dest._image))
-            check_ret(spinImageDeepCopy(image._image, dest._image))
+            dest._image = CImage.Create1(image._image)
             dest._needs_destroy = 1
 
         return dest
 
+    cpdef deep_copy_from(self, Image source):
+        """Copies the given image into this image.
+
+        After this operation, this and the source image contents and member
+        variables will be the same. However, the images will not share a buffer.
+        The source image's buffer will not be :meth:`release` so you must
+        still release it if it's a camera acquired image.
+        """
+        with nogil:
+            self._image.get().DeepCopy(source._image)
+
     cpdef release(self):
-        """Release the image and its data.
+        """Release the image and its data for images gotten with
+        :meth:`~rotpy.camera.Camera.get_next_image`.
 
         If the image has been returned from the camera buffer, our hold over it
-        is released and the camera can reuse it. If we created the image, it's
-        destroyed.
+        is released and the camera can reuse the buffer. If we created the
+        image manually it doesn't do anything.
 
         :meth:`release` must be called to release the image if it was returned
-        by the camera. Otherwise, the camera can not use it. For manually
-        created images, this is not necessary as it happens automatically. But,
-        calling it sooner releases the memory sooner.
+        by the camera. Otherwise, the camera can not re-use the buffer. For
+        manually created images, this is not necessary as it happens
+        automatically when the image is deleted.
 
         .. warning::
 
@@ -180,14 +161,12 @@ cdef class Image:
         """
         if self._needs_destroy:
             self._needs_destroy = 0
-            with nogil:
-                check_ret(spinImageDestroy(self._image))
 
         if self._needs_release:
             self._needs_release = 0
             with nogil:
-                check_ret(spinImageRelease(self._image))
-        self._image_data_ref = None
+                self._image.get().Release()
+            self._image_data_ref = None
 
     @staticmethod
     def set_default_color_processing_algo(str name):
@@ -197,10 +176,9 @@ cdef class Image:
         :param name: The name of the color processing algorithm used by default
             as listed in :attr:`~rotpy.names.color_processing_algo_names`.
         """
-        cdef spinColorProcessingAlgorithm algorithm = \
-            color_processing_algo_names[name]
+        cdef ColorProcessingAlgorithm algorithm = color_processing_algo_names[name]
         with nogil:
-            check_ret(spinImageSetDefaultColorProcessing(algorithm))
+            CImage.SetDefaultColorProcessing(algorithm)
 
     @staticmethod
     def get_default_color_processing_algo() -> str:
@@ -210,9 +188,9 @@ cdef class Image:
         :return: The name of the color processing algorithm used by default
             as listed in :attr:`~rotpy.names.color_processing_algo_names`.
         """
-        cdef spinColorProcessingAlgorithm algorithm
+        cdef ColorProcessingAlgorithm algorithm
         with nogil:
-            check_ret(spinImageGetDefaultColorProcessing(&algorithm))
+            algorithm = CImage.GetDefaultColorProcessing()
         return color_processing_algo_values[algorithm]
 
     cpdef str get_color_processing_algo(self):
@@ -221,9 +199,9 @@ cdef class Image:
         :return: The name of the color processing algorithm used
             as listed in :attr:`~rotpy.names.color_processing_algo_names`.
         """
-        cdef spinColorProcessingAlgorithm algorithm
+        cdef ColorProcessingAlgorithm algorithm
         with nogil:
-            check_ret(spinImageGetColorProcessing(self._image, &algorithm))
+            algorithm = self._image.get().GetColorProcessing()
         return color_processing_algo_values[algorithm]
 
     @staticmethod
@@ -237,7 +215,7 @@ cdef class Image:
         :param num: Number of parallel image decompression threads set to run.
         """
         with nogil:
-            check_ret(spinImageSetNumDecompressionThreads(num))
+            CImage.SetNumDecompressionThreads(num)
 
     @staticmethod
     def get_compression_threads() -> int:
@@ -246,10 +224,11 @@ cdef class Image:
         """
         cdef unsigned int num
         with nogil:
-            check_ret(spinImageGetNumDecompressionThreads(&num))
+            num = CImage.GetNumDecompressionThreads()
         return num
 
-    cpdef Image convert_fmt(self, str pix_fmt, str algorithm=''):
+    cpdef Image convert_fmt(
+            self, str pix_fmt, str algorithm='', Image dest=None):
         """Converts the image to a new pixel format and optionally using
         a specific algorithm and returns a new image.
 
@@ -258,28 +237,41 @@ cdef class Image:
         :param algorithm: An optional algorithm name string from
             :attr:`~rotpy.names.color_processing_algo_names`. If empty it's not
             set.
-        :return: A new :class:`Image`.
-        """
-        cdef Image dest = Image.create_empty_c()
-        cdef spinPixelFormatEnums fmt = PixelFormat_names[pix_fmt]
-        cdef spinColorProcessingAlgorithm algo
+        :param dest: Optional destination image where the converted output
+            result will be stored. The destination image buffer size must be
+            sufficient to store the converted image data.
+        :return: A new :class:`Image` if ``dest`` was not provided, otherwise
+            ``dest``.
 
+        .. note::
+
+            Compressed images are decompressed before any further color
+            processing or conversion during this call. Decompression is
+            multi-threaded and defaults to utilizing one less than the number of
+            concurrent threads supported by the system. It uses the number
+            set in :meth:`set_compression_threads`, if set.
+        """
+        cdef PixelFormatEnums fmt = PixelFormat_names[pix_fmt]
+        cdef ColorProcessingAlgorithm algo = DEFAULT
         if algorithm:
             algo = color_processing_algo_names[algorithm]
+
+        if dest is None:
+            dest = Image()
             with nogil:
-                check_ret(spinImageConvertEx(
-                    self._image, fmt, algo, dest._image))
+                dest._image = self._image.get().Convert(fmt, algo)
+            dest._needs_destroy = 1
         else:
-            with nogil:
-                check_ret(spinImageConvert(self._image, fmt, dest._image))
+            self._image.get().Convert(dest._image, fmt, algo)
 
         return dest
 
     cpdef reset_image(
             self, int width, int height, int x_offset, int y_offset,
-            str pix_fmt, data=None
+            str pix_fmt, data=None, str data_type='', size_t data_len=0
     ):
-        """Resets the image to some preset properties.
+        """Sets new dimensions of the image object and allocates memory if
+        needed.
 
         :param width: The image width.
         :param height: The image height.
@@ -288,35 +280,103 @@ cdef class Image:
         :param pix_fmt: The pixel format name string from
             :attr:`~rotpy.names.PixelFormat_names`.
         :param data: An optional bytes buffer or array containing the data to
-            initialize the image with. If None, data is not set.
+            initialize the image with. If None, memory is automatically
+            allocated.
+        :param data_type: The optional payload type of the data as named in
+            :attr:`~rotpy.names.payload_type_names` (such as compressed). See
+            also :meth:`get_payload_type`. See also :meth:`create_image`.
+        :param data_len: The size of the ``data`` if provided. This is only used
+            if the ``data_type`` is also given.
         """
-        cdef spinPixelFormatEnums int_fmt = PixelFormat_names[pix_fmt]
+        cdef PixelFormatEnums int_fmt = PixelFormat_names[pix_fmt]
+        cdef PayloadTypeInfoIDs payload = PAYLOAD_TYPE_UNKNOWN
         cdef unsigned char * buffer = NULL
 
-        if data is not None:
-            buffer = data
+        if self._needs_release:
+            self._needs_release = 0
             with nogil:
-                check_ret(spinImageResetEx(
-                    &self._image, width, height, x_offset, y_offset, int_fmt,
-                    buffer))
-            self._image_data_ref = data
-        else:
-            with nogil:
-                check_ret(spinImageReset(
-                    &self._image, width, height, x_offset, y_offset, int_fmt))
+                self._image.get().Release()
             self._image_data_ref = None
 
-    cpdef get_image_data_size(self):
-        """Gets the size of the image's buffer data.
+        if data is None:
+            with nogil:
+                self._image.get().ResetImage(
+                    width, height, x_offset, y_offset, int_fmt)
+        else:
+            buffer = data
+
+            if data_type:
+                payload = payload_type_names[data_type]
+                if not data_len:
+                    data_len = len(data)
+
+                with nogil:
+                    self._image.get().ResetImage(
+                        width, height, x_offset, y_offset, int_fmt, buffer,
+                        payload, data_len
+                    )
+            else:
+                with nogil:
+                    self._image.get().ResetImage(
+                        width, height, x_offset, y_offset, int_fmt, buffer)
+
+        self._image_data_ref = data
+        self._needs_destroy = 1
+
+    cpdef get_valid_payload_size(self):
+        """Gets the size of valid data in the image payload.
+
+        This is the actual amount of data read from the device, including any
+        additional private data. A user created image has a payload size of
+        zero. The value returned here can be equal to the value returned by
+        :meth:`get_image_data_size` if image data is the only payload.
+        Note that :meth:`get_buffer_size` returns the total size of bytes
+        allocated for the image and could be equal to or greater than the size
+        returned by this function.
         """
         cdef size_t n
         with nogil:
-            check_ret(spinImageGetBufferSize(self._image, &n))
+            n = self._image.get().GetValidPayloadSize()
+        return n
+
+    cpdef get_buffer_size(self):
+        """Gets the size of the buffer associated with the image in bytes.
+
+        For user created images, this function returns the size of the user
+        provided data if the data size was provided when creating or setting
+        the image. If the data size was not provided, the buffer size is
+        calculated based on the image dimensions and pixel format.
+
+        The buffer size may be large than the actual image size as returned
+        by :meth:`get_image_data_size` or :meth:`get_valid_payload_size`.
+        """
+        cdef size_t n
+        with nogil:
+            n = self._image.get().GetBufferSize()
+        return n
+
+    cpdef get_image_data_size(self):
+        """Gets the size of the image and just the image - not including any
+        additional payloads with the image.
+
+        For chunk images, only the size of chunk image portion is reported here.
+        The entire chunk data payload including the image and full payload can
+        be gotten by :meth:`get_valid_payload_size`. For compressed images, this
+        value may be different than the image size once decompressed.
+        """
+        cdef size_t n
+        with nogil:
+            n = self._image.get().GetImageSize()
         return n
 
     cpdef get_image_data(self):
-        """Gets the image's buffer data as a bytearray.
+        """Gets and copies the image data and returns it as a bytearray.
 
+        This does not include any additional payload data included with the
+        image. For compressed images, the full image may be larger once
+        decompressed.
+
+        TODO: Consider returning memoryview of the pointer.
         TODO: Understand the format of the data.
         """
         cdef size_t n
@@ -324,8 +384,8 @@ cdef class Image:
         cdef unsigned char* dest
 
         with nogil:
-            check_ret(spinImageGetBufferSize(self._image, &n))
-            check_ret(spinImageGetData(self._image, &buf))
+            n = self._image.get().GetImageSize()
+            buf = self._image.get().GetData()
 
         data = bytearray(b'\0') * n
         dest = data
@@ -333,60 +393,112 @@ cdef class Image:
 
         return data
 
+    cpdef get_data_max(self):
+        """Get the value which no image data will exceed.
+        """
+        cdef float n
+        with nogil:
+            n = self._image.get().GetDataAbsoluteMax()
+        return n
+
+    cpdef get_data_min(self):
+        """Get the value which no image data will be less than.
+        """
+        cdef float n
+        with nogil:
+            n = self._image.get().GetDataAbsoluteMin()
+        return n
+
     cpdef get_image_id(self):
-        """Gets the ID of the image.
+        """Gets a unique ID for this image.
+
+        Each image in a steam will have a unique ID to help identify it.
         """
         cdef uint64_t n
         with nogil:
-            check_ret(spinImageGetID(self._image, &n))
+            n = self._image.get().GetID()
         return n
 
     cpdef get_width(self):
-        """Gets the image's width.
+        """Gets the width of the image in pixels.
         """
         cdef size_t n
         with nogil:
-            check_ret(spinImageGetWidth(self._image, &n))
+            n = self._image.get().GetWidth()
         return n
 
     cpdef get_height(self):
-        """Gets the image's height.
+        """Gets the height of the image in pixels.
         """
         cdef size_t n
         with nogil:
-            check_ret(spinImageGetHeight(self._image, &n))
+            n = self._image.get().GetHeight()
         return n
 
     cpdef get_offset_x(self):
-        """Gets the image's x-offset.
+        """Gets the ROI x offset in pixels for this image.
         """
         cdef size_t n
         with nogil:
-            check_ret(spinImageGetOffsetX(self._image, &n))
+            n = self._image.get().GetXOffset()
         return n
 
     cpdef get_offset_y(self):
-        """Gets the image's y-offset.
+        """Gets the ROI y offset in pixels for this image.
         """
         cdef size_t n
         with nogil:
-            check_ret(spinImageGetOffsetY(self._image, &n))
+            n = self._image.get().GetYOffset()
         return n
 
     cpdef get_padding_x(self):
-        """Gets the image's x-padding.
+        """Gets the x padding in bytes for this image.
+
+        This is the number of bytes at the end of each line to facilitate
+        alignment in buffers.
         """
         cdef size_t n
         with nogil:
-            check_ret(spinImageGetPaddingX(self._image, &n))
+            n = self._image.get().GetXPadding()
         return n
 
     cpdef get_padding_y(self):
-        """Gets the image's y-padding.
+        """Gets the y padding in bytes for this image.
+        This is the number of bytes at the end of each image to facilitate
+        alignment in buffers.
         """
         cdef size_t n
         with nogil:
-            check_ret(spinImageGetPaddingY(self._image, &n))
+            n = self._image.get().GetYPadding()
+        return n
+
+    cpdef get_stride(self):
+        """Gets the stride of the image in bytes.
+
+        The stride of an image is how many bytes are in each row.
+        """
+        cdef size_t n
+        with nogil:
+            n = self._image.get().GetStride()
+        return n
+
+    cpdef get_bits_per_pixel(self):
+        """Gets the number of bits used per pixel in the image.
+        """
+        cdef size_t n
+        with nogil:
+            n = self._image.get().GetBitsPerPixel()
+        return n
+
+    cpdef get_num_channels(self):
+        """Gets the number of channels (depth) used in the image.
+
+        Returns 0 if the number of channels for the given pixel format is
+        unknown.
+        """
+        cdef size_t n
+        with nogil:
+            n = self._image.get().GetNumChannels()
         return n
 
     cpdef get_frame_id(self):
@@ -394,208 +506,183 @@ cdef class Image:
         """
         cdef uint64_t n
         with nogil:
-            check_ret(spinImageGetFrameID(self._image, &n))
+            n = self._image.get().GetFrameID()
         return n
 
     cpdef get_frame_timestamp(self):
-        """Gets the image's acquisition timestamp.
+        """Gets the time stamp for the image in nanoseconds.
         """
         cdef uint64_t n
         with nogil:
-            check_ret(spinImageGetTimeStamp(self._image, &n))
+            n = self._image.get().GetTimeStamp()
         return n
 
-    cpdef str get_payload_type(self):
-        """Gets the image's payload type.
+    cpdef get_payload_type(self):
+        """Gets the payload type that was transmitted.
+
+        This is a device types specific value that identifies how the image was
+        transmitted.
 
         This returns the payload type name string from
         :attr:`~rotpy.names.payload_type_names`.
         """
         cdef size_t n
         with nogil:
-            check_ret(spinImageGetPayloadType(self._image, &n))
+            n = self._image.get().GetPayloadType()
         return payload_type_values[n]
 
-    cpdef str get_tl_payload_type(self):
-        """Gets the image's underlying transport layer payload type.
+    cpdef get_tl_payload_type(self):
+        """Gets the GenTL specific payload type that was transmitted.
+
+        This is a Transport Layer specific value that identifies how the image
+        was transmitted.
 
         This returns the payload type name string from
         :attr:`~rotpy.names.payload_type_names`.
         """
-        cdef spinPayloadTypeInfoIDs n
+        cdef PayloadTypeInfoIDs n
         with nogil:
-            check_ret(spinImageGetTLPayloadType(self._image, &n))
+            n = self._image.get().GetTLPayloadType()
         return payload_type_values[n]
 
-    cpdef str get_pix_fmt(self):
+    cpdef get_pix_fmt(self):
         """Gets the image's pixel format.
 
         This returns the pixel format name string from
         :attr:`~rotpy.names.PixelFormat_names`.
         """
-        cdef spinPixelFormatEnums n
+        cdef PixelFormatEnums n
         with nogil:
-            check_ret(spinImageGetPixelFormat(self._image, &n))
+            n = self._image.get().GetPixelFormat()
         return PixelFormat_values[n]
 
-    cpdef str get_pix_fmt2(self):
-        """Gets the image's pixel format as a string from the image settings.
+    cpdef get_pix_fmt_int_type(self):
+        """Gets the image's integer type used in the pixel format of this image.
 
-        It's not clear how this is different from :meth:`get_pix_fmt`, so
-        :meth:`get_pix_fmt` should be preferred.
-
-        TODO: understand why this function exists.
+        This returns the name string from
+        :attr:`~rotpy.names.pix_fmt_int_names`.
         """
-        cdef char msg[MAX_BUFF_LEN]
-        cdef size_t n = MAX_BUFF_LEN
+        cdef PixelFormatIntType n
         with nogil:
-            check_ret(spinImageGetPixelFormatName(self._image, msg, &n))
-        return msg[:max(n - 1, 0)].decode()
+            n = self._image.get().GetPixelFormatIntType()
+        return pix_fmt_int_values[n]
 
-    cpdef str get_tl_pix_fmt(self):
-        """Gets the image's underlying transport layer pixel format.
+    cpdef get_pix_fmt_sfnc(self):
+        """Returns a string value that represents this image's pixel format.
 
-        This returns the pixel format name string from
-        :attr:`~rotpy.names.PixelFormat_names`.
+        The string is a valid SFNC name that maps to the underlying TL specific
+        pixel format. This is the most generic way to identify the pixel format
+        of the image.
+        """
+        cdef gcstring s
+        with nogil:
+            s = self._image.get().GetPixelFormatName()
+        return s.c_str().decode()
+
+    cpdef get_tl_pix_fmt(self):
+        """Gets the pixel format of the image.
+
+        This is a Transport Layer specific pixel format that identifies how the
+        pixels in the image should be interpreted. To understand how to
+        interpret this value it is necessary to know what the transport layer
+        namespace is. This can be retrieved through
+        :meth:`get_tl_pix_fmt_namespace`.
         """
         cdef uint64_t n
         with nogil:
-            check_ret(spinImageGetTLPixelFormat(self._image, &n))
-        return PixelFormat_values[n]
-
-    cpdef str get_tl_pix_fmt_namespace(self):
-        """Gets the image's underlying transport layer pixel format namespace.
-
-        This returns the pixel format name string from
-        :attr:`~rotpy.names.pix_fmt_namespace_values`.
-        """
-        cdef spinPixelFormatNamespaceID n
-        with nogil:
-            check_ret(spinImageGetTLPixelFormatNamespace(self._image, &n))
-        return pix_fmt_namespace_values[n]
-
-    cpdef get_valid_data_size(self):
-        """Gets the valid data (payload) size of this image.
-        """
-        cdef size_t n
-        with nogil:
-            check_ret(spinImageGetValidPayloadSize(self._image, &n))
+            n = self._image.get().GetTLPixelFormat()
         return n
 
-    cpdef has_crc(self):
-        """Checks whether the image has CRC information available.
+    cpdef get_tl_pix_fmt_namespace(self):
+        """Gets the image's underlying transport layer namespace in which this
+        image's TL specific pixel format resides.
+
+        This returns the name string from
+        :attr:`~rotpy.names.pix_fmt_namespace_names`.
         """
-        cdef bool8_t n
+        cdef PixelFormatNamespaceID n
         with nogil:
-            check_ret(spinImageHasCRC(self._image, &n))
+            n = self._image.get().GetTLPixelFormatNamespace()
+        return pix_fmt_namespace_values[n]
+
+    cpdef get_layout_id(self):
+        """Returns the id of the chunk data layout.
+        """
+        cdef uint64_t n
+        with nogil:
+            n = self._image.get().GetChunkLayoutId()
+        return n
+
+    cpdef get_completed(self):
+        """Returns whether this image was incomplete.
+
+        An image is marked as incomplete if the transport layer received less
+        data then it requested.
+        """
+        cdef cbool n
+        with nogil:
+            n = self._image.get().IsIncomplete()
+        return bool(n)
+
+    cpdef has_crc(self):
+        """Returns whether the image contains ImageCRC checksum from the chunk
+        data.
+        """
+        cdef cbool n
+        with nogil:
+            n = self._image.get().HasCRC()
         return bool(n)
 
     cpdef get_crc(self):
-        """Returns whether the CRC of the image is correct.
+        """Returns whether the computed checksum matches with chunk data's
+        ImageCRC.
         """
-        cdef bool8_t n
+        cdef cbool n
         with nogil:
-            check_ret(spinImageCheckCRC(self._image, &n))
+            n = self._image.get().CheckCRC()
         return bool(n)
 
-    cpdef get_bits_per_pixel(self):
-        """Gets the number of bits per pixel of this image.
+    cpdef get_in_use(self):
+        """Returns whether the image is still in use by the stream.
         """
-        cdef size_t n
+        cdef cbool n
         with nogil:
-            check_ret(spinImageGetBitsPerPixel(self._image, &n))
-        return n
+            n = self._image.get().IsInUse()
+        return bool(n)
 
-    cpdef get_size(self):
-        """Gets the size of this image.
+    cpdef get_is_compressed(self):
+        """Returns whether this image is compressed.
         """
-        cdef size_t n
+        cdef cbool n
         with nogil:
-            check_ret(spinImageGetSize(self._image, &n))
-        return n
+            n = self._image.get().IsCompressed()
+        return bool(n)
 
-    cpdef get_stride(self):
-        """Gets the stride of this image.
+    cpdef get_status(self):
+        """Returns data integrity status of the image when it was returned from
+        :meth:`~rotpy.camera.Camera.get_next_image`.
+
+        This returns the name string from :attr:`~rotpy.names.img_status_names`.
         """
-        cdef size_t n
+        cdef ImageStatus n
         with nogil:
-            check_ret(spinImageGetStride(self._image, &n))
-        return n
+            n = self._image.get().GetImageStatus()
+        return img_status_values[n]
 
-    cpdef get_data_property(self, str name):
-        """Gets a named data property of the image.
+    @staticmethod
+    def get_status_description(str status):
+        """Returns a string describing the meaning of the status string from
+        :meth:`get_status`.
 
-        The property names are listed in :attr:`data_float_properties` and
-        :attr:`data_int_properties`. If ``name`` is in neither set, an error is
-        raised.
-
-        :param name: The name of the property.
-        :return: Either a int or float, depending on the property.
+        :param status: A status string from
+            :attr:`~rotpy.names.img_status_names`.
         """
-        cdef int is_float
-        cdef double d_val
-        cdef int64_t i_val
-        cdef bytes name_b = name.encode()
-        cdef const char* name_c = name_b
+        return Image.get_status_description_c(status)
 
-        if name in self.data_int_properties:
-            is_float = 0
-        elif name in self.data_float_properties:
-            is_float = 1
-        else:
-            raise ValueError(f'"{name}" is not a recognized data property')
-
-        if is_float:
-            with nogil:
-                check_ret(spinImageChunkDataGetFloatValue(self._image, name_c, &d_val))
-            return d_val
-        else:
-            with nogil:
-                check_ret(spinImageChunkDataGetIntValue(self._image, name_c, &i_val))
-            return i_val
-
-    cpdef get_data_int_property(self, str name):
-        """Gets a integer named data property of the image.
-
-        The property names are listed in :attr:`data_int_properties`, but we
-        don't verify that ``name`` is a valid property, unlike
-        :meth:`get_data_property`.
-
-        :param name: The name of the property.
-        :return: An integer.
-        """
-        cdef int64_t val
-        cdef bytes name_b = name.encode()
-        cdef const char * name_c = name_b
+    @staticmethod
+    cdef str get_status_description_c(str status):
+        cdef const char* msg
+        cdef ImageStatus n = img_status_names[status]
         with nogil:
-            check_ret(
-                spinImageChunkDataGetIntValue(self._image, name_c, &val))
-        return val
-
-    cpdef get_data_float_property(self, str name):
-        """Gets a float named data property of the image.
-
-        The property names are listed in :attr:`data_float_properties`, but we
-        don't verify that ``name`` is a valid property, unlike
-        :meth:`get_data_property`.
-
-        :param name: The name of the property.
-        :return: A floating point number.
-        """
-        cdef double val
-        cdef bytes name_b = name.encode()
-        cdef const char * name_c = name_b
-        with nogil:
-            check_ret(
-                spinImageChunkDataGetFloatValue(self._image, name_c, &val))
-        return val
-
-    cpdef get_layout(self):
-        """Gets the data layout of this image.
-
-        TODO: Understand what this means.
-        """
-        cdef uint64_t n
-        with nogil:
-            check_ret(spinImageGetChunkLayoutID(self._image, &n))
-        return n
+            msg = CImage.GetImageStatusDescription(n)
+        return msg.decode()

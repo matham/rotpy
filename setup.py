@@ -30,13 +30,13 @@ include_dirs = []
 library_dirs = []
 
 if sys.platform in ('win32', 'cygwin'):
-    libraries = ['SpinnakerC_v140', ]
+    libraries = ['Spinnaker_v140', ]
 else:
     libraries = ['flycapturegui-c', 'flycapture-c']
     include_dirs.append('/usr/include/flycapture')
     include_dirs.append('/usr/include/flycapture/C')
 
-include = environ.get('ROTPY_INCLUDE', r'E:\FLIR\Spinnaker\include\spinc')
+include = environ.get('ROTPY_INCLUDE', r'E:\FLIR\Spinnaker\include')
 if include:
     include_dirs.extend(include.split(pathsep))
 
@@ -46,8 +46,7 @@ if lib:
 
 
 mods = [
-    'interface', '_interface', 'system', 'camera', 'names', 'event', 'image',
-    'node'
+    '_interface', 'system', 'names', 'camera', 'image',
 ]
 mod_suffix = '.pyx'
 include_dirs.append(join(abspath(dirname(__file__)), 'rotpy', 'includes'))
