@@ -15,15 +15,6 @@ cdef class NodeMap:
     cpdef get_dev_name(self)
 
 
-cdef class SpinEnumReferenceNode:
-
-    cdef IEnumReference* _enum_ref_handle
-
-    cdef void set_handle(self, object source, IBase* handle) except *
-    cpdef set_enum_ref(self, int index, str name)
-    cpdef set_num_enums(self, int num)
-
-
 cdef class SpinBaseNode:
 
     cdef IBase* _base_handle
@@ -159,21 +150,41 @@ cdef class SpinRegisterNode(SpinValueNode):
     cpdef set_node_value(self, object buffer, cbool verify=*)
 
 
-cdef class SpinEnumClsNode(SpinBaseNode):
+cdef class SpinEnumNode(SpinValueNode):
 
-    cpdef get_items(self)
-    # cpdef get_num_items(self)
-    # cpdef SpinEnumItemNode get_item_by_index(self, size_t index)
-    # cpdef SpinEnumItemNode get_item_by_name(self, str name)
-    # cpdef SpinEnumItemNode get_node_value(self)
-    # cpdef set_node_value(self, SpinEnumItemNode item)
-    # cpdef set_node_value_by_int(self, int64_t value)
-    # cpdef set_node_value_by_enum(self, size_t value)
+    cdef IEnumeration* _handle
+
+    cpdef get_entries_names(self)
+    cpdef get_entries(self)
+    cpdef get_num_entries(self)
+    cpdef get_entry_by_int_value(self, int64_t value)
+    cpdef get_entry_by_name(self, str name)
+    cpdef get_node_int_value(self, cbool verify=*, cbool ignore_cache=*)
+    cpdef set_node_int_value(self, int64_t value, cbool verify=*)
+    cpdef get_node_value(self, cbool verify=*, cbool ignore_cache=*)
+    cpdef set_node_value(self, SpinEnumItemNode item, cbool verify=*)
+
+
+cdef class SpinEnumDefNode(SpinEnumNode):
+
+    cdef IEnumerationT[int]* _enum_handle
+
+    cdef public dict enum_names
+    cdef public dict enum_values
+
+    cpdef get_entry_by_api_str(self, str value)
+    cpdef get_node_api_str_value(self, cbool verify=*, cbool ignore_cache=*)
+    cpdef set_node_api_str_value(self, str value, cbool verify=*)
+    cpdef set_enum_ref(self, int index, str name)
+    cpdef set_num_enums(self, int num)
 
 
 cdef class SpinEnumItemNode(SpinValueNode):
 
     cdef IEnumEntry* _handle
+
+    cdef public str enum_name
+    cdef public int enum_value
 
     cpdef get_enum_int_value(self)
     cpdef get_enum_num(self)

@@ -18,7 +18,7 @@ cdef dict node_cls_map = {
     InterfaceType_names['String']: SpinStrNode,
     InterfaceType_names['Register']: SpinRegisterNode,
     InterfaceType_names['Category']: SpinTreeNode,
-    InterfaceType_names['Enumeration']: SpinEnumClsNode,
+    InterfaceType_names['Enumeration']: SpinEnumNode,
     InterfaceType_names['EnumEntry']: SpinEnumItemNode,
     InterfaceType_names['Port']: SpinPortNode,
 }
@@ -33,7 +33,7 @@ ctypedef fused NodeBases:
     SpinStrNode
     SpinCommandNode
     SpinRegisterNode
-    SpinEnumClsNode
+    SpinEnumNode
     SpinEnumItemNode
     SpinTreeNode
     SpinPortNode
@@ -70,8 +70,7 @@ cdef object create_node_inst(object obj, INode* handle):
     elif node_type == intfICategory:
         return _node_inst[SpinTreeNode](SpinTreeNode(), obj, handle)
     elif node_type == intfIEnumeration:
-        # return _node_inst[SpinEnumClsNode](SpinEnumClsNode(), obj, handle)
-        return None
+        return _node_inst[SpinEnumNode](SpinEnumNode(), obj, handle)
     elif node_type == intfIEnumEntry:
         return _node_inst[SpinEnumItemNode](SpinEnumItemNode(), obj, handle)
     elif node_type == intfIPort:
@@ -195,33 +194,6 @@ virtual bool Connect(IPort * pPort) const = 0;
  */
 virtual CLock& GetLock() const = 0;
 """
-
-
-cdef class SpinEnumReferenceNode:
-
-    def __cinit__(self):
-        self._enum_ref_handle = NULL
-
-    cdef void set_handle(self, object source, IBase* handle) except *:
-        self._enum_ref_handle = dynamic_cast[IEnumReferencePointer](handle)
-
-    cpdef set_enum_ref(self, int index, str name):
-        """Sets the value corresponding to a enum item.
-        """
-        cdef bytes name_b = name.encode()
-        cdef size_t n = len(name)
-        cdef const char * name_c = name_b
-        cdef gcstring name_s
-
-        with nogil:
-            name_s.assign(name_c, n)
-            self._enum_ref_handle.SetEnumReference(index, name_s)
-
-    cpdef set_num_enums(self, int num):
-        """Sets the number of enum values.
-        """
-        with nogil:
-            self._enum_ref_handle.SetNumEnums(num)
 
 
 cdef class SpinBaseNode:
@@ -1105,107 +1077,240 @@ cdef class SpinRegisterNode(SpinValueNode):
             self._handle.Set(&buf[0], n, verify)
 
 
-cdef class SpinEnumClsNode(SpinBaseNode):
+cdef class SpinEnumNode(SpinValueNode):
 
-    cpdef get_items(self):
-        """Returns a list of :class:`SpinEnumItemNode` instances that are
-        items of this enum class.
+    def __cinit__(self):
+        self._handle = NULL
+
+    cdef void set_handle(self, object source, IBase* handle) except *:
+        SpinValueNode.set_handle(self, object, handle)
+        self._handle = dynamic_cast[IEnumerationPointer](handle)
+
+    cpdef get_entries_names(self):
+        """Returns a list of the enum entries string names.
         """
+        cdef StringList_t s
         cdef list items = []
-        # for i in range(self.get_num_items()):
-        #     items.append(self.get_item_by_index(i))
-        # return items
+        cdef size_t n, i
 
-    # cpdef get_num_items(self):
-    #     """Gets the number of items in the enum class.
-    #     """
-    #     cdef size_t n
-    #     with nogil:
-    #         check_ret(spinEnumerationGetNumEntries(self._handle, &n))
-    #     return n
-    #
-    # cpdef SpinEnumItemNode get_item_by_index(self, size_t index):
-    #     """Gets a enum item node from the enum class by index.
-    #
-    #     :param index: The index of the node.
-    #     :return: A :class:`SpinEnumItemNode` instance.
-    #     """
-    #     cdef SpinEnumItemNode node
-    #     cdef spinNodeHandle handle
-    #
-    #     with nogil:
-    #         check_ret(spinEnumerationGetEntryByIndex(self._handle, index, &handle))
-    #
-    #     node = SpinEnumItemNode()
-    #     node.set_handle_from_cls(self, handle)
-    #
-    #     return node
-    #
-    # cpdef SpinEnumItemNode get_item_by_name(self, str name):
-    #     """Gets a enum item node from the enum class by name.
-    #
-    #     :param name: The symbolic string name of the enum item.
-    #     :return: A :class:`SpinEnumItemNode` instance.
-    #     """
-    #     cdef SpinEnumItemNode node
-    #     cdef spinNodeHandle handle
-    #     cdef bytes name_b = name.encode()
-    #     cdef const char * name_c = name_b
-    #
-    #     with nogil:
-    #         check_ret(spinEnumerationGetEntryByName(self._handle, name_c, &handle))
-    #
-    #     node = SpinEnumItemNode()
-    #     node.set_handle_from_cls(self, handle)
-    #
-    #     return node
-    #
-    # cpdef SpinEnumItemNode get_node_value(self):
-    #     """Gets the enum item that the class is currently set to.
-    #
-    #     :return: A :class:`SpinEnumItemNode` instance.
-    #     """
-    #     cdef SpinEnumItemNode node
-    #     cdef spinNodeHandle handle
-    #
-    #     with nogil:
-    #         check_ret(spinEnumerationGetCurrentEntry(self._handle, &handle))
-    #
-    #     node = SpinEnumItemNode()
-    #     node.set_handle_from_cls(self, handle)
-    #
-    #     return node
-    #
-    # cpdef set_node_value(self, SpinEnumItemNode item):
-    #     """Sets the value of the enum class to this item.
-    #     """
-    #     cdef size_t n = item.get_node_enum_value()
-    #     with nogil:
-    #         check_ret(spinEnumerationSetEnumValue(self._handle, n))
-    #
-    # cpdef set_node_value_by_int(self, int64_t value):
-    #     """Sets the value of the enum class to this int value.
-    #
-    #     .. note::
-    #
-    #         The enumeration item int and enum values are different - int values
-    #         are defined on camera while the enum values defined in the Spinnaker
-    #         API.
-    #     """
-    #     with nogil:
-    #         check_ret(spinEnumerationSetIntValue(self._handle, value))
-    #
-    # cpdef set_node_value_by_enum(self, size_t value):
-    #     """Sets the value of the enum class to this enum value.
-    #
-    #     .. note::
-    #
-    #         The enumeration item int and enum values are different - int values
-    #         are defined on camera while the enum values defined in the Spinnaker
-    #         API.
-    #     """
-    #     with nogil:
-    #         check_ret(spinEnumerationSetEnumValue(self._handle, value))
+        with nogil:
+            self._handle.GetSymbolics(s)
+            n = s.size()
+
+        for i in range(n):
+            items.append(s.at(i).c_str().decode())
+        return items
+
+    cpdef get_entries(self):
+        """Returns a list of :class:`SpinEnumItemNode` instances that are the
+        entries of this enum class.
+
+        .. note::
+
+            Every call to this function creates a list of new
+            :class:`SpinEnumItemNode`.
+        """
+        cdef NodeList_t entries
+        cdef list items = []
+        cdef size_t n, i
+
+        with nogil:
+            self._handle.GetEntries(entries)
+            n = entries.size()
+
+        for i in range(n):
+            items.append(create_node_inst(self, (&entries.at(i))[0]))
+        return items
+
+    cpdef get_num_entries(self):
+        """Gets the number of entries of this enum class.
+        """
+        cdef NodeList_t entries
+        cdef size_t n
+        with nogil:
+            self._handle.GetEntries(entries)
+            n = entries.size()
+        return n
+
+    cpdef get_entry_by_int_value(self, int64_t value):
+        """Gets a enum entry node from the enum class by its int value.
+
+        :param value: The int value of the entry to get.
+        :return: A :class:`SpinEnumItemNode` instance.
+
+        .. note::
+
+            Every call to this function creates a new :class:`SpinEnumItemNode`.
+        """
+        cdef SpinEnumItemNode entry
+        cdef IEnumEntry* handle
+
+        with nogil:
+            handle = self._handle.GetEntry(value)
+
+        entry = SpinEnumItemNode()
+        entry.set_handle(self, dynamic_cast[IBasePointer](handle))
+        return entry
+
+    cpdef get_entry_by_name(self, str name):
+        """Gets a enum entry node from the enum class by its string name.
+
+        :param name: The symbolic string name of the enum entry to get.
+        :return: A :class:`SpinEnumItemNode` instance.
+
+        .. note::
+
+            Every call to this function creates a new :class:`SpinEnumItemNode`.
+        """
+        cdef SpinEnumItemNode entry
+        cdef IEnumEntry* handle
+        cdef bytes name_b = name.encode()
+        cdef const char * name_c = name_b
+        cdef size_t n = len(name_b)
+        cdef gcstring s
+
+        with nogil:
+            s.assign(name_c, n)
+            handle = self._handle.GetEntryByName(s)
+
+        entry = SpinEnumItemNode()
+        entry.set_handle(self, dynamic_cast[IBasePointer](handle))
+        return entry
+
+    cpdef get_node_int_value(self, cbool verify=False, cbool ignore_cache=False):
+        """Gets the int value of the enum entry that the enum is currently set
+        to.
+
+        :param verify: Enables Range verification. The access mode is always
+            checked.
+        :param ignore_cache: If true the value is read ignoring any caches.
+        """
+        cdef int64_t n
+        with nogil:
+            n = self._handle.GetIntValue(verify, ignore_cache)
+        return n
+
+    cpdef set_node_int_value(self, int64_t value, cbool verify=True):
+        """Sets the value of the enum entry that the enum is currently set
+        to, by its int.
+
+        :param value: The value to which to set the node.
+        :param verify: Enables access mode and range verification.
+        """
+        with nogil:
+            self._handle.SetIntValue(value, verify)
+
+    cpdef get_node_value(self, cbool verify=False, cbool ignore_cache=False):
+        """Gets the :class:`SpinEnumItemNode` entry that the enum is currently
+        set to.
+
+        :param verify: Enables Range verification. The access mode is always
+            checked.
+        :param ignore_cache: If true the value is read ignoring any caches.
+
+        .. note::
+
+            Every call to this function creates a new :class:`SpinEnumItemNode`.
+        """
+        cdef SpinEnumItemNode entry
+        cdef IEnumEntry* handle
+
+        with nogil:
+            handle = self._handle.GetCurrentEntry(verify, ignore_cache)
+
+        entry = SpinEnumItemNode()
+        entry.set_handle(self, dynamic_cast[IBasePointer](handle))
+        return entry
+
+    cpdef set_node_value(self, SpinEnumItemNode item, cbool verify=True):
+        """Sets the value of the enum entry that the enum is currently set
+        to, by an :class:`SpinEnumItemNode`.
+
+        :param item: The :class:`SpinEnumItemNode` item to which to set the
+            node.
+        :param verify: Enables access mode and range verification.
+        """
+        cdef int64_t value = item.get_enum_int_value()
+        with nogil:
+            self._handle.SetIntValue(value, verify)
+
+
+cdef class SpinEnumDefNode(SpinEnumNode):
+
+    def __cinit__(self):
+        self._enum_handle = NULL
+
+    cdef void set_handle(self, object source, IBase* handle) except *:
+        SpinEnumNode.set_handle(self, object, handle)
+        self._enum_handle = dynamic_cast[IEnumerationTPointer](handle)
+
+    cpdef get_entry_by_api_str(self, str value):
+        """Gets a enum entry node from the enum class by its API string value
+        as listed in :attr:`enum_names`.
+
+        :param value: The string value of the entry to get as listed in
+            :attr:`enum_names`.
+        :return: A :class:`SpinEnumItemNode` instance.
+
+        .. note::
+
+            Every call to this function creates a new :class:`SpinEnumItemNode`.
+        """
+        cdef int n = self.enum_names[value]
+        cdef SpinEnumItemNode entry
+        cdef IEnumEntry* handle
+
+        with nogil:
+            handle = self._enum_handle.GetEntry(n)
+
+        entry = SpinEnumItemNode()
+        entry.set_handle(self, dynamic_cast[IBasePointer](handle))
+        entry.enum_name = value
+        entry.enum_value = n
+        return entry
+
+    cpdef get_node_api_str_value(
+            self, cbool verify=False, cbool ignore_cache=False):
+        """Gets the string value of the enum entry that the enum is currently
+        set to as listed in :attr:`enum_names`.
+
+        :param verify: Enables Range verification. The access mode is always
+            checked.
+        :param ignore_cache: If true the value is read ignoring any caches.
+        """
+        cdef int n
+        with nogil:
+            n = self._enum_handle.GetValue(verify, ignore_cache)
+        return self.enum_values[n]
+
+    cpdef set_node_api_str_value(self, str value, cbool verify=True):
+        """Sets the value of the enum entry that the enum is currently set
+        to, by its string as listed in :attr:`enum_names`.
+
+        :param value: The string API value to which to set the node.
+        :param verify: Enables access mode and range verification.
+        """
+        cdef int n = self.enum_names[value]
+        with nogil:
+            self._enum_handle.SetValue(n, verify)
+
+    cpdef set_enum_ref(self, int index, str name):
+        """Sets the value corresponding to a enum item.
+        """
+        cdef bytes name_b = name.encode()
+        cdef size_t n = len(name)
+        cdef const char * name_c = name_b
+        cdef gcstring name_s
+
+        with nogil:
+            name_s.assign(name_c, n)
+            self._enum_handle.SetEnumReference(index, name_s)
+
+    cpdef set_num_enums(self, int num):
+        """Sets the number of enum values.
+        """
+        with nogil:
+            self._enum_handle.SetNumEnums(num)
 
 
 cdef class SpinEnumItemNode(SpinValueNode):
@@ -1231,8 +1336,8 @@ cdef class SpinEnumItemNode(SpinValueNode):
         .. note::
 
             This is not the same int number as the "enum" number associated
-            with the entry from :mod:`rotpy.names`. This value is the device
-            representation of the entry.
+            with the entry from :mod:`rotpy.names` that is generated by the API.
+            This value is the device representation of the entry.
         """
         cdef int64_t n
         with nogil:

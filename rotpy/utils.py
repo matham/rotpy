@@ -317,7 +317,7 @@ def dump_genapi_prop_cython(
         'IString': 'SpinStrNode',
         'IRegister': 'SpinRegisterNode',
         'ICategory': 'SpinTreeNode',
-        'IEnumeration': 'SpinEnumClsNode',
+        'IEnumeration': 'SpinEnumNode',
         'IPort': 'SpinPortNode',
     }
     props = []

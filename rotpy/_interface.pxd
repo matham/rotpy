@@ -36,7 +36,8 @@ ctypedef IString* IStringPointer
 ctypedef IRegister* IRegisterPointer
 ctypedef ICategory* ICategoryPointer
 ctypedef IEnumEntry* IEnumEntryPointer
+ctypedef IEnumeration* IEnumerationPointer
 ctypedef IPort* IPortPointer
 ctypedef ISelector* ISelectorPointer
-ctypedef IEnumReference* IEnumReferencePointer
+ctypedef IEnumerationT[int]* IEnumerationTPointer
 ctypedef INode* INodePointer

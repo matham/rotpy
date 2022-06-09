@@ -171,7 +171,6 @@ cdef extern from "SpinGenApi/IEnumeration.h" namespace "Spinnaker::GenApi" nogil
     cdef cppclass IEnumeration(IValue):
         void GetSymbolics(StringList_t& Symbolics) except +
         void GetEntries(NodeList_t& Entries) except +
-        IEnumeration* operator=(const gcstring& ValueStr) except +
         void SetIntValue(int64_t Value, cbool Verify) except +
         int64_t GetIntValue(cbool Verify, cbool IgnoreCache) except +
         IEnumEntry* GetEntryByName(const gcstring& Symbolic) except +
