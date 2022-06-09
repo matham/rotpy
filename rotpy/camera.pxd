@@ -2,6 +2,7 @@ from ._interface cimport *
 from .system cimport SpinSystem
 from .image cimport Image
 from .node cimport NodeMap
+from .camera_nodes cimport CameraNodes, TLDevNodes, TLStreamNodes
 
 
 cdef class CameraList:
@@ -26,6 +27,10 @@ cdef class Camera:
     cdef CameraPtr _camera
     cdef CameraList _cam_list
     cdef int _cam_set
+
+    cdef public CameraNodes camera_nodes
+    cdef public TLDevNodes tl_dev_nodes
+    cdef public TLStreamNodes tl_stream_nodes
 
     cdef object set_camera_by_index(self, CameraList cam_list, unsigned int index)
     cdef object set_camera_by_serial(self, CameraList cam_list, bytes serial)

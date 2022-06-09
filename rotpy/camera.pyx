@@ -2,6 +2,7 @@ from .system import SpinSystem
 from.names import img_status_values, access_mode_values, buffer_owner_values, \
     buffer_owner_names
 from .node import NodeMap
+from .camera_nodes cimport CameraNodes, TLDevNodes, TLStreamNodes
 
 cimport cpython.array
 from array import array
@@ -129,6 +130,9 @@ cdef class Camera:
 
     def __cinit__(self):
         self._cam_set = 0
+        self.camera_nodes = CameraNodes(camera=self)
+        self.tl_dev_nodes = TLDevNodes(camera=self)
+        self.tl_stream_nodes = TLStreamNodes(camera=self)
 
     def __dealloc__(self):
         if self._cam_set:

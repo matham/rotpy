@@ -20,6 +20,7 @@ from libcpp.cast cimport dynamic_cast
 
 include "includes/Types.pxi"
 include "includes/SpinnakerDefs.pxi"
+include "includes/TransportLayerDefs.pxi"
 include "includes/CameraDefs.pxi"
 include "includes/spinnaker.pxi"
 

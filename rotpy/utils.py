@@ -10,6 +10,7 @@ For example::
 """
 
 from typing import List
+from textwrap import TextWrapper
 from re import compile, match, sub, split, finditer
 import traceback
 import re
@@ -308,7 +309,8 @@ def parse_class_vars(filename):
 
 
 def dump_genapi_prop_cython(
-        items: List[GenAPIVarSpec], ofile, prop_storage_path, cam_handle_path):
+        items: List[GenAPIVarSpec], ofile, prop_storage_name='_nodes',
+        cam_name='_camera', handle_name='_camera', item_prefix=''):
     node_cls_map = {
         'IInteger': 'SpinIntNode',
         'IBoolean': 'SpinBoolNode',
@@ -317,24 +319,56 @@ def dump_genapi_prop_cython(
         'IString': 'SpinStrNode',
         'IRegister': 'SpinRegisterNode',
         'ICategory': 'SpinTreeNode',
-        'IEnumeration': 'SpinEnumNode',
+        'IEnumerationT': 'SpinEnumDefNode',
         'IPort': 'SpinPortNode',
     }
-    props = []
 
-    for item in items:
-        handle_cls = item.type_name
-        if item.type_template is not None:
-            handle_cls = f'{item.type_name}[{item.type_template}]>'
-        prop = f'''\
-@property.getter
-def {item.name}(self):
-    cdef {handle_cls}* handle
-    node = {prop_storage_path}.get("{item.name}")
-    if node is None:
-        handle = {cam_handle_path}.{item.name}
+    wrapper = TextWrapper(width=68, tabsize=4)
+    with open(ofile, 'w') as fh:
+        for item in items:
+            description = '\n        '.join(wrapper.wrap(item.description))
+            visibility = ''
+            if item.visibility is not None:
+                visibility = f'\n\n        Visibility: ``{item.visibility}``.'
 
+            enum_dict = ''
+            t_name = item.type_template
+            if t_name is not None:
+                if t_name.endswith('Enums'):
+                    t_name = t_name[:-5]
+                if t_name.endswith('Enum'):
+                    t_name = t_name[:-4]
+
+                enum_dict = f"""
+            node_inst.enum_names = rotpy.names.{t_name}_names
+            node_inst.enum_values = rotpy.names.{t_name}_values"""
+
+            prop = f'''
+    @property.getter
+    def {item.name}(self):
+        """{description}{visibility}
+        """
+        cdef {node_cls_map[item.type_name]} node_inst
+        node = self.{prop_storage_name}.get("{item.name}")
+        if node is None:
+            node_inst = {node_cls_map[item.type_name]}()
+            node_inst.set_handle(self, dynamic_cast[IBasePointer](
+                &self.{cam_name}.{handle_name}.get(){item_prefix}.{item.name}))\
+{enum_dict}
+            node = self.{prop_storage_name}["{item.name}"] = node_inst
+        return node
 '''
+
+            fh.write(prop)
+
+
+def dump_genapi_import_prop_cython(items: List[GenAPIVarSpec], ofile):
+    with open(ofile, 'w') as fh:
+        for item in items:
+            tp = item.type_name
+            if item.type_template is not None:
+                tp = f'{item.type_name}[{item.type_template}]'
+            fh.write(f'        {tp} &{item.name}\n')
 
 
 if __name__ == '__main__':
@@ -346,6 +380,7 @@ if __name__ == '__main__':
         content = parse_class_vars(f)
         # content = parse_header(f)
 
+        dump_genapi_prop_cython(content, f'{name}.px', item_prefix='')
         # dump_cython(content, '{}.h'.format(name), '{}.pxi'.format(name))
 
         print('{} done!'.format(name))
