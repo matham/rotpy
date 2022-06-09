@@ -310,7 +310,8 @@ def parse_class_vars(filename):
 
 def dump_genapi_prop_cython(
         items: List[GenAPIVarSpec], ofile, prop_storage_name='_nodes',
-        cam_name='_camera', handle_name='_camera', item_prefix=''):
+        cam_name='_camera', handle_name='_camera', prop_prefix='',
+        name_mod='.camera'):
     node_cls_map = {
         'IInteger': 'SpinIntNode',
         'IBoolean': 'SpinBoolNode',
@@ -326,34 +327,40 @@ def dump_genapi_prop_cython(
     wrapper = TextWrapper(width=68, tabsize=4)
     with open(ofile, 'w') as fh:
         for item in items:
+
             description = '\n        '.join(wrapper.wrap(item.description))
-            visibility = ''
-            if item.visibility is not None:
-                visibility = f'\n\n        Visibility: ``{item.visibility}``.'
+            visibility = 'default' or item.visibility
 
             enum_dict = ''
             t_name = item.type_template
+            doc_name = ''
             if t_name is not None:
                 if t_name.endswith('Enums'):
                     t_name = t_name[:-5]
                 if t_name.endswith('Enum'):
                     t_name = t_name[:-4]
+                doc_name = f'''
+        :Enum entries: :attr:`~rotpy.names{name_mod}.{t_name}_names`.'''
 
                 enum_dict = f"""
-            node_inst.enum_names = rotpy.names.{t_name}_names
-            node_inst.enum_values = rotpy.names.{t_name}_values"""
+            node_inst.enum_names = rotpy.names{name_mod}.{t_name}_names
+            node_inst.enum_values = rotpy.names{name_mod}.{t_name}_values"""
 
             prop = f'''
     @property.getter
     def {item.name}(self):
-        """{description}{visibility}
+        """{description}
+
+        :Property type: :class:`~rotpy.node.{node_cls_map[item.type_name]}`.\
+{doc_name}
+        :Visibility: ``{visibility}``.
         """
         cdef {node_cls_map[item.type_name]} node_inst
         node = self.{prop_storage_name}.get("{item.name}")
         if node is None:
             node_inst = {node_cls_map[item.type_name]}()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
-                &self.{cam_name}.{handle_name}.get(){item_prefix}.{item.name}))\
+                &self.{cam_name}.{handle_name}.get(){prop_prefix}.{item.name}))\
 {enum_dict}
             node = self.{prop_storage_name}["{item.name}"] = node_inst
         return node
@@ -375,12 +382,13 @@ if __name__ == '__main__':
     from os.path import join
     include = r'e:\FLIR\Spinnaker\include'
 
-    for name in ('Camera', ):
+    for name in ('TransportLayerStream', ):
         f = join(include, '{}.h'.format(name))
         content = parse_class_vars(f)
         # content = parse_header(f)
 
-        dump_genapi_prop_cython(content, f'{name}.px', item_prefix='')
+        dump_genapi_prop_cython(
+            content, f'{name}.px', prop_prefix='.TLStream', name_mod='.tl')
         # dump_cython(content, '{}.h'.format(name), '{}.pxi'.format(name))
 
         print('{} done!'.format(name))

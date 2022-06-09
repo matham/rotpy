@@ -1,6 +1,9 @@
 from .node cimport SpinIntNode, SpinFloatNode, SpinBoolNode, SpinStrNode, \
     SpinCommandNode, SpinRegisterNode, SpinEnumDefNode
-import rotpy.names
+import rotpy.names.camera
+import rotpy.names.tl
+import rotpy.names.spin
+import rotpy.names.geni
 
 
 cdef class CameraNodes:
@@ -16,6 +19,9 @@ cdef class CameraNodes:
     def LUTIndex(self):
         """Control the index (offset) of the coefficient to access in the
         selected LUT.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("LUTIndex")
@@ -29,6 +35,9 @@ cdef class CameraNodes:
     @property.getter
     def LUTEnable(self):
         """Activates the selected LUT.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("LUTEnable")
@@ -43,6 +52,9 @@ cdef class CameraNodes:
     def LUTValue(self):
         """Returns the Value at entry LUTIndex of the LUT selected by
         LUTSelector.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("LUTValue")
@@ -56,6 +68,10 @@ cdef class CameraNodes:
     @property.getter
     def LUTSelector(self):
         """Selects which LUT to control.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.LUTSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("LUTSelector")
@@ -63,14 +79,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().LUTSelector))
-            node_inst.enum_names = rotpy.names.LUTSelector_names
-            node_inst.enum_values = rotpy.names.LUTSelector_values
+            node_inst.enum_names = rotpy.names.camera.LUTSelector_names
+            node_inst.enum_values = rotpy.names.camera.LUTSelector_values
             node = self._nodes["LUTSelector"] = node_inst
         return node
 
     @property.getter
     def ExposureTime(self):
         """Exposure time in microseconds when Exposure Mode is Timed.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("ExposureTime")
@@ -84,6 +103,9 @@ cdef class CameraNodes:
     @property.getter
     def AcquisitionStop(self):
         """This command stops the acquisition of images.
+
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("AcquisitionStop")
@@ -99,6 +121,9 @@ cdef class CameraNodes:
         """Resulting frame rate in Hertz. If this does not equal the
         Acquisition Frame Rate it is because the Exposure Time is greater
         than the frame time.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("AcquisitionResultingFrameRate")
@@ -113,6 +138,9 @@ cdef class CameraNodes:
     def AcquisitionLineRate(self):
         """Controls the rate (in Hertz) at which the Lines in a Frame are
         captured.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("AcquisitionLineRate")
@@ -126,6 +154,9 @@ cdef class CameraNodes:
     @property.getter
     def AcquisitionStart(self):
         """This command starts the acquisition of images.
+
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("AcquisitionStart")
@@ -139,6 +170,9 @@ cdef class CameraNodes:
     @property.getter
     def TriggerSoftware(self):
         """Generates an internal trigger if Trigger Source is set to Software.
+
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("TriggerSoftware")
@@ -152,6 +186,10 @@ cdef class CameraNodes:
     @property.getter
     def ExposureMode(self):
         """Sets the operation mode of the Exposure.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ExposureMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ExposureMode")
@@ -159,8 +197,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ExposureMode))
-            node_inst.enum_names = rotpy.names.ExposureMode_names
-            node_inst.enum_values = rotpy.names.ExposureMode_values
+            node_inst.enum_names = rotpy.names.camera.ExposureMode_names
+            node_inst.enum_values = rotpy.names.camera.ExposureMode_values
             node = self._nodes["ExposureMode"] = node_inst
         return node
 
@@ -170,6 +208,10 @@ cdef class CameraNodes:
         continuously. Multi Frame: acquires a specified number of images
         before stopping acquisition. Single Frame: acquires 1 image before
         stopping acquisition.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.AcquisitionMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("AcquisitionMode")
@@ -177,14 +219,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().AcquisitionMode))
-            node_inst.enum_names = rotpy.names.AcquisitionMode_names
-            node_inst.enum_values = rotpy.names.AcquisitionMode_values
+            node_inst.enum_names = rotpy.names.camera.AcquisitionMode_names
+            node_inst.enum_values = rotpy.names.camera.AcquisitionMode_values
             node = self._nodes["AcquisitionMode"] = node_inst
         return node
 
     @property.getter
     def AcquisitionFrameCount(self):
         """Number of images to acquire during a multi frame acquisition.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("AcquisitionFrameCount")
@@ -199,6 +244,10 @@ cdef class CameraNodes:
     def TriggerSource(self):
         """Specifies the internal signal or physical input line to use as the
         trigger source.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.TriggerSource_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("TriggerSource")
@@ -206,14 +255,18 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TriggerSource))
-            node_inst.enum_names = rotpy.names.TriggerSource_names
-            node_inst.enum_values = rotpy.names.TriggerSource_values
+            node_inst.enum_names = rotpy.names.camera.TriggerSource_names
+            node_inst.enum_values = rotpy.names.camera.TriggerSource_values
             node = self._nodes["TriggerSource"] = node_inst
         return node
 
     @property.getter
     def TriggerActivation(self):
         """Specifies the activation mode of the trigger.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.TriggerActivation_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("TriggerActivation")
@@ -221,14 +274,18 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TriggerActivation))
-            node_inst.enum_names = rotpy.names.TriggerActivation_names
-            node_inst.enum_values = rotpy.names.TriggerActivation_values
+            node_inst.enum_names = rotpy.names.camera.TriggerActivation_names
+            node_inst.enum_values = rotpy.names.camera.TriggerActivation_values
             node = self._nodes["TriggerActivation"] = node_inst
         return node
 
     @property.getter
     def SensorShutterMode(self):
         """Sets the shutter mode of the device.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.SensorShutterMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("SensorShutterMode")
@@ -236,8 +293,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SensorShutterMode))
-            node_inst.enum_names = rotpy.names.SensorShutterMode_names
-            node_inst.enum_values = rotpy.names.SensorShutterMode_values
+            node_inst.enum_names = rotpy.names.camera.SensorShutterMode_names
+            node_inst.enum_values = rotpy.names.camera.SensorShutterMode_values
             node = self._nodes["SensorShutterMode"] = node_inst
         return node
 
@@ -245,6 +302,9 @@ cdef class CameraNodes:
     def TriggerDelay(self):
         """Specifies the delay in microseconds (us) to apply after the trigger
         reception before activating it.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("TriggerDelay")
@@ -258,6 +318,10 @@ cdef class CameraNodes:
     @property.getter
     def TriggerMode(self):
         """Controls whether or not trigger is active.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.TriggerMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("TriggerMode")
@@ -265,14 +329,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TriggerMode))
-            node_inst.enum_names = rotpy.names.TriggerMode_names
-            node_inst.enum_values = rotpy.names.TriggerMode_values
+            node_inst.enum_names = rotpy.names.camera.TriggerMode_names
+            node_inst.enum_values = rotpy.names.camera.TriggerMode_values
             node = self._nodes["TriggerMode"] = node_inst
         return node
 
     @property.getter
     def AcquisitionFrameRate(self):
         """User controlled acquisition frame rate in Hertz
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("AcquisitionFrameRate")
@@ -286,6 +353,10 @@ cdef class CameraNodes:
     @property.getter
     def TriggerOverlap(self):
         """Specifies the overlap mode of the trigger.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.TriggerOverlap_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("TriggerOverlap")
@@ -293,14 +364,18 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TriggerOverlap))
-            node_inst.enum_names = rotpy.names.TriggerOverlap_names
-            node_inst.enum_values = rotpy.names.TriggerOverlap_values
+            node_inst.enum_names = rotpy.names.camera.TriggerOverlap_names
+            node_inst.enum_values = rotpy.names.camera.TriggerOverlap_values
             node = self._nodes["TriggerOverlap"] = node_inst
         return node
 
     @property.getter
     def TriggerSelector(self):
         """Selects the type of trigger to configure.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.TriggerSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("TriggerSelector")
@@ -308,8 +383,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TriggerSelector))
-            node_inst.enum_names = rotpy.names.TriggerSelector_names
-            node_inst.enum_values = rotpy.names.TriggerSelector_values
+            node_inst.enum_names = rotpy.names.camera.TriggerSelector_names
+            node_inst.enum_values = rotpy.names.camera.TriggerSelector_values
             node = self._nodes["TriggerSelector"] = node_inst
         return node
 
@@ -317,6 +392,9 @@ cdef class CameraNodes:
     def AcquisitionFrameRateEnable(self):
         """If enabled, AcquisitionFrameRate can be used to manually control the
         frame rate.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("AcquisitionFrameRateEnable")
@@ -330,6 +408,10 @@ cdef class CameraNodes:
     @property.getter
     def ExposureAuto(self):
         """Sets the automatic exposure mode
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ExposureAuto_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ExposureAuto")
@@ -337,8 +419,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ExposureAuto))
-            node_inst.enum_names = rotpy.names.ExposureAuto_names
-            node_inst.enum_values = rotpy.names.ExposureAuto_values
+            node_inst.enum_names = rotpy.names.camera.ExposureAuto_names
+            node_inst.enum_values = rotpy.names.camera.ExposureAuto_values
             node = self._nodes["ExposureAuto"] = node_inst
         return node
 
@@ -349,6 +431,9 @@ cdef class CameraNodes:
         number of frames captured is also conditioned by
         AcquisitionFrameCount if AcquisitionMode is MultiFrame and ignored
         if AcquisitionMode is Single.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("AcquisitionBurstFrameCount")
@@ -362,6 +447,9 @@ cdef class CameraNodes:
     @property.getter
     def EventTest(self):
         """Returns the unique identifier of the Test type of Event.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventTest")
@@ -375,6 +463,9 @@ cdef class CameraNodes:
     @property.getter
     def EventTestTimestamp(self):
         """Returns the Timestamp of the Test Event.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventTestTimestamp")
@@ -389,6 +480,9 @@ cdef class CameraNodes:
     def EventExposureEndFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Exposure End Event.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventExposureEndFrameID")
@@ -402,6 +496,9 @@ cdef class CameraNodes:
     @property.getter
     def EventExposureEnd(self):
         """Returns the unique identifier of the Exposure End type of Event.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventExposureEnd")
@@ -415,6 +512,9 @@ cdef class CameraNodes:
     @property.getter
     def EventExposureEndTimestamp(self):
         """Returns the Timestamp of the Exposure End Event.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventExposureEndTimestamp")
@@ -428,6 +528,9 @@ cdef class CameraNodes:
     @property.getter
     def EventError(self):
         """Returns the unique identifier of the Error type of Event.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventError")
@@ -441,6 +544,9 @@ cdef class CameraNodes:
     @property.getter
     def EventErrorTimestamp(self):
         """Returns the Timestamp of the Error Event.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventErrorTimestamp")
@@ -454,6 +560,9 @@ cdef class CameraNodes:
     @property.getter
     def EventErrorCode(self):
         """Returns the error code for the error that happened
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventErrorCode")
@@ -468,6 +577,9 @@ cdef class CameraNodes:
     def EventErrorFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Error Event.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventErrorFrameID")
@@ -481,6 +593,10 @@ cdef class CameraNodes:
     @property.getter
     def EventSelector(self):
         """Selects which Event to enable or disable.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.EventSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("EventSelector")
@@ -488,14 +604,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().EventSelector))
-            node_inst.enum_names = rotpy.names.EventSelector_names
-            node_inst.enum_values = rotpy.names.EventSelector_values
+            node_inst.enum_names = rotpy.names.camera.EventSelector_names
+            node_inst.enum_values = rotpy.names.camera.EventSelector_values
             node = self._nodes["EventSelector"] = node_inst
         return node
 
     @property.getter
     def EventSerialReceiveOverflow(self):
         """Returns the status of the event serial receive overflow.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("EventSerialReceiveOverflow")
@@ -510,6 +629,9 @@ cdef class CameraNodes:
     def EventSerialPortReceive(self):
         """Returns the unique identifier of the Serial Port Receive type of
         Event.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventSerialPortReceive")
@@ -523,6 +645,9 @@ cdef class CameraNodes:
     @property.getter
     def EventSerialPortReceiveTimestamp(self):
         """Returns the Timestamp of the Serial Port Receive Event.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventSerialPortReceiveTimestamp")
@@ -536,6 +661,9 @@ cdef class CameraNodes:
     @property.getter
     def EventSerialData(self):
         """Returns the serial data that was received.
+
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("EventSerialData")
@@ -550,6 +678,9 @@ cdef class CameraNodes:
     def EventSerialDataLength(self):
         """Returns the length of the received serial data that was included in
         the event payload.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventSerialDataLength")
@@ -563,6 +694,10 @@ cdef class CameraNodes:
     @property.getter
     def EventNotification(self):
         """Enables/Disables the selected event.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.EventNotification_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("EventNotification")
@@ -570,14 +705,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().EventNotification))
-            node_inst.enum_names = rotpy.names.EventNotification_names
-            node_inst.enum_values = rotpy.names.EventNotification_values
+            node_inst.enum_names = rotpy.names.camera.EventNotification_names
+            node_inst.enum_values = rotpy.names.camera.EventNotification_values
             node = self._nodes["EventNotification"] = node_inst
         return node
 
     @property.getter
     def LogicBlockLUTRowIndex(self):
         """Controls the row of the truth table to access in the selected LUT.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("LogicBlockLUTRowIndex")
@@ -591,6 +729,10 @@ cdef class CameraNodes:
     @property.getter
     def LogicBlockSelector(self):
         """Selects which LogicBlock to configure
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.LogicBlockSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("LogicBlockSelector")
@@ -598,14 +740,18 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().LogicBlockSelector))
-            node_inst.enum_names = rotpy.names.LogicBlockSelector_names
-            node_inst.enum_values = rotpy.names.LogicBlockSelector_values
+            node_inst.enum_names = rotpy.names.camera.LogicBlockSelector_names
+            node_inst.enum_values = rotpy.names.camera.LogicBlockSelector_values
             node = self._nodes["LogicBlockSelector"] = node_inst
         return node
 
     @property.getter
     def LogicBlockLUTInputActivation(self):
         """Selects the activation mode of the Logic Input Source signal.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.LogicBlockLUTInputActivation_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("LogicBlockLUTInputActivation")
@@ -613,14 +759,18 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().LogicBlockLUTInputActivation))
-            node_inst.enum_names = rotpy.names.LogicBlockLUTInputActivation_names
-            node_inst.enum_values = rotpy.names.LogicBlockLUTInputActivation_values
+            node_inst.enum_names = rotpy.names.camera.LogicBlockLUTInputActivation_names
+            node_inst.enum_values = rotpy.names.camera.LogicBlockLUTInputActivation_values
             node = self._nodes["LogicBlockLUTInputActivation"] = node_inst
         return node
 
     @property.getter
     def LogicBlockLUTInputSelector(self):
         """Controls which LogicBlockLUT Input Source & Activation to access.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.LogicBlockLUTInputSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("LogicBlockLUTInputSelector")
@@ -628,14 +778,18 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().LogicBlockLUTInputSelector))
-            node_inst.enum_names = rotpy.names.LogicBlockLUTInputSelector_names
-            node_inst.enum_values = rotpy.names.LogicBlockLUTInputSelector_values
+            node_inst.enum_names = rotpy.names.camera.LogicBlockLUTInputSelector_names
+            node_inst.enum_values = rotpy.names.camera.LogicBlockLUTInputSelector_values
             node = self._nodes["LogicBlockLUTInputSelector"] = node_inst
         return node
 
     @property.getter
     def LogicBlockLUTInputSource(self):
         """Selects the source for the input into the Logic LUT.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.LogicBlockLUTInputSource_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("LogicBlockLUTInputSource")
@@ -643,8 +797,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().LogicBlockLUTInputSource))
-            node_inst.enum_names = rotpy.names.LogicBlockLUTInputSource_names
-            node_inst.enum_values = rotpy.names.LogicBlockLUTInputSource_values
+            node_inst.enum_names = rotpy.names.camera.LogicBlockLUTInputSource_names
+            node_inst.enum_values = rotpy.names.camera.LogicBlockLUTInputSource_values
             node = self._nodes["LogicBlockLUTInputSource"] = node_inst
         return node
 
@@ -652,6 +806,9 @@ cdef class CameraNodes:
     def LogicBlockLUTOutputValue(self):
         """Controls the output column of the truth table for the selected
         LogicBlockLUTRowIndex.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("LogicBlockLUTOutputValue")
@@ -665,6 +822,9 @@ cdef class CameraNodes:
     @property.getter
     def LogicBlockLUTOutputValueAll(self):
         """Sets the value of all the output bits in the selected LUT.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("LogicBlockLUTOutputValueAll")
@@ -678,6 +838,10 @@ cdef class CameraNodes:
     @property.getter
     def LogicBlockLUTSelector(self):
         """Selects which LogicBlock LUT to configure
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.LogicBlockLUTSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("LogicBlockLUTSelector")
@@ -685,8 +849,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().LogicBlockLUTSelector))
-            node_inst.enum_names = rotpy.names.LogicBlockLUTSelector_names
-            node_inst.enum_values = rotpy.names.LogicBlockLUTSelector_values
+            node_inst.enum_names = rotpy.names.camera.LogicBlockLUTSelector_names
+            node_inst.enum_values = rotpy.names.camera.LogicBlockLUTSelector_values
             node = self._nodes["LogicBlockLUTSelector"] = node_inst
         return node
 
@@ -694,6 +858,9 @@ cdef class CameraNodes:
     def ColorTransformationValue(self):
         """Represents the value of the selected Gain factor or Offset inside
         the Transformation matrix in floating point precision.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("ColorTransformationValue")
@@ -710,6 +877,9 @@ cdef class CameraNodes:
         ColorTransformationSelector. For RGB to YUV this is read-only.
         Enabling/disabling RGB to YUV can only be done by changing pixel
         format.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("ColorTransformationEnable")
@@ -724,6 +894,10 @@ cdef class CameraNodes:
     def ColorTransformationSelector(self):
         """Selects which Color Transformation module is controlled by the
         various Color Transformation features
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ColorTransformationSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ColorTransformationSelector")
@@ -731,8 +905,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ColorTransformationSelector))
-            node_inst.enum_names = rotpy.names.ColorTransformationSelector_names
-            node_inst.enum_values = rotpy.names.ColorTransformationSelector_values
+            node_inst.enum_names = rotpy.names.camera.ColorTransformationSelector_names
+            node_inst.enum_values = rotpy.names.camera.ColorTransformationSelector_values
             node = self._nodes["ColorTransformationSelector"] = node_inst
         return node
 
@@ -742,6 +916,10 @@ cdef class CameraNodes:
         for different light sources. Selecting a value also sets the white
         balance ratios (BalanceRatioRed and BalanceRatioBlue), but those can
         be overwritten through manual or auto white balance.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.RgbTransformLightSource_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("RgbTransformLightSource")
@@ -749,14 +927,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().RgbTransformLightSource))
-            node_inst.enum_names = rotpy.names.RgbTransformLightSource_names
-            node_inst.enum_values = rotpy.names.RgbTransformLightSource_values
+            node_inst.enum_names = rotpy.names.camera.RgbTransformLightSource_names
+            node_inst.enum_values = rotpy.names.camera.RgbTransformLightSource_values
             node = self._nodes["RgbTransformLightSource"] = node_inst
         return node
 
     @property.getter
     def Saturation(self):
         """    Controls the color saturation.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("Saturation")
@@ -770,6 +951,9 @@ cdef class CameraNodes:
     @property.getter
     def SaturationEnable(self):
         """    Enables/disables Saturation adjustment.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("SaturationEnable")
@@ -784,6 +968,10 @@ cdef class CameraNodes:
     def ColorTransformationValueSelector(self):
         """Selects the Gain factor or Offset of the Transformation matrix to
         access in the selected Color Transformation module
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ColorTransformationValueSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ColorTransformationValueSelector")
@@ -791,14 +979,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ColorTransformationValueSelector))
-            node_inst.enum_names = rotpy.names.ColorTransformationValueSelector_names
-            node_inst.enum_values = rotpy.names.ColorTransformationValueSelector_values
+            node_inst.enum_names = rotpy.names.camera.ColorTransformationValueSelector_names
+            node_inst.enum_values = rotpy.names.camera.ColorTransformationValueSelector_values
             node = self._nodes["ColorTransformationValueSelector"] = node_inst
         return node
 
     @property.getter
     def TimestampLatchValue(self):
         """Returns the latched value of the timestamp counter.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("TimestampLatchValue")
@@ -812,6 +1003,9 @@ cdef class CameraNodes:
     @property.getter
     def TimestampReset(self):
         """Resets the current value of the device timestamp counter.
+
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("TimestampReset")
@@ -825,6 +1019,9 @@ cdef class CameraNodes:
     @property.getter
     def DeviceUserID(self):
         """User-programmable device identifier.
+
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("DeviceUserID")
@@ -838,6 +1035,9 @@ cdef class CameraNodes:
     @property.getter
     def DeviceTemperature(self):
         """Device temperature in degrees Celsius (C).
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("DeviceTemperature")
@@ -851,6 +1051,9 @@ cdef class CameraNodes:
     @property.getter
     def MaxDeviceResetTime(self):
         """Time to wait until device reset complete (ms).
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("MaxDeviceResetTime")
@@ -864,6 +1067,9 @@ cdef class CameraNodes:
     @property.getter
     def DeviceTLVersionMinor(self):
         """Minor version of the Transport Layer of the device.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceTLVersionMinor")
@@ -878,6 +1084,9 @@ cdef class CameraNodes:
     def DeviceSerialNumber(self):
         """Device's serial number. This string is a unique identifier of the
         device.
+
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("DeviceSerialNumber")
@@ -891,6 +1100,9 @@ cdef class CameraNodes:
     @property.getter
     def DeviceVendorName(self):
         """Name of the manufacturer of the device.
+
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("DeviceVendorName")
@@ -904,6 +1116,10 @@ cdef class CameraNodes:
     @property.getter
     def DeviceRegistersEndianness(self):
         """Endianness of the registers of the device.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.DeviceRegistersEndianness_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("DeviceRegistersEndianness")
@@ -911,14 +1127,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceRegistersEndianness))
-            node_inst.enum_names = rotpy.names.DeviceRegistersEndianness_names
-            node_inst.enum_values = rotpy.names.DeviceRegistersEndianness_values
+            node_inst.enum_names = rotpy.names.camera.DeviceRegistersEndianness_names
+            node_inst.enum_values = rotpy.names.camera.DeviceRegistersEndianness_values
             node = self._nodes["DeviceRegistersEndianness"] = node_inst
         return node
 
     @property.getter
     def DeviceManufacturerInfo(self):
         """Manufacturer information about the device.
+
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("DeviceManufacturerInfo")
@@ -933,6 +1152,9 @@ cdef class CameraNodes:
     def DeviceLinkSpeed(self):
         """Indicates the speed of transmission negotiated on the specified
         Link. (Bps)
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceLinkSpeed")
@@ -946,6 +1168,9 @@ cdef class CameraNodes:
     @property.getter
     def LinkUptime(self):
         """Time since the last phy negotiation (enumeration).
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("LinkUptime")
@@ -959,6 +1184,9 @@ cdef class CameraNodes:
     @property.getter
     def DeviceEventChannelCount(self):
         """Indicates the number of event channels supported by the device.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceEventChannelCount")
@@ -972,6 +1200,9 @@ cdef class CameraNodes:
     @property.getter
     def TimestampLatch(self):
         """Latches the current timestamp counter into TimestampLatchValue.
+
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("TimestampLatch")
@@ -985,6 +1216,10 @@ cdef class CameraNodes:
     @property.getter
     def DeviceScanType(self):
         """Scan type of the sensor of the device.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.DeviceScanType_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("DeviceScanType")
@@ -992,14 +1227,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceScanType))
-            node_inst.enum_names = rotpy.names.DeviceScanType_names
-            node_inst.enum_values = rotpy.names.DeviceScanType_values
+            node_inst.enum_names = rotpy.names.camera.DeviceScanType_names
+            node_inst.enum_values = rotpy.names.camera.DeviceScanType_values
             node = self._nodes["DeviceScanType"] = node_inst
         return node
 
     @property.getter
     def DeviceReset(self):
         """This is a command that immediately resets and reboots the device.
+
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("DeviceReset")
@@ -1014,6 +1252,10 @@ cdef class CameraNodes:
     def DeviceCharacterSet(self):
         """Character set used by the strings of the device`s bootstrap
         registers.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.DeviceCharacterSet_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("DeviceCharacterSet")
@@ -1021,8 +1263,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceCharacterSet))
-            node_inst.enum_names = rotpy.names.DeviceCharacterSet_names
-            node_inst.enum_values = rotpy.names.DeviceCharacterSet_values
+            node_inst.enum_names = rotpy.names.camera.DeviceCharacterSet_names
+            node_inst.enum_values = rotpy.names.camera.DeviceCharacterSet_values
             node = self._nodes["DeviceCharacterSet"] = node_inst
         return node
 
@@ -1032,6 +1274,9 @@ cdef class CameraNodes:
         by the device on the selected Link. If necessary, delays will be
         uniformly inserted between transport layer packets in order to
         control the peak bandwidth.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceLinkThroughputLimit")
@@ -1045,6 +1290,9 @@ cdef class CameraNodes:
     @property.getter
     def DeviceFirmwareVersion(self):
         """Version of the firmware on the device.
+
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("DeviceFirmwareVersion")
@@ -1058,6 +1306,9 @@ cdef class CameraNodes:
     @property.getter
     def DeviceStreamChannelCount(self):
         """Indicates the number of streaming channels supported by the device.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceStreamChannelCount")
@@ -1071,6 +1322,10 @@ cdef class CameraNodes:
     @property.getter
     def DeviceTLType(self):
         """Transport Layer type of the device.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.DeviceTLType_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("DeviceTLType")
@@ -1078,14 +1333,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceTLType))
-            node_inst.enum_names = rotpy.names.DeviceTLType_names
-            node_inst.enum_values = rotpy.names.DeviceTLType_values
+            node_inst.enum_names = rotpy.names.camera.DeviceTLType_names
+            node_inst.enum_values = rotpy.names.camera.DeviceTLType_values
             node = self._nodes["DeviceTLType"] = node_inst
         return node
 
     @property.getter
     def DeviceVersion(self):
         """Version of the device.
+
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("DeviceVersion")
@@ -1099,6 +1357,10 @@ cdef class CameraNodes:
     @property.getter
     def DevicePowerSupplySelector(self):
         """Selects the power supply source to control or read.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.DevicePowerSupplySelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("DevicePowerSupplySelector")
@@ -1106,14 +1368,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DevicePowerSupplySelector))
-            node_inst.enum_names = rotpy.names.DevicePowerSupplySelector_names
-            node_inst.enum_values = rotpy.names.DevicePowerSupplySelector_values
+            node_inst.enum_names = rotpy.names.camera.DevicePowerSupplySelector_names
+            node_inst.enum_values = rotpy.names.camera.DevicePowerSupplySelector_values
             node = self._nodes["DevicePowerSupplySelector"] = node_inst
         return node
 
     @property.getter
     def SensorDescription(self):
         """Returns Sensor Description
+
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("SensorDescription")
@@ -1127,6 +1392,9 @@ cdef class CameraNodes:
     @property.getter
     def DeviceModelName(self):
         """Model of the device.
+
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("DeviceModelName")
@@ -1140,6 +1408,9 @@ cdef class CameraNodes:
     @property.getter
     def DeviceTLVersionMajor(self):
         """Major version of the Transport Layer of the device.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceTLVersionMajor")
@@ -1154,6 +1425,10 @@ cdef class CameraNodes:
     def DeviceTemperatureSelector(self):
         """Selects the location within the device, where the temperature will
         be measured.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.DeviceTemperatureSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("DeviceTemperatureSelector")
@@ -1161,14 +1436,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceTemperatureSelector))
-            node_inst.enum_names = rotpy.names.DeviceTemperatureSelector_names
-            node_inst.enum_values = rotpy.names.DeviceTemperatureSelector_values
+            node_inst.enum_names = rotpy.names.camera.DeviceTemperatureSelector_names
+            node_inst.enum_values = rotpy.names.camera.DeviceTemperatureSelector_values
             node = self._nodes["DeviceTemperatureSelector"] = node_inst
         return node
 
     @property.getter
     def EnumerationCount(self):
         """Number of enumerations since uptime.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EnumerationCount")
@@ -1182,6 +1460,9 @@ cdef class CameraNodes:
     @property.getter
     def PowerSupplyCurrent(self):
         """Indicates the output current of the selected power supply (A).
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("PowerSupplyCurrent")
@@ -1195,6 +1476,9 @@ cdef class CameraNodes:
     @property.getter
     def DeviceID(self):
         """Device identifier (serial number).
+
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("DeviceID")
@@ -1208,6 +1492,9 @@ cdef class CameraNodes:
     @property.getter
     def DeviceUptime(self):
         """Total time since the device was powered up in seconds.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceUptime")
@@ -1221,6 +1508,9 @@ cdef class CameraNodes:
     @property.getter
     def DeviceLinkCurrentThroughput(self):
         """Current bandwidth of streamed data.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceLinkCurrentThroughput")
@@ -1237,6 +1527,9 @@ cdef class CameraNodes:
         device. This can be used to estimate if the physical connection(s)
         can sustain transfer of free-running images from the camera at its
         maximum speed.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceMaxThroughput")
@@ -1250,6 +1543,9 @@ cdef class CameraNodes:
     @property.getter
     def FactoryReset(self):
         """Returns all user tables to factory default
+
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("FactoryReset")
@@ -1263,6 +1559,9 @@ cdef class CameraNodes:
     @property.getter
     def PowerSupplyVoltage(self):
         """Indicates the current voltage of the selected power supply (V).
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("PowerSupplyVoltage")
@@ -1277,6 +1576,10 @@ cdef class CameraNodes:
     def DeviceIndicatorMode(self):
         """Controls the LED behaviour: Inactive (off), Active (current status),
         or Error Status (off unless an error occurs).
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.DeviceIndicatorMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("DeviceIndicatorMode")
@@ -1284,14 +1587,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceIndicatorMode))
-            node_inst.enum_names = rotpy.names.DeviceIndicatorMode_names
-            node_inst.enum_values = rotpy.names.DeviceIndicatorMode_values
+            node_inst.enum_names = rotpy.names.camera.DeviceIndicatorMode_names
+            node_inst.enum_values = rotpy.names.camera.DeviceIndicatorMode_values
             node = self._nodes["DeviceIndicatorMode"] = node_inst
         return node
 
     @property.getter
     def DeviceLinkBandwidthReserve(self):
         """Percentage of streamed data bandwidth reserved for packet resend.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("DeviceLinkBandwidthReserve")
@@ -1306,6 +1612,9 @@ cdef class CameraNodes:
     def AasRoiOffsetY(self):
         """Controls the y-offset of the ROI used by the auto algorithm that is
         currently selected by the AutoAlgorithmSelector feature.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("AasRoiOffsetY")
@@ -1320,6 +1629,9 @@ cdef class CameraNodes:
     def AasRoiOffsetX(self):
         """Controls the x-offset of the ROI used by the auto algorithm that is
         currently selected by the AutoAlgorithmSelector feature.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("AasRoiOffsetX")
@@ -1342,6 +1654,10 @@ cdef class CameraNodes:
         according to the target grey level. If maximum gain is reached
         before the target grey level is hit, the exposure starts to change
         to meet the target. This mode is used to capture fast motion.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.AutoExposureControlPriority_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("AutoExposureControlPriority")
@@ -1349,8 +1665,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().AutoExposureControlPriority))
-            node_inst.enum_names = rotpy.names.AutoExposureControlPriority_names
-            node_inst.enum_values = rotpy.names.AutoExposureControlPriority_values
+            node_inst.enum_names = rotpy.names.camera.AutoExposureControlPriority_names
+            node_inst.enum_values = rotpy.names.camera.AutoExposureControlPriority_values
             node = self._nodes["AutoExposureControlPriority"] = node_inst
         return node
 
@@ -1358,6 +1674,9 @@ cdef class CameraNodes:
     def BalanceWhiteAutoLowerLimit(self):
         """Controls the minimum value Auto White Balance can set for the
         Red/Blue BalanceRatio.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("BalanceWhiteAutoLowerLimit")
@@ -1373,6 +1692,9 @@ cdef class CameraNodes:
         """Controls how quickly 'BalanceWhiteAuto' adjusts the values for Red
         and Blue BalanceRatio in response to changing conditions.  Higher
         damping means the changes are more gradual.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("BalanceWhiteAutoDamping")
@@ -1387,6 +1709,9 @@ cdef class CameraNodes:
     def AasRoiHeight(self):
         """Controls the width of the ROI used by the auto algorithm that is
         currently selected by the AutoAlgorithmSelector feature.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("AasRoiHeight")
@@ -1400,6 +1725,9 @@ cdef class CameraNodes:
     @property.getter
     def AutoExposureGreyValueUpperLimit(self):
         """The highest value in percentage that the target mean may reach.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("AutoExposureGreyValueUpperLimit")
@@ -1415,6 +1743,9 @@ cdef class CameraNodes:
         """This is the user-specified target grey level (image mean) to apply
         to the current image. Note that the target grey level is in the
         linear domain before gamma correction is applied.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("AutoExposureTargetGreyValue")
@@ -1428,6 +1759,9 @@ cdef class CameraNodes:
     @property.getter
     def AutoExposureGainLowerLimit(self):
         """The smallest gain that auto exposure can set.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("AutoExposureGainLowerLimit")
@@ -1441,6 +1775,9 @@ cdef class CameraNodes:
     @property.getter
     def AutoExposureGreyValueLowerLimit(self):
         """The lowest value in percentage that the target mean may reach.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("AutoExposureGreyValueLowerLimit")
@@ -1464,6 +1801,10 @@ cdef class CameraNodes:
         This mode is used when very dark or bright regions appear at the
         edge of the frame. Note: Metering mode is available only when
         Lighting Mode Selector is Normal.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.AutoExposureMeteringMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("AutoExposureMeteringMode")
@@ -1471,14 +1812,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().AutoExposureMeteringMode))
-            node_inst.enum_names = rotpy.names.AutoExposureMeteringMode_names
-            node_inst.enum_values = rotpy.names.AutoExposureMeteringMode_values
+            node_inst.enum_names = rotpy.names.camera.AutoExposureMeteringMode_names
+            node_inst.enum_values = rotpy.names.camera.AutoExposureMeteringMode_values
             node = self._nodes["AutoExposureMeteringMode"] = node_inst
         return node
 
     @property.getter
     def AutoExposureExposureTimeUpperLimit(self):
         """The largest exposure time that auto exposure can set.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("AutoExposureExposureTimeUpperLimit")
@@ -1492,6 +1836,9 @@ cdef class CameraNodes:
     @property.getter
     def AutoExposureGainUpperLimit(self):
         """The largest gain that auto exposure can set.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("AutoExposureGainUpperLimit")
@@ -1507,6 +1854,9 @@ cdef class CameraNodes:
         """It controls how fast the exposure and gain get settled. If the value
         is too small, it may cause the system to be unstable.    Range is
         from 0.0 to 1.0. Default = 0.2.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("AutoExposureControlLoopDamping")
@@ -1524,6 +1874,9 @@ cdef class CameraNodes:
         A positive value makes the image brighter. A negative value makes
         the image darker. Range from -3 to 3 with a step of 1/3. Default =
         0.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("AutoExposureEVCompensation")
@@ -1537,6 +1890,9 @@ cdef class CameraNodes:
     @property.getter
     def AutoExposureExposureTimeLowerLimit(self):
         """The smallest exposure time that auto exposure can set.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("AutoExposureExposureTimeLowerLimit")
@@ -1550,6 +1906,10 @@ cdef class CameraNodes:
     @property.getter
     def BalanceWhiteAutoProfile(self):
         """Selects the profile used by BalanceWhiteAuto.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.BalanceWhiteAutoProfile_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("BalanceWhiteAutoProfile")
@@ -1557,8 +1917,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().BalanceWhiteAutoProfile))
-            node_inst.enum_names = rotpy.names.BalanceWhiteAutoProfile_names
-            node_inst.enum_values = rotpy.names.BalanceWhiteAutoProfile_values
+            node_inst.enum_names = rotpy.names.camera.BalanceWhiteAutoProfile_names
+            node_inst.enum_values = rotpy.names.camera.BalanceWhiteAutoProfile_values
             node = self._nodes["BalanceWhiteAutoProfile"] = node_inst
         return node
 
@@ -1566,6 +1926,10 @@ cdef class CameraNodes:
     def AutoAlgorithmSelector(self):
         """Selects which Auto Algorithm is controlled by the RoiEnable,
         OffsetX, OffsetY, Width, Height features.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.AutoAlgorithmSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("AutoAlgorithmSelector")
@@ -1573,8 +1937,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().AutoAlgorithmSelector))
-            node_inst.enum_names = rotpy.names.AutoAlgorithmSelector_names
-            node_inst.enum_values = rotpy.names.AutoAlgorithmSelector_values
+            node_inst.enum_names = rotpy.names.camera.AutoAlgorithmSelector_names
+            node_inst.enum_values = rotpy.names.camera.AutoAlgorithmSelector_values
             node = self._nodes["AutoAlgorithmSelector"] = node_inst
         return node
 
@@ -1584,6 +1948,10 @@ cdef class CameraNodes:
         set by the camera or manually set by the user. Note that the target
         grey level is in the linear domain before gamma correction is
         applied.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.AutoExposureTargetGreyValueAuto_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("AutoExposureTargetGreyValueAuto")
@@ -1591,8 +1959,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().AutoExposureTargetGreyValueAuto))
-            node_inst.enum_names = rotpy.names.AutoExposureTargetGreyValueAuto_names
-            node_inst.enum_values = rotpy.names.AutoExposureTargetGreyValueAuto_values
+            node_inst.enum_names = rotpy.names.camera.AutoExposureTargetGreyValueAuto_names
+            node_inst.enum_values = rotpy.names.camera.AutoExposureTargetGreyValueAuto_values
             node = self._nodes["AutoExposureTargetGreyValueAuto"] = node_inst
         return node
 
@@ -1600,6 +1968,9 @@ cdef class CameraNodes:
     def AasRoiEnable(self):
         """Controls whether a user-specified ROI is used for auto algorithm
         that is currently selected by the AutoAlgorithmSelector feature.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("AasRoiEnable")
@@ -1619,6 +1990,10 @@ cdef class CameraNodes:
         background is dark. c. Normal lighting: used when the object is not
         under backlight or frontlight conditions. When normal lighting is
         selected, metering modes are available.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.AutoExposureLightingMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("AutoExposureLightingMode")
@@ -1626,8 +2001,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().AutoExposureLightingMode))
-            node_inst.enum_names = rotpy.names.AutoExposureLightingMode_names
-            node_inst.enum_values = rotpy.names.AutoExposureLightingMode_values
+            node_inst.enum_names = rotpy.names.camera.AutoExposureLightingMode_names
+            node_inst.enum_values = rotpy.names.camera.AutoExposureLightingMode_values
             node = self._nodes["AutoExposureLightingMode"] = node_inst
         return node
 
@@ -1635,6 +2010,9 @@ cdef class CameraNodes:
     def AasRoiWidth(self):
         """Controls the width of the ROI used by the auto algorithm that is
         currently selected by the AutoAlgorithmSelector feature.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("AasRoiWidth")
@@ -1649,6 +2027,9 @@ cdef class CameraNodes:
     def BalanceWhiteAutoUpperLimit(self):
         """Controls the maximum value Auto White Balance can set the Red/Blue
         BalanceRatio.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("BalanceWhiteAutoUpperLimit")
@@ -1662,6 +2043,9 @@ cdef class CameraNodes:
     @property.getter
     def LinkErrorCount(self):
         """Counts the number of error on the link.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("LinkErrorCount")
@@ -1676,6 +2060,9 @@ cdef class CameraNodes:
     def GevCurrentIPConfigurationDHCP(self):
         """Controls whether the DHCP IP configuration scheme is activated on
         the given logical link.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("GevCurrentIPConfigurationDHCP")
@@ -1689,6 +2076,9 @@ cdef class CameraNodes:
     @property.getter
     def GevInterfaceSelector(self):
         """Selects which logical link to control.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevInterfaceSelector")
@@ -1706,6 +2096,9 @@ cdef class CameraNodes:
         flow-control mechanism if the application or the network
         infrastructure cannot keep up with the packets coming from the
         device.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevSCPD")
@@ -1720,6 +2113,9 @@ cdef class CameraNodes:
     def GevTimestampTickFrequency(self):
         """Indicates the number of timestamp ticks in 1 second (frequency in
         Hz).
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevTimestampTickFrequency")
@@ -1733,6 +2129,9 @@ cdef class CameraNodes:
     @property.getter
     def GevSCPSPacketSize(self):
         """Specifies the stream packet size (in bytes) to send on this channel.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevSCPSPacketSize")
@@ -1747,6 +2146,9 @@ cdef class CameraNodes:
     def GevCurrentDefaultGateway(self):
         """Reports the default gateway IP address to be used on the given
         logical link.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevCurrentDefaultGateway")
@@ -1762,6 +2164,9 @@ cdef class CameraNodes:
         """Enables the camera to continue to stream, for this stream channel,
         if its control channel is closed or regardless of the reception of
         any ICMP messages (such as destination unreachable messages).
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("GevSCCFGUnconditionalStreaming")
@@ -1775,6 +2180,9 @@ cdef class CameraNodes:
     @property.getter
     def GevMCTT(self):
         """Indicates the transmission timeout of the message channel.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevMCTT")
@@ -1789,6 +2197,9 @@ cdef class CameraNodes:
     def GevSCPSDoNotFragment(self):
         """The state of this feature is copied into the "do not fragment" bit
         of the IP header of each stream packet.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("GevSCPSDoNotFragment")
@@ -1802,6 +2213,9 @@ cdef class CameraNodes:
     @property.getter
     def GevCurrentSubnetMask(self):
         """Reports the subnet mask of the given logical link.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevCurrentSubnetMask")
@@ -1815,6 +2229,9 @@ cdef class CameraNodes:
     @property.getter
     def GevStreamChannelSelector(self):
         """Selects the stream channel to control.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevStreamChannelSelector")
@@ -1828,6 +2245,9 @@ cdef class CameraNodes:
     @property.getter
     def GevCurrentIPAddress(self):
         """Reports the IP address for the given logical link.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevCurrentIPAddress")
@@ -1841,6 +2261,9 @@ cdef class CameraNodes:
     @property.getter
     def GevMCSP(self):
         """Indicates the source port of the message channel.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevMCSP")
@@ -1855,6 +2278,9 @@ cdef class CameraNodes:
     def GevGVCPPendingTimeout(self):
         """Indicates the longest GVCP command execution time before the device
         returns a PENDING_ACK in milliseconds.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevGVCPPendingTimeout")
@@ -1868,6 +2294,10 @@ cdef class CameraNodes:
     @property.getter
     def GevIEEE1588Status(self):
         """Provides the status of the IEEE 1588 clock.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.GevIEEE1588Status_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("GevIEEE1588Status")
@@ -1875,14 +2305,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().GevIEEE1588Status))
-            node_inst.enum_names = rotpy.names.GevIEEE1588Status_names
-            node_inst.enum_values = rotpy.names.GevIEEE1588Status_values
+            node_inst.enum_names = rotpy.names.camera.GevIEEE1588Status_names
+            node_inst.enum_values = rotpy.names.camera.GevIEEE1588Status_values
             node = self._nodes["GevIEEE1588Status"] = node_inst
         return node
 
     @property.getter
     def GevFirstURL(self):
         """The first choice of URL for the XML device description file.
+
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("GevFirstURL")
@@ -1896,6 +2329,9 @@ cdef class CameraNodes:
     @property.getter
     def GevMACAddress(self):
         """MAC address of the logical link.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevMACAddress")
@@ -1910,6 +2346,9 @@ cdef class CameraNodes:
     def GevPersistentSubnetMask(self):
         """Controls the Persistent subnet mask associated with the Persistent
         IP address on this logical link.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevPersistentSubnetMask")
@@ -1923,6 +2362,9 @@ cdef class CameraNodes:
     @property.getter
     def GevMCPHostPort(self):
         """The port to which the device must send messages
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevMCPHostPort")
@@ -1938,6 +2380,9 @@ cdef class CameraNodes:
         """Controls the port of the selected channel to which a GVSP
         transmitter must send data stream or the port from which a GVSP
         receiver may receive data stream.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevSCPHostPort")
@@ -1951,6 +2396,9 @@ cdef class CameraNodes:
     @property.getter
     def GevGVCPPendingAck(self):
         """Enables the generation of PENDING_ACK.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("GevGVCPPendingAck")
@@ -1964,6 +2412,9 @@ cdef class CameraNodes:
     @property.getter
     def GevSCPInterfaceIndex(self):
         """Index of the logical link to use.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevSCPInterfaceIndex")
@@ -1977,6 +2428,9 @@ cdef class CameraNodes:
     @property.getter
     def GevSupportedOption(self):
         """Returns if the selected GEV option is supported.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("GevSupportedOption")
@@ -1990,6 +2444,10 @@ cdef class CameraNodes:
     @property.getter
     def GevIEEE1588Mode(self):
         """Provides the mode of the IEEE 1588 clock.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.GevIEEE1588Mode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("GevIEEE1588Mode")
@@ -1997,8 +2455,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().GevIEEE1588Mode))
-            node_inst.enum_names = rotpy.names.GevIEEE1588Mode_names
-            node_inst.enum_values = rotpy.names.GevIEEE1588Mode_values
+            node_inst.enum_names = rotpy.names.camera.GevIEEE1588Mode_names
+            node_inst.enum_values = rotpy.names.camera.GevIEEE1588Mode_values
             node = self._nodes["GevIEEE1588Mode"] = node_inst
         return node
 
@@ -2006,6 +2464,9 @@ cdef class CameraNodes:
     def GevCurrentIPConfigurationLLA(self):
         """Controls whether the Link Local Address IP configuration scheme is
         activated on the given logical link.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("GevCurrentIPConfigurationLLA")
@@ -2019,6 +2480,9 @@ cdef class CameraNodes:
     @property.getter
     def GevSCSP(self):
         """Indicates the source port of the stream channel.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevSCSP")
@@ -2033,6 +2497,9 @@ cdef class CameraNodes:
     def GevIEEE1588(self):
         """Enables the IEEE 1588 Precision Time Protocol to control the
         timestamp register.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("GevIEEE1588")
@@ -2047,6 +2514,9 @@ cdef class CameraNodes:
     def GevSCCFGExtendedChunkData(self):
         """Enables cameras to use the extended chunk data payload type for this
         stream channel.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("GevSCCFGExtendedChunkData")
@@ -2060,6 +2530,9 @@ cdef class CameraNodes:
     @property.getter
     def GevPersistentIPAddress(self):
         """Controls the Persistent IP address for this logical link.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevPersistentIPAddress")
@@ -2074,6 +2547,9 @@ cdef class CameraNodes:
     def GevCurrentIPConfigurationPersistentIP(self):
         """Controls whether the PersistentIP configuration scheme is activated
         on the given logical link.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("GevCurrentIPConfigurationPersistentIP")
@@ -2088,6 +2564,10 @@ cdef class CameraNodes:
     def GevIEEE1588ClockAccuracy(self):
         """Indicates the expected accuracy of the device clock when it is the
         grandmaster, or in the event it becomes the grandmaster.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.GevIEEE1588ClockAccuracy_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("GevIEEE1588ClockAccuracy")
@@ -2095,14 +2575,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().GevIEEE1588ClockAccuracy))
-            node_inst.enum_names = rotpy.names.GevIEEE1588ClockAccuracy_names
-            node_inst.enum_values = rotpy.names.GevIEEE1588ClockAccuracy_values
+            node_inst.enum_names = rotpy.names.camera.GevIEEE1588ClockAccuracy_names
+            node_inst.enum_values = rotpy.names.camera.GevIEEE1588ClockAccuracy_values
             node = self._nodes["GevIEEE1588ClockAccuracy"] = node_inst
         return node
 
     @property.getter
     def GevHeartbeatTimeout(self):
         """Indicates the current heartbeat timeout in milliseconds.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevHeartbeatTimeout")
@@ -2116,6 +2599,9 @@ cdef class CameraNodes:
     @property.getter
     def GevPersistentDefaultGateway(self):
         """Controls the persistent default gateway for this logical link.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevPersistentDefaultGateway")
@@ -2129,6 +2615,10 @@ cdef class CameraNodes:
     @property.getter
     def GevCCP(self):
         """Controls the device access privilege of an application.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.GevCCP_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("GevCCP")
@@ -2136,14 +2626,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().GevCCP))
-            node_inst.enum_names = rotpy.names.GevCCP_names
-            node_inst.enum_values = rotpy.names.GevCCP_values
+            node_inst.enum_names = rotpy.names.camera.GevCCP_names
+            node_inst.enum_values = rotpy.names.camera.GevCCP_values
             node = self._nodes["GevCCP"] = node_inst
         return node
 
     @property.getter
     def GevMCDA(self):
         """Controls the destination IP address of the message channel
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevMCDA")
@@ -2159,6 +2652,9 @@ cdef class CameraNodes:
         """Controls the destination IP address of the selected stream channel
         to which a GVSP transmitter must send data stream or the destination
         IP address from which a GVSP receiver may receive data stream.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevSCDA")
@@ -2172,6 +2668,9 @@ cdef class CameraNodes:
     @property.getter
     def GevSCPDirection(self):
         """Transmit or Receive of the channel
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevSCPDirection")
@@ -2185,6 +2684,9 @@ cdef class CameraNodes:
     @property.getter
     def GevSCPSFireTestPacket(self):
         """Sends a test packet.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("GevSCPSFireTestPacket")
@@ -2198,6 +2700,9 @@ cdef class CameraNodes:
     @property.getter
     def GevSecondURL(self):
         """The second choice of URL to the XML device description file.
+
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("GevSecondURL")
@@ -2211,6 +2716,10 @@ cdef class CameraNodes:
     @property.getter
     def GevSupportedOptionSelector(self):
         """Selects the GEV option to interrogate for existing support.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.GevSupportedOptionSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("GevSupportedOptionSelector")
@@ -2218,14 +2727,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().GevSupportedOptionSelector))
-            node_inst.enum_names = rotpy.names.GevSupportedOptionSelector_names
-            node_inst.enum_values = rotpy.names.GevSupportedOptionSelector_values
+            node_inst.enum_names = rotpy.names.camera.GevSupportedOptionSelector_names
+            node_inst.enum_values = rotpy.names.camera.GevSupportedOptionSelector_values
             node = self._nodes["GevSupportedOptionSelector"] = node_inst
         return node
 
     @property.getter
     def GevGVCPHeartbeatDisable(self):
         """Disables the GVCP heartbeat.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("GevGVCPHeartbeatDisable")
@@ -2239,6 +2751,9 @@ cdef class CameraNodes:
     @property.getter
     def GevMCRC(self):
         """Indicates the number of retries of the message channel.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevMCRC")
@@ -2252,6 +2767,9 @@ cdef class CameraNodes:
     @property.getter
     def GevSCPSBigEndian(self):
         """Endianness of multi-byte pixel data for this stream.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("GevSCPSBigEndian")
@@ -2266,6 +2784,9 @@ cdef class CameraNodes:
     def GevNumberOfInterfaces(self):
         """Indicates the number of physical network interfaces supported by
         this device.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevNumberOfInterfaces")
@@ -2279,6 +2800,9 @@ cdef class CameraNodes:
     @property.getter
     def TLParamsLocked(self):
         """
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("TLParamsLocked")
@@ -2293,6 +2817,9 @@ cdef class CameraNodes:
     def PayloadSize(self):
         """Provides the number of bytes transferred for each image or chunk on
         the stream channel.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("PayloadSize")
@@ -2306,6 +2833,9 @@ cdef class CameraNodes:
     @property.getter
     def PacketResendRequestCount(self):
         """Counts the number of resend requests received from the host.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("PacketResendRequestCount")
@@ -2320,6 +2850,9 @@ cdef class CameraNodes:
     def SharpeningEnable(self):
         """Enables/disables the sharpening feature. Sharpening is disabled by
         default.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("SharpeningEnable")
@@ -2334,6 +2867,10 @@ cdef class CameraNodes:
     def BlackLevelSelector(self):
         """Selects which black level to control.  Only All can be set by the
         user. Analog and Digital are read-only.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.BlackLevelSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("BlackLevelSelector")
@@ -2341,14 +2878,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().BlackLevelSelector))
-            node_inst.enum_names = rotpy.names.BlackLevelSelector_names
-            node_inst.enum_values = rotpy.names.BlackLevelSelector_values
+            node_inst.enum_names = rotpy.names.camera.BlackLevelSelector_names
+            node_inst.enum_values = rotpy.names.camera.BlackLevelSelector_values
             node = self._nodes["BlackLevelSelector"] = node_inst
         return node
 
     @property.getter
     def GammaEnable(self):
         """Enables/disables gamma correction.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("GammaEnable")
@@ -2364,6 +2904,9 @@ cdef class CameraNodes:
         """Enables/disables the auto sharpening feature. When enabled, the
         camera automatically determines the sharpening threshold based on
         the noise level of the camera.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("SharpeningAuto")
@@ -2378,6 +2921,9 @@ cdef class CameraNodes:
     def BlackLevelClampingEnable(self):
         """Enable the black level auto clamping feature which performing dark
         current compensation.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("BlackLevelClampingEnable")
@@ -2392,6 +2938,9 @@ cdef class CameraNodes:
     def BalanceRatio(self):
         """Controls the balance ratio of the selected color relative to green.
         Used for white balancing.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("BalanceRatio")
@@ -2408,6 +2957,10 @@ cdef class CameraNodes:
         lighting conditions. It can be automatically or manually controlled.
         For manual control, set to Off. For automatic control, set to Once
         or Continuous.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.BalanceWhiteAuto_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("BalanceWhiteAuto")
@@ -2415,8 +2968,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().BalanceWhiteAuto))
-            node_inst.enum_names = rotpy.names.BalanceWhiteAuto_names
-            node_inst.enum_values = rotpy.names.BalanceWhiteAuto_values
+            node_inst.enum_names = rotpy.names.camera.BalanceWhiteAuto_names
+            node_inst.enum_values = rotpy.names.camera.BalanceWhiteAuto_values
             node = self._nodes["BalanceWhiteAuto"] = node_inst
         return node
 
@@ -2429,6 +2982,9 @@ cdef class CameraNodes:
         than 25% produces little to no difference than 25%. High thresholds
         sharpen only areas with significant intensity changes. Low
         thresholds sharpen more areas.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("SharpeningThreshold")
@@ -2445,6 +3001,10 @@ cdef class CameraNodes:
         Once for a single automatic adjustment then return to Off. Set to
         Continuous for constant adjustment. In automatic modes, the camera
         adjusts the gain to maximize the dynamic range.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.GainAuto_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("GainAuto")
@@ -2452,8 +3012,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().GainAuto))
-            node_inst.enum_names = rotpy.names.GainAuto_names
-            node_inst.enum_values = rotpy.names.GainAuto_values
+            node_inst.enum_names = rotpy.names.camera.GainAuto_names
+            node_inst.enum_values = rotpy.names.camera.GainAuto_values
             node = self._nodes["GainAuto"] = node_inst
         return node
 
@@ -2464,6 +3024,9 @@ cdef class CameraNodes:
         negative value smooths out the difference, while a positive value
         amplifies the difference. You can boost by a maximum of 8x, but
         smoothing is limited to 1x  (in float). Default value: 2.0
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("Sharpening")
@@ -2477,6 +3040,9 @@ cdef class CameraNodes:
     @property.getter
     def Gain(self):
         """Controls the amplification of the video signal in dB.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("Gain")
@@ -2491,6 +3057,10 @@ cdef class CameraNodes:
     def BalanceRatioSelector(self):
         """Selects a balance ratio to configure once a balance ratio control
         has been selected.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.BalanceRatioSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("BalanceRatioSelector")
@@ -2498,8 +3068,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().BalanceRatioSelector))
-            node_inst.enum_names = rotpy.names.BalanceRatioSelector_names
-            node_inst.enum_values = rotpy.names.BalanceRatioSelector_values
+            node_inst.enum_names = rotpy.names.camera.BalanceRatioSelector_names
+            node_inst.enum_values = rotpy.names.camera.BalanceRatioSelector_values
             node = self._nodes["BalanceRatioSelector"] = node_inst
         return node
 
@@ -2507,6 +3077,10 @@ cdef class CameraNodes:
     def GainSelector(self):
         """    Selects which gain to control. The All selection is a total
         amplification across all channels (or taps).
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.GainSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("GainSelector")
@@ -2514,14 +3088,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().GainSelector))
-            node_inst.enum_names = rotpy.names.GainSelector_names
-            node_inst.enum_values = rotpy.names.GainSelector_values
+            node_inst.enum_names = rotpy.names.camera.GainSelector_names
+            node_inst.enum_values = rotpy.names.camera.GainSelector_values
             node = self._nodes["GainSelector"] = node_inst
         return node
 
     @property.getter
     def BlackLevel(self):
         """Controls the offset of the video signal in percent.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("BlackLevel")
@@ -2535,6 +3112,9 @@ cdef class CameraNodes:
     @property.getter
     def BlackLevelRaw(self):
         """Controls the offset of the video signal in camera specific units.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("BlackLevelRaw")
@@ -2548,6 +3128,9 @@ cdef class CameraNodes:
     @property.getter
     def Gamma(self):
         """      Controls the gamma correction of pixel intensity.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("Gamma")
@@ -2562,6 +3145,9 @@ cdef class CameraNodes:
     def DefectTableIndex(self):
         """Controls the offset of the element to access in the defective pixel
         location table.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DefectTableIndex")
@@ -2577,6 +3163,9 @@ cdef class CameraNodes:
         """    Restores the Defective Pixel Table to its factory default state,
         which was calibrated during manufacturing. This permanently
         overwrites any changes made to the defect table.
+
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("DefectTableFactoryRestore")
@@ -2592,6 +3181,9 @@ cdef class CameraNodes:
         """Returns the Y coordinate of the defective pixel at DefectTableIndex
         within the defective pixel table. Changes made do not take effect in
         captured images until the command DefectTableApply is written.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DefectTableCoordinateY")
@@ -2608,6 +3200,9 @@ cdef class CameraNodes:
         so that it is preserved when the camera boots up.   This overwrites
         the existing defective pixel table.     The new table is loaded
         whenever the camera     powers up.
+
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("DefectTableSave")
@@ -2621,6 +3216,10 @@ cdef class CameraNodes:
     @property.getter
     def DefectCorrectionMode(self):
         """    Controls the method used for replacing defective pixels.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.DefectCorrectionMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("DefectCorrectionMode")
@@ -2628,8 +3227,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DefectCorrectionMode))
-            node_inst.enum_names = rotpy.names.DefectCorrectionMode_names
-            node_inst.enum_values = rotpy.names.DefectCorrectionMode_values
+            node_inst.enum_names = rotpy.names.camera.DefectCorrectionMode_names
+            node_inst.enum_values = rotpy.names.camera.DefectCorrectionMode_values
             node = self._nodes["DefectCorrectionMode"] = node_inst
         return node
 
@@ -2638,6 +3237,9 @@ cdef class CameraNodes:
         """Returns the X coordinate of the defective pixel at DefectTableIndex
         within the defective pixel table. Changes made do not take effect in
         captured images until the command DefectTableApply is written.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DefectTableCoordinateX")
@@ -2651,6 +3253,9 @@ cdef class CameraNodes:
     @property.getter
     def DefectTablePixelCount(self):
         """The number of defective pixel locations in the current table.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DefectTablePixelCount")
@@ -2664,6 +3269,9 @@ cdef class CameraNodes:
     @property.getter
     def DefectCorrectStaticEnable(self):
         """Enables/Disables table-based defective pixel correction.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("DefectCorrectStaticEnable")
@@ -2681,6 +3289,9 @@ cdef class CameraNodes:
         volatile memory, so changes to the     table are lost if the camera
         loses power. To save the   table to non-volatile memory, use
         DefectTableSave.
+
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("DefectTableApply")
@@ -2694,6 +3305,9 @@ cdef class CameraNodes:
     @property.getter
     def UserSetFeatureEnable(self):
         """    Whether or not the selected feature is saved to user sets.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("UserSetFeatureEnable")
@@ -2708,6 +3322,9 @@ cdef class CameraNodes:
     def UserSetSave(self):
         """Saves the User Set specified by UserSetSelector to the non-volatile
         memory of the device.
+
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("UserSetSave")
@@ -2721,6 +3338,10 @@ cdef class CameraNodes:
     @property.getter
     def UserSetSelector(self):
         """Selects the feature User Set to load, save or configure.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.UserSetSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("UserSetSelector")
@@ -2728,8 +3349,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().UserSetSelector))
-            node_inst.enum_names = rotpy.names.UserSetSelector_names
-            node_inst.enum_values = rotpy.names.UserSetSelector_values
+            node_inst.enum_names = rotpy.names.camera.UserSetSelector_names
+            node_inst.enum_values = rotpy.names.camera.UserSetSelector_values
             node = self._nodes["UserSetSelector"] = node_inst
         return node
 
@@ -2737,6 +3358,9 @@ cdef class CameraNodes:
     def UserSetLoad(self):
         """Loads the User Set specified by UserSetSelector to the device and
         makes it active.
+
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("UserSetLoad")
@@ -2751,6 +3375,10 @@ cdef class CameraNodes:
     def UserSetDefault(self):
         """Selects the feature User Set to load and make active by default when
         the device is restarted.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.UserSetDefault_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("UserSetDefault")
@@ -2758,8 +3386,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().UserSetDefault))
-            node_inst.enum_names = rotpy.names.UserSetDefault_names
-            node_inst.enum_values = rotpy.names.UserSetDefault_values
+            node_inst.enum_names = rotpy.names.camera.UserSetDefault_names
+            node_inst.enum_values = rotpy.names.camera.UserSetDefault_values
             node = self._nodes["UserSetDefault"] = node_inst
         return node
 
@@ -2767,6 +3395,10 @@ cdef class CameraNodes:
     def SerialPortBaudRate(self):
         """This feature controls the baud rate used by the selected serial
         port.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.SerialPortBaudRate_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("SerialPortBaudRate")
@@ -2774,8 +3406,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SerialPortBaudRate))
-            node_inst.enum_names = rotpy.names.SerialPortBaudRate_names
-            node_inst.enum_values = rotpy.names.SerialPortBaudRate_values
+            node_inst.enum_names = rotpy.names.camera.SerialPortBaudRate_names
+            node_inst.enum_values = rotpy.names.camera.SerialPortBaudRate_values
             node = self._nodes["SerialPortBaudRate"] = node_inst
         return node
 
@@ -2783,6 +3415,9 @@ cdef class CameraNodes:
     def SerialPortDataBits(self):
         """This feature controls the number of data bits used by the selected
         serial port.  Possible values that can be used are between 5 and 9.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("SerialPortDataBits")
@@ -2796,6 +3431,10 @@ cdef class CameraNodes:
     @property.getter
     def SerialPortParity(self):
         """This feature controls the parity used by the selected serial port.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.SerialPortParity_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("SerialPortParity")
@@ -2803,8 +3442,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SerialPortParity))
-            node_inst.enum_names = rotpy.names.SerialPortParity_names
-            node_inst.enum_values = rotpy.names.SerialPortParity_values
+            node_inst.enum_names = rotpy.names.camera.SerialPortParity_names
+            node_inst.enum_values = rotpy.names.camera.SerialPortParity_values
             node = self._nodes["SerialPortParity"] = node_inst
         return node
 
@@ -2812,6 +3451,9 @@ cdef class CameraNodes:
     def SerialTransmitQueueMaxCharacterCount(self):
         """>Returns the maximum number of characters in the serial port
         transmit queue.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("SerialTransmitQueueMaxCharacterCount")
@@ -2826,6 +3468,9 @@ cdef class CameraNodes:
     def SerialReceiveQueueCurrentCharacterCount(self):
         """Returns the number of characters currently in the serial port
         receive queue.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("SerialReceiveQueueCurrentCharacterCount")
@@ -2839,6 +3484,10 @@ cdef class CameraNodes:
     @property.getter
     def SerialPortSelector(self):
         """Selects which serial port of the device to control.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.SerialPortSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("SerialPortSelector")
@@ -2846,8 +3495,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SerialPortSelector))
-            node_inst.enum_names = rotpy.names.SerialPortSelector_names
-            node_inst.enum_values = rotpy.names.SerialPortSelector_values
+            node_inst.enum_names = rotpy.names.camera.SerialPortSelector_names
+            node_inst.enum_values = rotpy.names.camera.SerialPortSelector_values
             node = self._nodes["SerialPortSelector"] = node_inst
         return node
 
@@ -2855,6 +3504,10 @@ cdef class CameraNodes:
     def SerialPortStopBits(self):
         """This feature controls the number of stop bits used by the selected
         serial port.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.SerialPortStopBits_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("SerialPortStopBits")
@@ -2862,14 +3515,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SerialPortStopBits))
-            node_inst.enum_names = rotpy.names.SerialPortStopBits_names
-            node_inst.enum_values = rotpy.names.SerialPortStopBits_values
+            node_inst.enum_names = rotpy.names.camera.SerialPortStopBits_names
+            node_inst.enum_values = rotpy.names.camera.SerialPortStopBits_values
             node = self._nodes["SerialPortStopBits"] = node_inst
         return node
 
     @property.getter
     def SerialReceiveQueueClear(self):
         """This is a command that clears the device serial port receive queue.
+
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("SerialReceiveQueueClear")
@@ -2884,6 +3540,9 @@ cdef class CameraNodes:
     def SerialReceiveFramingErrorCount(self):
         """Returns the number of framing errors that have occurred on the
         serial port.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("SerialReceiveFramingErrorCount")
@@ -2898,6 +3557,9 @@ cdef class CameraNodes:
     def SerialTransmitQueueCurrentCharacterCount(self):
         """Returns the number of characters currently in the serial port
         transmit queue.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("SerialTransmitQueueCurrentCharacterCount")
@@ -2912,6 +3574,9 @@ cdef class CameraNodes:
     def SerialReceiveParityErrorCount(self):
         """Returns the number of parity errors that have occurred on the serial
         port.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("SerialReceiveParityErrorCount")
@@ -2925,6 +3590,10 @@ cdef class CameraNodes:
     @property.getter
     def SerialPortSource(self):
         """Specifies the physical input Line on which to receive serial data.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.SerialPortSource_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("SerialPortSource")
@@ -2932,8 +3601,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SerialPortSource))
-            node_inst.enum_names = rotpy.names.SerialPortSource_names
-            node_inst.enum_values = rotpy.names.SerialPortSource_values
+            node_inst.enum_names = rotpy.names.camera.SerialPortSource_names
+            node_inst.enum_values = rotpy.names.camera.SerialPortSource_values
             node = self._nodes["SerialPortSource"] = node_inst
         return node
 
@@ -2941,6 +3610,9 @@ cdef class CameraNodes:
     def SerialReceiveQueueMaxCharacterCount(self):
         """>Returns the maximum number of characters in the serial port receive
         queue.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("SerialReceiveQueueMaxCharacterCount")
@@ -2954,6 +3626,9 @@ cdef class CameraNodes:
     @property.getter
     def SequencerSetStart(self):
         """Sets the first sequencer set to be used.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("SequencerSetStart")
@@ -2967,6 +3642,10 @@ cdef class CameraNodes:
     @property.getter
     def SequencerMode(self):
         """Controls whether or not a sequencer is active.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.SequencerMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("SequencerMode")
@@ -2974,14 +3653,18 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SequencerMode))
-            node_inst.enum_names = rotpy.names.SequencerMode_names
-            node_inst.enum_values = rotpy.names.SequencerMode_values
+            node_inst.enum_names = rotpy.names.camera.SequencerMode_names
+            node_inst.enum_values = rotpy.names.camera.SequencerMode_values
             node = self._nodes["SequencerMode"] = node_inst
         return node
 
     @property.getter
     def SequencerConfigurationValid(self):
         """Display whether the current sequencer configuration is valid to run.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.SequencerConfigurationValid_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("SequencerConfigurationValid")
@@ -2989,8 +3672,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SequencerConfigurationValid))
-            node_inst.enum_names = rotpy.names.SequencerConfigurationValid_names
-            node_inst.enum_values = rotpy.names.SequencerConfigurationValid_values
+            node_inst.enum_names = rotpy.names.camera.SequencerConfigurationValid_names
+            node_inst.enum_values = rotpy.names.camera.SequencerConfigurationValid_values
             node = self._nodes["SequencerConfigurationValid"] = node_inst
         return node
 
@@ -2998,6 +3681,10 @@ cdef class CameraNodes:
     def SequencerSetValid(self):
         """Displays whether the currently selected sequencer set's register
         contents are valid to use.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.SequencerSetValid_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("SequencerSetValid")
@@ -3005,14 +3692,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SequencerSetValid))
-            node_inst.enum_names = rotpy.names.SequencerSetValid_names
-            node_inst.enum_values = rotpy.names.SequencerSetValid_values
+            node_inst.enum_names = rotpy.names.camera.SequencerSetValid_names
+            node_inst.enum_values = rotpy.names.camera.SequencerSetValid_values
             node = self._nodes["SequencerSetValid"] = node_inst
         return node
 
     @property.getter
     def SequencerSetSelector(self):
         """Selects the sequencer set to which subsequent settings apply.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("SequencerSetSelector")
@@ -3026,6 +3716,10 @@ cdef class CameraNodes:
     @property.getter
     def SequencerTriggerActivation(self):
         """Specifies the activation mode of the sequencer trigger.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.SequencerTriggerActivation_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("SequencerTriggerActivation")
@@ -3033,14 +3727,18 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SequencerTriggerActivation))
-            node_inst.enum_names = rotpy.names.SequencerTriggerActivation_names
-            node_inst.enum_values = rotpy.names.SequencerTriggerActivation_values
+            node_inst.enum_names = rotpy.names.camera.SequencerTriggerActivation_names
+            node_inst.enum_values = rotpy.names.camera.SequencerTriggerActivation_values
             node = self._nodes["SequencerTriggerActivation"] = node_inst
         return node
 
     @property.getter
     def SequencerConfigurationMode(self):
         """Controls whether or not a sequencer is in configuration mode.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.SequencerConfigurationMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("SequencerConfigurationMode")
@@ -3048,8 +3746,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SequencerConfigurationMode))
-            node_inst.enum_names = rotpy.names.SequencerConfigurationMode_names
-            node_inst.enum_values = rotpy.names.SequencerConfigurationMode_values
+            node_inst.enum_names = rotpy.names.camera.SequencerConfigurationMode_names
+            node_inst.enum_values = rotpy.names.camera.SequencerConfigurationMode_values
             node = self._nodes["SequencerConfigurationMode"] = node_inst
         return node
 
@@ -3057,6 +3755,9 @@ cdef class CameraNodes:
     def SequencerSetSave(self):
         """Saves the current device configuration to the currently selected
         sequencer set.
+
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("SequencerSetSave")
@@ -3071,6 +3772,10 @@ cdef class CameraNodes:
     def SequencerTriggerSource(self):
         """Specifies the internal signal or physical input line to use as the
         sequencer trigger source.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.SequencerTriggerSource_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("SequencerTriggerSource")
@@ -3078,14 +3783,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SequencerTriggerSource))
-            node_inst.enum_names = rotpy.names.SequencerTriggerSource_names
-            node_inst.enum_values = rotpy.names.SequencerTriggerSource_values
+            node_inst.enum_names = rotpy.names.camera.SequencerTriggerSource_names
+            node_inst.enum_values = rotpy.names.camera.SequencerTriggerSource_values
             node = self._nodes["SequencerTriggerSource"] = node_inst
         return node
 
     @property.getter
     def SequencerSetActive(self):
         """Displays the currently active sequencer set.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("SequencerSetActive")
@@ -3099,6 +3807,9 @@ cdef class CameraNodes:
     @property.getter
     def SequencerSetNext(self):
         """Specifies the next sequencer set.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("SequencerSetNext")
@@ -3113,6 +3824,9 @@ cdef class CameraNodes:
     def SequencerSetLoad(self):
         """Loads currently selected sequencer to the current device
         configuration.
+
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("SequencerSetLoad")
@@ -3126,6 +3840,9 @@ cdef class CameraNodes:
     @property.getter
     def SequencerPathSelector(self):
         """Selects branching path to be used for subsequent settings.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("SequencerPathSelector")
@@ -3140,6 +3857,9 @@ cdef class CameraNodes:
     def SequencerFeatureEnable(self):
         """Enables the selected feature and makes it active in all sequencer
         sets.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("SequencerFeatureEnable")
@@ -3155,6 +3875,9 @@ cdef class CameraNodes:
         """Specifies the number of data blocks (images) that the device should
         stream before stopping. This feature is only active if the Transfer
         Operation Mode is set to Multi Block.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("TransferBlockCount")
@@ -3170,6 +3893,9 @@ cdef class CameraNodes:
         """Starts the streaming of data blocks (images) out of the device. This
         feature is available when the Transfer Control Mode is set to User
         Controlled.
+
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("TransferStart")
@@ -3184,6 +3910,9 @@ cdef class CameraNodes:
     def TransferQueueMaxBlockCount(self):
         """Returns the maximum number of data blocks (images) in the transfer
         queue
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("TransferQueueMaxBlockCount")
@@ -3198,6 +3927,9 @@ cdef class CameraNodes:
     def TransferQueueCurrentBlockCount(self):
         """Returns number of data blocks (images) currently in the transfer
         queue.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("TransferQueueCurrentBlockCount")
@@ -3211,6 +3943,10 @@ cdef class CameraNodes:
     @property.getter
     def TransferQueueMode(self):
         """Specifies the operation mode of the transfer queue.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.TransferQueueMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("TransferQueueMode")
@@ -3218,8 +3954,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TransferQueueMode))
-            node_inst.enum_names = rotpy.names.TransferQueueMode_names
-            node_inst.enum_values = rotpy.names.TransferQueueMode_values
+            node_inst.enum_names = rotpy.names.camera.TransferQueueMode_names
+            node_inst.enum_values = rotpy.names.camera.TransferQueueMode_values
             node = self._nodes["TransferQueueMode"] = node_inst
         return node
 
@@ -3229,6 +3965,10 @@ cdef class CameraNodes:
         Basic/Automatic but you can start/stop the transfer while
         acquisition runs independently. Multi Block transmits a specified
         number of blocks and then stops.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.TransferOperationMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("TransferOperationMode")
@@ -3236,8 +3976,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TransferOperationMode))
-            node_inst.enum_names = rotpy.names.TransferOperationMode_names
-            node_inst.enum_values = rotpy.names.TransferOperationMode_values
+            node_inst.enum_names = rotpy.names.camera.TransferOperationMode_names
+            node_inst.enum_values = rotpy.names.camera.TransferOperationMode_values
             node = self._nodes["TransferOperationMode"] = node_inst
         return node
 
@@ -3246,6 +3986,9 @@ cdef class CameraNodes:
         """Stops the streaming of data block (images). The current block
         transmission is completed. This feature is available when the
         Transfer Control Mode is set to User Controlled.
+
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("TransferStop")
@@ -3261,6 +4004,9 @@ cdef class CameraNodes:
         """Returns number of images that have been lost before being
         transmitted because the transmit queue hasn't been cleared fast
         enough.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("TransferQueueOverflowCount")
@@ -3277,6 +4023,10 @@ cdef class CameraNodes:
         start transmitting data as soon as there is enough data to fill a
         link layer packet. User Controlled allows you to directly control
         the transfer of blocks.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.TransferControlMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("TransferControlMode")
@@ -3284,14 +4034,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TransferControlMode))
-            node_inst.enum_names = rotpy.names.TransferControlMode_names
-            node_inst.enum_values = rotpy.names.TransferControlMode_values
+            node_inst.enum_names = rotpy.names.camera.TransferControlMode_names
+            node_inst.enum_values = rotpy.names.camera.TransferControlMode_values
             node = self._nodes["TransferControlMode"] = node_inst
         return node
 
     @property.getter
     def ChunkBlackLevel(self):
         """Returns the black level used to capture the image.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("ChunkBlackLevel")
@@ -3305,6 +4058,9 @@ cdef class CameraNodes:
     @property.getter
     def ChunkFrameID(self):
         """Returns the image frame ID.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ChunkFrameID")
@@ -3318,6 +4074,9 @@ cdef class CameraNodes:
     @property.getter
     def ChunkSerialData(self):
         """Returns the serial data that was received.
+
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("ChunkSerialData")
@@ -3331,6 +4090,9 @@ cdef class CameraNodes:
     @property.getter
     def ChunkExposureTime(self):
         """Returns the exposure time used to capture the image.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("ChunkExposureTime")
@@ -3344,6 +4106,9 @@ cdef class CameraNodes:
     @property.getter
     def ChunkCompressionMode(self):
         """Returns the compression mode of the last image payload.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ChunkCompressionMode")
@@ -3357,6 +4122,9 @@ cdef class CameraNodes:
     @property.getter
     def ChunkCompressionRatio(self):
         """Returns the compression ratio of the last image payload.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("ChunkCompressionRatio")
@@ -3370,6 +4138,9 @@ cdef class CameraNodes:
     @property.getter
     def ChunkSerialReceiveOverflow(self):
         """Returns the status of the chunk serial receive overflow.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("ChunkSerialReceiveOverflow")
@@ -3383,6 +4154,9 @@ cdef class CameraNodes:
     @property.getter
     def ChunkTimestamp(self):
         """Returns the Timestamp of the image.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ChunkTimestamp")
@@ -3396,6 +4170,9 @@ cdef class CameraNodes:
     @property.getter
     def ChunkModeActive(self):
         """Activates the inclusion of Chunk data in the payload of the image.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("ChunkModeActive")
@@ -3410,6 +4187,9 @@ cdef class CameraNodes:
     def ChunkExposureEndLineStatusAll(self):
         """Returns the status of all the I/O lines at the end of exposure
         event.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ChunkExposureEndLineStatusAll")
@@ -3423,6 +4203,10 @@ cdef class CameraNodes:
     @property.getter
     def ChunkGainSelector(self):
         """Selects which gain to retrieve
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ChunkGainSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ChunkGainSelector")
@@ -3430,14 +4214,18 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkGainSelector))
-            node_inst.enum_names = rotpy.names.ChunkGainSelector_names
-            node_inst.enum_values = rotpy.names.ChunkGainSelector_values
+            node_inst.enum_names = rotpy.names.camera.ChunkGainSelector_names
+            node_inst.enum_values = rotpy.names.camera.ChunkGainSelector_values
             node = self._nodes["ChunkGainSelector"] = node_inst
         return node
 
     @property.getter
     def ChunkSelector(self):
         """Selects which chunk data to enable or disable.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ChunkSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ChunkSelector")
@@ -3445,14 +4233,18 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkSelector))
-            node_inst.enum_names = rotpy.names.ChunkSelector_names
-            node_inst.enum_values = rotpy.names.ChunkSelector_values
+            node_inst.enum_names = rotpy.names.camera.ChunkSelector_names
+            node_inst.enum_values = rotpy.names.camera.ChunkSelector_values
             node = self._nodes["ChunkSelector"] = node_inst
         return node
 
     @property.getter
     def ChunkBlackLevelSelector(self):
         """Selects which black level to retrieve
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ChunkBlackLevelSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ChunkBlackLevelSelector")
@@ -3460,14 +4252,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkBlackLevelSelector))
-            node_inst.enum_names = rotpy.names.ChunkBlackLevelSelector_names
-            node_inst.enum_values = rotpy.names.ChunkBlackLevelSelector_values
+            node_inst.enum_names = rotpy.names.camera.ChunkBlackLevelSelector_names
+            node_inst.enum_values = rotpy.names.camera.ChunkBlackLevelSelector_values
             node = self._nodes["ChunkBlackLevelSelector"] = node_inst
         return node
 
     @property.getter
     def ChunkWidth(self):
         """Returns the width of the image included in the payload.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ChunkWidth")
@@ -3481,6 +4276,9 @@ cdef class CameraNodes:
     @property.getter
     def ChunkImage(self):
         """Returns the image payload.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ChunkImage")
@@ -3494,6 +4292,9 @@ cdef class CameraNodes:
     @property.getter
     def ChunkHeight(self):
         """Returns the height of the image included in the payload.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ChunkHeight")
@@ -3507,6 +4308,10 @@ cdef class CameraNodes:
     @property.getter
     def ChunkPixelFormat(self):
         """Format of the pixel provided by the camera
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ChunkPixelFormat_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ChunkPixelFormat")
@@ -3514,14 +4319,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkPixelFormat))
-            node_inst.enum_names = rotpy.names.ChunkPixelFormat_names
-            node_inst.enum_values = rotpy.names.ChunkPixelFormat_values
+            node_inst.enum_names = rotpy.names.camera.ChunkPixelFormat_names
+            node_inst.enum_values = rotpy.names.camera.ChunkPixelFormat_values
             node = self._nodes["ChunkPixelFormat"] = node_inst
         return node
 
     @property.getter
     def ChunkGain(self):
         """Returns the gain used to capture the image.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("ChunkGain")
@@ -3536,6 +4344,9 @@ cdef class CameraNodes:
     def ChunkSequencerSetActive(self):
         """Returns the index of the active set of the running sequencer
         included in the payload.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ChunkSequencerSetActive")
@@ -3549,6 +4360,9 @@ cdef class CameraNodes:
     @property.getter
     def ChunkCRC(self):
         """Returns the CRC of the image payload.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ChunkCRC")
@@ -3562,6 +4376,9 @@ cdef class CameraNodes:
     @property.getter
     def ChunkOffsetX(self):
         """Returns the Offset X of the image included in the payload.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ChunkOffsetX")
@@ -3575,6 +4392,9 @@ cdef class CameraNodes:
     @property.getter
     def ChunkOffsetY(self):
         """Returns the Offset Y of the image included in the payload.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ChunkOffsetY")
@@ -3589,6 +4409,9 @@ cdef class CameraNodes:
     def ChunkEnable(self):
         """Enables the inclusion of the selected Chunk data in the payload of
         the image.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("ChunkEnable")
@@ -3603,6 +4426,9 @@ cdef class CameraNodes:
     def ChunkSerialDataLength(self):
         """Returns the length of the received serial data that was included in
         the payload.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ChunkSerialDataLength")
@@ -3617,6 +4443,9 @@ cdef class CameraNodes:
     def FileAccessOffset(self):
         """Controls the Offset of the mapping between the device file storage
         and the FileAccessBuffer.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("FileAccessOffset")
@@ -3631,6 +4460,9 @@ cdef class CameraNodes:
     def FileAccessLength(self):
         """Controls the Length of the mapping between the device file storage
         and the FileAccessBuffer.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("FileAccessLength")
@@ -3644,6 +4476,10 @@ cdef class CameraNodes:
     @property.getter
     def FileOperationStatus(self):
         """Represents the file operation execution status.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.FileOperationStatus_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("FileOperationStatus")
@@ -3651,8 +4487,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().FileOperationStatus))
-            node_inst.enum_names = rotpy.names.FileOperationStatus_names
-            node_inst.enum_values = rotpy.names.FileOperationStatus_values
+            node_inst.enum_names = rotpy.names.camera.FileOperationStatus_names
+            node_inst.enum_values = rotpy.names.camera.FileOperationStatus_values
             node = self._nodes["FileOperationStatus"] = node_inst
         return node
 
@@ -3660,6 +4496,9 @@ cdef class CameraNodes:
     def FileOperationExecute(self):
         """This is a command that executes the selected file operation on the
         selected file.
+
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("FileOperationExecute")
@@ -3674,6 +4513,10 @@ cdef class CameraNodes:
     def FileOpenMode(self):
         """The mode of the file when it is opened. The file can be opened for
         reading, writting or both. This must be set before opening the file.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.FileOpenMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("FileOpenMode")
@@ -3681,8 +4524,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().FileOpenMode))
-            node_inst.enum_names = rotpy.names.FileOpenMode_names
-            node_inst.enum_values = rotpy.names.FileOpenMode_values
+            node_inst.enum_names = rotpy.names.camera.FileOpenMode_names
+            node_inst.enum_values = rotpy.names.camera.FileOpenMode_values
             node = self._nodes["FileOpenMode"] = node_inst
         return node
 
@@ -3690,6 +4533,9 @@ cdef class CameraNodes:
     def FileOperationResult(self):
         """Represents the file operation result. For Read or Write operations,
         the number of successfully read/written bytes is returned.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("FileOperationResult")
@@ -3704,6 +4550,10 @@ cdef class CameraNodes:
     def FileOperationSelector(self):
         """Sets operation to execute on the selected file when the execute
         command is given.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.FileOperationSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("FileOperationSelector")
@@ -3711,8 +4561,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().FileOperationSelector))
-            node_inst.enum_names = rotpy.names.FileOperationSelector_names
-            node_inst.enum_values = rotpy.names.FileOperationSelector_values
+            node_inst.enum_names = rotpy.names.camera.FileOperationSelector_names
+            node_inst.enum_values = rotpy.names.camera.FileOperationSelector_values
             node = self._nodes["FileOperationSelector"] = node_inst
         return node
 
@@ -3720,6 +4570,10 @@ cdef class CameraNodes:
     def FileSelector(self):
         """Selects which file is being operated on. This must be set before
         performing any file operations.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.FileSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("FileSelector")
@@ -3727,14 +4581,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().FileSelector))
-            node_inst.enum_names = rotpy.names.FileSelector_names
-            node_inst.enum_values = rotpy.names.FileSelector_values
+            node_inst.enum_names = rotpy.names.camera.FileSelector_names
+            node_inst.enum_values = rotpy.names.camera.FileSelector_values
             node = self._nodes["FileSelector"] = node_inst
         return node
 
     @property.getter
     def FileSize(self):
         """Represents the size of the selected file in bytes.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("FileSize")
@@ -3749,6 +4606,10 @@ cdef class CameraNodes:
     def BinningSelector(self):
         """Selects which binning engine is controlled by the BinningHorizontal
         and BinningVertical features.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.BinningSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("BinningSelector")
@@ -3756,8 +4617,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().BinningSelector))
-            node_inst.enum_names = rotpy.names.BinningSelector_names
-            node_inst.enum_values = rotpy.names.BinningSelector_values
+            node_inst.enum_names = rotpy.names.camera.BinningSelector_names
+            node_inst.enum_values = rotpy.names.camera.BinningSelector_values
             node = self._nodes["BinningSelector"] = node_inst
         return node
 
@@ -3767,6 +4628,9 @@ cdef class CameraNodes:
         process. This corresponds to the darkest value of the camera. For
         color cameras, this returns the smallest value that each color
         component can take.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("PixelDynamicRangeMin")
@@ -3783,6 +4647,9 @@ cdef class CameraNodes:
         process. This corresponds to the brightest value of the camera. For
         color cameras, this returns the biggest value that each color
         component can take.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("PixelDynamicRangeMax")
@@ -3796,6 +4663,9 @@ cdef class CameraNodes:
     @property.getter
     def OffsetY(self):
         """Vertical offset from the origin to the ROI (in pixels).
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("OffsetY")
@@ -3812,6 +4682,9 @@ cdef class CameraNodes:
         reduces the horizontal resolution (width) of the image. A value of 1
         indicates that no horizontal binning is performed by the camera.
         This value must be 1 for decimation to be active.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("BinningHorizontal")
@@ -3825,6 +4698,9 @@ cdef class CameraNodes:
     @property.getter
     def Width(self):
         """Width of the image provided by the device (in pixels).
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("Width")
@@ -3839,6 +4715,10 @@ cdef class CameraNodes:
     def TestPatternGeneratorSelector(self):
         """Selects which test pattern generator is controlled by the
         TestPattern feature.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.TestPatternGeneratorSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("TestPatternGeneratorSelector")
@@ -3846,8 +4726,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TestPatternGeneratorSelector))
-            node_inst.enum_names = rotpy.names.TestPatternGeneratorSelector_names
-            node_inst.enum_values = rotpy.names.TestPatternGeneratorSelector_values
+            node_inst.enum_names = rotpy.names.camera.TestPatternGeneratorSelector_names
+            node_inst.enum_values = rotpy.names.camera.TestPatternGeneratorSelector_values
             node = self._nodes["TestPatternGeneratorSelector"] = node_inst
         return node
 
@@ -3855,6 +4735,9 @@ cdef class CameraNodes:
     def CompressionRatio(self):
         """Reports the ratio between the uncompressed image size and compressed
         image size.
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("CompressionRatio")
@@ -3870,6 +4753,10 @@ cdef class CameraNodes:
         """When FrameRate is enabled, camera drops frames if datarate is
         saturated. If FrameRate is disabled, camera adjusts the framerate to
         match the maximum achievable datarate.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.CompressionSaturationPriority_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("CompressionSaturationPriority")
@@ -3877,8 +4764,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CompressionSaturationPriority))
-            node_inst.enum_names = rotpy.names.CompressionSaturationPriority_names
-            node_inst.enum_values = rotpy.names.CompressionSaturationPriority_values
+            node_inst.enum_names = rotpy.names.camera.CompressionSaturationPriority_names
+            node_inst.enum_values = rotpy.names.camera.CompressionSaturationPriority_values
             node = self._nodes["CompressionSaturationPriority"] = node_inst
         return node
 
@@ -3888,6 +4775,9 @@ cdef class CameraNodes:
         interest is applied after flipping. For color cameras the bayer
         pixel format is affected. For example, BayerRG16 changes to
         BayerGR16.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("ReverseX")
@@ -3904,6 +4794,9 @@ cdef class CameraNodes:
         interest is applied after flipping. For color cameras the bayer
         pixel format is affected. For example, BayerRG16 changes to
         BayerGB16.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("ReverseY")
@@ -3918,6 +4811,10 @@ cdef class CameraNodes:
     def TestPattern(self):
         """Selects the type of test pattern that is generated by the device as
         image source.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.TestPattern_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("TestPattern")
@@ -3925,8 +4822,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TestPattern))
-            node_inst.enum_names = rotpy.names.TestPattern_names
-            node_inst.enum_values = rotpy.names.TestPattern_values
+            node_inst.enum_names = rotpy.names.camera.TestPattern_names
+            node_inst.enum_values = rotpy.names.camera.TestPattern_values
             node = self._nodes["TestPattern"] = node_inst
         return node
 
@@ -3934,6 +4831,10 @@ cdef class CameraNodes:
     def PixelColorFilter(self):
         """    Type of color filter that is applied to the image. Only applies
         to Bayer pixel formats. All others have no color filter.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.PixelColorFilter_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("PixelColorFilter")
@@ -3941,8 +4842,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().PixelColorFilter))
-            node_inst.enum_names = rotpy.names.PixelColorFilter_names
-            node_inst.enum_values = rotpy.names.PixelColorFilter_values
+            node_inst.enum_names = rotpy.names.camera.PixelColorFilter_names
+            node_inst.enum_values = rotpy.names.camera.PixelColorFilter_values
             node = self._nodes["PixelColorFilter"] = node_inst
         return node
 
@@ -3951,6 +4852,9 @@ cdef class CameraNodes:
         """Maximum width of the image (in pixels). The dimension is calculated
         after horizontal binning. WidthMax does not take into account the
         current Region of interest (Width or OffsetX).
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("WidthMax")
@@ -3965,6 +4869,10 @@ cdef class CameraNodes:
     def AdcBitDepth(self):
         """Selects which ADC bit depth to use. A higher ADC bit depth results
         in better image quality but slower maximum frame rate.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.AdcBitDepth_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("AdcBitDepth")
@@ -3972,8 +4880,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().AdcBitDepth))
-            node_inst.enum_names = rotpy.names.AdcBitDepth_names
-            node_inst.enum_values = rotpy.names.AdcBitDepth_values
+            node_inst.enum_names = rotpy.names.camera.AdcBitDepth_names
+            node_inst.enum_values = rotpy.names.camera.AdcBitDepth_values
             node = self._nodes["AdcBitDepth"] = node_inst
         return node
 
@@ -3983,6 +4891,9 @@ cdef class CameraNodes:
         reduces the vertical resolution (height) of the image. A value of 1
         indicates that no vertical binning is performed by the camera. This
         value must be 1 for decimation to be active.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("BinningVertical")
@@ -3999,6 +4910,10 @@ cdef class CameraNodes:
         DecimationHorizontal is used. The current implementation only
         supports a single decimation mode: Discard.  Average should be
         achieved via Binning.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.DecimationHorizontalMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("DecimationHorizontalMode")
@@ -4006,14 +4921,18 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DecimationHorizontalMode))
-            node_inst.enum_names = rotpy.names.DecimationHorizontalMode_names
-            node_inst.enum_values = rotpy.names.DecimationHorizontalMode_values
+            node_inst.enum_names = rotpy.names.camera.DecimationHorizontalMode_names
+            node_inst.enum_values = rotpy.names.camera.DecimationHorizontalMode_values
             node = self._nodes["DecimationHorizontalMode"] = node_inst
         return node
 
     @property.getter
     def BinningVerticalMode(self):
         """
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.BinningVerticalMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("BinningVerticalMode")
@@ -4021,14 +4940,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().BinningVerticalMode))
-            node_inst.enum_names = rotpy.names.BinningVerticalMode_names
-            node_inst.enum_values = rotpy.names.BinningVerticalMode_values
+            node_inst.enum_names = rotpy.names.camera.BinningVerticalMode_names
+            node_inst.enum_values = rotpy.names.camera.BinningVerticalMode_values
             node = self._nodes["BinningVerticalMode"] = node_inst
         return node
 
     @property.getter
     def OffsetX(self):
         """Horizontal offset from the origin to the ROI (in pixels).
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("OffsetX")
@@ -4044,6 +4966,9 @@ cdef class CameraNodes:
         """Maximum height of the image (in pixels). This dimension is
         calculated after vertical binning. HeightMax does not take into
         account the current Region of interest (Height or OffsetY).
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("HeightMax")
@@ -4061,6 +4986,9 @@ cdef class CameraNodes:
         within a window whose size is the decimation factor specified here.
         A value of 1 indicates that no horizontal decimation is performed by
         the camera. This value must be 1 for binning to be active.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DecimationHorizontal")
@@ -4074,6 +5002,10 @@ cdef class CameraNodes:
     @property.getter
     def PixelSize(self):
         """    Total size in bits of a pixel of the image.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.PixelSize_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("PixelSize")
@@ -4081,14 +5013,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().PixelSize))
-            node_inst.enum_names = rotpy.names.PixelSize_names
-            node_inst.enum_values = rotpy.names.PixelSize_values
+            node_inst.enum_names = rotpy.names.camera.PixelSize_names
+            node_inst.enum_values = rotpy.names.camera.PixelSize_values
             node = self._nodes["PixelSize"] = node_inst
         return node
 
     @property.getter
     def SensorHeight(self):
         """Effective height of the sensor in pixels.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("SensorHeight")
@@ -4103,6 +5038,10 @@ cdef class CameraNodes:
     def DecimationSelector(self):
         """Selects which decimation layer is controlled by the
         DecimationHorizontal and DecimationVertical features.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.DecimationSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("DecimationSelector")
@@ -4110,8 +5049,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DecimationSelector))
-            node_inst.enum_names = rotpy.names.DecimationSelector_names
-            node_inst.enum_values = rotpy.names.DecimationSelector_values
+            node_inst.enum_names = rotpy.names.camera.DecimationSelector_names
+            node_inst.enum_values = rotpy.names.camera.DecimationSelector_values
             node = self._nodes["DecimationSelector"] = node_inst
         return node
 
@@ -4119,6 +5058,9 @@ cdef class CameraNodes:
     def IspEnable(self):
         """Controls whether the image processing core is used for optional
         pixel format mode (i.e. mono).
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("IspEnable")
@@ -4133,6 +5075,9 @@ cdef class CameraNodes:
     def AdaptiveCompressionEnable(self):
         """Controls whether lossless compression adapts to the image content.
         If disabled, a fixed encoding table is used.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("AdaptiveCompressionEnable")
@@ -4146,6 +5091,10 @@ cdef class CameraNodes:
     @property.getter
     def ImageCompressionMode(self):
         """
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ImageCompressionMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ImageCompressionMode")
@@ -4153,8 +5102,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ImageCompressionMode))
-            node_inst.enum_names = rotpy.names.ImageCompressionMode_names
-            node_inst.enum_values = rotpy.names.ImageCompressionMode_values
+            node_inst.enum_names = rotpy.names.camera.ImageCompressionMode_names
+            node_inst.enum_values = rotpy.names.camera.ImageCompressionMode_values
             node = self._nodes["ImageCompressionMode"] = node_inst
         return node
 
@@ -4165,6 +5114,9 @@ cdef class CameraNodes:
         within a window whose size is the decimation factor specified here.
         A value of 1 indicates that no vertical decimation is performed by
         the camera. This value must be 1 for binning to be active.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DecimationVertical")
@@ -4178,6 +5130,9 @@ cdef class CameraNodes:
     @property.getter
     def Height(self):
         """Height of the image provided by the device (in pixels).
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("Height")
@@ -4191,6 +5146,10 @@ cdef class CameraNodes:
     @property.getter
     def BinningHorizontalMode(self):
         """
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.BinningHorizontalMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("BinningHorizontalMode")
@@ -4198,14 +5157,18 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().BinningHorizontalMode))
-            node_inst.enum_names = rotpy.names.BinningHorizontalMode_names
-            node_inst.enum_values = rotpy.names.BinningHorizontalMode_values
+            node_inst.enum_names = rotpy.names.camera.BinningHorizontalMode_names
+            node_inst.enum_values = rotpy.names.camera.BinningHorizontalMode_values
             node = self._nodes["BinningHorizontalMode"] = node_inst
         return node
 
     @property.getter
     def PixelFormat(self):
         """    Format of the pixel provided by the camera.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.PixelFormat_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("PixelFormat")
@@ -4213,14 +5176,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().PixelFormat))
-            node_inst.enum_names = rotpy.names.PixelFormat_names
-            node_inst.enum_values = rotpy.names.PixelFormat_values
+            node_inst.enum_names = rotpy.names.camera.PixelFormat_names
+            node_inst.enum_values = rotpy.names.camera.PixelFormat_values
             node = self._nodes["PixelFormat"] = node_inst
         return node
 
     @property.getter
     def SensorWidth(self):
         """Effective width of the sensor in pixels.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("SensorWidth")
@@ -4237,6 +5203,10 @@ cdef class CameraNodes:
         DecimationVertical is used. The current implementation only supports
         a single decimation mode: Discard.  Average should be achieved via
         Binning.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.DecimationVerticalMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("DecimationVerticalMode")
@@ -4244,14 +5214,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DecimationVerticalMode))
-            node_inst.enum_names = rotpy.names.DecimationVerticalMode_names
-            node_inst.enum_values = rotpy.names.DecimationVerticalMode_values
+            node_inst.enum_names = rotpy.names.camera.DecimationVerticalMode_names
+            node_inst.enum_values = rotpy.names.camera.DecimationVerticalMode_values
             node = self._nodes["DecimationVerticalMode"] = node_inst
         return node
 
     @property.getter
     def TestEventGenerate(self):
         """This command generates a test event and sends it to the host.
+
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("TestEventGenerate")
@@ -4265,6 +5238,9 @@ cdef class CameraNodes:
     @property.getter
     def TriggerEventTest(self):
         """This command generates a test event and sends it to the host.
+
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("TriggerEventTest")
@@ -4278,6 +5254,9 @@ cdef class CameraNodes:
     @property.getter
     def GuiXmlManifestAddress(self):
         """Location of the GUI XML manifest table.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GuiXmlManifestAddress")
@@ -4291,6 +5270,9 @@ cdef class CameraNodes:
     @property.getter
     def Test0001(self):
         """For testing only.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("Test0001")
@@ -4307,6 +5289,9 @@ cdef class CameraNodes:
         with power. This is different than standard logic outputs in that it
         is comparatively slow to switch but can supply a more significant
         amount of power. This is only available on some pins.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("V3_3Enable")
@@ -4320,6 +5305,10 @@ cdef class CameraNodes:
     @property.getter
     def LineMode(self):
         """Controls if the physical Line is used to Input or Output a signal.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.LineMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("LineMode")
@@ -4327,8 +5316,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().LineMode))
-            node_inst.enum_names = rotpy.names.LineMode_names
-            node_inst.enum_values = rotpy.names.LineMode_values
+            node_inst.enum_names = rotpy.names.camera.LineMode_names
+            node_inst.enum_values = rotpy.names.camera.LineMode_values
             node = self._nodes["LineMode"] = node_inst
         return node
 
@@ -4336,6 +5325,10 @@ cdef class CameraNodes:
     def LineSource(self):
         """Selects which internal acquisition or I/O source signal to output on
         the selected line. LineMode must be Output.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.LineSource_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("LineSource")
@@ -4343,14 +5336,18 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().LineSource))
-            node_inst.enum_names = rotpy.names.LineSource_names
-            node_inst.enum_values = rotpy.names.LineSource_values
+            node_inst.enum_names = rotpy.names.camera.LineSource_names
+            node_inst.enum_values = rotpy.names.camera.LineSource_values
             node = self._nodes["LineSource"] = node_inst
         return node
 
     @property.getter
     def LineInputFilterSelector(self):
         """Selects the kind of input filter to configure: Deglitch or Debounce.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.LineInputFilterSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("LineInputFilterSelector")
@@ -4358,8 +5355,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().LineInputFilterSelector))
-            node_inst.enum_names = rotpy.names.LineInputFilterSelector_names
-            node_inst.enum_values = rotpy.names.LineInputFilterSelector_values
+            node_inst.enum_names = rotpy.names.camera.LineInputFilterSelector_names
+            node_inst.enum_values = rotpy.names.camera.LineInputFilterSelector_values
             node = self._nodes["LineInputFilterSelector"] = node_inst
         return node
 
@@ -4367,6 +5364,9 @@ cdef class CameraNodes:
     def UserOutputValue(self):
         """Value of the selected user output, either logic high (enabled) or
         logic low (disabled).
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("UserOutputValue")
@@ -4383,6 +5383,9 @@ cdef class CameraNodes:
         hexadecimal representation (UserOutput 0 status corresponds to bit
         0, UserOutput 1 status with bit 1, etc). This allows simultaneous
         reading of all user output statuses at once.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("UserOutputValueAll")
@@ -4397,6 +5400,10 @@ cdef class CameraNodes:
     def UserOutputSelector(self):
         """Selects which bit of the User Output register is set by
         UserOutputValue.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.UserOutputSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("UserOutputSelector")
@@ -4404,14 +5411,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().UserOutputSelector))
-            node_inst.enum_names = rotpy.names.UserOutputSelector_names
-            node_inst.enum_values = rotpy.names.UserOutputSelector_values
+            node_inst.enum_names = rotpy.names.camera.UserOutputSelector_names
+            node_inst.enum_values = rotpy.names.camera.UserOutputSelector_values
             node = self._nodes["UserOutputSelector"] = node_inst
         return node
 
     @property.getter
     def LineStatus(self):
         """Returns the current status of the selected input or output Line
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("LineStatus")
@@ -4426,6 +5436,10 @@ cdef class CameraNodes:
     def LineFormat(self):
         """Displays the current electrical format of the selected physical
         input or output Line.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.LineFormat_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("LineFormat")
@@ -4433,8 +5447,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().LineFormat))
-            node_inst.enum_names = rotpy.names.LineFormat_names
-            node_inst.enum_values = rotpy.names.LineFormat_values
+            node_inst.enum_names = rotpy.names.camera.LineFormat_names
+            node_inst.enum_values = rotpy.names.camera.LineFormat_values
             node = self._nodes["LineFormat"] = node_inst
         return node
 
@@ -4444,6 +5458,9 @@ cdef class CameraNodes:
         hexadecimal representation (Line 0 status corresponds to bit 0, Line
         1 status with bit 1, etc). This allows simultaneous reading of all
         line statuses at once.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("LineStatusAll")
@@ -4458,6 +5475,10 @@ cdef class CameraNodes:
     def LineSelector(self):
         """Selects the physical line (or pin) of the external device connector
         to configure
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.LineSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("LineSelector")
@@ -4465,14 +5486,18 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().LineSelector))
-            node_inst.enum_names = rotpy.names.LineSelector_names
-            node_inst.enum_values = rotpy.names.LineSelector_values
+            node_inst.enum_names = rotpy.names.camera.LineSelector_names
+            node_inst.enum_values = rotpy.names.camera.LineSelector_values
             node = self._nodes["LineSelector"] = node_inst
         return node
 
     @property.getter
     def ExposureActiveMode(self):
         """Control sensor active exposure mode.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ExposureActiveMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ExposureActiveMode")
@@ -4480,8 +5505,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ExposureActiveMode))
-            node_inst.enum_names = rotpy.names.ExposureActiveMode_names
-            node_inst.enum_values = rotpy.names.ExposureActiveMode_values
+            node_inst.enum_names = rotpy.names.camera.ExposureActiveMode_names
+            node_inst.enum_values = rotpy.names.camera.ExposureActiveMode_values
             node = self._nodes["ExposureActiveMode"] = node_inst
         return node
 
@@ -4489,6 +5514,9 @@ cdef class CameraNodes:
     def LineInverter(self):
         """Controls the inversion of the signal of the selected input or output
         line.
+
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("LineInverter")
@@ -4503,6 +5531,9 @@ cdef class CameraNodes:
     def LineFilterWidth(self):
         """Filter width in microseconds for the selected line and filter
         combination
+
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("LineFilterWidth")
@@ -4516,6 +5547,10 @@ cdef class CameraNodes:
     @property.getter
     def CounterTriggerActivation(self):
         """Selects the activation mode of the trigger to start the counter.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.CounterTriggerActivation_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("CounterTriggerActivation")
@@ -4523,14 +5558,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CounterTriggerActivation))
-            node_inst.enum_names = rotpy.names.CounterTriggerActivation_names
-            node_inst.enum_values = rotpy.names.CounterTriggerActivation_values
+            node_inst.enum_names = rotpy.names.camera.CounterTriggerActivation_names
+            node_inst.enum_values = rotpy.names.camera.CounterTriggerActivation_values
             node = self._nodes["CounterTriggerActivation"] = node_inst
         return node
 
     @property.getter
     def CounterValue(self):
         """Current counter value
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("CounterValue")
@@ -4544,6 +5582,10 @@ cdef class CameraNodes:
     @property.getter
     def CounterSelector(self):
         """Selects which counter to configure
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.CounterSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("CounterSelector")
@@ -4551,14 +5593,17 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CounterSelector))
-            node_inst.enum_names = rotpy.names.CounterSelector_names
-            node_inst.enum_values = rotpy.names.CounterSelector_values
+            node_inst.enum_names = rotpy.names.camera.CounterSelector_names
+            node_inst.enum_values = rotpy.names.camera.CounterSelector_values
             node = self._nodes["CounterSelector"] = node_inst
         return node
 
     @property.getter
     def CounterValueAtReset(self):
         """Value of the selected Counter when it was reset by a trigger.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("CounterValueAtReset")
@@ -4572,6 +5617,10 @@ cdef class CameraNodes:
     @property.getter
     def CounterStatus(self):
         """Returns the current status of the counter.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.CounterStatus_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("CounterStatus")
@@ -4579,14 +5628,18 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CounterStatus))
-            node_inst.enum_names = rotpy.names.CounterStatus_names
-            node_inst.enum_values = rotpy.names.CounterStatus_values
+            node_inst.enum_names = rotpy.names.camera.CounterStatus_names
+            node_inst.enum_values = rotpy.names.camera.CounterStatus_values
             node = self._nodes["CounterStatus"] = node_inst
         return node
 
     @property.getter
     def CounterTriggerSource(self):
         """Selects the source of the trigger to start the counter
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.CounterTriggerSource_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("CounterTriggerSource")
@@ -4594,8 +5647,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CounterTriggerSource))
-            node_inst.enum_names = rotpy.names.CounterTriggerSource_names
-            node_inst.enum_values = rotpy.names.CounterTriggerSource_values
+            node_inst.enum_names = rotpy.names.camera.CounterTriggerSource_names
+            node_inst.enum_values = rotpy.names.camera.CounterTriggerSource_values
             node = self._nodes["CounterTriggerSource"] = node_inst
         return node
 
@@ -4603,6 +5656,9 @@ cdef class CameraNodes:
     def CounterDelay(self):
         """Sets the delay (or number of events) before the CounterStart event
         is generated.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("CounterDelay")
@@ -4616,6 +5672,10 @@ cdef class CameraNodes:
     @property.getter
     def CounterResetSource(self):
         """Selects the signal that will be the source to reset the counter.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.CounterResetSource_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("CounterResetSource")
@@ -4623,14 +5683,18 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CounterResetSource))
-            node_inst.enum_names = rotpy.names.CounterResetSource_names
-            node_inst.enum_values = rotpy.names.CounterResetSource_values
+            node_inst.enum_names = rotpy.names.camera.CounterResetSource_names
+            node_inst.enum_values = rotpy.names.camera.CounterResetSource_values
             node = self._nodes["CounterResetSource"] = node_inst
         return node
 
     @property.getter
     def CounterEventSource(self):
         """Selects the event that will increment the counter
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.CounterEventSource_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("CounterEventSource")
@@ -4638,14 +5702,18 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CounterEventSource))
-            node_inst.enum_names = rotpy.names.CounterEventSource_names
-            node_inst.enum_values = rotpy.names.CounterEventSource_values
+            node_inst.enum_names = rotpy.names.camera.CounterEventSource_names
+            node_inst.enum_values = rotpy.names.camera.CounterEventSource_values
             node = self._nodes["CounterEventSource"] = node_inst
         return node
 
     @property.getter
     def CounterEventActivation(self):
         """Selects the activation mode of the event to increment the Counter.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.CounterEventActivation_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("CounterEventActivation")
@@ -4653,8 +5721,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CounterEventActivation))
-            node_inst.enum_names = rotpy.names.CounterEventActivation_names
-            node_inst.enum_values = rotpy.names.CounterEventActivation_values
+            node_inst.enum_names = rotpy.names.camera.CounterEventActivation_names
+            node_inst.enum_values = rotpy.names.camera.CounterEventActivation_values
             node = self._nodes["CounterEventActivation"] = node_inst
         return node
 
@@ -4662,6 +5730,9 @@ cdef class CameraNodes:
     def CounterDuration(self):
         """Sets the duration (or number of events) before the CounterEnd event
         is generated.
+
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("CounterDuration")
@@ -4675,6 +5746,10 @@ cdef class CameraNodes:
     @property.getter
     def CounterResetActivation(self):
         """Selects the Activation mode of the Counter Reset Source signal.
+
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.CounterResetActivation_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("CounterResetActivation")
@@ -4682,8 +5757,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CounterResetActivation))
-            node_inst.enum_names = rotpy.names.CounterResetActivation_names
-            node_inst.enum_values = rotpy.names.CounterResetActivation_values
+            node_inst.enum_names = rotpy.names.camera.CounterResetActivation_names
+            node_inst.enum_values = rotpy.names.camera.CounterResetActivation_values
             node = self._nodes["CounterResetActivation"] = node_inst
         return node
 
@@ -4691,7 +5766,9 @@ cdef class CameraNodes:
     def DeviceType(self):
         """Returns the device type.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.DeviceType_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("DeviceType")
@@ -4699,8 +5776,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceType))
-            node_inst.enum_names = rotpy.names.DeviceType_names
-            node_inst.enum_values = rotpy.names.DeviceType_values
+            node_inst.enum_names = rotpy.names.camera.DeviceType_names
+            node_inst.enum_values = rotpy.names.camera.DeviceType_values
             node = self._nodes["DeviceType"] = node_inst
         return node
 
@@ -4708,7 +5785,8 @@ cdef class CameraNodes:
     def DeviceFamilyName(self):
         """Identifier of the product family of the device.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("DeviceFamilyName")
@@ -4724,7 +5802,8 @@ cdef class CameraNodes:
         """Major version of the Standard Features Naming Convention that was
         used to create the device's GenICam XML.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceSFNCVersionMajor")
@@ -4740,7 +5819,8 @@ cdef class CameraNodes:
         """Minor version of the Standard Features Naming Convention that was
         used to create the device's GenICam XML.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceSFNCVersionMinor")
@@ -4756,7 +5836,8 @@ cdef class CameraNodes:
         """Sub minor version of Standard Features Naming Convention that was
         used to create the device's GenICam XML.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceSFNCVersionSubMinor")
@@ -4771,7 +5852,8 @@ cdef class CameraNodes:
     def DeviceManifestEntrySelector(self):
         """Selects the manifest entry to reference.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceManifestEntrySelector")
@@ -4787,7 +5869,8 @@ cdef class CameraNodes:
         """Indicates the major version number of the GenICam XML file of the
         selected manifest entry.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceManifestXMLMajorVersion")
@@ -4803,7 +5886,8 @@ cdef class CameraNodes:
         """Indicates the minor version number of the GenICam XML file of the
         selected manifest entry.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceManifestXMLMinorVersion")
@@ -4819,7 +5903,8 @@ cdef class CameraNodes:
         """Indicates the subminor version number of the GenICam XML file of the
         selected manifest entry.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceManifestXMLSubMinorVersion")
@@ -4835,7 +5920,8 @@ cdef class CameraNodes:
         """Indicates the major version number of the schema file of the
         selected manifest entry.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceManifestSchemaMajorVersion")
@@ -4851,7 +5937,8 @@ cdef class CameraNodes:
         """Indicates the minor version number of the schema file of the
         selected manifest entry.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceManifestSchemaMinorVersion")
@@ -4867,7 +5954,8 @@ cdef class CameraNodes:
         """Indicates the first URL to the GenICam XML device description file
         of the selected manifest entry.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("DeviceManifestPrimaryURL")
@@ -4883,7 +5971,8 @@ cdef class CameraNodes:
         """Indicates the second URL to the GenICam XML device description file
         of the selected manifest entry.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("DeviceManifestSecondaryURL")
@@ -4898,7 +5987,8 @@ cdef class CameraNodes:
     def DeviceTLVersionSubMinor(self):
         """Sub minor version of the Transport Layer of the device.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceTLVersionSubMinor")
@@ -4913,7 +6003,8 @@ cdef class CameraNodes:
     def DeviceGenCPVersionMajor(self):
         """Major version of the GenCP protocol supported by the device.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceGenCPVersionMajor")
@@ -4928,7 +6019,8 @@ cdef class CameraNodes:
     def DeviceGenCPVersionMinor(self):
         """Minor version of the GenCP protocol supported by the device.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceGenCPVersionMinor")
@@ -4943,7 +6035,8 @@ cdef class CameraNodes:
     def DeviceConnectionSelector(self):
         """Selects which Connection of the device to control.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceConnectionSelector")
@@ -4958,7 +6051,8 @@ cdef class CameraNodes:
     def DeviceConnectionSpeed(self):
         """Indicates the speed of transmission of the specified Connection
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceConnectionSpeed")
@@ -4973,7 +6067,9 @@ cdef class CameraNodes:
     def DeviceConnectionStatus(self):
         """Indicates the status of the specified Connection.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.DeviceConnectionStatus_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("DeviceConnectionStatus")
@@ -4981,8 +6077,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceConnectionStatus))
-            node_inst.enum_names = rotpy.names.DeviceConnectionStatus_names
-            node_inst.enum_values = rotpy.names.DeviceConnectionStatus_values
+            node_inst.enum_names = rotpy.names.camera.DeviceConnectionStatus_names
+            node_inst.enum_values = rotpy.names.camera.DeviceConnectionStatus_values
             node = self._nodes["DeviceConnectionStatus"] = node_inst
         return node
 
@@ -4990,7 +6086,8 @@ cdef class CameraNodes:
     def DeviceLinkSelector(self):
         """Selects which Link of the device to control.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceLinkSelector")
@@ -5008,7 +6105,9 @@ cdef class CameraNodes:
         throughput. When enabled, DeviceLinkThroughputLimit controls the
         overall throughput.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.DeviceLinkThroughputLimitMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("DeviceLinkThroughputLimitMode")
@@ -5016,8 +6115,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceLinkThroughputLimitMode))
-            node_inst.enum_names = rotpy.names.DeviceLinkThroughputLimitMode_names
-            node_inst.enum_values = rotpy.names.DeviceLinkThroughputLimitMode_values
+            node_inst.enum_names = rotpy.names.camera.DeviceLinkThroughputLimitMode_names
+            node_inst.enum_values = rotpy.names.camera.DeviceLinkThroughputLimitMode_values
             node = self._nodes["DeviceLinkThroughputLimitMode"] = node_inst
         return node
 
@@ -5026,7 +6125,8 @@ cdef class CameraNodes:
         """Returns the number of physical connection of the device used by a
         particular Link.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceLinkConnectionCount")
@@ -5041,7 +6141,9 @@ cdef class CameraNodes:
     def DeviceLinkHeartbeatMode(self):
         """Activate or deactivate the Link's heartbeat.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.DeviceLinkHeartbeatMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("DeviceLinkHeartbeatMode")
@@ -5049,8 +6151,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceLinkHeartbeatMode))
-            node_inst.enum_names = rotpy.names.DeviceLinkHeartbeatMode_names
-            node_inst.enum_values = rotpy.names.DeviceLinkHeartbeatMode_values
+            node_inst.enum_names = rotpy.names.camera.DeviceLinkHeartbeatMode_names
+            node_inst.enum_values = rotpy.names.camera.DeviceLinkHeartbeatMode_values
             node = self._nodes["DeviceLinkHeartbeatMode"] = node_inst
         return node
 
@@ -5058,7 +6160,8 @@ cdef class CameraNodes:
     def DeviceLinkHeartbeatTimeout(self):
         """Controls the current heartbeat timeout of the specific Link.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("DeviceLinkHeartbeatTimeout")
@@ -5075,7 +6178,8 @@ cdef class CameraNodes:
         corresponds to the maximum response time of the device for a command
         sent on that link.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("DeviceLinkCommandTimeout")
@@ -5090,7 +6194,8 @@ cdef class CameraNodes:
     def DeviceStreamChannelSelector(self):
         """Selects the stream channel to control.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceStreamChannelSelector")
@@ -5105,7 +6210,9 @@ cdef class CameraNodes:
     def DeviceStreamChannelType(self):
         """Reports the type of the stream channel.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.DeviceStreamChannelType_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("DeviceStreamChannelType")
@@ -5113,8 +6220,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceStreamChannelType))
-            node_inst.enum_names = rotpy.names.DeviceStreamChannelType_names
-            node_inst.enum_values = rotpy.names.DeviceStreamChannelType_values
+            node_inst.enum_names = rotpy.names.camera.DeviceStreamChannelType_names
+            node_inst.enum_values = rotpy.names.camera.DeviceStreamChannelType_values
             node = self._nodes["DeviceStreamChannelType"] = node_inst
         return node
 
@@ -5123,7 +6230,8 @@ cdef class CameraNodes:
         """Index of device's Link to use for streaming the specifed stream
         channel.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceStreamChannelLink")
@@ -5138,7 +6246,9 @@ cdef class CameraNodes:
     def DeviceStreamChannelEndianness(self):
         """Endianness of multi-byte pixel data for this stream.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.DeviceStreamChannelEndianness_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("DeviceStreamChannelEndianness")
@@ -5146,8 +6256,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceStreamChannelEndianness))
-            node_inst.enum_names = rotpy.names.DeviceStreamChannelEndianness_names
-            node_inst.enum_values = rotpy.names.DeviceStreamChannelEndianness_values
+            node_inst.enum_names = rotpy.names.camera.DeviceStreamChannelEndianness_names
+            node_inst.enum_values = rotpy.names.camera.DeviceStreamChannelEndianness_values
             node = self._nodes["DeviceStreamChannelEndianness"] = node_inst
         return node
 
@@ -5157,7 +6267,8 @@ cdef class CameraNodes:
         channel for a Transmitter or specifies the maximum packet size
         supported by a receiver.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceStreamChannelPacketSize")
@@ -5173,7 +6284,8 @@ cdef class CameraNodes:
         """Indicate to the device and GenICam XML to get ready for persisting
         of all streamable features.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("DeviceFeaturePersistenceStart")
@@ -5188,7 +6300,8 @@ cdef class CameraNodes:
     def DeviceFeaturePersistenceEnd(self):
         """Indicate to the device the end of feature persistence.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("DeviceFeaturePersistenceEnd")
@@ -5204,7 +6317,8 @@ cdef class CameraNodes:
         """Prepare the device for registers streaming without checking for
         consistency.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("DeviceRegistersStreamingStart")
@@ -5221,7 +6335,8 @@ cdef class CameraNodes:
         validation for consistency and activate it. This will also update
         the DeviceRegistersValid flag.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("DeviceRegistersStreamingEnd")
@@ -5237,7 +6352,8 @@ cdef class CameraNodes:
         """Perform the validation of the current register set for consistency.
         This will update the DeviceRegistersValid flag.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("DeviceRegistersCheck")
@@ -5252,7 +6368,8 @@ cdef class CameraNodes:
     def DeviceRegistersValid(self):
         """Returns if the current register set is valid and consistent.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("DeviceRegistersValid")
@@ -5267,7 +6384,9 @@ cdef class CameraNodes:
     def DeviceClockSelector(self):
         """Selects the clock frequency to access from the device.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.DeviceClockSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("DeviceClockSelector")
@@ -5275,8 +6394,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceClockSelector))
-            node_inst.enum_names = rotpy.names.DeviceClockSelector_names
-            node_inst.enum_values = rotpy.names.DeviceClockSelector_values
+            node_inst.enum_names = rotpy.names.camera.DeviceClockSelector_names
+            node_inst.enum_values = rotpy.names.camera.DeviceClockSelector_values
             node = self._nodes["DeviceClockSelector"] = node_inst
         return node
 
@@ -5284,7 +6403,8 @@ cdef class CameraNodes:
     def DeviceClockFrequency(self):
         """Returns the frequency of the selected Clock.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("DeviceClockFrequency")
@@ -5299,7 +6419,9 @@ cdef class CameraNodes:
     def DeviceSerialPortSelector(self):
         """Selects which serial port of the device to control.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.DeviceSerialPortSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("DeviceSerialPortSelector")
@@ -5307,8 +6429,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceSerialPortSelector))
-            node_inst.enum_names = rotpy.names.DeviceSerialPortSelector_names
-            node_inst.enum_values = rotpy.names.DeviceSerialPortSelector_values
+            node_inst.enum_names = rotpy.names.camera.DeviceSerialPortSelector_names
+            node_inst.enum_values = rotpy.names.camera.DeviceSerialPortSelector_values
             node = self._nodes["DeviceSerialPortSelector"] = node_inst
         return node
 
@@ -5317,7 +6439,9 @@ cdef class CameraNodes:
         """This feature controls the baud rate used by the selected serial
         port.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.DeviceSerialPortBaudRate_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("DeviceSerialPortBaudRate")
@@ -5325,8 +6449,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceSerialPortBaudRate))
-            node_inst.enum_names = rotpy.names.DeviceSerialPortBaudRate_names
-            node_inst.enum_values = rotpy.names.DeviceSerialPortBaudRate_values
+            node_inst.enum_names = rotpy.names.camera.DeviceSerialPortBaudRate_names
+            node_inst.enum_values = rotpy.names.camera.DeviceSerialPortBaudRate_values
             node = self._nodes["DeviceSerialPortBaudRate"] = node_inst
         return node
 
@@ -5334,7 +6458,8 @@ cdef class CameraNodes:
     def Timestamp(self):
         """Reports the current value of the device timestamp counter.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("Timestamp")
@@ -5349,7 +6474,9 @@ cdef class CameraNodes:
     def SensorTaps(self):
         """Number of taps of the camera sensor.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.SensorTaps_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("SensorTaps")
@@ -5357,8 +6484,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SensorTaps))
-            node_inst.enum_names = rotpy.names.SensorTaps_names
-            node_inst.enum_values = rotpy.names.SensorTaps_values
+            node_inst.enum_names = rotpy.names.camera.SensorTaps_names
+            node_inst.enum_values = rotpy.names.camera.SensorTaps_values
             node = self._nodes["SensorTaps"] = node_inst
         return node
 
@@ -5367,7 +6494,9 @@ cdef class CameraNodes:
         """Number of digitized samples outputted simultaneously by the camera
         A/D conversion stage.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.SensorDigitizationTaps_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("SensorDigitizationTaps")
@@ -5375,8 +6504,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SensorDigitizationTaps))
-            node_inst.enum_names = rotpy.names.SensorDigitizationTaps_names
-            node_inst.enum_values = rotpy.names.SensorDigitizationTaps_values
+            node_inst.enum_names = rotpy.names.camera.SensorDigitizationTaps_names
+            node_inst.enum_values = rotpy.names.camera.SensorDigitizationTaps_values
             node = self._nodes["SensorDigitizationTaps"] = node_inst
         return node
 
@@ -5387,7 +6516,9 @@ cdef class CameraNodes:
         of an image, to configure the features of those individual regions
         independently.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.RegionSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("RegionSelector")
@@ -5395,8 +6526,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().RegionSelector))
-            node_inst.enum_names = rotpy.names.RegionSelector_names
-            node_inst.enum_values = rotpy.names.RegionSelector_values
+            node_inst.enum_names = rotpy.names.camera.RegionSelector_names
+            node_inst.enum_values = rotpy.names.camera.RegionSelector_values
             node = self._nodes["RegionSelector"] = node_inst
         return node
 
@@ -5404,7 +6535,9 @@ cdef class CameraNodes:
     def RegionMode(self):
         """Controls if the selected Region of interest is active and streaming.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.RegionMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("RegionMode")
@@ -5412,8 +6545,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().RegionMode))
-            node_inst.enum_names = rotpy.names.RegionMode_names
-            node_inst.enum_values = rotpy.names.RegionMode_values
+            node_inst.enum_names = rotpy.names.camera.RegionMode_names
+            node_inst.enum_values = rotpy.names.camera.RegionMode_values
             node = self._nodes["RegionMode"] = node_inst
         return node
 
@@ -5421,7 +6554,9 @@ cdef class CameraNodes:
     def RegionDestination(self):
         """Control the destination of the selected region.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.RegionDestination_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("RegionDestination")
@@ -5429,8 +6564,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().RegionDestination))
-            node_inst.enum_names = rotpy.names.RegionDestination_names
-            node_inst.enum_values = rotpy.names.RegionDestination_values
+            node_inst.enum_names = rotpy.names.camera.RegionDestination_names
+            node_inst.enum_values = rotpy.names.camera.RegionDestination_values
             node = self._nodes["RegionDestination"] = node_inst
         return node
 
@@ -5438,7 +6573,9 @@ cdef class CameraNodes:
     def ImageComponentSelector(self):
         """Selects a component to activate data streaming from.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ImageComponentSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ImageComponentSelector")
@@ -5446,8 +6583,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ImageComponentSelector))
-            node_inst.enum_names = rotpy.names.ImageComponentSelector_names
-            node_inst.enum_values = rotpy.names.ImageComponentSelector_values
+            node_inst.enum_names = rotpy.names.camera.ImageComponentSelector_names
+            node_inst.enum_values = rotpy.names.camera.ImageComponentSelector_values
             node = self._nodes["ImageComponentSelector"] = node_inst
         return node
 
@@ -5455,7 +6592,8 @@ cdef class CameraNodes:
     def ImageComponentEnable(self):
         """Controls if the selected component streaming is active.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("ImageComponentEnable")
@@ -5471,7 +6609,8 @@ cdef class CameraNodes:
         """Total number of bytes between 2 successive lines. This feature is
         used to facilitate alignment of image data.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("LinePitch")
@@ -5486,7 +6625,9 @@ cdef class CameraNodes:
     def PixelFormatInfoSelector(self):
         """Select the pixel format for which the information will be returned.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.PixelFormatInfoSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("PixelFormatInfoSelector")
@@ -5494,8 +6635,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().PixelFormatInfoSelector))
-            node_inst.enum_names = rotpy.names.PixelFormatInfoSelector_names
-            node_inst.enum_values = rotpy.names.PixelFormatInfoSelector_values
+            node_inst.enum_names = rotpy.names.camera.PixelFormatInfoSelector_names
+            node_inst.enum_values = rotpy.names.camera.PixelFormatInfoSelector_values
             node = self._nodes["PixelFormatInfoSelector"] = node_inst
         return node
 
@@ -5504,7 +6645,8 @@ cdef class CameraNodes:
         """Returns the value used by the streaming channels to identify the
         selected pixel format.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("PixelFormatInfoID")
@@ -5519,7 +6661,9 @@ cdef class CameraNodes:
     def Deinterlacing(self):
         """Controls how the device performs de-interlacing.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.Deinterlacing_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("Deinterlacing")
@@ -5527,8 +6671,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().Deinterlacing))
-            node_inst.enum_names = rotpy.names.Deinterlacing_names
-            node_inst.enum_values = rotpy.names.Deinterlacing_values
+            node_inst.enum_names = rotpy.names.camera.Deinterlacing_names
+            node_inst.enum_values = rotpy.names.camera.Deinterlacing_values
             node = self._nodes["Deinterlacing"] = node_inst
         return node
 
@@ -5538,7 +6682,9 @@ cdef class CameraNodes:
         quality. The exact implementation to achieve one or the other is
         vendor-specific.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ImageCompressionRateOption_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ImageCompressionRateOption")
@@ -5546,8 +6692,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ImageCompressionRateOption))
-            node_inst.enum_names = rotpy.names.ImageCompressionRateOption_names
-            node_inst.enum_values = rotpy.names.ImageCompressionRateOption_values
+            node_inst.enum_names = rotpy.names.camera.ImageCompressionRateOption_names
+            node_inst.enum_values = rotpy.names.camera.ImageCompressionRateOption_values
             node = self._nodes["ImageCompressionRateOption"] = node_inst
         return node
 
@@ -5555,7 +6701,8 @@ cdef class CameraNodes:
     def ImageCompressionQuality(self):
         """Control the quality of the produced compressed stream.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ImageCompressionQuality")
@@ -5570,7 +6717,8 @@ cdef class CameraNodes:
     def ImageCompressionBitrate(self):
         """Control the rate of the produced compressed stream.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("ImageCompressionBitrate")
@@ -5587,7 +6735,9 @@ cdef class CameraNodes:
         optionally offer better control over JPEG-specific options through
         this feature.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ImageCompressionJPEGFormatOption_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ImageCompressionJPEGFormatOption")
@@ -5595,8 +6745,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ImageCompressionJPEGFormatOption))
-            node_inst.enum_names = rotpy.names.ImageCompressionJPEGFormatOption_names
-            node_inst.enum_values = rotpy.names.ImageCompressionJPEGFormatOption_values
+            node_inst.enum_names = rotpy.names.camera.ImageCompressionJPEGFormatOption_names
+            node_inst.enum_values = rotpy.names.camera.ImageCompressionJPEGFormatOption_values
             node = self._nodes["ImageCompressionJPEGFormatOption"] = node_inst
         return node
 
@@ -5606,7 +6756,8 @@ cdef class CameraNodes:
         without completing the current Frame or waiting on a trigger. If no
         Acquisition is in progress, the command is ignored.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("AcquisitionAbort")
@@ -5623,7 +6774,8 @@ cdef class CameraNodes:
         command validates all the current features for consistency and
         prepares the device for a fast start of the Acquisition.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("AcquisitionArm")
@@ -5639,7 +6791,9 @@ cdef class CameraNodes:
         """Selects the internal acquisition signal to read using
         AcquisitionStatus.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.AcquisitionStatusSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("AcquisitionStatusSelector")
@@ -5647,8 +6801,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().AcquisitionStatusSelector))
-            node_inst.enum_names = rotpy.names.AcquisitionStatusSelector_names
-            node_inst.enum_values = rotpy.names.AcquisitionStatusSelector_values
+            node_inst.enum_names = rotpy.names.camera.AcquisitionStatusSelector_names
+            node_inst.enum_values = rotpy.names.camera.AcquisitionStatusSelector_values
             node = self._nodes["AcquisitionStatusSelector"] = node_inst
         return node
 
@@ -5657,7 +6811,8 @@ cdef class CameraNodes:
         """Reads the state of the internal acquisition signal selected using
         AcquisitionStatusSelector.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("AcquisitionStatus")
@@ -5672,7 +6827,8 @@ cdef class CameraNodes:
     def TriggerDivider(self):
         """Specifies a division factor for the incoming trigger pulses.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("TriggerDivider")
@@ -5689,7 +6845,8 @@ cdef class CameraNodes:
         It is used generally used in conjunction with TriggerDivider to
         control the ratio of triggers that are accepted.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("TriggerMultiplier")
@@ -5704,7 +6861,9 @@ cdef class CameraNodes:
     def ExposureTimeMode(self):
         """Sets the configuration mode of the ExposureTime feature.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ExposureTimeMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ExposureTimeMode")
@@ -5712,8 +6871,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ExposureTimeMode))
-            node_inst.enum_names = rotpy.names.ExposureTimeMode_names
-            node_inst.enum_values = rotpy.names.ExposureTimeMode_values
+            node_inst.enum_names = rotpy.names.camera.ExposureTimeMode_names
+            node_inst.enum_values = rotpy.names.camera.ExposureTimeMode_values
             node = self._nodes["ExposureTimeMode"] = node_inst
         return node
 
@@ -5723,7 +6882,9 @@ cdef class CameraNodes:
         feature. This allows for independent control over the exposure
         components.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ExposureTimeSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ExposureTimeSelector")
@@ -5731,8 +6892,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ExposureTimeSelector))
-            node_inst.enum_names = rotpy.names.ExposureTimeSelector_names
-            node_inst.enum_values = rotpy.names.ExposureTimeSelector_values
+            node_inst.enum_names = rotpy.names.camera.ExposureTimeSelector_names
+            node_inst.enum_values = rotpy.names.camera.ExposureTimeSelector_values
             node = self._nodes["ExposureTimeSelector"] = node_inst
         return node
 
@@ -5742,7 +6903,9 @@ cdef class CameraNodes:
         channels or taps. The gain coefficients of each channel or tap are
         adjusted so they are matched.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.GainAutoBalance_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("GainAutoBalance")
@@ -5750,8 +6913,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().GainAutoBalance))
-            node_inst.enum_names = rotpy.names.GainAutoBalance_names
-            node_inst.enum_values = rotpy.names.GainAutoBalance_values
+            node_inst.enum_names = rotpy.names.camera.GainAutoBalance_names
+            node_inst.enum_values = rotpy.names.camera.GainAutoBalance_values
             node = self._nodes["GainAutoBalance"] = node_inst
         return node
 
@@ -5760,7 +6923,9 @@ cdef class CameraNodes:
         """Controls the mode for automatic black level adjustment. The exact
         algorithm used to implement this adjustment is device-specific.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.BlackLevelAuto_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("BlackLevelAuto")
@@ -5768,8 +6933,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().BlackLevelAuto))
-            node_inst.enum_names = rotpy.names.BlackLevelAuto_names
-            node_inst.enum_values = rotpy.names.BlackLevelAuto_values
+            node_inst.enum_names = rotpy.names.camera.BlackLevelAuto_names
+            node_inst.enum_values = rotpy.names.camera.BlackLevelAuto_values
             node = self._nodes["BlackLevelAuto"] = node_inst
         return node
 
@@ -5779,7 +6944,9 @@ cdef class CameraNodes:
         sensor color channels or taps. The black level coefficients of each
         channel are adjusted so they are matched.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.BlackLevelAutoBalance_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("BlackLevelAutoBalance")
@@ -5787,8 +6954,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().BlackLevelAutoBalance))
-            node_inst.enum_names = rotpy.names.BlackLevelAutoBalance_names
-            node_inst.enum_values = rotpy.names.BlackLevelAutoBalance_values
+            node_inst.enum_names = rotpy.names.camera.BlackLevelAutoBalance_names
+            node_inst.enum_values = rotpy.names.camera.BlackLevelAutoBalance_values
             node = self._nodes["BlackLevelAutoBalance"] = node_inst
         return node
 
@@ -5796,7 +6963,9 @@ cdef class CameraNodes:
     def WhiteClipSelector(self):
         """Selects which White Clip to control.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.WhiteClipSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("WhiteClipSelector")
@@ -5804,8 +6973,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().WhiteClipSelector))
-            node_inst.enum_names = rotpy.names.WhiteClipSelector_names
-            node_inst.enum_values = rotpy.names.WhiteClipSelector_values
+            node_inst.enum_names = rotpy.names.camera.WhiteClipSelector_names
+            node_inst.enum_values = rotpy.names.camera.WhiteClipSelector_values
             node = self._nodes["WhiteClipSelector"] = node_inst
         return node
 
@@ -5816,7 +6985,8 @@ cdef class CameraNodes:
         never exceed the white clipping point: it will saturate at that
         level.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("WhiteClip")
@@ -5832,7 +7002,8 @@ cdef class CameraNodes:
         """Accesses all the LUT coefficients in a single access without using
         individual LUTIndex.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinRegisterNode`.
+        :Visibility: ``default``.
         """
         cdef SpinRegisterNode node_inst
         node = self._nodes.get("LUTValueAll")
@@ -5851,7 +7022,8 @@ cdef class CameraNodes:
         Output register using UserOutputValueAll will only change the bits
         that have a corresponding bit in the mask set to one.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("UserOutputValueAllMask")
@@ -5870,7 +7042,8 @@ cdef class CameraNodes:
         Counter independently from the CounterResetSource. To disable the
         counter temporarily, set CounterEventSource to Off.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("CounterReset")
@@ -5885,7 +7058,9 @@ cdef class CameraNodes:
     def TimerSelector(self):
         """Selects which Timer to configure.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.TimerSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("TimerSelector")
@@ -5893,8 +7068,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TimerSelector))
-            node_inst.enum_names = rotpy.names.TimerSelector_names
-            node_inst.enum_values = rotpy.names.TimerSelector_values
+            node_inst.enum_names = rotpy.names.camera.TimerSelector_names
+            node_inst.enum_values = rotpy.names.camera.TimerSelector_values
             node = self._nodes["TimerSelector"] = node_inst
         return node
 
@@ -5902,7 +7077,8 @@ cdef class CameraNodes:
     def TimerDuration(self):
         """Sets the duration (in microseconds) of the Timer pulse.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("TimerDuration")
@@ -5918,7 +7094,8 @@ cdef class CameraNodes:
         """Sets the duration (in microseconds) of the delay to apply at the
         reception of a trigger before starting the Timer.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("TimerDelay")
@@ -5934,7 +7111,8 @@ cdef class CameraNodes:
         """Does a software reset of the selected timer and starts it. The timer
         starts immediately after the reset unless a timer trigger is active.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("TimerReset")
@@ -5950,7 +7128,8 @@ cdef class CameraNodes:
         """Reads or writes the current value (in microseconds) of the selected
         Timer.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("TimerValue")
@@ -5965,7 +7144,9 @@ cdef class CameraNodes:
     def TimerStatus(self):
         """Returns the current status of the Timer.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.TimerStatus_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("TimerStatus")
@@ -5973,8 +7154,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TimerStatus))
-            node_inst.enum_names = rotpy.names.TimerStatus_names
-            node_inst.enum_values = rotpy.names.TimerStatus_values
+            node_inst.enum_names = rotpy.names.camera.TimerStatus_names
+            node_inst.enum_values = rotpy.names.camera.TimerStatus_values
             node = self._nodes["TimerStatus"] = node_inst
         return node
 
@@ -5982,7 +7163,9 @@ cdef class CameraNodes:
     def TimerTriggerSource(self):
         """Selects the source of the trigger to start the Timer.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.TimerTriggerSource_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("TimerTriggerSource")
@@ -5990,8 +7173,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TimerTriggerSource))
-            node_inst.enum_names = rotpy.names.TimerTriggerSource_names
-            node_inst.enum_values = rotpy.names.TimerTriggerSource_values
+            node_inst.enum_names = rotpy.names.camera.TimerTriggerSource_names
+            node_inst.enum_values = rotpy.names.camera.TimerTriggerSource_values
             node = self._nodes["TimerTriggerSource"] = node_inst
         return node
 
@@ -5999,7 +7182,9 @@ cdef class CameraNodes:
     def TimerTriggerActivation(self):
         """Selects the activation mode of the trigger to start the Timer.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.TimerTriggerActivation_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("TimerTriggerActivation")
@@ -6007,8 +7192,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TimerTriggerActivation))
-            node_inst.enum_names = rotpy.names.TimerTriggerActivation_names
-            node_inst.enum_values = rotpy.names.TimerTriggerActivation_values
+            node_inst.enum_names = rotpy.names.camera.TimerTriggerActivation_names
+            node_inst.enum_values = rotpy.names.camera.TimerTriggerActivation_values
             node = self._nodes["TimerTriggerActivation"] = node_inst
         return node
 
@@ -6016,7 +7201,9 @@ cdef class CameraNodes:
     def EncoderSelector(self):
         """Selects which Encoder to configure.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.EncoderSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("EncoderSelector")
@@ -6024,8 +7211,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().EncoderSelector))
-            node_inst.enum_names = rotpy.names.EncoderSelector_names
-            node_inst.enum_values = rotpy.names.EncoderSelector_values
+            node_inst.enum_names = rotpy.names.camera.EncoderSelector_names
+            node_inst.enum_values = rotpy.names.camera.EncoderSelector_values
             node = self._nodes["EncoderSelector"] = node_inst
         return node
 
@@ -6034,7 +7221,9 @@ cdef class CameraNodes:
         """Selects the signal which will be the source of the A input of the
         Encoder.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.EncoderSourceA_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("EncoderSourceA")
@@ -6042,8 +7231,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().EncoderSourceA))
-            node_inst.enum_names = rotpy.names.EncoderSourceA_names
-            node_inst.enum_values = rotpy.names.EncoderSourceA_values
+            node_inst.enum_names = rotpy.names.camera.EncoderSourceA_names
+            node_inst.enum_values = rotpy.names.camera.EncoderSourceA_values
             node = self._nodes["EncoderSourceA"] = node_inst
         return node
 
@@ -6052,7 +7241,9 @@ cdef class CameraNodes:
         """Selects the signal which will be the source of the B input of the
         Encoder.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.EncoderSourceB_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("EncoderSourceB")
@@ -6060,8 +7251,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().EncoderSourceB))
-            node_inst.enum_names = rotpy.names.EncoderSourceB_names
-            node_inst.enum_values = rotpy.names.EncoderSourceB_values
+            node_inst.enum_names = rotpy.names.camera.EncoderSourceB_names
+            node_inst.enum_values = rotpy.names.camera.EncoderSourceB_values
             node = self._nodes["EncoderSourceB"] = node_inst
         return node
 
@@ -6070,7 +7261,9 @@ cdef class CameraNodes:
         """Selects if the count of encoder uses FourPhase mode with jitter
         filtering or the HighResolution mode without jitter filtering.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.EncoderMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("EncoderMode")
@@ -6078,8 +7271,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().EncoderMode))
-            node_inst.enum_names = rotpy.names.EncoderMode_names
-            node_inst.enum_values = rotpy.names.EncoderMode_values
+            node_inst.enum_names = rotpy.names.camera.EncoderMode_names
+            node_inst.enum_values = rotpy.names.camera.EncoderMode_values
             node = self._nodes["EncoderMode"] = node_inst
         return node
 
@@ -6088,7 +7281,8 @@ cdef class CameraNodes:
         """Sets how many Encoder increment/decrements that are needed generate
         an Encoder output pulse signal.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EncoderDivider")
@@ -6104,7 +7298,9 @@ cdef class CameraNodes:
         """Selects the conditions for the Encoder interface to generate a valid
         Encoder output signal.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.EncoderOutputMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("EncoderOutputMode")
@@ -6112,8 +7308,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().EncoderOutputMode))
-            node_inst.enum_names = rotpy.names.EncoderOutputMode_names
-            node_inst.enum_values = rotpy.names.EncoderOutputMode_values
+            node_inst.enum_names = rotpy.names.camera.EncoderOutputMode_names
+            node_inst.enum_values = rotpy.names.camera.EncoderOutputMode_values
             node = self._nodes["EncoderOutputMode"] = node_inst
         return node
 
@@ -6121,7 +7317,9 @@ cdef class CameraNodes:
     def EncoderStatus(self):
         """Returns the motion status of the encoder.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.EncoderStatus_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("EncoderStatus")
@@ -6129,8 +7327,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().EncoderStatus))
-            node_inst.enum_names = rotpy.names.EncoderStatus_names
-            node_inst.enum_values = rotpy.names.EncoderStatus_values
+            node_inst.enum_names = rotpy.names.camera.EncoderStatus_names
+            node_inst.enum_values = rotpy.names.camera.EncoderStatus_values
             node = self._nodes["EncoderStatus"] = node_inst
         return node
 
@@ -6139,7 +7337,8 @@ cdef class CameraNodes:
         """Sets the maximum time interval between encoder counter increments
         before the status turns to static.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("EncoderTimeout")
@@ -6154,7 +7353,9 @@ cdef class CameraNodes:
     def EncoderResetSource(self):
         """Selects the signals that will be the source to reset the Encoder.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.EncoderResetSource_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("EncoderResetSource")
@@ -6162,8 +7363,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().EncoderResetSource))
-            node_inst.enum_names = rotpy.names.EncoderResetSource_names
-            node_inst.enum_values = rotpy.names.EncoderResetSource_values
+            node_inst.enum_names = rotpy.names.camera.EncoderResetSource_names
+            node_inst.enum_values = rotpy.names.camera.EncoderResetSource_values
             node = self._nodes["EncoderResetSource"] = node_inst
         return node
 
@@ -6171,7 +7372,9 @@ cdef class CameraNodes:
     def EncoderResetActivation(self):
         """Selects the Activation mode of the Encoder Reset Source signal.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.EncoderResetActivation_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("EncoderResetActivation")
@@ -6179,8 +7382,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().EncoderResetActivation))
-            node_inst.enum_names = rotpy.names.EncoderResetActivation_names
-            node_inst.enum_values = rotpy.names.EncoderResetActivation_values
+            node_inst.enum_names = rotpy.names.camera.EncoderResetActivation_names
+            node_inst.enum_values = rotpy.names.camera.EncoderResetActivation_values
             node = self._nodes["EncoderResetActivation"] = node_inst
         return node
 
@@ -6191,7 +7394,8 @@ cdef class CameraNodes:
         EncoderReset can be used to reset the Encoder independently from the
         EncoderResetSource.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("EncoderReset")
@@ -6207,7 +7411,8 @@ cdef class CameraNodes:
         """Reads or writes the current value of the position counter of the
         selected Encoder.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EncoderValue")
@@ -6224,7 +7429,8 @@ cdef class CameraNodes:
         Encoder when it was reset by a signal or by an explicit EncoderReset
         command.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EncoderValueAtReset")
@@ -6239,7 +7445,9 @@ cdef class CameraNodes:
     def SoftwareSignalSelector(self):
         """Selects which Software Signal features to control.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.SoftwareSignalSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("SoftwareSignalSelector")
@@ -6247,8 +7455,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SoftwareSignalSelector))
-            node_inst.enum_names = rotpy.names.SoftwareSignalSelector_names
-            node_inst.enum_values = rotpy.names.SoftwareSignalSelector_values
+            node_inst.enum_names = rotpy.names.camera.SoftwareSignalSelector_names
+            node_inst.enum_values = rotpy.names.camera.SoftwareSignalSelector_values
             node = self._nodes["SoftwareSignalSelector"] = node_inst
         return node
 
@@ -6258,7 +7466,8 @@ cdef class CameraNodes:
         This command can be used to trigger other modules that accept a
         SoftwareSignal as trigger source.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("SoftwareSignalPulse")
@@ -6274,7 +7483,9 @@ cdef class CameraNodes:
         """Enables the unconditional action command mode where action commands
         are processed even when the primary control channel is closed.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ActionUnconditionalMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ActionUnconditionalMode")
@@ -6282,8 +7493,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ActionUnconditionalMode))
-            node_inst.enum_names = rotpy.names.ActionUnconditionalMode_names
-            node_inst.enum_values = rotpy.names.ActionUnconditionalMode_values
+            node_inst.enum_names = rotpy.names.camera.ActionUnconditionalMode_names
+            node_inst.enum_values = rotpy.names.camera.ActionUnconditionalMode_values
             node = self._nodes["ActionUnconditionalMode"] = node_inst
         return node
 
@@ -6294,7 +7505,8 @@ cdef class CameraNodes:
         signal is only authorized if the ActionDeviceKey and the action
         device key value in the protocol message are equal.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ActionDeviceKey")
@@ -6311,7 +7523,8 @@ cdef class CameraNodes:
         number represents the maximum number of scheduled action commands
         that can be pending at a given point in time.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ActionQueueSize")
@@ -6326,7 +7539,8 @@ cdef class CameraNodes:
     def ActionSelector(self):
         """Selects to which Action Signal further Action settings apply.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ActionSelector")
@@ -6342,7 +7556,8 @@ cdef class CameraNodes:
         """Provides the mask that the device will use to validate the action on
         reception of the action protocol message.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ActionGroupMask")
@@ -6358,7 +7573,8 @@ cdef class CameraNodes:
         """Provides the key that the device will use to validate the action on
         reception of the action protocol message.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ActionGroupKey")
@@ -6374,7 +7590,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Acquisition Trigger type of
         Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventAcquisitionTrigger")
@@ -6389,7 +7606,8 @@ cdef class CameraNodes:
     def EventAcquisitionTriggerTimestamp(self):
         """Returns the Timestamp of the Acquisition Trigger Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventAcquisitionTriggerTimestamp")
@@ -6405,7 +7623,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Acquisition Trigger Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventAcquisitionTriggerFrameID")
@@ -6421,7 +7640,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Acquisition Start type of
         Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventAcquisitionStart")
@@ -6436,7 +7656,8 @@ cdef class CameraNodes:
     def EventAcquisitionStartTimestamp(self):
         """Returns the Timestamp of the Acquisition Start Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventAcquisitionStartTimestamp")
@@ -6452,7 +7673,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Acquisition Start Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventAcquisitionStartFrameID")
@@ -6467,7 +7689,8 @@ cdef class CameraNodes:
     def EventAcquisitionEnd(self):
         """Returns the unique Identifier of the Acquisition End type of Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventAcquisitionEnd")
@@ -6482,7 +7705,8 @@ cdef class CameraNodes:
     def EventAcquisitionEndTimestamp(self):
         """Returns the Timestamp of the Acquisition End Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventAcquisitionEndTimestamp")
@@ -6498,7 +7722,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Acquisition End Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventAcquisitionEndFrameID")
@@ -6514,7 +7739,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Acquisition Transfer Start type
         of Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventAcquisitionTransferStart")
@@ -6529,7 +7755,8 @@ cdef class CameraNodes:
     def EventAcquisitionTransferStartTimestamp(self):
         """Returns the Timestamp of the Acquisition Transfer Start Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventAcquisitionTransferStartTimestamp")
@@ -6545,7 +7772,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Acquisition Transfer Start Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventAcquisitionTransferStartFrameID")
@@ -6561,7 +7789,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Acquisition Transfer End type
         of Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventAcquisitionTransferEnd")
@@ -6576,7 +7805,8 @@ cdef class CameraNodes:
     def EventAcquisitionTransferEndTimestamp(self):
         """Returns the Timestamp of the Acquisition Transfer End Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventAcquisitionTransferEndTimestamp")
@@ -6592,7 +7822,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Acquisition Transfer End Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventAcquisitionTransferEndFrameID")
@@ -6608,7 +7839,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Acquisition Error type of
         Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventAcquisitionError")
@@ -6623,7 +7855,8 @@ cdef class CameraNodes:
     def EventAcquisitionErrorTimestamp(self):
         """Returns the Timestamp of the Acquisition Error Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventAcquisitionErrorTimestamp")
@@ -6639,7 +7872,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Acquisition Error Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventAcquisitionErrorFrameID")
@@ -6657,7 +7891,8 @@ cdef class CameraNodes:
         event occurrence. Its value uniquely identifies the type event
         received.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventFrameTrigger")
@@ -6673,7 +7908,8 @@ cdef class CameraNodes:
         """Returns the Timestamp of the FrameTrigger Event. It can be used to
         determine precisely when the event occurred.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventFrameTriggerTimestamp")
@@ -6689,7 +7925,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the FrameTrigger Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventFrameTriggerFrameID")
@@ -6704,7 +7941,8 @@ cdef class CameraNodes:
     def EventFrameStart(self):
         """Returns the unique Identifier of the Frame Start type of Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventFrameStart")
@@ -6719,7 +7957,8 @@ cdef class CameraNodes:
     def EventFrameStartTimestamp(self):
         """Returns the Timestamp of the Frame Start Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventFrameStartTimestamp")
@@ -6735,7 +7974,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Frame Start Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventFrameStartFrameID")
@@ -6750,7 +7990,8 @@ cdef class CameraNodes:
     def EventFrameEnd(self):
         """Returns the unique Identifier of the Frame End type of Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventFrameEnd")
@@ -6765,7 +8006,8 @@ cdef class CameraNodes:
     def EventFrameEndTimestamp(self):
         """Returns the Timestamp of the Frame End Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventFrameEndTimestamp")
@@ -6781,7 +8023,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Frame End Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventFrameEndFrameID")
@@ -6797,7 +8040,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame Burst Start type of
         Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventFrameBurstStart")
@@ -6812,7 +8056,8 @@ cdef class CameraNodes:
     def EventFrameBurstStartTimestamp(self):
         """Returns the Timestamp of the Frame Burst Start Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventFrameBurstStartTimestamp")
@@ -6828,7 +8073,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Frame Burst Start Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventFrameBurstStartFrameID")
@@ -6843,7 +8089,8 @@ cdef class CameraNodes:
     def EventFrameBurstEnd(self):
         """Returns the unique Identifier of the Frame Burst End type of Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventFrameBurstEnd")
@@ -6858,7 +8105,8 @@ cdef class CameraNodes:
     def EventFrameBurstEndTimestamp(self):
         """Returns the Timestamp of the Frame Burst End Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventFrameBurstEndTimestamp")
@@ -6874,7 +8122,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Frame Burst End Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventFrameBurstEndFrameID")
@@ -6890,7 +8139,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame Transfer Start type of
         Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventFrameTransferStart")
@@ -6905,7 +8155,8 @@ cdef class CameraNodes:
     def EventFrameTransferStartTimestamp(self):
         """Returns the Timestamp of the Frame Transfer Start Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventFrameTransferStartTimestamp")
@@ -6921,7 +8172,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Frame Transfer Start Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventFrameTransferStartFrameID")
@@ -6937,7 +8189,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame Transfer End type of
         Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventFrameTransferEnd")
@@ -6952,7 +8205,8 @@ cdef class CameraNodes:
     def EventFrameTransferEndTimestamp(self):
         """Returns the Timestamp of the Frame Transfer End Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventFrameTransferEndTimestamp")
@@ -6968,7 +8222,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Frame Transfer End Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventFrameTransferEndFrameID")
@@ -6983,7 +8238,8 @@ cdef class CameraNodes:
     def EventExposureStart(self):
         """Returns the unique Identifier of the Exposure Start type of Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventExposureStart")
@@ -6998,7 +8254,8 @@ cdef class CameraNodes:
     def EventExposureStartTimestamp(self):
         """Returns the Timestamp of the Exposure Start Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventExposureStartTimestamp")
@@ -7014,7 +8271,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Exposure Start Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventExposureStartFrameID")
@@ -7030,7 +8288,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Stream 0 Transfer Start type of
         Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferStart")
@@ -7045,7 +8304,8 @@ cdef class CameraNodes:
     def EventStream0TransferStartTimestamp(self):
         """Returns the Timestamp of the Stream 0 Transfer Start Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferStartTimestamp")
@@ -7061,7 +8321,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer Start Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferStartFrameID")
@@ -7077,7 +8338,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Stream 0 Transfer End type of
         Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferEnd")
@@ -7092,7 +8354,8 @@ cdef class CameraNodes:
     def EventStream0TransferEndTimestamp(self):
         """Returns the Timestamp of the Stream 0 Transfer End Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferEndTimestamp")
@@ -7108,7 +8371,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer End Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferEndFrameID")
@@ -7124,7 +8388,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Stream 0 Transfer Pause type of
         Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferPause")
@@ -7139,7 +8404,8 @@ cdef class CameraNodes:
     def EventStream0TransferPauseTimestamp(self):
         """Returns the Timestamp of the Stream 0 Transfer Pause Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferPauseTimestamp")
@@ -7155,7 +8421,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer Pause Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferPauseFrameID")
@@ -7171,7 +8438,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Stream 0 Transfer Resume type
         of Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferResume")
@@ -7186,7 +8454,8 @@ cdef class CameraNodes:
     def EventStream0TransferResumeTimestamp(self):
         """Returns the Timestamp of the Stream 0 Transfer Resume Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferResumeTimestamp")
@@ -7202,7 +8471,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer Resume Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferResumeFrameID")
@@ -7218,7 +8488,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Stream 0 Transfer Block Start
         type of Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferBlockStart")
@@ -7233,7 +8504,8 @@ cdef class CameraNodes:
     def EventStream0TransferBlockStartTimestamp(self):
         """Returns the Timestamp of the Stream 0 Transfer Block Start Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferBlockStartTimestamp")
@@ -7249,7 +8521,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer Block Start Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferBlockStartFrameID")
@@ -7265,7 +8538,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Stream 0 Transfer Block End
         type of Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferBlockEnd")
@@ -7280,7 +8554,8 @@ cdef class CameraNodes:
     def EventStream0TransferBlockEndTimestamp(self):
         """Returns the Timestamp of the Stream 0 Transfer Block End Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferBlockEndTimestamp")
@@ -7296,7 +8571,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer Block End Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferBlockEndFrameID")
@@ -7312,7 +8588,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Stream 0 Transfer Block Trigger
         type of Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferBlockTrigger")
@@ -7327,7 +8604,8 @@ cdef class CameraNodes:
     def EventStream0TransferBlockTriggerTimestamp(self):
         """Returns the Timestamp of the Stream 0 Transfer Block Trigger Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferBlockTriggerTimestamp")
@@ -7343,7 +8621,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer Block Trigger Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferBlockTriggerFrameID")
@@ -7359,7 +8638,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Stream 0 Transfer Burst Start
         type of Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferBurstStart")
@@ -7374,7 +8654,8 @@ cdef class CameraNodes:
     def EventStream0TransferBurstStartTimestamp(self):
         """Returns the Timestamp of the Stream 0 Transfer Burst Start Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferBurstStartTimestamp")
@@ -7390,7 +8671,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer Burst Start Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferBurstStartFrameID")
@@ -7406,7 +8688,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Stream 0 Transfer Burst End
         type of Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferBurstEnd")
@@ -7421,7 +8704,8 @@ cdef class CameraNodes:
     def EventStream0TransferBurstEndTimestamp(self):
         """Returns the Timestamp of the Stream 0 Transfer Burst End Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferBurstEndTimestamp")
@@ -7437,7 +8721,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer Burst End Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferBurstEndFrameID")
@@ -7453,7 +8738,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Stream 0 Transfer Overflow type
         of Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferOverflow")
@@ -7468,7 +8754,8 @@ cdef class CameraNodes:
     def EventStream0TransferOverflowTimestamp(self):
         """Returns the Timestamp of the Stream 0 Transfer Overflow Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferOverflowTimestamp")
@@ -7484,7 +8771,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer Overflow Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventStream0TransferOverflowFrameID")
@@ -7500,7 +8788,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Sequencer Set Change type of
         Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventSequencerSetChange")
@@ -7515,7 +8804,8 @@ cdef class CameraNodes:
     def EventSequencerSetChangeTimestamp(self):
         """Returns the Timestamp of the Sequencer Set Change Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventSequencerSetChangeTimestamp")
@@ -7531,7 +8821,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Sequencer Set Change Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventSequencerSetChangeFrameID")
@@ -7546,7 +8837,8 @@ cdef class CameraNodes:
     def EventCounter0Start(self):
         """Returns the unique Identifier of the Counter 0 Start type of Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventCounter0Start")
@@ -7561,7 +8853,8 @@ cdef class CameraNodes:
     def EventCounter0StartTimestamp(self):
         """Returns the Timestamp of the Counter 0 Start Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventCounter0StartTimestamp")
@@ -7577,7 +8870,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Counter 0 Start Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventCounter0StartFrameID")
@@ -7592,7 +8886,8 @@ cdef class CameraNodes:
     def EventCounter1Start(self):
         """Returns the unique Identifier of the Counter 1 Start type of Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventCounter1Start")
@@ -7607,7 +8902,8 @@ cdef class CameraNodes:
     def EventCounter1StartTimestamp(self):
         """Returns the Timestamp of the Counter 1 Start Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventCounter1StartTimestamp")
@@ -7623,7 +8919,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Counter 1 Start Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventCounter1StartFrameID")
@@ -7638,7 +8935,8 @@ cdef class CameraNodes:
     def EventCounter0End(self):
         """Returns the unique Identifier of the Counter 0 End type of Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventCounter0End")
@@ -7653,7 +8951,8 @@ cdef class CameraNodes:
     def EventCounter0EndTimestamp(self):
         """Returns the Timestamp of the Counter 0 End Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventCounter0EndTimestamp")
@@ -7669,7 +8968,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Counter 0 End Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventCounter0EndFrameID")
@@ -7684,7 +8984,8 @@ cdef class CameraNodes:
     def EventCounter1End(self):
         """Returns the unique Identifier of the Counter 1 End type of Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventCounter1End")
@@ -7699,7 +9000,8 @@ cdef class CameraNodes:
     def EventCounter1EndTimestamp(self):
         """Returns the Timestamp of the Counter 1 End Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventCounter1EndTimestamp")
@@ -7715,7 +9017,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Counter 1 End Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventCounter1EndFrameID")
@@ -7730,7 +9033,8 @@ cdef class CameraNodes:
     def EventTimer0Start(self):
         """Returns the unique Identifier of the Timer 0 Start type of Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventTimer0Start")
@@ -7745,7 +9049,8 @@ cdef class CameraNodes:
     def EventTimer0StartTimestamp(self):
         """Returns the Timestamp of the Timer 0 Start Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventTimer0StartTimestamp")
@@ -7761,7 +9066,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Timer 0 Start Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventTimer0StartFrameID")
@@ -7776,7 +9082,8 @@ cdef class CameraNodes:
     def EventTimer1Start(self):
         """Returns the unique Identifier of the Timer 1 Start type of Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventTimer1Start")
@@ -7791,7 +9098,8 @@ cdef class CameraNodes:
     def EventTimer1StartTimestamp(self):
         """Returns the Timestamp of the Timer 1 Start Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventTimer1StartTimestamp")
@@ -7807,7 +9115,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Timer 1 Start Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventTimer1StartFrameID")
@@ -7822,7 +9131,8 @@ cdef class CameraNodes:
     def EventTimer0End(self):
         """Returns the unique Identifier of the Timer 0 End type of Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventTimer0End")
@@ -7837,7 +9147,8 @@ cdef class CameraNodes:
     def EventTimer0EndTimestamp(self):
         """Returns the Timestamp of the Timer 0 End Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventTimer0EndTimestamp")
@@ -7853,7 +9164,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Timer 0 End Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventTimer0EndFrameID")
@@ -7868,7 +9180,8 @@ cdef class CameraNodes:
     def EventTimer1End(self):
         """Returns the unique Identifier of the Timer 1 End type of Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventTimer1End")
@@ -7883,7 +9196,8 @@ cdef class CameraNodes:
     def EventTimer1EndTimestamp(self):
         """Returns the Timestamp of the Timer 1 End Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventTimer1EndTimestamp")
@@ -7899,7 +9213,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Timer 1 End Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventTimer1EndFrameID")
@@ -7915,7 +9230,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Encoder 0 Stopped type of
         Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventEncoder0Stopped")
@@ -7930,7 +9246,8 @@ cdef class CameraNodes:
     def EventEncoder0StoppedTimestamp(self):
         """Returns the Timestamp of the Encoder 0 Stopped Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventEncoder0StoppedTimestamp")
@@ -7946,7 +9263,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Encoder 0 Stopped Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventEncoder0StoppedFrameID")
@@ -7962,7 +9280,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Encoder 1 Stopped type of
         Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventEncoder1Stopped")
@@ -7977,7 +9296,8 @@ cdef class CameraNodes:
     def EventEncoder1StoppedTimestamp(self):
         """Returns the Timestamp of the Encoder 1 Stopped Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventEncoder1StoppedTimestamp")
@@ -7993,7 +9313,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Encoder 1 Stopped Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventEncoder1StoppedFrameID")
@@ -8009,7 +9330,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Encoder 0 Restarted type of
         Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventEncoder0Restarted")
@@ -8024,7 +9346,8 @@ cdef class CameraNodes:
     def EventEncoder0RestartedTimestamp(self):
         """Returns the Timestamp of the Encoder 0 Restarted Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventEncoder0RestartedTimestamp")
@@ -8040,7 +9363,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Encoder 0 Restarted Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventEncoder0RestartedFrameID")
@@ -8056,7 +9380,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Encoder 1 Restarted type of
         Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventEncoder1Restarted")
@@ -8071,7 +9396,8 @@ cdef class CameraNodes:
     def EventEncoder1RestartedTimestamp(self):
         """Returns the Timestamp of the Encoder 1 Restarted Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventEncoder1RestartedTimestamp")
@@ -8087,7 +9413,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Encoder 1 Restarted Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventEncoder1RestartedFrameID")
@@ -8103,7 +9430,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Line 0 Rising Edge type of
         Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventLine0RisingEdge")
@@ -8118,7 +9446,8 @@ cdef class CameraNodes:
     def EventLine0RisingEdgeTimestamp(self):
         """Returns the Timestamp of the Line 0 Rising Edge Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventLine0RisingEdgeTimestamp")
@@ -8134,7 +9463,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Line 0 Rising Edge Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventLine0RisingEdgeFrameID")
@@ -8150,7 +9480,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Line 1 Rising Edge type of
         Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventLine1RisingEdge")
@@ -8165,7 +9496,8 @@ cdef class CameraNodes:
     def EventLine1RisingEdgeTimestamp(self):
         """Returns the Timestamp of the Line 1 Rising Edge Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventLine1RisingEdgeTimestamp")
@@ -8181,7 +9513,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Line 1 Rising Edge Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventLine1RisingEdgeFrameID")
@@ -8197,7 +9530,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Line 0 Falling Edge type of
         Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventLine0FallingEdge")
@@ -8212,7 +9546,8 @@ cdef class CameraNodes:
     def EventLine0FallingEdgeTimestamp(self):
         """Returns the Timestamp of the Line 0 Falling Edge Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventLine0FallingEdgeTimestamp")
@@ -8228,7 +9563,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Line 0 Falling Edge Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventLine0FallingEdgeFrameID")
@@ -8244,7 +9580,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Line 1 Falling Edge type of
         Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventLine1FallingEdge")
@@ -8259,7 +9596,8 @@ cdef class CameraNodes:
     def EventLine1FallingEdgeTimestamp(self):
         """Returns the Timestamp of the Line 1 Falling Edge Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventLine1FallingEdgeTimestamp")
@@ -8275,7 +9613,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Line 1 Falling Edge Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventLine1FallingEdgeFrameID")
@@ -8290,7 +9629,8 @@ cdef class CameraNodes:
     def EventLine0AnyEdge(self):
         """Returns the unique Identifier of the Line 0 Any Edge type of Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventLine0AnyEdge")
@@ -8305,7 +9645,8 @@ cdef class CameraNodes:
     def EventLine0AnyEdgeTimestamp(self):
         """Returns the Timestamp of the Line 0 Any Edge Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventLine0AnyEdgeTimestamp")
@@ -8321,7 +9662,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Line 0 Any Edge Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventLine0AnyEdgeFrameID")
@@ -8336,7 +9678,8 @@ cdef class CameraNodes:
     def EventLine1AnyEdge(self):
         """Returns the unique Identifier of the Line 1 Any Edge type of Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventLine1AnyEdge")
@@ -8351,7 +9694,8 @@ cdef class CameraNodes:
     def EventLine1AnyEdgeTimestamp(self):
         """Returns the Timestamp of the Line 1 Any Edge Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventLine1AnyEdgeTimestamp")
@@ -8367,7 +9711,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Line 1 Any Edge Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventLine1AnyEdgeFrameID")
@@ -8382,7 +9727,8 @@ cdef class CameraNodes:
     def EventLinkTrigger0(self):
         """Returns the unique Identifier of the Link Trigger 0 type of Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventLinkTrigger0")
@@ -8397,7 +9743,8 @@ cdef class CameraNodes:
     def EventLinkTrigger0Timestamp(self):
         """Returns the Timestamp of the Link Trigger 0 Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventLinkTrigger0Timestamp")
@@ -8413,7 +9760,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Link Trigger 0 Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventLinkTrigger0FrameID")
@@ -8428,7 +9776,8 @@ cdef class CameraNodes:
     def EventLinkTrigger1(self):
         """Returns the unique Identifier of the Link Trigger 1 type of Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventLinkTrigger1")
@@ -8443,7 +9792,8 @@ cdef class CameraNodes:
     def EventLinkTrigger1Timestamp(self):
         """Returns the Timestamp of the Link Trigger 1 Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventLinkTrigger1Timestamp")
@@ -8459,7 +9809,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Link Trigger 1 Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventLinkTrigger1FrameID")
@@ -8474,7 +9825,8 @@ cdef class CameraNodes:
     def EventActionLate(self):
         """Returns the unique Identifier of the Action Late type of Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventActionLate")
@@ -8489,7 +9841,8 @@ cdef class CameraNodes:
     def EventActionLateTimestamp(self):
         """Returns the Timestamp of the Action Late Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventActionLateTimestamp")
@@ -8505,7 +9858,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Action Late Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventActionLateFrameID")
@@ -8521,7 +9875,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Link Speed Change type of
         Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventLinkSpeedChange")
@@ -8536,7 +9891,8 @@ cdef class CameraNodes:
     def EventLinkSpeedChangeTimestamp(self):
         """Returns the Timestamp of the Link Speed Change Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventLinkSpeedChangeTimestamp")
@@ -8552,7 +9908,8 @@ cdef class CameraNodes:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Link Speed Change Event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("EventLinkSpeedChangeFrameID")
@@ -8568,7 +9925,8 @@ cdef class CameraNodes:
         """Defines the intermediate access buffer that allows the exchange of
         data between the device file storage and the application.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinRegisterNode`.
+        :Visibility: ``default``.
         """
         cdef SpinRegisterNode node_inst
         node = self._nodes.get("FileAccessBuffer")
@@ -8583,7 +9941,8 @@ cdef class CameraNodes:
     def SourceCount(self):
         """Controls or returns the number of sources supported by the device.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("SourceCount")
@@ -8598,7 +9957,9 @@ cdef class CameraNodes:
     def SourceSelector(self):
         """Selects the source to control.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.SourceSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("SourceSelector")
@@ -8606,8 +9967,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SourceSelector))
-            node_inst.enum_names = rotpy.names.SourceSelector_names
-            node_inst.enum_values = rotpy.names.SourceSelector_values
+            node_inst.enum_names = rotpy.names.camera.SourceSelector_names
+            node_inst.enum_values = rotpy.names.camera.SourceSelector_values
             node = self._nodes["SourceSelector"] = node_inst
         return node
 
@@ -8616,7 +9977,9 @@ cdef class CameraNodes:
         """Selects which stream transfers are currently controlled by the
         selected Transfer features.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.TransferSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("TransferSelector")
@@ -8624,8 +9987,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TransferSelector))
-            node_inst.enum_names = rotpy.names.TransferSelector_names
-            node_inst.enum_values = rotpy.names.TransferSelector_values
+            node_inst.enum_names = rotpy.names.camera.TransferSelector_names
+            node_inst.enum_values = rotpy.names.camera.TransferSelector_values
             node = self._nodes["TransferSelector"] = node_inst
         return node
 
@@ -8633,7 +9996,8 @@ cdef class CameraNodes:
     def TransferBurstCount(self):
         """Number of Block(s) to transfer for each TransferBurstStart trigger.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("TransferBurstCount")
@@ -8654,7 +10018,8 @@ cdef class CameraNodes:
         be available when the TransferControlMode is set to
         "UserControlled".
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("TransferAbort")
@@ -8672,7 +10037,8 @@ cdef class CameraNodes:
         partially transfered. The device will resume its transmission at the
         reception of a TransferResume command.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("TransferPause")
@@ -8688,7 +10054,8 @@ cdef class CameraNodes:
         """Resumes a data Blocks streaming that was previously paused by a
         TransferPause command.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("TransferResume")
@@ -8703,7 +10070,9 @@ cdef class CameraNodes:
     def TransferTriggerSelector(self):
         """Selects the type of transfer trigger to configure.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.TransferTriggerSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("TransferTriggerSelector")
@@ -8711,8 +10080,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TransferTriggerSelector))
-            node_inst.enum_names = rotpy.names.TransferTriggerSelector_names
-            node_inst.enum_values = rotpy.names.TransferTriggerSelector_values
+            node_inst.enum_names = rotpy.names.camera.TransferTriggerSelector_names
+            node_inst.enum_values = rotpy.names.camera.TransferTriggerSelector_values
             node = self._nodes["TransferTriggerSelector"] = node_inst
         return node
 
@@ -8720,7 +10089,9 @@ cdef class CameraNodes:
     def TransferTriggerMode(self):
         """Controls if the selected trigger is active.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.TransferTriggerMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("TransferTriggerMode")
@@ -8728,8 +10099,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TransferTriggerMode))
-            node_inst.enum_names = rotpy.names.TransferTriggerMode_names
-            node_inst.enum_values = rotpy.names.TransferTriggerMode_values
+            node_inst.enum_names = rotpy.names.camera.TransferTriggerMode_names
+            node_inst.enum_values = rotpy.names.camera.TransferTriggerMode_values
             node = self._nodes["TransferTriggerMode"] = node_inst
         return node
 
@@ -8737,7 +10108,9 @@ cdef class CameraNodes:
     def TransferTriggerSource(self):
         """Specifies the signal to use as the trigger source for transfers.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.TransferTriggerSource_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("TransferTriggerSource")
@@ -8745,8 +10118,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TransferTriggerSource))
-            node_inst.enum_names = rotpy.names.TransferTriggerSource_names
-            node_inst.enum_values = rotpy.names.TransferTriggerSource_values
+            node_inst.enum_names = rotpy.names.camera.TransferTriggerSource_names
+            node_inst.enum_values = rotpy.names.camera.TransferTriggerSource_values
             node = self._nodes["TransferTriggerSource"] = node_inst
         return node
 
@@ -8754,7 +10127,9 @@ cdef class CameraNodes:
     def TransferTriggerActivation(self):
         """Specifies the activation mode of the transfer control trigger.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.TransferTriggerActivation_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("TransferTriggerActivation")
@@ -8762,8 +10137,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TransferTriggerActivation))
-            node_inst.enum_names = rotpy.names.TransferTriggerActivation_names
-            node_inst.enum_values = rotpy.names.TransferTriggerActivation_values
+            node_inst.enum_names = rotpy.names.camera.TransferTriggerActivation_names
+            node_inst.enum_values = rotpy.names.camera.TransferTriggerActivation_values
             node = self._nodes["TransferTriggerActivation"] = node_inst
         return node
 
@@ -8771,7 +10146,9 @@ cdef class CameraNodes:
     def TransferStatusSelector(self):
         """Selects which status of the transfer module to read.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.TransferStatusSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("TransferStatusSelector")
@@ -8779,8 +10156,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TransferStatusSelector))
-            node_inst.enum_names = rotpy.names.TransferStatusSelector_names
-            node_inst.enum_values = rotpy.names.TransferStatusSelector_values
+            node_inst.enum_names = rotpy.names.camera.TransferStatusSelector_names
+            node_inst.enum_values = rotpy.names.camera.TransferStatusSelector_values
             node = self._nodes["TransferStatusSelector"] = node_inst
         return node
 
@@ -8789,7 +10166,8 @@ cdef class CameraNodes:
         """Reads the status of the Transfer module signal selected by
         TransferStatusSelector.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("TransferStatus")
@@ -8805,7 +10183,9 @@ cdef class CameraNodes:
         """Selects the color component for the control of the
         TransferStreamChannel feature.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.TransferComponentSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("TransferComponentSelector")
@@ -8813,8 +10193,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TransferComponentSelector))
-            node_inst.enum_names = rotpy.names.TransferComponentSelector_names
-            node_inst.enum_values = rotpy.names.TransferComponentSelector_values
+            node_inst.enum_names = rotpy.names.camera.TransferComponentSelector_names
+            node_inst.enum_values = rotpy.names.camera.TransferComponentSelector_values
             node = self._nodes["TransferComponentSelector"] = node_inst
         return node
 
@@ -8824,7 +10204,8 @@ cdef class CameraNodes:
         selected stream of data. In general, this feature can be omitted and
         the default streaming channel will be used.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("TransferStreamChannel")
@@ -8839,7 +10220,9 @@ cdef class CameraNodes:
     def Scan3dDistanceUnit(self):
         """Specifies the unit used when delivering calibrated distance data.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.Scan3dDistanceUnit_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("Scan3dDistanceUnit")
@@ -8847,8 +10230,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().Scan3dDistanceUnit))
-            node_inst.enum_names = rotpy.names.Scan3dDistanceUnit_names
-            node_inst.enum_values = rotpy.names.Scan3dDistanceUnit_values
+            node_inst.enum_names = rotpy.names.camera.Scan3dDistanceUnit_names
+            node_inst.enum_values = rotpy.names.camera.Scan3dDistanceUnit_values
             node = self._nodes["Scan3dDistanceUnit"] = node_inst
         return node
 
@@ -8856,7 +10239,9 @@ cdef class CameraNodes:
     def Scan3dCoordinateSystem(self):
         """Specifies the Coordinate system to use for the device.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.Scan3dCoordinateSystem_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("Scan3dCoordinateSystem")
@@ -8864,8 +10249,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().Scan3dCoordinateSystem))
-            node_inst.enum_names = rotpy.names.Scan3dCoordinateSystem_names
-            node_inst.enum_values = rotpy.names.Scan3dCoordinateSystem_values
+            node_inst.enum_names = rotpy.names.camera.Scan3dCoordinateSystem_names
+            node_inst.enum_values = rotpy.names.camera.Scan3dCoordinateSystem_values
             node = self._nodes["Scan3dCoordinateSystem"] = node_inst
         return node
 
@@ -8874,7 +10259,9 @@ cdef class CameraNodes:
         """Controls the Calibration and data organization of the device, naming
         the coordinates transmitted.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.Scan3dOutputMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("Scan3dOutputMode")
@@ -8882,8 +10269,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().Scan3dOutputMode))
-            node_inst.enum_names = rotpy.names.Scan3dOutputMode_names
-            node_inst.enum_values = rotpy.names.Scan3dOutputMode_values
+            node_inst.enum_names = rotpy.names.camera.Scan3dOutputMode_names
+            node_inst.enum_values = rotpy.names.camera.Scan3dOutputMode_values
             node = self._nodes["Scan3dOutputMode"] = node_inst
         return node
 
@@ -8891,7 +10278,9 @@ cdef class CameraNodes:
     def Scan3dCoordinateSystemReference(self):
         """Defines coordinate system reference location.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.Scan3dCoordinateSystemReference_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("Scan3dCoordinateSystemReference")
@@ -8899,8 +10288,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().Scan3dCoordinateSystemReference))
-            node_inst.enum_names = rotpy.names.Scan3dCoordinateSystemReference_names
-            node_inst.enum_values = rotpy.names.Scan3dCoordinateSystemReference_values
+            node_inst.enum_names = rotpy.names.camera.Scan3dCoordinateSystemReference_names
+            node_inst.enum_values = rotpy.names.camera.Scan3dCoordinateSystemReference_values
             node = self._nodes["Scan3dCoordinateSystemReference"] = node_inst
         return node
 
@@ -8909,7 +10298,9 @@ cdef class CameraNodes:
         """Selects the individual coordinates in the vectors for 3D
         information/transformation.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.Scan3dCoordinateSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("Scan3dCoordinateSelector")
@@ -8917,8 +10308,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().Scan3dCoordinateSelector))
-            node_inst.enum_names = rotpy.names.Scan3dCoordinateSelector_names
-            node_inst.enum_values = rotpy.names.Scan3dCoordinateSelector_values
+            node_inst.enum_names = rotpy.names.camera.Scan3dCoordinateSelector_names
+            node_inst.enum_values = rotpy.names.camera.Scan3dCoordinateSelector_values
             node = self._nodes["Scan3dCoordinateSelector"] = node_inst
         return node
 
@@ -8927,7 +10318,8 @@ cdef class CameraNodes:
         """Scale factor when transforming a pixel from relative coordinates to
         world coordinates.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("Scan3dCoordinateScale")
@@ -8943,7 +10335,8 @@ cdef class CameraNodes:
         """Offset when transforming a pixel from relative coordinates to world
         coordinates.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("Scan3dCoordinateOffset")
@@ -8961,7 +10354,8 @@ cdef class CameraNodes:
         identify non-valid pixels. Using an Scan3dInvalidDataValue may give
         processing penalties due to special handling.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("Scan3dInvalidDataFlag")
@@ -8977,7 +10371,8 @@ cdef class CameraNodes:
         """Value which identifies a non-valid pixel if Scan3dInvalidDataFlag is
         enabled.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("Scan3dInvalidDataValue")
@@ -8992,7 +10387,8 @@ cdef class CameraNodes:
     def Scan3dAxisMin(self):
         """Minimum valid transmitted coordinate value of the selected Axis.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("Scan3dAxisMin")
@@ -9007,7 +10403,8 @@ cdef class CameraNodes:
     def Scan3dAxisMax(self):
         """Maximum valid transmitted coordinate value of the selected Axis.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("Scan3dAxisMax")
@@ -9022,7 +10419,9 @@ cdef class CameraNodes:
     def Scan3dCoordinateTransformSelector(self):
         """Sets the index to read/write a coordinate transform value.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.Scan3dCoordinateTransformSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("Scan3dCoordinateTransformSelector")
@@ -9030,8 +10429,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().Scan3dCoordinateTransformSelector))
-            node_inst.enum_names = rotpy.names.Scan3dCoordinateTransformSelector_names
-            node_inst.enum_values = rotpy.names.Scan3dCoordinateTransformSelector_values
+            node_inst.enum_names = rotpy.names.camera.Scan3dCoordinateTransformSelector_names
+            node_inst.enum_values = rotpy.names.camera.Scan3dCoordinateTransformSelector_values
             node = self._nodes["Scan3dCoordinateTransformSelector"] = node_inst
         return node
 
@@ -9042,7 +10441,8 @@ cdef class CameraNodes:
         expressed in the distance unit of the system, for rotations
         (Scan3dCoordinateTransformSelector =RotationX/Y/Z) in degrees.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("Scan3dTransformValue")
@@ -9059,7 +10459,9 @@ cdef class CameraNodes:
         the transform of a point from the current (Anchor or Transformed)
         system to the reference system.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.Scan3dCoordinateReferenceSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("Scan3dCoordinateReferenceSelector")
@@ -9067,8 +10469,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().Scan3dCoordinateReferenceSelector))
-            node_inst.enum_names = rotpy.names.Scan3dCoordinateReferenceSelector_names
-            node_inst.enum_values = rotpy.names.Scan3dCoordinateReferenceSelector_values
+            node_inst.enum_names = rotpy.names.camera.Scan3dCoordinateReferenceSelector_names
+            node_inst.enum_values = rotpy.names.camera.Scan3dCoordinateReferenceSelector_values
             node = self._nodes["Scan3dCoordinateReferenceSelector"] = node_inst
         return node
 
@@ -9078,7 +10480,8 @@ cdef class CameraNodes:
         or translation value for the current (Anchor or Transformed)
         coordinate system transformation to the Reference system.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("Scan3dCoordinateReferenceValue")
@@ -9094,7 +10497,8 @@ cdef class CameraNodes:
         """Selects the part to access in chunk data in a multipart
         transmission.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ChunkPartSelector")
@@ -9111,7 +10515,9 @@ cdef class CameraNodes:
         identify the image component of a generic part in a multipart
         transfer.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ChunkImageComponent_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ChunkImageComponent")
@@ -9119,8 +10525,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkImageComponent))
-            node_inst.enum_names = rotpy.names.ChunkImageComponent_names
-            node_inst.enum_values = rotpy.names.ChunkImageComponent_values
+            node_inst.enum_names = rotpy.names.camera.ChunkImageComponent_names
+            node_inst.enum_values = rotpy.names.camera.ChunkImageComponent_values
             node = self._nodes["ChunkImageComponent"] = node_inst
         return node
 
@@ -9129,7 +10535,8 @@ cdef class CameraNodes:
         """Returns the minimum value of dynamic range of the image included in
         the payload.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ChunkPixelDynamicRangeMin")
@@ -9145,7 +10552,8 @@ cdef class CameraNodes:
         """Returns the maximum value of dynamic range of the image included in
         the payload.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ChunkPixelDynamicRangeMax")
@@ -9160,7 +10568,8 @@ cdef class CameraNodes:
     def ChunkTimestampLatchValue(self):
         """Returns the last Timestamp latched with the TimestampLatch command.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ChunkTimestampLatchValue")
@@ -9176,7 +10585,8 @@ cdef class CameraNodes:
         """Returns the status of all the I/O lines at the time of the
         FrameStart internal event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ChunkLineStatusAll")
@@ -9191,7 +10601,9 @@ cdef class CameraNodes:
     def ChunkCounterSelector(self):
         """Selects which counter to retrieve data from.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ChunkCounterSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ChunkCounterSelector")
@@ -9199,8 +10611,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkCounterSelector))
-            node_inst.enum_names = rotpy.names.ChunkCounterSelector_names
-            node_inst.enum_values = rotpy.names.ChunkCounterSelector_values
+            node_inst.enum_names = rotpy.names.camera.ChunkCounterSelector_names
+            node_inst.enum_values = rotpy.names.camera.ChunkCounterSelector_values
             node = self._nodes["ChunkCounterSelector"] = node_inst
         return node
 
@@ -9209,7 +10621,8 @@ cdef class CameraNodes:
         """Returns the value of the selected Chunk counter at the time of the
         FrameStart event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ChunkCounterValue")
@@ -9224,7 +10637,9 @@ cdef class CameraNodes:
     def ChunkTimerSelector(self):
         """Selects which Timer to retrieve data from.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ChunkTimerSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ChunkTimerSelector")
@@ -9232,8 +10647,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkTimerSelector))
-            node_inst.enum_names = rotpy.names.ChunkTimerSelector_names
-            node_inst.enum_values = rotpy.names.ChunkTimerSelector_values
+            node_inst.enum_names = rotpy.names.camera.ChunkTimerSelector_names
+            node_inst.enum_values = rotpy.names.camera.ChunkTimerSelector_values
             node = self._nodes["ChunkTimerSelector"] = node_inst
         return node
 
@@ -9242,7 +10657,8 @@ cdef class CameraNodes:
         """Returns the value of the selected Timer at the time of the
         FrameStart internal event.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("ChunkTimerValue")
@@ -9257,7 +10673,9 @@ cdef class CameraNodes:
     def ChunkEncoderSelector(self):
         """Selects which Encoder to retrieve data from.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ChunkEncoderSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ChunkEncoderSelector")
@@ -9265,8 +10683,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkEncoderSelector))
-            node_inst.enum_names = rotpy.names.ChunkEncoderSelector_names
-            node_inst.enum_values = rotpy.names.ChunkEncoderSelector_values
+            node_inst.enum_names = rotpy.names.camera.ChunkEncoderSelector_names
+            node_inst.enum_values = rotpy.names.camera.ChunkEncoderSelector_values
             node = self._nodes["ChunkEncoderSelector"] = node_inst
         return node
 
@@ -9275,7 +10693,8 @@ cdef class CameraNodes:
         """Index for vector representation of one chunk value per line in an
         image.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ChunkScanLineSelector")
@@ -9292,7 +10711,8 @@ cdef class CameraNodes:
         the FrameStart in area scan mode or the counter's value at the time
         of the LineStart selected by ChunkScanLineSelector in LineScan mode.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ChunkEncoderValue")
@@ -9307,7 +10727,9 @@ cdef class CameraNodes:
     def ChunkEncoderStatus(self):
         """Returns the motion status of the selected encoder.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ChunkEncoderStatus_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ChunkEncoderStatus")
@@ -9315,8 +10737,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkEncoderStatus))
-            node_inst.enum_names = rotpy.names.ChunkEncoderStatus_names
-            node_inst.enum_values = rotpy.names.ChunkEncoderStatus_values
+            node_inst.enum_names = rotpy.names.camera.ChunkEncoderStatus_names
+            node_inst.enum_values = rotpy.names.camera.ChunkEncoderStatus_values
             node = self._nodes["ChunkEncoderStatus"] = node_inst
         return node
 
@@ -9325,7 +10747,9 @@ cdef class CameraNodes:
         """Selects which exposure time is read by the ChunkExposureTime
         feature.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ChunkExposureTimeSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ChunkExposureTimeSelector")
@@ -9333,8 +10757,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkExposureTimeSelector))
-            node_inst.enum_names = rotpy.names.ChunkExposureTimeSelector_names
-            node_inst.enum_values = rotpy.names.ChunkExposureTimeSelector_values
+            node_inst.enum_names = rotpy.names.camera.ChunkExposureTimeSelector_names
+            node_inst.enum_values = rotpy.names.camera.ChunkExposureTimeSelector_values
             node = self._nodes["ChunkExposureTimeSelector"] = node_inst
         return node
 
@@ -9342,7 +10766,8 @@ cdef class CameraNodes:
     def ChunkLinePitch(self):
         """Returns the LinePitch of the image included in the payload.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ChunkLinePitch")
@@ -9357,7 +10782,9 @@ cdef class CameraNodes:
     def ChunkSourceID(self):
         """Returns the identifier of Source that the image comes from.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ChunkSourceID_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ChunkSourceID")
@@ -9365,8 +10792,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkSourceID))
-            node_inst.enum_names = rotpy.names.ChunkSourceID_names
-            node_inst.enum_values = rotpy.names.ChunkSourceID_values
+            node_inst.enum_names = rotpy.names.camera.ChunkSourceID_names
+            node_inst.enum_values = rotpy.names.camera.ChunkSourceID_values
             node = self._nodes["ChunkSourceID"] = node_inst
         return node
 
@@ -9374,7 +10801,9 @@ cdef class CameraNodes:
     def ChunkRegionID(self):
         """Returns the identifier of Region that the image comes from.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ChunkRegionID_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ChunkRegionID")
@@ -9382,8 +10811,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkRegionID))
-            node_inst.enum_names = rotpy.names.ChunkRegionID_names
-            node_inst.enum_values = rotpy.names.ChunkRegionID_values
+            node_inst.enum_names = rotpy.names.camera.ChunkRegionID_names
+            node_inst.enum_values = rotpy.names.camera.ChunkRegionID_values
             node = self._nodes["ChunkRegionID"] = node_inst
         return node
 
@@ -9392,7 +10821,8 @@ cdef class CameraNodes:
         """Returns the unique identifier of the transfer block used to
         transport the payload.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ChunkTransferBlockID")
@@ -9407,7 +10837,9 @@ cdef class CameraNodes:
     def ChunkTransferStreamID(self):
         """Returns identifier of the stream that generated this block.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ChunkTransferStreamID_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ChunkTransferStreamID")
@@ -9415,8 +10847,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkTransferStreamID))
-            node_inst.enum_names = rotpy.names.ChunkTransferStreamID_names
-            node_inst.enum_values = rotpy.names.ChunkTransferStreamID_values
+            node_inst.enum_names = rotpy.names.camera.ChunkTransferStreamID_names
+            node_inst.enum_values = rotpy.names.camera.ChunkTransferStreamID_values
             node = self._nodes["ChunkTransferStreamID"] = node_inst
         return node
 
@@ -9424,7 +10856,8 @@ cdef class CameraNodes:
     def ChunkTransferQueueCurrentBlockCount(self):
         """Returns the current number of blocks in the transfer queue.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ChunkTransferQueueCurrentBlockCount")
@@ -9439,7 +10872,8 @@ cdef class CameraNodes:
     def ChunkStreamChannelID(self):
         """Returns identifier of the stream channel used to carry the block.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ChunkStreamChannelID")
@@ -9454,7 +10888,9 @@ cdef class CameraNodes:
     def ChunkScan3dDistanceUnit(self):
         """Returns the Distance Unit of the payload image.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ChunkScan3dDistanceUnit_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ChunkScan3dDistanceUnit")
@@ -9462,8 +10898,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkScan3dDistanceUnit))
-            node_inst.enum_names = rotpy.names.ChunkScan3dDistanceUnit_names
-            node_inst.enum_values = rotpy.names.ChunkScan3dDistanceUnit_values
+            node_inst.enum_names = rotpy.names.camera.ChunkScan3dDistanceUnit_names
+            node_inst.enum_values = rotpy.names.camera.ChunkScan3dDistanceUnit_values
             node = self._nodes["ChunkScan3dDistanceUnit"] = node_inst
         return node
 
@@ -9471,7 +10907,9 @@ cdef class CameraNodes:
     def ChunkScan3dOutputMode(self):
         """Returns the Calibrated Mode of the payload image.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ChunkScan3dOutputMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ChunkScan3dOutputMode")
@@ -9479,8 +10917,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkScan3dOutputMode))
-            node_inst.enum_names = rotpy.names.ChunkScan3dOutputMode_names
-            node_inst.enum_values = rotpy.names.ChunkScan3dOutputMode_values
+            node_inst.enum_names = rotpy.names.camera.ChunkScan3dOutputMode_names
+            node_inst.enum_values = rotpy.names.camera.ChunkScan3dOutputMode_values
             node = self._nodes["ChunkScan3dOutputMode"] = node_inst
         return node
 
@@ -9488,7 +10926,9 @@ cdef class CameraNodes:
     def ChunkScan3dCoordinateSystem(self):
         """Returns the Coordinate System of the image included in the payload.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ChunkScan3dCoordinateSystem_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ChunkScan3dCoordinateSystem")
@@ -9496,8 +10936,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkScan3dCoordinateSystem))
-            node_inst.enum_names = rotpy.names.ChunkScan3dCoordinateSystem_names
-            node_inst.enum_values = rotpy.names.ChunkScan3dCoordinateSystem_values
+            node_inst.enum_names = rotpy.names.camera.ChunkScan3dCoordinateSystem_names
+            node_inst.enum_values = rotpy.names.camera.ChunkScan3dCoordinateSystem_values
             node = self._nodes["ChunkScan3dCoordinateSystem"] = node_inst
         return node
 
@@ -9506,7 +10946,9 @@ cdef class CameraNodes:
         """Returns the Coordinate System Position of the image included in the
         payload.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ChunkScan3dCoordinateSystemReference_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ChunkScan3dCoordinateSystemReference")
@@ -9514,8 +10956,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkScan3dCoordinateSystemReference))
-            node_inst.enum_names = rotpy.names.ChunkScan3dCoordinateSystemReference_names
-            node_inst.enum_values = rotpy.names.ChunkScan3dCoordinateSystemReference_values
+            node_inst.enum_names = rotpy.names.camera.ChunkScan3dCoordinateSystemReference_names
+            node_inst.enum_values = rotpy.names.camera.ChunkScan3dCoordinateSystemReference_values
             node = self._nodes["ChunkScan3dCoordinateSystemReference"] = node_inst
         return node
 
@@ -9523,7 +10965,9 @@ cdef class CameraNodes:
     def ChunkScan3dCoordinateSelector(self):
         """Selects which Coordinate to retrieve data from.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ChunkScan3dCoordinateSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ChunkScan3dCoordinateSelector")
@@ -9531,8 +10975,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkScan3dCoordinateSelector))
-            node_inst.enum_names = rotpy.names.ChunkScan3dCoordinateSelector_names
-            node_inst.enum_values = rotpy.names.ChunkScan3dCoordinateSelector_values
+            node_inst.enum_names = rotpy.names.camera.ChunkScan3dCoordinateSelector_names
+            node_inst.enum_values = rotpy.names.camera.ChunkScan3dCoordinateSelector_values
             node = self._nodes["ChunkScan3dCoordinateSelector"] = node_inst
         return node
 
@@ -9541,7 +10985,8 @@ cdef class CameraNodes:
         """Returns the Scale for the selected coordinate axis of the image
         included in the payload.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("ChunkScan3dCoordinateScale")
@@ -9557,7 +11002,8 @@ cdef class CameraNodes:
         """Returns the Offset for the selected coordinate axis of the image
         included in the payload.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("ChunkScan3dCoordinateOffset")
@@ -9573,7 +11019,8 @@ cdef class CameraNodes:
         """Returns if a specific non-valid data flag is used in the data
         stream.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("ChunkScan3dInvalidDataFlag")
@@ -9589,7 +11036,8 @@ cdef class CameraNodes:
         """Returns the Invalid Data Value used for the image included in the
         payload.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("ChunkScan3dInvalidDataValue")
@@ -9605,7 +11053,8 @@ cdef class CameraNodes:
         """Returns the Minimum Axis value for the selected coordinate axis of
         the image included in the payload.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("ChunkScan3dAxisMin")
@@ -9621,7 +11070,8 @@ cdef class CameraNodes:
         """Returns the Maximum Axis value for the selected coordinate axis of
         the image included in the payload.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("ChunkScan3dAxisMax")
@@ -9636,7 +11086,9 @@ cdef class CameraNodes:
     def ChunkScan3dCoordinateTransformSelector(self):
         """Selector for transform values.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ChunkScan3dCoordinateTransformSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ChunkScan3dCoordinateTransformSelector")
@@ -9644,8 +11096,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkScan3dCoordinateTransformSelector))
-            node_inst.enum_names = rotpy.names.ChunkScan3dCoordinateTransformSelector_names
-            node_inst.enum_values = rotpy.names.ChunkScan3dCoordinateTransformSelector_values
+            node_inst.enum_names = rotpy.names.camera.ChunkScan3dCoordinateTransformSelector_names
+            node_inst.enum_values = rotpy.names.camera.ChunkScan3dCoordinateTransformSelector_values
             node = self._nodes["ChunkScan3dCoordinateTransformSelector"] = node_inst
         return node
 
@@ -9653,7 +11105,8 @@ cdef class CameraNodes:
     def ChunkScan3dTransformValue(self):
         """Returns the transform value.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("ChunkScan3dTransformValue")
@@ -9669,7 +11122,9 @@ cdef class CameraNodes:
         """Selector to read a coordinate system reference value defining the
         transform of a point from one system to the other.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ChunkScan3dCoordinateReferenceSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ChunkScan3dCoordinateReferenceSelector")
@@ -9677,8 +11132,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkScan3dCoordinateReferenceSelector))
-            node_inst.enum_names = rotpy.names.ChunkScan3dCoordinateReferenceSelector_names
-            node_inst.enum_values = rotpy.names.ChunkScan3dCoordinateReferenceSelector_values
+            node_inst.enum_names = rotpy.names.camera.ChunkScan3dCoordinateReferenceSelector_names
+            node_inst.enum_values = rotpy.names.camera.ChunkScan3dCoordinateReferenceSelector_values
             node = self._nodes["ChunkScan3dCoordinateReferenceSelector"] = node_inst
         return node
 
@@ -9687,7 +11142,8 @@ cdef class CameraNodes:
         """Reads the value of a position or pose coordinate for the anchor or
         transformed coordinate systems relative to the reference point.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("ChunkScan3dCoordinateReferenceValue")
@@ -9704,7 +11160,8 @@ cdef class CameraNodes:
         written, the device waits a time period corresponding to the value
         of TestPendingAck before acknowledging the write.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("TestPendingAck")
@@ -9721,7 +11178,9 @@ cdef class CameraNodes:
         properties characterizing the taps of a camera as presented at the
         output of the device.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.DeviceTapGeometry_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("DeviceTapGeometry")
@@ -9729,8 +11188,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceTapGeometry))
-            node_inst.enum_names = rotpy.names.DeviceTapGeometry_names
-            node_inst.enum_values = rotpy.names.DeviceTapGeometry_values
+            node_inst.enum_names = rotpy.names.camera.DeviceTapGeometry_names
+            node_inst.enum_values = rotpy.names.camera.DeviceTapGeometry_values
             node = self._nodes["DeviceTapGeometry"] = node_inst
         return node
 
@@ -9739,7 +11198,9 @@ cdef class CameraNodes:
         """Controls the principal physical link configuration to use on next
         restart/power-up of the device.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.GevPhysicalLinkConfiguration_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("GevPhysicalLinkConfiguration")
@@ -9747,8 +11208,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().GevPhysicalLinkConfiguration))
-            node_inst.enum_names = rotpy.names.GevPhysicalLinkConfiguration_names
-            node_inst.enum_values = rotpy.names.GevPhysicalLinkConfiguration_values
+            node_inst.enum_names = rotpy.names.camera.GevPhysicalLinkConfiguration_names
+            node_inst.enum_values = rotpy.names.camera.GevPhysicalLinkConfiguration_values
             node = self._nodes["GevPhysicalLinkConfiguration"] = node_inst
         return node
 
@@ -9756,7 +11217,9 @@ cdef class CameraNodes:
     def GevCurrentPhysicalLinkConfiguration(self):
         """Indicates the current physical link configuration of the device.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.GevCurrentPhysicalLinkConfiguration_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("GevCurrentPhysicalLinkConfiguration")
@@ -9764,8 +11227,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().GevCurrentPhysicalLinkConfiguration))
-            node_inst.enum_names = rotpy.names.GevCurrentPhysicalLinkConfiguration_names
-            node_inst.enum_values = rotpy.names.GevCurrentPhysicalLinkConfiguration_values
+            node_inst.enum_names = rotpy.names.camera.GevCurrentPhysicalLinkConfiguration_names
+            node_inst.enum_values = rotpy.names.camera.GevCurrentPhysicalLinkConfiguration_values
             node = self._nodes["GevCurrentPhysicalLinkConfiguration"] = node_inst
         return node
 
@@ -9773,7 +11236,8 @@ cdef class CameraNodes:
     def GevActiveLinkCount(self):
         """Indicates the current number of active logical links.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevActiveLinkCount")
@@ -9789,7 +11253,8 @@ cdef class CameraNodes:
         """Controls whether incoming PAUSE Frames are handled on the given
         logical link.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("GevPAUSEFrameReception")
@@ -9805,7 +11270,8 @@ cdef class CameraNodes:
         """Controls whether PAUSE Frames can be generated on the given logical
         link.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("GevPAUSEFrameTransmission")
@@ -9820,7 +11286,9 @@ cdef class CameraNodes:
     def GevIPConfigurationStatus(self):
         """Reports the current IP configuration status.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.GevIPConfigurationStatus_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("GevIPConfigurationStatus")
@@ -9828,8 +11296,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().GevIPConfigurationStatus))
-            node_inst.enum_names = rotpy.names.GevIPConfigurationStatus_names
-            node_inst.enum_values = rotpy.names.GevIPConfigurationStatus_values
+            node_inst.enum_names = rotpy.names.camera.GevIPConfigurationStatus_names
+            node_inst.enum_values = rotpy.names.camera.GevIPConfigurationStatus_values
             node = self._nodes["GevIPConfigurationStatus"] = node_inst
         return node
 
@@ -9838,7 +11306,8 @@ cdef class CameraNodes:
         """Indicates the maximum randomized delay the device will wait to
         acknowledge a discovery command.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevDiscoveryAckDelay")
@@ -9854,7 +11323,9 @@ cdef class CameraNodes:
         """Selects the GigE Vision version to control extended status codes
         for.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.GevGVCPExtendedStatusCodesSelector_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("GevGVCPExtendedStatusCodesSelector")
@@ -9862,8 +11333,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().GevGVCPExtendedStatusCodesSelector))
-            node_inst.enum_names = rotpy.names.GevGVCPExtendedStatusCodesSelector_names
-            node_inst.enum_values = rotpy.names.GevGVCPExtendedStatusCodesSelector_values
+            node_inst.enum_names = rotpy.names.camera.GevGVCPExtendedStatusCodesSelector_names
+            node_inst.enum_values = rotpy.names.camera.GevGVCPExtendedStatusCodesSelector_values
             node = self._nodes["GevGVCPExtendedStatusCodesSelector"] = node_inst
         return node
 
@@ -9871,7 +11342,8 @@ cdef class CameraNodes:
     def GevGVCPExtendedStatusCodes(self):
         """Enables the generation of extended status codes.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("GevGVCPExtendedStatusCodes")
@@ -9887,7 +11359,8 @@ cdef class CameraNodes:
         """Controls the key to use to authenticate primary application
         switchover requests.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevPrimaryApplicationSwitchoverKey")
@@ -9902,7 +11375,9 @@ cdef class CameraNodes:
     def GevGVSPExtendedIDMode(self):
         """Enables the extended IDs mode.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.GevGVSPExtendedIDMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("GevGVSPExtendedIDMode")
@@ -9910,8 +11385,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().GevGVSPExtendedIDMode))
-            node_inst.enum_names = rotpy.names.GevGVSPExtendedIDMode_names
-            node_inst.enum_values = rotpy.names.GevGVSPExtendedIDMode_values
+            node_inst.enum_names = rotpy.names.camera.GevGVSPExtendedIDMode_names
+            node_inst.enum_values = rotpy.names.camera.GevGVSPExtendedIDMode_values
             node = self._nodes["GevGVSPExtendedIDMode"] = node_inst
         return node
 
@@ -9919,7 +11394,8 @@ cdef class CameraNodes:
     def GevPrimaryApplicationSocket(self):
         """Returns the UDP source port of the primary application.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevPrimaryApplicationSocket")
@@ -9934,7 +11410,8 @@ cdef class CameraNodes:
     def GevPrimaryApplicationIPAddress(self):
         """Returns the address of the primary application.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevPrimaryApplicationIPAddress")
@@ -9953,7 +11430,8 @@ cdef class CameraNodes:
         the value set in the GevSCDA[GevStreamChannelSelector] feature is
         used.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("GevSCCFGPacketResendDestination")
@@ -9969,7 +11447,8 @@ cdef class CameraNodes:
         """Enables the selected GVSP transmitter to use the single packet per
         data block All-in Transmission mode.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("GevSCCFGAllInTransmission")
@@ -9985,7 +11464,8 @@ cdef class CameraNodes:
         """Reports the number of zones per block transmitted on the selected
         stream channel.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevSCZoneCount")
@@ -10001,7 +11481,8 @@ cdef class CameraNodes:
         """Reports the transmission direction of each zone transmitted on the
         selected stream channel.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevSCZoneDirectionAll")
@@ -10019,7 +11500,8 @@ cdef class CameraNodes:
         allowed to change the number of zones and their direction during
         block acquisition and transmission.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("GevSCZoneConfigurationLock")
@@ -10034,7 +11516,8 @@ cdef class CameraNodes:
     def aPAUSEMACCtrlFramesTransmitted(self):
         """Reports the number of transmitted PAUSE frames.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("aPAUSEMACCtrlFramesTransmitted")
@@ -10049,7 +11532,8 @@ cdef class CameraNodes:
     def aPAUSEMACCtrlFramesReceived(self):
         """Reports the number of received PAUSE frames.
 
-        Visibility: ``Guru``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("aPAUSEMACCtrlFramesReceived")
@@ -10069,7 +11553,9 @@ cdef class CameraNodes:
         provide enough information for interpretation of the image data
         provided by the camera.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ClConfiguration_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ClConfiguration")
@@ -10077,8 +11563,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ClConfiguration))
-            node_inst.enum_names = rotpy.names.ClConfiguration_names
-            node_inst.enum_values = rotpy.names.ClConfiguration_values
+            node_inst.enum_names = rotpy.names.camera.ClConfiguration_names
+            node_inst.enum_values = rotpy.names.camera.ClConfiguration_values
             node = self._nodes["ClConfiguration"] = node_inst
         return node
 
@@ -10088,7 +11574,9 @@ cdef class CameraNodes:
         the camera link connection to transfer more than the configuration
         allows, in one single clock.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.ClTimeSlotsCount_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("ClTimeSlotsCount")
@@ -10096,8 +11584,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ClTimeSlotsCount))
-            node_inst.enum_names = rotpy.names.ClTimeSlotsCount_names
-            node_inst.enum_values = rotpy.names.ClTimeSlotsCount_values
+            node_inst.enum_names = rotpy.names.camera.ClTimeSlotsCount_names
+            node_inst.enum_values = rotpy.names.camera.ClTimeSlotsCount_values
             node = self._nodes["ClTimeSlotsCount"] = node_inst
         return node
 
@@ -10106,7 +11594,9 @@ cdef class CameraNodes:
         """This feature indicates the current and active Link configuration
         used by the Device.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.CxpLinkConfigurationStatus_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("CxpLinkConfigurationStatus")
@@ -10114,8 +11604,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CxpLinkConfigurationStatus))
-            node_inst.enum_names = rotpy.names.CxpLinkConfigurationStatus_names
-            node_inst.enum_values = rotpy.names.CxpLinkConfigurationStatus_values
+            node_inst.enum_names = rotpy.names.camera.CxpLinkConfigurationStatus_names
+            node_inst.enum_values = rotpy.names.camera.CxpLinkConfigurationStatus_values
             node = self._nodes["CxpLinkConfigurationStatus"] = node_inst
         return node
 
@@ -10124,7 +11614,9 @@ cdef class CameraNodes:
         """Provides the Link configuration that allows the Transmitter Device
         to operate in its default mode.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.CxpLinkConfigurationPreferred_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("CxpLinkConfigurationPreferred")
@@ -10132,8 +11624,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CxpLinkConfigurationPreferred))
-            node_inst.enum_names = rotpy.names.CxpLinkConfigurationPreferred_names
-            node_inst.enum_values = rotpy.names.CxpLinkConfigurationPreferred_values
+            node_inst.enum_names = rotpy.names.camera.CxpLinkConfigurationPreferred_names
+            node_inst.enum_values = rotpy.names.camera.CxpLinkConfigurationPreferred_values
             node = self._nodes["CxpLinkConfigurationPreferred"] = node_inst
         return node
 
@@ -10147,7 +11639,9 @@ cdef class CameraNodes:
         configuration of the Link can be read using
         CxpLinkConfigurationStatus.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.CxpLinkConfiguration_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("CxpLinkConfiguration")
@@ -10155,8 +11649,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CxpLinkConfiguration))
-            node_inst.enum_names = rotpy.names.CxpLinkConfiguration_names
-            node_inst.enum_values = rotpy.names.CxpLinkConfiguration_values
+            node_inst.enum_names = rotpy.names.camera.CxpLinkConfiguration_names
+            node_inst.enum_values = rotpy.names.camera.CxpLinkConfiguration_values
             node = self._nodes["CxpLinkConfiguration"] = node_inst
         return node
 
@@ -10164,7 +11658,8 @@ cdef class CameraNodes:
     def CxpConnectionSelector(self):
         """Selects the CoaXPress physical connection to control.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("CxpConnectionSelector")
@@ -10180,7 +11675,9 @@ cdef class CameraNodes:
         """Enables the test mode for an individual physical connection of the
         Device.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.CxpConnectionTestMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("CxpConnectionTestMode")
@@ -10188,8 +11685,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CxpConnectionTestMode))
-            node_inst.enum_names = rotpy.names.CxpConnectionTestMode_names
-            node_inst.enum_values = rotpy.names.CxpConnectionTestMode_values
+            node_inst.enum_names = rotpy.names.camera.CxpConnectionTestMode_names
+            node_inst.enum_values = rotpy.names.camera.CxpConnectionTestMode_values
             node = self._nodes["CxpConnectionTestMode"] = node_inst
         return node
 
@@ -10198,7 +11695,8 @@ cdef class CameraNodes:
         """Reports the current connection error count for test packets recieved
         by the device on the connection selected by CxpConnectionSelector.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("CxpConnectionTestErrorCount")
@@ -10214,7 +11712,8 @@ cdef class CameraNodes:
         """Reports the current count for test packets recieved by the device on
         the connection selected by CxpConnectionSelector.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("CxpConnectionTestPacketCount")
@@ -10230,7 +11729,8 @@ cdef class CameraNodes:
         """Activate automatic control of the Power over CoaXPress (PoCXP) for
         the Link.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("CxpPoCxpAuto")
@@ -10245,7 +11745,8 @@ cdef class CameraNodes:
     def CxpPoCxpTurnOff(self):
         """Disable Power over CoaXPress (PoCXP) for the Link.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("CxpPoCxpTurnOff")
@@ -10261,7 +11762,8 @@ cdef class CameraNodes:
         """Reset the Power over CoaXPress (PoCXP) Link after an over-current
         trip on the Device connection(s).
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("CxpPoCxpTripReset")
@@ -10276,7 +11778,9 @@ cdef class CameraNodes:
     def CxpPoCxpStatus(self):
         """Returns the Power over CoaXPress (PoCXP) status of the Device.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.camera.CxpPoCxpStatus_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("CxpPoCxpStatus")
@@ -10284,8 +11788,8 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CxpPoCxpStatus))
-            node_inst.enum_names = rotpy.names.CxpPoCxpStatus_names
-            node_inst.enum_values = rotpy.names.CxpPoCxpStatus_values
+            node_inst.enum_names = rotpy.names.camera.CxpPoCxpStatus_names
+            node_inst.enum_values = rotpy.names.camera.CxpPoCxpStatus_values
             node = self._nodes["CxpPoCxpStatus"] = node_inst
         return node
 
@@ -10294,7 +11798,8 @@ cdef class CameraNodes:
         """Returns the frame ID associated with the most recent inference
         result.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ChunkInferenceFrameId")
@@ -10309,7 +11814,8 @@ cdef class CameraNodes:
     def ChunkInferenceResult(self):
         """Returns the chunk data inference result.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("ChunkInferenceResult")
@@ -10324,7 +11830,8 @@ cdef class CameraNodes:
     def ChunkInferenceConfidence(self):
         """Returns the chunk data inference confidence percentage.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinFloatNode`.
+        :Visibility: ``default``.
         """
         cdef SpinFloatNode node_inst
         node = self._nodes.get("ChunkInferenceConfidence")
@@ -10339,7 +11846,8 @@ cdef class CameraNodes:
     def ChunkInferenceBoundingBoxResult(self):
         """Returns the chunk inference bounding box result data.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinRegisterNode`.
+        :Visibility: ``default``.
         """
         cdef SpinRegisterNode node_inst
         node = self._nodes.get("ChunkInferenceBoundingBoxResult")
@@ -10364,7 +11872,8 @@ cdef class TLDevNodes:
     def DeviceID(self):
         """Interface-wide unique identifier of this device.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("DeviceID")
@@ -10379,7 +11888,8 @@ cdef class TLDevNodes:
     def DeviceSerialNumber(self):
         """Serial number of the remote device.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("DeviceSerialNumber")
@@ -10394,7 +11904,8 @@ cdef class TLDevNodes:
     def DeviceVendorName(self):
         """Name of the remote device vendor.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("DeviceVendorName")
@@ -10409,7 +11920,8 @@ cdef class TLDevNodes:
     def DeviceModelName(self):
         """Name of the remote device model.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("DeviceModelName")
@@ -10424,7 +11936,9 @@ cdef class TLDevNodes:
     def DeviceType(self):
         """Transport layer type of the device.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.tl.DeviceType_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("DeviceType")
@@ -10432,8 +11946,8 @@ cdef class TLDevNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TLDevice.DeviceType))
-            node_inst.enum_names = rotpy.names.DeviceType_names
-            node_inst.enum_values = rotpy.names.DeviceType_values
+            node_inst.enum_names = rotpy.names.tl.DeviceType_names
+            node_inst.enum_values = rotpy.names.tl.DeviceType_values
             node = self._nodes["DeviceType"] = node_inst
         return node
 
@@ -10442,7 +11956,8 @@ cdef class TLDevNodes:
         """User readable name of the device. If this is not defined in the
         device this should be "VENDOR MODEL (ID)".
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("DeviceDisplayName")
@@ -10458,7 +11973,9 @@ cdef class TLDevNodes:
         """Gets the access status the transport layer Producer has on the
         device.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.tl.DeviceAccessStatus_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("DeviceAccessStatus")
@@ -10466,8 +11983,8 @@ cdef class TLDevNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TLDevice.DeviceAccessStatus))
-            node_inst.enum_names = rotpy.names.DeviceAccessStatus_names
-            node_inst.enum_values = rotpy.names.DeviceAccessStatus_values
+            node_inst.enum_names = rotpy.names.tl.DeviceAccessStatus_names
+            node_inst.enum_values = rotpy.names.tl.DeviceAccessStatus_values
             node = self._nodes["DeviceAccessStatus"] = node_inst
         return node
 
@@ -10475,7 +11992,8 @@ cdef class TLDevNodes:
     def DeviceVersion(self):
         """Version of the device.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("DeviceVersion")
@@ -10490,7 +12008,8 @@ cdef class TLDevNodes:
     def DeviceUserID(self):
         """User Defined Name.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("DeviceUserID")
@@ -10505,7 +12024,8 @@ cdef class TLDevNodes:
     def DeviceDriverVersion(self):
         """Version of the device driver.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("DeviceDriverVersion")
@@ -10520,7 +12040,8 @@ cdef class TLDevNodes:
     def DeviceIsUpdater(self):
         """Indicates whether the device is in updater mode.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("DeviceIsUpdater")
@@ -10535,7 +12056,9 @@ cdef class TLDevNodes:
     def GevCCP(self):
         """Controls the device access privilege of an application.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.tl.GevCCP_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("GevCCP")
@@ -10543,8 +12066,8 @@ cdef class TLDevNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TLDevice.GevCCP))
-            node_inst.enum_names = rotpy.names.GevCCP_tl_names
-            node_inst.enum_values = rotpy.names.GevCCP_tl_values
+            node_inst.enum_names = rotpy.names.tl.GevCCP_names
+            node_inst.enum_values = rotpy.names.tl.GevCCP_values
             node = self._nodes["GevCCP"] = node_inst
         return node
 
@@ -10552,7 +12075,9 @@ cdef class TLDevNodes:
     def GUIXMLLocation(self):
         """Sets the location to load GUI XML.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.tl.GUIXMLLocation_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("GUIXMLLocation")
@@ -10560,8 +12085,8 @@ cdef class TLDevNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TLDevice.GUIXMLLocation))
-            node_inst.enum_names = rotpy.names.GUIXMLLocation_names
-            node_inst.enum_values = rotpy.names.GUIXMLLocation_values
+            node_inst.enum_names = rotpy.names.tl.GUIXMLLocation_names
+            node_inst.enum_values = rotpy.names.tl.GUIXMLLocation_values
             node = self._nodes["GUIXMLLocation"] = node_inst
         return node
 
@@ -10569,7 +12094,8 @@ cdef class TLDevNodes:
     def GUIXMLPath(self):
         """GUI XML Path.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("GUIXMLPath")
@@ -10584,7 +12110,9 @@ cdef class TLDevNodes:
     def GenICamXMLLocation(self):
         """Sets the location to load GenICam XML.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.tl.GenICamXMLLocation_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("GenICamXMLLocation")
@@ -10592,8 +12120,8 @@ cdef class TLDevNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TLDevice.GenICamXMLLocation))
-            node_inst.enum_names = rotpy.names.GenICamXMLLocation_names
-            node_inst.enum_values = rotpy.names.GenICamXMLLocation_values
+            node_inst.enum_names = rotpy.names.tl.GenICamXMLLocation_names
+            node_inst.enum_values = rotpy.names.tl.GenICamXMLLocation_values
             node = self._nodes["GenICamXMLLocation"] = node_inst
         return node
 
@@ -10601,7 +12129,8 @@ cdef class TLDevNodes:
     def GenICamXMLPath(self):
         """GenICam XML Path.
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("GenICamXMLPath")
@@ -10617,7 +12146,8 @@ cdef class TLDevNodes:
         """Current IP address of the GVCP interface of the selected remote
         device.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevDeviceIPAddress")
@@ -10633,7 +12163,8 @@ cdef class TLDevNodes:
         """Current subnet mask of the GVCP interface of the selected remote
         device.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevDeviceSubnetMask")
@@ -10649,7 +12180,8 @@ cdef class TLDevNodes:
         """48-bit MAC address of the GVCP interface of the selected remote
         device.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevDeviceMACAddress")
@@ -10665,7 +12197,8 @@ cdef class TLDevNodes:
         """Current gateway IP address of the GVCP interface of the remote
         device.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevDeviceGateway")
@@ -10681,7 +12214,8 @@ cdef class TLDevNodes:
         """Indicates the speed of transmission negotiated by the given network
         interface in Mbps.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("DeviceLinkSpeed")
@@ -10696,7 +12230,8 @@ cdef class TLDevNodes:
     def GevVersionMajor(self):
         """Major version of the specification.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevVersionMajor")
@@ -10711,7 +12246,8 @@ cdef class TLDevNodes:
     def GevVersionMinor(self):
         """Minor version of the specification.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevVersionMinor")
@@ -10727,7 +12263,8 @@ cdef class TLDevNodes:
         """This represents the endianness of all device's registers (bootstrap
         registers and manufacturer-specific registers).
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("GevDeviceModeIsBigEndian")
@@ -10742,7 +12279,8 @@ cdef class TLDevNodes:
     def GevDeviceReadAndWriteTimeout(self):
         """The timeout in us for read/write operations to the camera.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevDeviceReadAndWriteTimeout")
@@ -10757,7 +12295,8 @@ cdef class TLDevNodes:
     def GevDeviceMaximumRetryCount(self):
         """Maximum number of times to retry a read/write operation.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevDeviceMaximumRetryCount")
@@ -10772,7 +12311,8 @@ cdef class TLDevNodes:
     def GevDevicePort(self):
         """Current IP port of the GVCP interface of the selected remote device.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevDevicePort")
@@ -10788,7 +12328,8 @@ cdef class TLDevNodes:
         """Discovers and updates the maximum packet size that can be safely
         used by the device on the current interface.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("GevDeviceDiscoverMaximumPacketSize")
@@ -10804,7 +12345,8 @@ cdef class TLDevNodes:
         """The maximum packet size that can be safely used by the device on the
         current interface.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevDeviceMaximumPacketSize")
@@ -10819,7 +12361,8 @@ cdef class TLDevNodes:
     def GevDeviceIsWrongSubnet(self):
         """Indicates whether the device is on the wrong subnet.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("GevDeviceIsWrongSubnet")
@@ -10835,7 +12378,8 @@ cdef class TLDevNodes:
         """Forces the camera to be on the same subnet as its corresponding
         interface.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("GevDeviceAutoForceIP")
@@ -10852,7 +12396,8 @@ cdef class TLDevNodes:
         GevDeviceForceSubnetMask and GevDeviceForceGateway) in the Device
         using ForceIP command.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinCommandNode`.
+        :Visibility: ``default``.
         """
         cdef SpinCommandNode node_inst
         node = self._nodes.get("GevDeviceForceIP")
@@ -10868,7 +12413,8 @@ cdef class TLDevNodes:
         """Static IP address to set for the GVCP interface of the remote
         device.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevDeviceForceIPAddress")
@@ -10883,7 +12429,8 @@ cdef class TLDevNodes:
     def GevDeviceForceSubnetMask(self):
         """Static subnet mask to set for GVCP interface of the remote device.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevDeviceForceSubnetMask")
@@ -10899,7 +12446,8 @@ cdef class TLDevNodes:
         """Static gateway IP address to set for the GVCP interface of the
         remote device.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevDeviceForceGateway")
@@ -10915,7 +12463,8 @@ cdef class TLDevNodes:
         """Controls and indicates if the device is operating in as a Multicast
         Monitor.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("DeviceMulticastMonitorMode")
@@ -10930,7 +12479,9 @@ cdef class TLDevNodes:
     def DeviceEndianessMechanism(self):
         """Identifies the endianness handling mode.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.tl.DeviceEndianessMechanism_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("DeviceEndianessMechanism")
@@ -10938,8 +12489,8 @@ cdef class TLDevNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TLDevice.DeviceEndianessMechanism))
-            node_inst.enum_names = rotpy.names.DeviceEndianessMechanism_names
-            node_inst.enum_values = rotpy.names.DeviceEndianessMechanism_values
+            node_inst.enum_names = rotpy.names.tl.DeviceEndianessMechanism_names
+            node_inst.enum_values = rotpy.names.tl.DeviceEndianessMechanism_values
             node = self._nodes["DeviceEndianessMechanism"] = node_inst
         return node
 
@@ -10947,7 +12498,8 @@ cdef class TLDevNodes:
     def DeviceInstanceId(self):
         """
 
-        Visibility: ``Invisible``.
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("DeviceInstanceId")
@@ -10962,7 +12514,8 @@ cdef class TLDevNodes:
     def DeviceLocation(self):
         """Device Location.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("DeviceLocation")
@@ -10977,7 +12530,9 @@ cdef class TLDevNodes:
     def DeviceCurrentSpeed(self):
         """The USB Speed that the device is currently operating at.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.tl.DeviceCurrentSpeed_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("DeviceCurrentSpeed")
@@ -10985,8 +12540,8 @@ cdef class TLDevNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TLDevice.DeviceCurrentSpeed))
-            node_inst.enum_names = rotpy.names.DeviceCurrentSpeed_names
-            node_inst.enum_values = rotpy.names.DeviceCurrentSpeed_values
+            node_inst.enum_names = rotpy.names.tl.DeviceCurrentSpeed_names
+            node_inst.enum_values = rotpy.names.tl.DeviceCurrentSpeed_values
             node = self._nodes["DeviceCurrentSpeed"] = node_inst
         return node
 
@@ -10994,7 +12549,8 @@ cdef class TLDevNodes:
     def DeviceU3VProtocol(self):
         """Indicates whether the device is communicating in U3V Protocol.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("DeviceU3VProtocol")
@@ -11009,7 +12565,8 @@ cdef class TLDevNodes:
     def DevicePortId(self):
         """Device Port ID.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("DevicePortId")
@@ -11034,7 +12591,8 @@ cdef class TLStreamNodes:
     def StreamID(self):
         """Device unique ID for the data stream, e.g. a GUID.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinStrNode`.
+        :Visibility: ``default``.
         """
         cdef SpinStrNode node_inst
         node = self._nodes.get("StreamID")
@@ -11049,7 +12607,9 @@ cdef class TLStreamNodes:
     def StreamType(self):
         """Stream type of the device.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.tl.StreamType_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("StreamType")
@@ -11057,8 +12617,8 @@ cdef class TLStreamNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TLStream.StreamType))
-            node_inst.enum_names = rotpy.names.StreamType_names
-            node_inst.enum_values = rotpy.names.StreamType_values
+            node_inst.enum_names = rotpy.names.tl.StreamType_names
+            node_inst.enum_values = rotpy.names.tl.StreamType_values
             node = self._nodes["StreamType"] = node_inst
         return node
 
@@ -11066,7 +12626,9 @@ cdef class TLStreamNodes:
     def StreamMode(self):
         """Stream mode of the device.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.tl.StreamMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("StreamMode")
@@ -11074,8 +12636,8 @@ cdef class TLStreamNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TLStream.StreamMode))
-            node_inst.enum_names = rotpy.names.StreamMode_names
-            node_inst.enum_values = rotpy.names.StreamMode_values
+            node_inst.enum_names = rotpy.names.tl.StreamMode_names
+            node_inst.enum_values = rotpy.names.tl.StreamMode_values
             node = self._nodes["StreamMode"] = node_inst
         return node
 
@@ -11084,7 +12646,8 @@ cdef class TLStreamNodes:
         """Controls the number of buffers to be used on this stream upon
         acquisition start when in manual mode.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("StreamBufferCountManual")
@@ -11101,7 +12664,8 @@ cdef class TLStreamNodes:
         acquisition start. Recalculated on acquisition start if in auto
         mode.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("StreamBufferCountResult")
@@ -11118,7 +12682,8 @@ cdef class TLStreamNodes:
         stream. This value is calculated based on the available system
         memory.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("StreamBufferCountMax")
@@ -11134,7 +12699,9 @@ cdef class TLStreamNodes:
         """Controls access to setting the number of buffers used for the
         stream.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.tl.StreamBufferCountMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("StreamBufferCountMode")
@@ -11142,8 +12709,8 @@ cdef class TLStreamNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TLStream.StreamBufferCountMode))
-            node_inst.enum_names = rotpy.names.StreamBufferCountMode_names
-            node_inst.enum_values = rotpy.names.StreamBufferCountMode_values
+            node_inst.enum_names = rotpy.names.tl.StreamBufferCountMode_names
+            node_inst.enum_values = rotpy.names.tl.StreamBufferCountMode_values
             node = self._nodes["StreamBufferCountMode"] = node_inst
         return node
 
@@ -11151,7 +12718,9 @@ cdef class TLStreamNodes:
     def StreamBufferHandlingMode(self):
         """Available buffer handling modes of this data stream:
 
-        Visibility: ``Beginner``.
+        :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
+        :Enum entries: :attr:`~rotpy.names.tl.StreamBufferHandlingMode_names`.
+        :Visibility: ``default``.
         """
         cdef SpinEnumDefNode node_inst
         node = self._nodes.get("StreamBufferHandlingMode")
@@ -11159,8 +12728,8 @@ cdef class TLStreamNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TLStream.StreamBufferHandlingMode))
-            node_inst.enum_names = rotpy.names.StreamBufferHandlingMode_names
-            node_inst.enum_values = rotpy.names.StreamBufferHandlingMode_values
+            node_inst.enum_names = rotpy.names.tl.StreamBufferHandlingMode_names
+            node_inst.enum_values = rotpy.names.tl.StreamBufferHandlingMode_values
             node = self._nodes["StreamBufferHandlingMode"] = node_inst
         return node
 
@@ -11169,7 +12738,8 @@ cdef class TLStreamNodes:
         """Minimal number of buffers to announce to enable selected buffer
         handling mode.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("StreamAnnounceBufferMinimum")
@@ -11186,7 +12756,8 @@ cdef class TLStreamNodes:
         volatile. It may change if additional buffers are announced and/or
         buffers are revoked by the GenTL Consumer.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("StreamAnnouncedBufferCount")
@@ -11206,7 +12777,8 @@ cdef class TLStreamNodes:
         is initialized with 0 at at the time of the stream is opened. It is
         not reset until the stream is closed.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("StreamStartedFrameCount")
@@ -11222,7 +12794,8 @@ cdef class TLStreamNodes:
         """Number of delivered frames since last acquisition start. It is not
         reset until the stream is closed.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("StreamDeliveredFrameCount")
@@ -11238,7 +12811,8 @@ cdef class TLStreamNodes:
         """Number of successful GVSP data blocks received. Only valid while
         stream is active.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("StreamReceivedFrameCount")
@@ -11253,7 +12827,8 @@ cdef class TLStreamNodes:
     def StreamIncompleteFrameCount(self):
         """Displays number of images with missing packet.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("StreamIncompleteFrameCount")
@@ -11272,7 +12847,8 @@ cdef class TLStreamNodes:
         was no buffer in the input buffer pool. It is not reset until the
         stream is closed.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("StreamLostFrameCount")
@@ -11290,7 +12866,8 @@ cdef class TLStreamNodes:
         incremented every time old data is dropped from the output list for
         new data. It is not reset until the stream is closed.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("StreamDroppedFrameCount")
@@ -11306,7 +12883,8 @@ cdef class TLStreamNodes:
         """Number of buffers in the input buffer pool plus the buffers(s)
         currently being filled.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("StreamInputBufferCount")
@@ -11321,7 +12899,8 @@ cdef class TLStreamNodes:
     def StreamOutputBufferCount(self):
         """Number of buffers in the output buffer queue.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("StreamOutputBufferCount")
@@ -11336,7 +12915,8 @@ cdef class TLStreamNodes:
     def StreamIsGrabbing(self):
         """Flag indicating whether the acquisition engine is started or not.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("StreamIsGrabbing")
@@ -11351,7 +12931,8 @@ cdef class TLStreamNodes:
     def StreamChunkCountMaximum(self):
         """Maximum number of chunks to be expected in a buffer.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("StreamChunkCountMaximum")
@@ -11366,7 +12947,8 @@ cdef class TLStreamNodes:
     def StreamBufferAlignment(self):
         """Alignment size in bytes of the buffer passed to DSAnnounceBuffer.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("StreamBufferAlignment")
@@ -11381,7 +12963,8 @@ cdef class TLStreamNodes:
     def StreamCRCCheckEnable(self):
         """Enables or disables CRC checks on received images.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("StreamCRCCheckEnable")
@@ -11396,7 +12979,8 @@ cdef class TLStreamNodes:
     def StreamReceivedPacketCount(self):
         """Displays number of packets received on this stream.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("StreamReceivedPacketCount")
@@ -11412,7 +12996,8 @@ cdef class TLStreamNodes:
         """Displays number of packets missed by this stream. Successful resent
         packets are not counted as a missed packet.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("StreamMissedPacketCount")
@@ -11427,7 +13012,8 @@ cdef class TLStreamNodes:
     def StreamPacketResendEnable(self):
         """Enables or disables the packet resend mechanism.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("StreamPacketResendEnable")
@@ -11443,7 +13029,8 @@ cdef class TLStreamNodes:
         """Time in milliseconds to wait after the image trailer is received and
         before the image is completed by the driver.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("StreamPacketResendTimeout")
@@ -11459,7 +13046,8 @@ cdef class TLStreamNodes:
         """Maximum number of resend requests per image. Each resend request
         consists of a span of consecutive packet IDs.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("StreamPacketResendMaxRequests")
@@ -11474,7 +13062,8 @@ cdef class TLStreamNodes:
     def StreamPacketResendRequestCount(self):
         """Displays number of packet resend requests transmitted to the camera.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("StreamPacketResendRequestCount")
@@ -11490,7 +13079,8 @@ cdef class TLStreamNodes:
         """Displays number of packet resend requests successfully transmitted
         to the camera.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("StreamPacketResendRequestSuccessCount")
@@ -11506,7 +13096,8 @@ cdef class TLStreamNodes:
         """Displays number of packets requested to be retransmitted on this
         stream.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("StreamPacketResendRequestedPacketCount")
@@ -11521,7 +13112,8 @@ cdef class TLStreamNodes:
     def StreamPacketResendReceivedPacketCount(self):
         """Displays number of retransmitted packets received on this stream.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("StreamPacketResendReceivedPacketCount")
@@ -11537,7 +13129,8 @@ cdef class TLStreamNodes:
         """DEPRECATED; Replaced by StreamPacketResendEnable. Enables or
         disables the packet resend mechanism.
 
-        Visibility: ``Invisible``.
+        :Property type: :class:`~rotpy.node.SpinBoolNode`.
+        :Visibility: ``default``.
         """
         cdef SpinBoolNode node_inst
         node = self._nodes.get("GevPacketResendMode")
@@ -11554,7 +13147,8 @@ cdef class TLStreamNodes:
         number of resend requests per image. Each resend request consists of
         a span of consecutive packet IDs.
 
-        Visibility: ``Invisible``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevMaximumNumberResendRequests")
@@ -11571,7 +13165,8 @@ cdef class TLStreamNodes:
         milliseconds to wait after the image trailer is received and before
         the image is completed by the driver.
 
-        Visibility: ``Invisible``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevPacketResendTimeout")
@@ -11587,7 +13182,8 @@ cdef class TLStreamNodes:
         """DEPRECATED; Replaced by StreamReceivedPacketCount. Displays number
         of packets received on this stream.
 
-        Visibility: ``Invisible``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevTotalPacketCount")
@@ -11604,7 +13200,8 @@ cdef class TLStreamNodes:
         packets missed by this stream. Successful resent packets are not
         counted as a missed packet.
 
-        Visibility: ``Invisible``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevFailedPacketCount")
@@ -11621,7 +13218,8 @@ cdef class TLStreamNodes:
         Displays number of packets received after retransmit request on this
         stream.
 
-        Visibility: ``Invisible``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevResendPacketCount")
@@ -11637,7 +13235,8 @@ cdef class TLStreamNodes:
         """DEPRECATED; Replaced by StreamIncompleteFrameCount. Displays number
         of images with missing packet.
 
-        Visibility: ``Invisible``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("StreamFailedBufferCount")
@@ -11654,7 +13253,8 @@ cdef class TLStreamNodes:
         Displays number of packets requested to be retransmitted on this
         stream.
 
-        Visibility: ``Invisible``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("GevResendRequestCount")
@@ -11669,7 +13269,8 @@ cdef class TLStreamNodes:
     def StreamBlockTransferSize(self):
         """Controls the image breakup size that should be used on this stream.
 
-        Visibility: ``Expert``.
+        :Property type: :class:`~rotpy.node.SpinIntNode`.
+        :Visibility: ``default``.
         """
         cdef SpinIntNode node_inst
         node = self._nodes.get("StreamBlockTransferSize")
