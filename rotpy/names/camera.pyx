@@ -1,12 +1,4 @@
-from ._interface import Error, EventType, PixelFormatNamespaceID, \
-    ColorProcessingAlgorithm, ImageFileFormat, ImageStatus, \
-    StatisticsChannel, SpinnakerLogLevel, PayloadTypeInfoIDs, \
-    ActionCommandStatus, PixelFormatIntType, BufferOwnership, \
-    CCMColorTemperature, CCMType, CCMSensor, CCMColorSpace, CCMApplication, \
-    _ESign, _EAccessMode, _EVisibility, _ECachingMode, _ERepresentation, \
-    _EEndianess, _ENameSpace, _EStandardNameSpace, _EYesNo, _ESlope, \
-    _EXMLValidation, _EDisplayNotation, _EInterfaceType, _ELinkType, \
-    _EIncMode, _EInputDirection, _EGenApiSchemaVersion, LUTSelectorEnums, \
+from rotpy._interface import LUTSelectorEnums, \
     ExposureModeEnums, AcquisitionModeEnums, TriggerSourceEnums, \
     TriggerActivationEnums, SensorShutterModeEnums, TriggerModeEnums, \
     TriggerOverlapEnums, TriggerSelectorEnums, ExposureAutoEnums, \
@@ -81,41 +73,10 @@ from ._interface import Error, EventType, PixelFormatNamespaceID, \
     GevIPConfigurationStatusEnums, GevGVCPExtendedStatusCodesSelectorEnums, \
     GevGVSPExtendedIDModeEnums, ClConfigurationEnums, ClTimeSlotsCountEnums, \
     CxpLinkConfigurationStatusEnums, CxpLinkConfigurationPreferredEnums, \
-    CxpLinkConfigurationEnums, CxpConnectionTestModeEnums, CxpPoCxpStatusEnums, \
-    StreamTypeEnum, StreamModeEnum, StreamBufferCountModeEnum,\
-    StreamBufferHandlingModeEnum, DeviceTypeEnum, DeviceAccessStatusEnum,\
-    GevCCPEnum, GUIXMLLocationEnum, GenICamXMLLocationEnum, \
-    DeviceEndianessMechanismEnum, DeviceCurrentSpeedEnum, InterfaceTypeEnum,\
-    POEStatusEnum, FilterDriverStatusEnum, TLTypeEnum
-from enum import Enum
+    CxpLinkConfigurationEnums, CxpConnectionTestModeEnums, CxpPoCxpStatusEnums
+from ..names import _split_name, _invert_dict
 
 __all__ = (
-    'error_code_names', 'error_code_values', 'event_names', 'event_values',
-    'pix_fmt_namespace_names', 'pix_fmt_namespace_values',
-    'color_processing_algo_names', 'color_processing_algo_values',
-    'img_file_fmt_names', 'img_file_fmt_values', 'img_status_names',
-    'img_status_values', # 'compression_names', 'compression_values',
-    'stats_channel_names', 'stats_channel_values', 'log_level_names',
-    'log_level_values', 'payload_type_names', 'payload_type_values',
-    'cmd_status_names', 'cmd_status_values', 'pix_fmt_int_names',
-    'pix_fmt_int_values', 'buffer_owner_names', 'buffer_owner_values',
-    'img_correction_temp_names', 'img_correction_temp_values',
-    'img_correction_type_names', 'img_correction_type_values',
-    'img_correction_sensor_names', 'img_correction_sensor_values',
-    'img_correction_space_names', 'img_correction_space_values',
-    'img_correction_app_names', 'img_correction_app_values', 'int_sign_names',
-    'int_sign_values', 'access_mode_names', 'access_mode_values',
-    'Visibility_names',
-    'Visibility_values', 'CachingMode_names', 'CachingMode_values',
-    'Representation_names', 'Representation_values', 'Endianess_names',
-    'Endianess_values', 'NameSpace_names', 'NameSpace_values',
-    'StandardNameSpace_names', 'StandardNameSpace_values', 'YesNo_names',
-    'YesNo_values', 'Slope_names', 'Slope_values', 'XMLValidation_names',
-    'XMLValidation_values', 'DisplayNotation_names', 'DisplayNotation_values',
-    'InterfaceType_names', 'InterfaceType_values', 'LinkType_names',
-    'LinkType_values', 'IncMode_names', 'IncMode_values',
-    'InputDirection_names', 'InputDirection_values',
-    'GenApiSchemaVersion_names', 'GenApiSchemaVersion_values',
     'LUTSelector_names', 'LUTSelector_values', 'ExposureMode_names',
     'ExposureMode_values', 'AcquisitionMode_names', 'AcquisitionMode_values',
     'TriggerSource_names', 'TriggerSource_values', 'TriggerActivation_names',
@@ -288,178 +249,9 @@ __all__ = (
     'CxpLinkConfigurationPreferred_values', 'CxpLinkConfiguration_names',
     'CxpLinkConfiguration_values', 'CxpConnectionTestMode_names',
     'CxpConnectionTestMode_values', 'CxpPoCxpStatus_names',
-    'CxpPoCxpStatus_values', 'StreamType_names', 'StreamType_values',
-    'StreamMode_names', 'StreamMode_values', 'StreamBufferCountMode_names',
-    'StreamBufferCountMode_values', 'StreamBufferHandlingMode_names',
-    'StreamBufferHandlingMode_values', 'DeviceType_names', 'DeviceType_values',
-    'DeviceAccessStatus_names', 'DeviceAccessStatus_values', 'GevCCP_tl_names',
-    'GevCCP_tl_values', 'GUIXMLLocation_names', 'GUIXMLLocation_values',
-    'GenICamXMLLocation_names', 'GenICamXMLLocation_values',
-    'DeviceEndianessMechanism_names', 'DeviceEndianessMechanism_values',
-    'DeviceCurrentSpeed_names', 'DeviceCurrentSpeed_values',
-    'InterfaceType_names', 'InterfaceType_values', 'POEStatus_names',
-    'POEStatus_values', 'FilterDriverStatus_names', 'FilterDriverStatus_values',
-    'TLType_names', 'TLType_values',
+    'CxpPoCxpStatus_values',
 )
 
-
-def _to_dict(e: Enum, skip_prefix=('NUM', '_')) -> dict:
-    return {
-        item.name: item.value
-        for item in e
-        if not any(item.name.startswith(p) for p in skip_prefix)
-    }
-
-
-def _remove_prefix(prefix: str, e: Enum, skip_prefix=('NUM', '_')) -> dict:
-    n = len(prefix)
-    return {
-        item.name[n:]: item.value
-        for item in e
-        if not any(item.name.startswith(p) for p in skip_prefix)
-    }
-
-
-def _split_name(
-        n_splits: int, e: Enum, skip_prefix=('NUM', '_'), lower=False) -> dict:
-    items = {
-        item.name.split('_', n_splits)[n_splits]: item.value
-        for item in e
-        if not any(item.name.startswith(p) for p in skip_prefix)
-    }
-    if lower:
-        items = {k.lower(): v for k, v in items.items()}
-    return items
-
-
-def _lower_names(e: Enum) -> dict:
-    return {item.name.lower(): item.value for item in e}
-
-
-def _invert_dict(d: dict) -> dict:
-    return {v: k for k, v in d.items()}
-
-
-error_code_names = _split_name(2, Error, lower=True)
-error_code_values = _invert_dict(error_code_names)
-
-event_names = _split_name(2, EventType, lower=True)
-event_values = _invert_dict(event_names)
-
-pix_fmt_namespace_names = _split_name(3, PixelFormatNamespaceID, lower=True)
-pix_fmt_namespace_values = _invert_dict(pix_fmt_namespace_names)
-
-color_processing_algo_names = _lower_names(ColorProcessingAlgorithm)
-color_processing_algo_values = _invert_dict(color_processing_algo_names)
-
-img_file_fmt_names = _lower_names(ImageFileFormat)
-img_file_fmt_values = _invert_dict(img_file_fmt_names)
-
-img_status_names = _split_name(1, ImageStatus, lower=True)
-img_status_values = _invert_dict(img_status_names)
-
-# compression_names = _lower_names(CompressionMethod)
-# compression_values = _invert_dict(compression_names)
-
-stats_channel_names = _lower_names(StatisticsChannel)
-stats_channel_values = _invert_dict(stats_channel_names)
-
-log_level_names = _split_name(2, SpinnakerLogLevel, lower=True)
-"""
-Logging events below each level will not trigger callbacks.
-
-Spinnaker uses five levels of logging:
-- Error - failures that are non-recoverable without user intervention.
-- Warning - failures that are recoverable without user intervention.
-- Notice - information about events such as camera arrival and removal, initialization and
-           deinitialization, starting and stopping image acquisition, and feature modification.
-- Info - information about recurring events that are generated regularly such as information on
-               individual images.
-- Debug - information that can be used to troubleshoot the system.
-"""
-log_level_values = _invert_dict(log_level_names)
-
-payload_type_names = _split_name(2, PayloadTypeInfoIDs, lower=True)
-payload_type_values = _invert_dict(payload_type_names)
-
-cmd_status_names = _split_name(3, ActionCommandStatus, lower=True)
-cmd_status_values = _invert_dict(cmd_status_names)
-
-pix_fmt_int_names = _split_name(1, PixelFormatIntType, lower=True)
-pix_fmt_int_values = _invert_dict(pix_fmt_int_names)
-
-buffer_owner_names = _split_name(2, BufferOwnership, lower=True)
-buffer_owner_values = _invert_dict(buffer_owner_names)
-
-img_correction_temp_names = _lower_names(CCMColorTemperature)
-img_correction_temp_values = _invert_dict(img_correction_temp_names)
-
-img_correction_type_names = _lower_names(CCMType)
-img_correction_type_values = _invert_dict(img_correction_type_names)
-
-img_correction_sensor_names = _lower_names(CCMSensor)
-img_correction_sensor_values = _invert_dict(img_correction_sensor_names)
-
-img_correction_space_names = _lower_names(CCMColorSpace)
-img_correction_space_values = _invert_dict(img_correction_space_names)
-
-img_correction_app_names = _split_name(2, CCMApplication, lower=True)
-img_correction_app_values = _invert_dict(img_correction_app_names)
-
-# ----------------------------------------------------------------
-
-int_sign_names = _lower_names(_ESign)
-int_sign_values = _invert_dict(int_sign_names)
-
-access_mode_names = _to_dict(_EAccessMode)
-access_mode_values = _invert_dict(access_mode_names)
-
-Visibility_names = _to_dict(_EVisibility)
-Visibility_values = _invert_dict(Visibility_names)
-
-CachingMode_names = _to_dict(_ECachingMode)
-CachingMode_values = _invert_dict(CachingMode_names)
-
-Representation_names = _to_dict(_ERepresentation)
-Representation_values = _invert_dict(Representation_names)
-
-Endianess_names = _to_dict(_EEndianess)
-Endianess_values = _invert_dict(Endianess_names)
-
-NameSpace_names = _to_dict(_ENameSpace)
-NameSpace_values = _invert_dict(NameSpace_names)
-
-StandardNameSpace_names = _to_dict(_EStandardNameSpace)
-StandardNameSpace_values = _invert_dict(StandardNameSpace_names)
-
-YesNo_names = _to_dict(_EYesNo)
-YesNo_values = _invert_dict(YesNo_names)
-
-Slope_names = _to_dict(_ESlope)
-Slope_values = _invert_dict(Slope_names)
-
-XMLValidation_names = _remove_prefix('xv', _EXMLValidation)
-XMLValidation_values = _invert_dict(XMLValidation_names)
-
-DisplayNotation_names = _remove_prefix('fn', _EDisplayNotation)
-DisplayNotation_values = _invert_dict(DisplayNotation_names)
-
-InterfaceType_names = _remove_prefix('intfI', _EInterfaceType)
-InterfaceType_values = _invert_dict(InterfaceType_names)
-
-LinkType_names = _remove_prefix('ct', _ELinkType)
-LinkType_values = _invert_dict(LinkType_names)
-
-IncMode_names = _to_dict(_EIncMode)
-IncMode_values = _invert_dict(IncMode_names)
-
-InputDirection_names = _remove_prefix('id', _EInputDirection)
-InputDirection_values = _invert_dict(InputDirection_names)
-
-GenApiSchemaVersion_names = _to_dict(_EGenApiSchemaVersion)
-GenApiSchemaVersion_values = _invert_dict(GenApiSchemaVersion_names)
-
-# ----------------------------------------------------------------
 
 LUTSelector_names = _split_name(1, LUTSelectorEnums)
 LUTSelector_values = _invert_dict(LUTSelector_names)
@@ -1003,50 +795,3 @@ CxpConnectionTestMode_values = _invert_dict(CxpConnectionTestMode_names)
 
 CxpPoCxpStatus_names = _split_name(1, CxpPoCxpStatusEnums)
 CxpPoCxpStatus_values = _invert_dict(CxpPoCxpStatus_names)
-
-# ----------------------------------------------------------------
-
-StreamType_names = _split_name(1, StreamTypeEnum)
-StreamType_values = _invert_dict(StreamType_names)
-
-StreamMode_names = _split_name(1, StreamModeEnum)
-StreamMode_values = _invert_dict(StreamMode_names)
-
-StreamBufferCountMode_names = _split_name(1, StreamBufferCountModeEnum)
-StreamBufferCountMode_values = _invert_dict(StreamBufferCountMode_names)
-
-StreamBufferHandlingMode_names = _split_name(1, StreamBufferHandlingModeEnum)
-StreamBufferHandlingMode_values = _invert_dict(StreamBufferHandlingMode_names)
-
-DeviceType_names = _split_name(1, DeviceTypeEnum)
-DeviceType_values = _invert_dict(DeviceType_names)
-
-DeviceAccessStatus_names = _split_name(1, DeviceAccessStatusEnum)
-DeviceAccessStatus_values = _invert_dict(DeviceAccessStatus_names)
-
-GevCCP_tl_names = _split_name(3, GevCCPEnum)
-GevCCP_tl_values = _invert_dict(GevCCP_tl_names)
-
-GUIXMLLocation_names = _split_name(1, GUIXMLLocationEnum)
-GUIXMLLocation_values = _invert_dict(GUIXMLLocation_names)
-
-GenICamXMLLocation_names = _split_name(1, GenICamXMLLocationEnum)
-GenICamXMLLocation_values = _invert_dict(GenICamXMLLocation_names)
-
-DeviceEndianessMechanism_names = _split_name(1, DeviceEndianessMechanismEnum)
-DeviceEndianessMechanism_values = _invert_dict(DeviceEndianessMechanism_names)
-
-DeviceCurrentSpeed_names = _split_name(1, DeviceCurrentSpeedEnum)
-DeviceCurrentSpeed_values = _invert_dict(DeviceCurrentSpeed_names)
-
-InterfaceType_names = _split_name(1, InterfaceTypeEnum)
-InterfaceType_values = _invert_dict(InterfaceType_names)
-
-POEStatus_names = _split_name(1, POEStatusEnum)
-POEStatus_values = _invert_dict(POEStatus_names)
-
-FilterDriverStatus_names = _split_name(1, FilterDriverStatusEnum)
-FilterDriverStatus_values = _invert_dict(FilterDriverStatus_names)
-
-TLType_names = _split_name(1, TLTypeEnum)
-TLType_values = _invert_dict(TLType_names)

@@ -1,6 +1,7 @@
 from .system import SpinSystem
-from.names import img_status_values, access_mode_values, buffer_owner_values, \
+from.names.spin import img_status_values, buffer_owner_values, \
     buffer_owner_names
+from names.geni import AccessMode_values
 from .node import NodeMap
 from .camera_nodes cimport CameraNodes, TLDevNodes, TLStreamNodes
 
@@ -186,14 +187,14 @@ cdef class Camera:
 
     cpdef get_access_mode(self):
         """Returns the access mode that the software has on the Camera as a
-        string from :attr:`~rotpy.names.access_mode_names`.
+        string from :attr:`~rotpy.names.geni.AccessMode_names`.
 
         The camera does not need to be initialized before calling this function.
         """
         cdef EAccessMode mode
         with nogil:
             mode = self._camera.get().GetAccessMode()
-        return access_mode_values[mode]
+        return AccessMode_values[mode]
 
     cpdef read_port(self, uint64_t address, size_t num_bytes):
         """Reads a remote port on a physical Camera. This function can be used
@@ -255,7 +256,7 @@ cdef class Camera:
 
     cpdef get_buffer_ownership(self):
         """Gets data buffer ownership as a string from
-        :attr:`~rotpy.names.buffer_owner_names`.
+        :attr:`~rotpy.names.spin.buffer_owner_names`.
 
         The data buffers can be owned by System or User. If the system owns the
         buffers, the memory required for the buffers are allocated and freed by
@@ -270,7 +271,7 @@ cdef class Camera:
 
     cpdef set_buffer_ownership(self, str ownership):
         """Sets data buffer ownership from a string from
-        :attr:`~rotpy.names.buffer_owner_names`.
+        :attr:`~rotpy.names.spin.buffer_owner_names`.
 
         The data buffers can be owned by System or User. If the system owns the
         buffers, the memory required for the buffers are allocated and freed by

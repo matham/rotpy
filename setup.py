@@ -46,15 +46,17 @@ if lib:
 
 
 mods = [
-    '_interface', 'system', 'names', 'camera', 'image', 'node', 'camera_nodes'
+    '_interface', 'system', 'names.camera', 'names.geni', 'names.spin',
+    'names.tl', 'camera', 'image', 'node', 'camera_nodes'
 ]
 mod_suffix = '.pyx'
 include_dirs.append(join(abspath(dirname(__file__)), 'rotpy', 'includes'))
 
 ext_modules = [Extension(
     'rotpy.' + src_file,
-    sources=[join('rotpy', src_file + mod_suffix)], libraries=libraries,
-    include_dirs=include_dirs, library_dirs=library_dirs, language="c++")
+    sources=[join('rotpy', src_file.replace('.', '/') + mod_suffix)],
+    libraries=libraries, include_dirs=include_dirs, library_dirs=library_dirs,
+    language="c++")
     for src_file in mods]
 
 for e in ext_modules:

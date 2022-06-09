@@ -3,20 +3,6 @@ from libcpp cimport bool as cbool
 from libcpp.string cimport string as cstr
 from libcpp.cast cimport dynamic_cast
 
-# include "includes/SpinnakerDefsC.pxi"
-# include "includes/CameraDefsC.pxi"
-# include "includes/ChunkDataDefC.pxi"
-# include "includes/SpinnakerGenApiDefsC.pxi"
-# include "includes/SpinnakerGenApiC.pxi"
-# include "includes/QuickSpinDefsC.pxi"
-# include "includes/TransportLayerDefsC.pxi"
-# include "includes/TransportLayerInterfaceC.pxi"
-# include "includes/TransportLayerSystemC.pxi"
-# include "includes/TransportLayerDeviceC.pxi"
-# include "includes/TransportLayerStreamC.pxi"
-# include "includes/QuickSpinC.pxi"
-# include "includes/SpinnakerC.pxi"
-
 
 include "includes/Types.pxi"
 include "includes/SpinnakerDefs.pxi"

@@ -1,4 +1,4 @@
-from .names import log_level_names, log_level_values
+from .names.spin import log_level_names, log_level_values
 
 # __all__ = ('SpinError', 'SpinSystem')
 
@@ -118,7 +118,7 @@ cdef class SpinSystem:
         Logging events below such level will not trigger callbacks
 
         :param level: The name of the level as listed in
-            :attr:`~rotpy.names.log_level_names`.
+            :attr:`~rotpy.names.spin.log_level_names`.
         """
         cdef SpinnakerLogLevel log_level = log_level_names[level]
         with nogil:
@@ -126,7 +126,7 @@ cdef class SpinSystem:
 
     cpdef get_logging_level(self):
         """Gets the logging level (as listed in
-        :attr:`~rotpy.names.log_level_names`) for all logging events on the
+        :attr:`~rotpy.names.spin.log_level_names`) for all logging events on the
         system.
         """
         cdef SpinnakerLogLevel log_level

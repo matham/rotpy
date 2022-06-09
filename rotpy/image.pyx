@@ -1,11 +1,12 @@
 cdef extern from "string.h" nogil:
     void *memcpy(void *, const void *, size_t)
 
-from .names import PixelFormat_names, payload_type_names, \
+from .names.spin import payload_type_names, \
     payload_type_values, color_processing_algo_names, \
     color_processing_algo_values, \
-    pix_fmt_namespace_values, PixelFormat_values, pix_fmt_int_values,\
+    pix_fmt_namespace_values, pix_fmt_int_values,\
     img_status_values, img_status_names
+from .names.camera import PixelFormat_values, PixelFormat_names
 
 DEF MAX_BUFF_LEN = 256
 
@@ -56,11 +57,11 @@ cdef class Image:
         :param x_offset: The x-offset of the start of the image.
         :param y_offset: The y-offset of the start of the image.
         :param pix_fmt: The pixel format name string from
-            :attr:`~rotpy.names.PixelFormat_names`.
+            :attr:`~rotpy.names.camera.PixelFormat_names`.
         :param data: An optional bytes buffer or array containing the data to
             initialize the image with. If None, data is not set.
         :param data_type: The payload type of the data as named in
-            :attr:`~rotpy.names.payload_type_names` (such as compressed). See
+            :attr:`~rotpy.names.spin.payload_type_names` (such as compressed). See
             also :meth:`get_payload_type`.
         :param data_len: The size of the ``data`` if provided. This is only used
             if the ``data_type`` is also given.
@@ -174,7 +175,7 @@ cdef class Image:
         otherwise set).
 
         :param name: The name of the color processing algorithm used by default
-            as listed in :attr:`~rotpy.names.color_processing_algo_names`.
+            as listed in :attr:`~rotpy.names.spin.color_processing_algo_names`.
         """
         cdef ColorProcessingAlgorithm algorithm = color_processing_algo_names[name]
         with nogil:
@@ -186,7 +187,7 @@ cdef class Image:
         otherwise set).
 
         :return: The name of the color processing algorithm used by default
-            as listed in :attr:`~rotpy.names.color_processing_algo_names`.
+            as listed in :attr:`~rotpy.names.spin.color_processing_algo_names`.
         """
         cdef ColorProcessingAlgorithm algorithm
         with nogil:
@@ -197,7 +198,7 @@ cdef class Image:
         """Gets the color processing algorithm of this image.
 
         :return: The name of the color processing algorithm used
-            as listed in :attr:`~rotpy.names.color_processing_algo_names`.
+            as listed in :attr:`~rotpy.names.spin.color_processing_algo_names`.
         """
         cdef ColorProcessingAlgorithm algorithm
         with nogil:
@@ -233,9 +234,9 @@ cdef class Image:
         a specific algorithm and returns a new image.
 
         :param pix_fmt: The pixel format name string from
-            :attr:`~rotpy.names.PixelFormat_names`.
+            :attr:`~rotpy.names.camera.PixelFormat_names`.
         :param algorithm: An optional algorithm name string from
-            :attr:`~rotpy.names.color_processing_algo_names`. If empty it's not
+            :attr:`~rotpy.names.spin.color_processing_algo_names`. If empty it's not
             set.
         :param dest: Optional destination image where the converted output
             result will be stored. The destination image buffer size must be
@@ -278,12 +279,12 @@ cdef class Image:
         :param x_offset: The x-offset of the start of the image.
         :param y_offset: The y-offset of the start of the image.
         :param pix_fmt: The pixel format name string from
-            :attr:`~rotpy.names.PixelFormat_names`.
+            :attr:`~rotpy.names.camera.PixelFormat_names`.
         :param data: An optional bytes buffer or array containing the data to
             initialize the image with. If None, memory is automatically
             allocated.
         :param data_type: The optional payload type of the data as named in
-            :attr:`~rotpy.names.payload_type_names` (such as compressed). See
+            :attr:`~rotpy.names.spin.payload_type_names` (such as compressed). See
             also :meth:`get_payload_type`. See also :meth:`create_image`.
         :param data_len: The size of the ``data`` if provided. This is only used
             if the ``data_type`` is also given.
@@ -524,7 +525,7 @@ cdef class Image:
         transmitted.
 
         This returns the payload type name string from
-        :attr:`~rotpy.names.payload_type_names`.
+        :attr:`~rotpy.names.spin.payload_type_names`.
         """
         cdef size_t n
         with nogil:
@@ -538,7 +539,7 @@ cdef class Image:
         was transmitted.
 
         This returns the payload type name string from
-        :attr:`~rotpy.names.payload_type_names`.
+        :attr:`~rotpy.names.spin.payload_type_names`.
         """
         cdef PayloadTypeInfoIDs n
         with nogil:
@@ -549,7 +550,7 @@ cdef class Image:
         """Gets the image's pixel format.
 
         This returns the pixel format name string from
-        :attr:`~rotpy.names.PixelFormat_names`.
+        :attr:`~rotpy.names.camera.PixelFormat_names`.
         """
         cdef PixelFormatEnums n
         with nogil:
@@ -560,7 +561,7 @@ cdef class Image:
         """Gets the image's integer type used in the pixel format of this image.
 
         This returns the name string from
-        :attr:`~rotpy.names.pix_fmt_int_names`.
+        :attr:`~rotpy.names.spin.pix_fmt_int_names`.
         """
         cdef PixelFormatIntType n
         with nogil:
@@ -598,7 +599,7 @@ cdef class Image:
         image's TL specific pixel format resides.
 
         This returns the name string from
-        :attr:`~rotpy.names.pix_fmt_namespace_names`.
+        :attr:`~rotpy.names.spin.pix_fmt_namespace_names`.
         """
         cdef PixelFormatNamespaceID n
         with nogil:
@@ -662,7 +663,7 @@ cdef class Image:
         """Returns data integrity status of the image when it was returned from
         :meth:`~rotpy.camera.Camera.get_next_image`.
 
-        This returns the name string from :attr:`~rotpy.names.img_status_names`.
+        This returns the name string from :attr:`~rotpy.names.spin.img_status_names`.
         """
         cdef ImageStatus n
         with nogil:
@@ -675,7 +676,7 @@ cdef class Image:
         :meth:`get_status`.
 
         :param status: A status string from
-            :attr:`~rotpy.names.img_status_names`.
+            :attr:`~rotpy.names.spin.img_status_names`.
         """
         return Image.get_status_description_c(status)
 

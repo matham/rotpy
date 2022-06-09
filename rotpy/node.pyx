@@ -1,5 +1,5 @@
-from .names import InterfaceType_names, InterfaceType_values,\
-    access_mode_names, access_mode_values, NameSpace_values, Visibility_names, \
+from .names.geni import InterfaceType_names, InterfaceType_values,\
+    AccessMode_names, AccessMode_values, NameSpace_values, Visibility_names, \
     Visibility_values, CachingMode_names, CachingMode_values, \
     Representation_values, YesNo_values, IncMode_values, DisplayNotation_values
 from array import array
@@ -208,12 +208,12 @@ cdef class SpinBaseNode:
 
     cpdef get_access_mode(self):
         """Gets the access mode of the node as a string from
-        :attr:`~rotpy.names.access_mode_names`.
+        :attr:`~rotpy.names.geni.AccessMode_names`.
         """
         cdef EAccessMode n
         with nogil:
             n = self._base_handle.GetAccessMode()
-        return access_mode_values[n]
+        return AccessMode_values[n]
 
 
 cdef class SpinSelectorNode(SpinBaseNode):
@@ -353,7 +353,7 @@ cdef class SpinNode(SpinSelectorNode):
 
     cpdef is_access_cachable(self):
         """Gets whether the AccessMode can be cached, as a string from
-        :attr:`~rotpy.names.YesNo_names`.
+        :attr:`~rotpy.names.geni.YesNo_names`.
         """
         cdef EYesNo n
         with nogil:
@@ -413,7 +413,7 @@ cdef class SpinNode(SpinSelectorNode):
 
     cpdef get_namespace(self):
         """Gets the namespace of the node as a string from
-        :attr:`~rotpy.names.NameSpace_names`.
+        :attr:`~rotpy.names.geni.NameSpace_names`.
         """
         cdef ENameSpace n
         with nogil:
@@ -422,7 +422,7 @@ cdef class SpinNode(SpinSelectorNode):
 
     cpdef get_visibility(self):
         """Gets the recommended visibility of the node as a string from
-        :attr:`~rotpy.names.Visibility_names`.
+        :attr:`~rotpy.names.geni.Visibility_names`.
         """
         cdef EVisibility n
         with nogil:
@@ -439,7 +439,7 @@ cdef class SpinNode(SpinSelectorNode):
 
     cpdef get_caching_mode(self):
         """Gets the caching mode of the node as a string from
-        :attr:`~rotpy.names.CachingMode_names`.
+        :attr:`~rotpy.names.geni.CachingMode_names`.
         """
         cdef ECachingMode n
         with nogil:
@@ -523,7 +523,7 @@ cdef class SpinNode(SpinSelectorNode):
 
     cpdef get_node_type(self):
         """Gets the node type of the node as a string from
-        :attr:`~rotpy.names.InterfaceType_values`.
+        :attr:`~rotpy.names.geni.InterfaceType_values`.
         """
         cdef EInterfaceType n
         with nogil:
@@ -541,9 +541,9 @@ cdef class SpinNode(SpinSelectorNode):
     cpdef set_access_mode(self, str mode):
         """Imposes an access mode to the natural access mode of the node.
 
-        ``mode`` is s string from :attr:`~rotpy.names.access_mode_names`.
+        ``mode`` is s string from :attr:`~rotpy.names.geni.AccessMode_names`.
         """
-        cdef EAccessMode n = access_mode_names[mode]
+        cdef EAccessMode n = AccessMode_names[mode]
 
         with nogil:
             self._node_handle.ImposeAccessMode(n)
@@ -551,7 +551,7 @@ cdef class SpinNode(SpinSelectorNode):
     cpdef set_visibility(self, str visibility):
         """Imposes a visibility to the natural visibility of the node.
 
-        ``mode`` is s string from :attr:`~rotpy.names.Visibility_names`.
+        ``mode`` is s string from :attr:`~rotpy.names.geni.Visibility_names`.
         """
         cdef EVisibility n = Visibility_names[visibility]
 
@@ -724,7 +724,7 @@ cdef class SpinIntNode(SpinValueNode):
 
     cpdef get_increment_mode(self):
         """Gets the increment mode string of the node as listed in
-        :attr:`~rotpy.names.IncMode_names.
+        :attr:`~rotpy.names.geni.IncMode_names.
         """
         cdef EIncMode n
         with nogil:
@@ -764,7 +764,7 @@ cdef class SpinIntNode(SpinValueNode):
         """Gets the name of the representation that this node represents.
         E.g. linear, logarithmic, hexidecimal, MAC etc.
 
-        It returns a name from :attr:`~rotpy.names.Representation_names`
+        It returns a name from :attr:`~rotpy.names.geni.Representation_names`
         """
         cdef ERepresentation n
         with nogil:
@@ -848,7 +848,7 @@ cdef class SpinFloatNode(SpinValueNode):
 
     cpdef get_increment_mode(self):
         """Gets the increment mode string of the node as listed in
-        :attr:`~rotpy.names.IncMode_names.
+        :attr:`~rotpy.names.geni.IncMode_names.
         """
         cdef EIncMode n
         with nogil:
@@ -888,7 +888,7 @@ cdef class SpinFloatNode(SpinValueNode):
         """Gets the name of the representation that this node represents.
         E.g. linear, logarithmic, hexidecimal, MAC etc.
 
-        It returns a name from :attr:`~rotpy.names.Representation_names`
+        It returns a name from :attr:`~rotpy.names.geni.Representation_names`
         """
         cdef ERepresentation n
         with nogil:
@@ -906,7 +906,7 @@ cdef class SpinFloatNode(SpinValueNode):
     cpdef get_display_notation(self):
         """Gets the way the float should be converted to a string.
 
-        It returns a name from :attr:`~rotpy.names.DisplayNotation_names`
+        It returns a name from :attr:`~rotpy.names.geni.DisplayNotation_names`
         """
         cdef EDisplayNotation n
         with nogil:
