@@ -9,7 +9,8 @@ For example::
     dump_cython(content, '{}.h'.format(header), '{}.pxi'.format(header))
 """
 
-from re import compile, match, sub, split
+from typing import List
+from re import compile, match, sub, split, finditer
 import traceback
 import re
 from collections import namedtuple
@@ -61,6 +62,22 @@ EnumMemberSpec = namedtuple('EnumMemberSpec', ['name', 'value'])
 TypeDef = namedtuple('TypeDef', ['body'])
 '''Represents a c typedef.
 '''
+
+
+class_genapi_var_pat = compile(
+    r'/\*\*.+?'
+    r'Description:(.+?)'
+    r'Visibility:[ \t]*([a-zA-Z0-9]+)?[ \t]*'
+    r'.+?'
+    r'GenApi::([\w<>]+) *& *(\w+) *;+',
+    flags=re.DOTALL)
+template_genapi_type = compile(r'(\w+)<(\w+)>')
+
+
+GenAPIVarSpec = namedtuple(
+    'GenAPIVarSpec',
+    ['visibility', 'type_name', 'type_template', 'name', 'description']
+)
 
 
 def strip_comments(code):
@@ -268,12 +285,67 @@ def dump_cython(content, name, ofile):
                                                 for c in code])))
 
 
+def parse_class_vars(filename):
+    with open(filename, 'r') as fh:
+        content = fh.read()
+
+    items = []
+    for m in finditer(class_genapi_var_pat, content):
+        desc, vis, tp, name = m.groups()
+        desc = [l.strip(' \n*') for l in desc.splitlines()]
+        desc = ' '.join([l for l in desc if l])
+
+        tp_m = match(template_genapi_type, tp)
+        if tp_m is None:
+            tp_name = tp
+            tp_template = None
+        else:
+            tp_name, tp_template = tp_m.groups()
+
+        items.append(GenAPIVarSpec(vis, tp_name, tp_template, name, desc))
+
+    return items
+
+
+def dump_genapi_prop_cython(
+        items: List[GenAPIVarSpec], ofile, prop_storage_path, cam_handle_path):
+    node_cls_map = {
+        'IInteger': 'SpinIntNode',
+        'IBoolean': 'SpinBoolNode',
+        'ICommand': 'SpinCommandNode',
+        'IFloat': 'SpinFloatNode',
+        'IString': 'SpinStrNode',
+        'IRegister': 'SpinRegisterNode',
+        'ICategory': 'SpinTreeNode',
+        'IEnumeration': 'SpinEnumClsNode',
+        'IPort': 'SpinPortNode',
+    }
+    props = []
+
+    for item in items:
+        handle_cls = item.type_name
+        if item.type_template is not None:
+            handle_cls = f'{item.type_name}[{item.type_template}]>'
+        prop = f'''\
+@property.getter
+def {item.name}(self):
+    cdef {handle_cls}* handle
+    node = {prop_storage_path}.get("{item.name}")
+    if node is None:
+        handle = {cam_handle_path}.{item.name}
+
+'''
+
+
 if __name__ == '__main__':
     from os.path import join
     include = r'e:\FLIR\Spinnaker\include'
 
-    for name in ('CameraDefs', ):
-        content = parse_header(join(include, '{}.h'.format(name)))
-        dump_cython(content, '{}.h'.format(name), '{}.pxi'.format(name))
+    for name in ('Camera', ):
+        f = join(include, '{}.h'.format(name))
+        content = parse_class_vars(f)
+        # content = parse_header(f)
+
+        # dump_cython(content, '{}.h'.format(name), '{}.pxi'.format(name))
 
         print('{} done!'.format(name))

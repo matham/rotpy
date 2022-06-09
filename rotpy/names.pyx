@@ -98,7 +98,19 @@ __all__ = (
     'img_correction_type_names', 'img_correction_type_values',
     'img_correction_sensor_names', 'img_correction_sensor_values',
     'img_correction_space_names', 'img_correction_space_values',
-    'img_correction_app_names', 'img_correction_app_values',
+    'img_correction_app_names', 'img_correction_app_values', 'int_sign_names',
+    'int_sign_values', 'access_mode_names', 'access_mode_values',
+    'Visibility_names',
+    'Visibility_values', 'CachingMode_names', 'CachingMode_values',
+    'Representation_names', 'Representation_values', 'Endianess_names',
+    'Endianess_values', 'NameSpace_names', 'NameSpace_values',
+    'StandardNameSpace_names', 'StandardNameSpace_values', 'YesNo_names',
+    'YesNo_values', 'Slope_names', 'Slope_values', 'XMLValidation_names',
+    'XMLValidation_values', 'DisplayNotation_names', 'DisplayNotation_values',
+    'InterfaceType_names', 'InterfaceType_values', 'LinkType_names',
+    'LinkType_values', 'IncMode_names', 'IncMode_values',
+    'InputDirection_names', 'InputDirection_values',
+    'GenApiSchemaVersion_names', 'GenApiSchemaVersion_values',
     'LUTSelector_names', 'LUTSelector_values', 'ExposureMode_names',
     'ExposureMode_values', 'AcquisitionMode_names', 'AcquisitionMode_values',
     'TriggerSource_names', 'TriggerSource_values', 'TriggerActivation_names',
@@ -383,8 +395,53 @@ img_correction_app_values = _invert_dict(img_correction_app_names)
 int_sign_names = _lower_names(_ESign)
 int_sign_values = _invert_dict(int_sign_names)
 
-access_mode_names = _lower_names(_EAccessMode)
+access_mode_names = _to_dict(_EAccessMode)
 access_mode_values = _invert_dict(access_mode_names)
+
+Visibility_names = _to_dict(_EVisibility)
+Visibility_values = _invert_dict(Visibility_names)
+
+CachingMode_names = _to_dict(_ECachingMode)
+CachingMode_values = _invert_dict(CachingMode_names)
+
+Representation_names = _to_dict(_ERepresentation)
+Representation_values = _invert_dict(Representation_names)
+
+Endianess_names = _to_dict(_EEndianess)
+Endianess_values = _invert_dict(Endianess_names)
+
+NameSpace_names = _to_dict(_ENameSpace)
+NameSpace_values = _invert_dict(NameSpace_names)
+
+StandardNameSpace_names = _to_dict(_EStandardNameSpace)
+StandardNameSpace_values = _invert_dict(StandardNameSpace_names)
+
+YesNo_names = _to_dict(_EYesNo)
+YesNo_values = _invert_dict(YesNo_names)
+
+Slope_names = _to_dict(_ESlope)
+Slope_values = _invert_dict(Slope_names)
+
+XMLValidation_names = _remove_prefix('xv', _EXMLValidation)
+XMLValidation_values = _invert_dict(XMLValidation_names)
+
+DisplayNotation_names = _remove_prefix('fn', _EDisplayNotation)
+DisplayNotation_values = _invert_dict(DisplayNotation_names)
+
+InterfaceType_names = _remove_prefix('intfI', _EInterfaceType)
+InterfaceType_values = _invert_dict(InterfaceType_names)
+
+LinkType_names = _remove_prefix('ct', _ELinkType)
+LinkType_values = _invert_dict(LinkType_names)
+
+IncMode_names = _to_dict(_EIncMode)
+IncMode_values = _invert_dict(IncMode_names)
+
+InputDirection_names = _remove_prefix('id', _EInputDirection)
+InputDirection_values = _invert_dict(InputDirection_names)
+
+GenApiSchemaVersion_names = _to_dict(_EGenApiSchemaVersion)
+GenApiSchemaVersion_values = _invert_dict(GenApiSchemaVersion_names)
 
 # ----------------------------------------------------------------
 

@@ -172,18 +172,18 @@ cdef class SpinSystem:
             version = self._system.get().GetLibraryVersion()
         return version.major, version.minor, version.type, version.build
 
-    # cpdef NodeMap get_tl_node_map(self):
-    #     """Gets the transport layer nodemap from the system.
-    #
-    #     :return: A :class:`~rotpy.node.NodeMap`.
-    #     """
-    #     cdef spinNodeMapHandle handle
-    #     cdef NodeMap node_map = NodeMap()
-    #     with nogil:
-    #         check_ret(spinSystemGetTLNodeMap(self._system, &handle))
-    #     node_map.set_handle(handle)
-    #
-    #     return node_map
+    cpdef get_tl_node_map(self):
+        """Gets the transport layer nodemap from the system.
+
+        :return: A :class:`~rotpy.node.NodeMap`.
+        """
+        cdef INodeMap* handle
+        cdef NodeMap node_map = NodeMap()
+        with nogil:
+            handle = &self._system.get().GetTLNodeMap()
+        node_map.set_handle(handle)
+
+        return node_map
 
 #
 cdef class InterfaceDeviceList:

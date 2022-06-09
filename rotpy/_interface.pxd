@@ -1,6 +1,7 @@
 from libc.stdint cimport int64_t, uint64_t, uint8_t, uint32_t
 from libcpp cimport bool as cbool
 from libcpp.string cimport string as cstr
+from libcpp.cast cimport dynamic_cast
 
 # include "includes/SpinnakerDefsC.pxi"
 # include "includes/CameraDefsC.pxi"
@@ -25,4 +26,17 @@ include "includes/spinnaker.pxi"
 include "includes/compat.pxi"
 
 
-# cdef int check_ret(spinError ret) nogil except 1
+ctypedef IBase* IBasePointer
+ctypedef IValue* IValuePointer
+ctypedef IInteger* IIntegerPointer
+ctypedef IBoolean* IBooleanPointer
+ctypedef ICommand* ICommandPointer
+ctypedef IFloat* IFloatPointer
+ctypedef IString* IStringPointer
+ctypedef IRegister* IRegisterPointer
+ctypedef ICategory* ICategoryPointer
+ctypedef IEnumEntry* IEnumEntryPointer
+ctypedef IPort* IPortPointer
+ctypedef ISelector* ISelectorPointer
+ctypedef IEnumReference* IEnumReferencePointer
+ctypedef INode* INodePointer

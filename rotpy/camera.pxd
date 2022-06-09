@@ -1,7 +1,7 @@
 from ._interface cimport *
 from .system cimport SpinSystem
 from .image cimport Image
-# from .node cimport NodeMap
+from .node cimport NodeMap
 
 
 cdef class CameraList:
@@ -51,7 +51,7 @@ cdef class Camera:
     cpdef get_num_images_in_use(self)
     cpdef get_num_data_streams(self)
     cpdef force_ip(self)
-    cpdef Image get_next_image(self, timeout=*, uint64_t stream_id=*)
-    # cpdef NodeMap get_node_map(self)
-    # cpdef NodeMap get_tl_node_map(self)
-    # cpdef NodeMap get_tl_stream_node_map(self)
+    cpdef get_next_image(self, timeout=*, uint64_t stream_id=*)
+    cpdef get_node_map(self)
+    cpdef get_tl_dev_node_map(self)
+    cpdef get_tl_stream_node_map(self)

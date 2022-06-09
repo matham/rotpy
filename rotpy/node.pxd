@@ -3,116 +3,196 @@ from ._interface cimport *
 
 cdef class NodeMap:
 
-    cdef spinNodeMapHandle _handle
+    cdef INodeMap* _handle
 
-    cdef void set_handle(self, spinNodeMapHandle handle)
+    cdef void set_handle(self, INodeMap* handle)
     cpdef get_nodes(self)
     cpdef get_num_nodes(self)
-    cpdef poll(self, int64_t timestamp)
+    cpdef poll(self, int64_t elapsed)
     cpdef get_node_by_name(self, str name)
     cpdef get_node_by_index(self, size_t index)
+    cpdef invalidate_nodes(self)
+    cpdef get_dev_name(self)
 
+
+cdef class SpinEnumReferenceNode:
+
+    cdef IEnumReference* _enum_ref_handle
+
+    cdef void set_handle(self, object source, IBase* handle) except *
+    cpdef set_enum_ref(self, int index, str name)
+    cpdef set_num_enums(self, int num)
 
 
 cdef class SpinBaseNode:
 
-    cdef spinNodeHandle _handle
-    cdef NodeMap _map
-    cdef SpinTreeNode _tree
+    cdef IBase* _base_handle
+    cdef object _handle_src
 
-    cdef void set_handle(self, NodeMap map, spinNodeHandle handle)
-    cdef void set_handle_from_tree(self, SpinTreeNode tree, spinNodeHandle handle)
+    cdef void set_handle(self, object source, IBase* handle) except *
+    cpdef get_access_mode(self)
+
+
+cdef class SpinSelectorNode(SpinBaseNode):
+
+    cdef ISelector* _sel_handle
+
+    cpdef is_selector(self)
+    cpdef get_selected_nodes(self)
+    cpdef get_selecting_nodes(self)
+
+
+cdef class SpinNode(SpinSelectorNode):
+
+    cdef INode* _node_handle
+
     cpdef dict get_metadata(self, include_value=*)
-    cpdef is_implemented(self)
-    cpdef is_readable(self)
-    cpdef is_writable(self)
-    cpdef is_available(self)
-    cpdef is_equal(self, SpinBaseNode other)
-    cpdef str get_access_mode(self)
-    cpdef str get_name(self)
-    cpdef str get_namespace(self)
-    cpdef str get_visibility(self)
+    # cpdef is_implemented(self)
+    # cpdef is_readable(self)
+    # cpdef is_writable(self)
+    # cpdef is_available(self)
+    # cpdef is_equal(self, SpinBaseNode other)
+    cpdef is_cachable(self)
+    cpdef is_access_cachable(self)
+    cpdef is_streamable(self)
+    cpdef is_deprecated(self)
+    cpdef is_feature(self)
+    cpdef get_dev_name(self)
+    cpdef get_event_id(self)
+    cpdef get_name(self, cbool fully_qualified=*)
+    cpdef get_namespace(self)
+    cpdef get_visibility(self)
     cpdef invalidate(self)
-    cpdef str get_caching_mode(self)
-    cpdef str get_short_description(self)
-    cpdef str get_description(self)
-    cpdef str get_display_name(self)
-    cpdef str get_node_type(self)
+    cpdef get_caching_mode(self)
+    cpdef get_short_description(self)
+    cpdef get_description(self)
+    cpdef get_display_name(self)
+    cpdef get_doc_url(self)
+    cpdef get_property_names(self)
+    cpdef get_property(self, str name)
+    cpdef get_node_type(self)
     cpdef get_polling_time(self)
-    cpdef str get_node_value_as_str(self, int verify=*)
-    cpdef set_node_value_from_str(self, str value, int verify=*)
+    cpdef set_access_mode(self, str mode)
+    cpdef set_visibility(self, str visibility)
+    cpdef get_alias_node(self)
+    cpdef get_cast_alias_node(self)
+    cpdef set_ref(self, SpinNode node)
 
 
-cdef class SpinIntNode(SpinBaseNode):
+cdef class SpinValueNode(SpinNode):
 
-    cpdef int64_t get_node_value(self, int verify=*)
-    cpdef set_node_value(self, int64_t value, int verify=*)
-    cpdef int64_t get_min_value(self)
-    cpdef int64_t get_max_value(self)
-    cpdef int64_t get_increment(self)
-    cpdef str get_representation(self)
+    cdef IValue* _value_handle
 
-
-cdef class SpinFloatNode(SpinBaseNode):
-
-    cpdef double get_node_value(self, int verify=*)
-    cpdef set_node_value(self, double value, int verify=*)
-    cpdef double get_min_value(self)
-    cpdef double get_max_value(self)
-    cpdef str get_representation(self)
-    cpdef str get_unit(self)
+    cpdef get_node_value_as_str(self, cbool verify=*, cbool ignore_cache=*)
+    cpdef set_node_value_from_str(self, str value, cbool verify=*)
+    cpdef is_value_cached(self)
 
 
-cdef class SpinBoolNode(SpinBaseNode):
+cdef class SpinIntNode(SpinValueNode):
 
-    cpdef get_node_value(self)
-    cpdef set_node_value(self, bool8_t value)
+    cdef IInteger* _handle
+
+    cpdef get_node_value(self, cbool verify=*, cbool ignore_cache=*)
+    cpdef set_node_value(self, int64_t value, cbool verify=*)
+    cpdef get_min_value(self)
+    cpdef get_max_value(self)
+    cpdef set_min_value(self, int64_t value)
+    cpdef set_max_value(self, int64_t value)
+    cpdef get_increment_mode(self)
+    cpdef get_increment(self)
+    cpdef get_valid_values(self, cbool bounded=*)
+    cpdef get_representation(self)
+    cpdef get_unit(self)
 
 
-cdef class SpinStrNode(SpinBaseNode):
+cdef class SpinFloatNode(SpinValueNode):
 
-    cpdef str get_node_value(self, int verify=*)
-    cpdef set_node_value(self, str value, int verify=*)
+    cdef IFloat * _handle
+
+    cpdef get_node_value(self, cbool verify= *, cbool ignore_cache=*)
+    cpdef set_node_value(self, double value, cbool verify=*)
+    cpdef get_min_value(self)
+    cpdef get_max_value(self)
+    cpdef set_min_value(self, double value)
+    cpdef set_max_value(self, double value)
+    cpdef has_increment(self)
+    cpdef get_increment_mode(self)
+    cpdef get_increment(self)
+    cpdef get_valid_values(self, cbool bounded=*)
+    cpdef get_representation(self)
+    cpdef get_unit(self)
+    cpdef get_display_notation(self)
+    cpdef get_display_precision(self)
 
 
-cdef class SpinCommandNode(SpinBaseNode):
+cdef class SpinBoolNode(SpinValueNode):
 
-    cpdef is_done(self)
-    cpdef execute_node(self)
+    cdef IBoolean* _handle
+
+    cpdef get_node_value(self, cbool verify= *, cbool ignore_cache=*)
+    cpdef set_node_value(self, cbool value, cbool verify=*)
 
 
-cdef class SpinRegisterNode(SpinBaseNode):
+cdef class SpinStrNode(SpinValueNode):
+
+    cdef IString* _handle
+
+    cpdef get_node_value(self, cbool verify= *, cbool ignore_cache=*)
+    cpdef set_node_value(self, str value, cbool verify=*)
+    cpdef get_max_len(self)
+
+
+cdef class SpinCommandNode(SpinValueNode):
+
+    cdef ICommand* _handle
+
+    cpdef is_done(self, cbool verify=*)
+    cpdef execute_node(self, cbool verify=*)
+
+
+cdef class SpinRegisterNode(SpinValueNode):
+
+    cdef IRegister* _handle
 
     cpdef get_address(self)
-    cpdef bytes get_node_value(self, int verify=*, int allow_cache=*)
-    cpdef set_node_value(self, object buffer, int verify=*)
-    cpdef set_ref(self, SpinBaseNode ref)
+    cpdef get_node_value(self, cbool verify=*, cbool allow_cache=*)
+    cpdef set_node_value(self, object buffer, cbool verify=*)
 
 
 cdef class SpinEnumClsNode(SpinBaseNode):
 
     cpdef get_items(self)
-    cpdef get_num_items(self)
-    cpdef SpinEnumItemNode get_item_by_index(self, size_t index)
-    cpdef SpinEnumItemNode get_item_by_name(self, str name)
-    cpdef SpinEnumItemNode get_node_value(self)
-    cpdef set_node_value(self, SpinEnumItemNode item)
-    cpdef set_node_value_by_int(self, int64_t value)
-    cpdef set_node_value_by_enum(self, size_t value)
+    # cpdef get_num_items(self)
+    # cpdef SpinEnumItemNode get_item_by_index(self, size_t index)
+    # cpdef SpinEnumItemNode get_item_by_name(self, str name)
+    # cpdef SpinEnumItemNode get_node_value(self)
+    # cpdef set_node_value(self, SpinEnumItemNode item)
+    # cpdef set_node_value_by_int(self, int64_t value)
+    # cpdef set_node_value_by_enum(self, size_t value)
 
 
-cdef class SpinEnumItemNode(SpinBaseNode):
+cdef class SpinEnumItemNode(SpinValueNode):
 
-    cdef SpinEnumClsNode _enum_cls
+    cdef IEnumEntry* _handle
 
-    cdef void set_handle_from_cls(self, SpinEnumClsNode cls, spinNodeHandle handle)
-    cpdef get_node_int_value(self)
-    cpdef get_node_enum_value(self)
-    cpdef str get_node_str_value(self)
+    cpdef get_enum_int_value(self)
+    cpdef get_enum_num(self)
+    cpdef get_enum_name(self)
+    cpdef is_self_clearing(self)
 
 
-cdef class SpinTreeNode(SpinBaseNode):
+cdef class SpinTreeNode(SpinValueNode):
+
+    cdef ICategory* _handle
 
     cpdef get_children(self)
     cpdef get_num_nodes(self)
     cpdef get_node_by_index(self, size_t index)
+
+
+cdef class SpinPortNode(SpinBaseNode):
+
+    cdef IPort* _handle
+
+    cpdef write_port(self, object buffer, int64_t address)
+    cpdef read_port(self, int64_t address, int64_t n)

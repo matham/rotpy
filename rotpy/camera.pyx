@@ -1,6 +1,7 @@
 from .system import SpinSystem
 from.names import img_status_values, access_mode_values, buffer_owner_values, \
     buffer_owner_names
+from .node import NodeMap
 
 cimport cpython.array
 from array import array
@@ -388,7 +389,7 @@ cdef class Camera:
         with nogil:
             self._camera.get().ForceIP()
 
-    cpdef Image get_next_image(
+    cpdef get_next_image(
             self, timeout=None, uint64_t stream_id=0):
         """Gets the next image that was received by the transport layer.
 
@@ -433,41 +434,53 @@ cdef class Camera:
                 f'"({img_status_values[status]})"')
         return Image.create_from_camera(raw_img)
 
-    # cpdef NodeMap get_node_map(self):
-    #     """Gets the camera nodemap from the camera.
-    #
-    #     :return: A :class:`~rotpy.node.NodeMap`.
-    #     """
-    #     cdef spinNodeMapHandle handle
-    #     cdef NodeMap node_map = NodeMap()
-    #     with nogil:
-    #         check_ret(spinCameraGetNodeMap(self._camera, &handle))
-    #     node_map.set_handle(handle)
-    #
-    #     return node_map
-    #
-    # cpdef NodeMap get_tl_node_map(self):
-    #     """Gets the transport layer device nodemap from the camera.
-    #
-    #     :return: A :class:`~rotpy.node.NodeMap`.
-    #     """
-    #     cdef spinNodeMapHandle handle
-    #     cdef NodeMap node_map = NodeMap()
-    #     with nogil:
-    #         check_ret(spinCameraGetTLDeviceNodeMap(self._camera, &handle))
-    #     node_map.set_handle(handle)
-    #
-    #     return node_map
-    #
-    # cpdef NodeMap get_tl_stream_node_map(self):
-    #     """Gets the transport layer stream nodemap from the camera.
-    #
-    #     :return: A :class:`~rotpy.node.NodeMap`.
-    #     """
-    #     cdef spinNodeMapHandle handle
-    #     cdef NodeMap node_map = NodeMap()
-    #     with nogil:
-    #         check_ret(spinCameraGetTLStreamNodeMap(self._camera, &handle))
-    #     node_map.set_handle(handle)
-    #
-    #     return node_map
+    cpdef get_node_map(self):
+        """Gets the :class:`~rotpy.node.NodeMap` that is generated from a
+        GenICam XML file.
+
+        The camera must be initialized by a call to :meth:`init_cam` first
+        before the node map can be successfully acquired.
+
+        :return: A :class:`~rotpy.node.NodeMap`.
+        """
+        cdef INodeMap* handle
+        cdef NodeMap node_map = NodeMap()
+        with nogil:
+            handle = &self._camera.get().GetNodeMap()
+        node_map.set_handle(handle)
+
+        return node_map
+
+    cpdef get_tl_dev_node_map(self):
+        """Gets the :class:`~rotpy.node.NodeMap` that is generated from a
+        GenICam XML file for the GenTL Device module.
+
+        The camera does not need to be initialized with :meth:`init_cam` before
+        acquiring this node map.
+
+        :return: A :class:`~rotpy.node.NodeMap`.
+        """
+        cdef INodeMap* handle
+        cdef NodeMap node_map = NodeMap()
+        with nogil:
+            handle = &self._camera.get().GetTLDeviceNodeMap()
+        node_map.set_handle(handle)
+
+        return node_map
+
+    cpdef get_tl_stream_node_map(self):
+        """Gets the :class:`~rotpy.node.NodeMap` that is generated from a
+        GenICam XML file for the GenTL Stream module.
+
+        The camera does not need to be initialized with :meth:`init_cam` before
+        acquiring this node map.
+
+        :return: A :class:`~rotpy.node.NodeMap`.
+        """
+        cdef INodeMap* handle
+        cdef NodeMap node_map = NodeMap()
+        with nogil:
+            handle = &self._camera.get().GetTLStreamNodeMap()
+        node_map.set_handle(handle)
+
+        return node_map
