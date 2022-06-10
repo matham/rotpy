@@ -1,6 +1,20 @@
 from ._interface cimport *
 from .node cimport NodeMap
 
+
+cdef extern from "rotpy_event.h" nogil:
+    cdef cppclass RotpyDeviceEventHandler:
+        RotpyDeviceEventHandler() except +
+        EventType GetEventType() except +
+        const uint8_t * GetEventPayloadData() except +
+        const size_t GetEventPayloadDataSize() except +
+        uint64_t GetDeviceEventId() except +
+        gcstring GetDeviceEventName() except +
+        void SetCallback(
+            void * callback_data, void (*callback_f)(void *, const gcstring*),
+                gcstring &eventName
+        ) except +
+
 # cdef class SpinError:
 #
 #     cpdef spinError get_last_error(self)
@@ -12,6 +26,14 @@ from .node cimport NodeMap
 #     cpdef str get_last_function(self)
 #     cpdef int64_t get_last_line_num(self)
 #     cpdef dict get_error_data(self)
+
+
+cdef class EventHandler:
+
+    cdef RotpyDeviceEventHandler _handler
+    cdef object _callback
+
+    cdef void handler_callback(self, const gcstring* event) nogil except*
 
 
 cdef class SpinSystem:

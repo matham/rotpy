@@ -1,4 +1,6 @@
-from .names.spin import log_level_names, log_level_values
+from .names.spin import log_level_names, log_level_values, event_values
+from cpython.ref cimport PyObject
+
 
 # __all__ = ('SpinError', 'SpinSystem')
 
@@ -91,6 +93,59 @@ DEF MAX_BUFF_LEN = 256
 #             'function': self.get_last_function(),
 #             'line_num': self.get_last_line_num(),
 #         }
+
+
+cdef class EventHandler:
+
+    def __cinit__(self, callback, str event_name=''):
+        self._callback = callback
+
+    def __init__(self, callback, str event_name=''):
+        cdef bytes name_b = event_name.encode()
+        cdef size_t n = len(event_name)
+        cdef const char* name_c = name_b
+        cdef gcstring s
+
+        if event_name:
+            s.assign(name_c, n)
+        self._handler.SetCallback(
+            <PyObject*>self,
+            <void (*)(void *, const gcstring *) nogil>self.handler_callback, s)
+
+    cdef void handler_callback(self, const gcstring* event) nogil except *:
+        cdef uint64_t dev_event_id = self._handler.GetDeviceEventId()
+        cdef EventType event_tp = self._handler.GetEventType()
+        cdef DeviceEventInferenceData inference_data
+        cdef DeviceEventExposureEndData exposure_end_data
+        cdef int event_id = 0
+
+        if event[0] == "EventInference":
+            DeviceEventUtility.ParseDeviceEventInference(
+                self._handler.GetEventPayloadData(),
+                self._handler.GetEventPayloadDataSize(), inference_data)
+            event_id = 1
+        elif event[0] == "EventExposureEnd":
+            DeviceEventUtility.ParseDeviceEventExposureEnd(
+                self._handler.GetEventPayloadData(),
+                self._handler.GetEventPayloadDataSize(), exposure_end_data)
+            event_id = 2
+
+        with gil:
+            event_name = event.c_str().decode()
+            dev_name = self._handler.GetDeviceEventName().c_str().decode()
+            event_type = event_values[event_tp]
+
+            if event_id == 1:
+                data = {
+                    'valur': inference_data.result,
+                    'confidence': inference_data.confidence,
+                    'frame_id': inference_data.frameID}
+            elif event_id == 2:
+                data = {'frame_id': exposure_end_data.frameID}
+            else:
+                data = None
+
+            self._callback(event_name, event_type, dev_name, dev_event_id, data)
 
 
 cdef class SpinSystem:

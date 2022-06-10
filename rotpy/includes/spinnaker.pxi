@@ -7,6 +7,7 @@ cdef extern from "SpinGenApi/GCString.h" namespace "Spinnaker::GenICam" nogil:
         gcstring() except +
         const char * c_str() except +
         gcstring& assign(const char * pc, size_t n) except +
+        cbool operator ==(const char * pc) except +
 
 
 cdef extern from "SpinGenApi/GCStringVector.h" namespace "Spinnaker::GenICam" nogil:
@@ -1222,3 +1223,11 @@ cdef extern from "System.h" namespace "Spinnaker" nogil:
         CCameraList GetCameras(cbool updateInterfaces, cbool updateCameras) except +
         const LibraryVersion GetLibraryVersion() except +
         INodeMap& GetTLNodeMap() except +
+
+
+cdef extern from "DeviceEventUtility.h" namespace "Spinnaker" nogil:
+    cdef cppclass DeviceEventUtility:
+        @staticmethod
+        void ParseDeviceEventInference(const uint8_t* payloadData, const size_t payloadSize, DeviceEventInferenceData& eventData) except +
+        @staticmethod
+        void ParseDeviceEventExposureEnd(const uint8_t* payloadData, const size_t payloadSize, DeviceEventExposureEndData& eventData) except +
