@@ -194,6 +194,7 @@ cdef class SpinSystem:
         self._sys_handlers = set()
         self._interface_handlers = set()
         self._log_handlers = set()
+        self.system_nodes = SystemNodes(system=self)
 
     def __init__(self):
         with nogil:
@@ -404,6 +405,8 @@ cdef class SpinSystem:
         if n:
             results = <ActionCommandResult *>malloc(
                 n * sizeof(ActionCommandResult))
+            if results == NULL:
+                raise MemoryError
 
         with nogil:
             self._system.get().SendActionCommand(
@@ -484,6 +487,7 @@ cdef class InterfaceDevice:
 
     def __cinit__(self):
         self._interface_set = 0
+        self.interface_nodes = InterfaceNodes(interface=self)
 
     def __dealloc__(self):
         if self._interface_set:

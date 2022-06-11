@@ -47,7 +47,7 @@ if lib:
 
 mods = [
     '_interface', 'system', 'names.camera', 'names.geni', 'names.spin',
-    'names.tl', 'camera', 'image', 'node', 'camera_nodes'
+    'names.tl', 'camera', 'image', 'node', 'camera_nodes', 'system_nodes'
 ]
 mod_suffix = '.pyx'
 include_dirs.append(join(abspath(dirname(__file__)), 'rotpy', 'includes'))

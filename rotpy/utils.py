@@ -14,7 +14,7 @@ from textwrap import TextWrapper
 from re import compile, match, sub, split, finditer
 import traceback
 import re
-from collections import namedtuple
+from collections import namedtuple, defaultdict
 
 __all__ = (
     'VariableSpec', 'FunctionSpec', 'StructSpec', 'EnumSpec', 'EnumMemberSpec',
@@ -347,7 +347,7 @@ def dump_genapi_prop_cython(
             node_inst.enum_values = rotpy.names{name_mod}.{t_name}_values"""
 
             prop = f'''
-    @property.getter
+    @property
     def {item.name}(self):
         """{description}
 
@@ -378,17 +378,42 @@ def dump_genapi_import_prop_cython(items: List[GenAPIVarSpec], ofile):
             fh.write(f'        {tp} &{item.name}\n')
 
 
+def dump_genapi_var_type_prop_cython(items: List[GenAPIVarSpec], ofile):
+    node_name_map = {
+        'IBoolean': 'bool',
+        'IInteger': 'int',
+        'IFloat': 'float',
+        'IString': 'str',
+        'IEnumerationT': 'enum',
+        'ICommand': 'command',
+        'IRegister': 'register',
+    }
+
+    props = {value: [] for value in node_name_map.values()}
+    for item in items:
+        props[node_name_map[item.type_name]].append(item.name)
+
+    with open(ofile, 'w') as fh:
+        for prop, values in props.items():
+            fh.write(f'cdef public list {prop}_nodes\n')
+        for prop, values in props.items():
+            fh.write(f'self.{prop}_nodes = {repr(values)}\n')
+
+
 if __name__ == '__main__':
     from os.path import join
     include = r'e:\FLIR\Spinnaker\include'
 
-    for name in ('TransportLayerStream', ):
+    for name in ('TransportLayerInterface', ):
         f = join(include, '{}.h'.format(name))
         content = parse_class_vars(f)
         # content = parse_header(f)
 
-        dump_genapi_prop_cython(
-            content, f'{name}.px', prop_prefix='.TLStream', name_mod='.tl')
+        # dump_genapi_import_prop_cython(content, f'{name}.px')
+        # dump_genapi_prop_cython(
+        #     content, f'{name}.px', prop_prefix='.TLInterface', name_mod='.tl',
+        #     cam_name='_interface', handle_name='_interface')
+        dump_genapi_var_type_prop_cython(content, f'{name}.px')
         # dump_cython(content, '{}.h'.format(name), '{}.pxi'.format(name))
 
         print('{} done!'.format(name))

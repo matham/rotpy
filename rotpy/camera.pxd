@@ -47,6 +47,7 @@ cdef class Camera:
     cdef int _cam_set
     cdef set _image_handlers
     cdef set _dev_handlers
+    cdef object _user_buf
 
     cdef public CameraNodes camera_nodes
     cdef public TLDevNodes tl_dev_nodes
@@ -71,6 +72,8 @@ cdef class Camera:
     cpdef get_buffer_count(self)
     cpdef get_buffer_size(self)
     cpdef get_buffer_total_size(self)
+    cpdef set_user_buffer(self, buffer)
+    cpdef set_user_buffers(self, buffers, uint64_t buffer_size)
     cpdef get_unique_id(self)
     cpdef is_streaming(self)
     cpdef get_gui_xml(self)

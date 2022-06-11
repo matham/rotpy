@@ -12,10 +12,427 @@ cdef class CameraNodes:
         self._camera = camera
         self._nodes = {}
 
+        self.bool_nodes = ['LUTEnable', 'AcquisitionFrameRateEnable',
+                           'EventSerialReceiveOverflow',
+                           'LogicBlockLUTOutputValue',
+                           'ColorTransformationEnable', 'SaturationEnable',
+                           'AasRoiEnable', 'GevCurrentIPConfigurationDHCP',
+                           'GevSCCFGUnconditionalStreaming',
+                           'GevSCPSDoNotFragment', 'GevGVCPPendingAck',
+                           'GevSupportedOption', 'GevCurrentIPConfigurationLLA',
+                           'GevIEEE1588', 'GevSCCFGExtendedChunkData',
+                           'GevCurrentIPConfigurationPersistentIP',
+                           'GevSCPSFireTestPacket', 'GevGVCPHeartbeatDisable',
+                           'GevSCPSBigEndian', 'SharpeningEnable',
+                           'GammaEnable', 'SharpeningAuto',
+                           'BlackLevelClampingEnable',
+                           'DefectCorrectStaticEnable', 'UserSetFeatureEnable',
+                           'SequencerFeatureEnable',
+                           'ChunkSerialReceiveOverflow', 'ChunkModeActive',
+                           'ChunkEnable', 'ReverseX', 'ReverseY', 'IspEnable',
+                           'AdaptiveCompressionEnable', 'V3_3Enable',
+                           'UserOutputValue', 'LineStatus', 'LineInverter',
+                           'DeviceRegistersValid', 'ImageComponentEnable',
+                           'AcquisitionStatus', 'TransferStatus',
+                           'Scan3dInvalidDataFlag',
+                           'ChunkScan3dInvalidDataFlag',
+                           'GevPAUSEFrameReception',
+                           'GevPAUSEFrameTransmission',
+                           'GevGVCPExtendedStatusCodes',
+                           'GevSCCFGPacketResendDestination',
+                           'GevSCCFGAllInTransmission',
+                           'GevSCZoneConfigurationLock']
+        self.int_nodes = ['LUTIndex', 'LUTValue', 'AcquisitionFrameCount',
+                          'AcquisitionBurstFrameCount', 'EventTest',
+                          'EventTestTimestamp', 'EventExposureEndFrameID',
+                          'EventExposureEnd', 'EventExposureEndTimestamp',
+                          'EventError', 'EventErrorTimestamp', 'EventErrorCode',
+                          'EventErrorFrameID', 'EventSerialPortReceive',
+                          'EventSerialPortReceiveTimestamp',
+                          'EventSerialDataLength', 'LogicBlockLUTRowIndex',
+                          'LogicBlockLUTOutputValueAll', 'TimestampLatchValue',
+                          'MaxDeviceResetTime', 'DeviceTLVersionMinor',
+                          'DeviceLinkSpeed', 'LinkUptime',
+                          'DeviceEventChannelCount',
+                          'DeviceLinkThroughputLimit',
+                          'DeviceStreamChannelCount', 'DeviceTLVersionMajor',
+                          'EnumerationCount', 'DeviceUptime',
+                          'DeviceLinkCurrentThroughput', 'DeviceMaxThroughput',
+                          'AasRoiOffsetY', 'AasRoiOffsetX', 'AasRoiHeight',
+                          'AasRoiWidth', 'LinkErrorCount',
+                          'GevInterfaceSelector', 'GevSCPD',
+                          'GevTimestampTickFrequency', 'GevSCPSPacketSize',
+                          'GevCurrentDefaultGateway', 'GevMCTT',
+                          'GevCurrentSubnetMask', 'GevStreamChannelSelector',
+                          'GevCurrentIPAddress', 'GevMCSP',
+                          'GevGVCPPendingTimeout', 'GevMACAddress',
+                          'GevPersistentSubnetMask', 'GevMCPHostPort',
+                          'GevSCPHostPort', 'GevSCPInterfaceIndex', 'GevSCSP',
+                          'GevPersistentIPAddress', 'GevHeartbeatTimeout',
+                          'GevPersistentDefaultGateway', 'GevMCDA', 'GevSCDA',
+                          'GevSCPDirection', 'GevMCRC', 'GevNumberOfInterfaces',
+                          'TLParamsLocked', 'PayloadSize',
+                          'PacketResendRequestCount', 'BlackLevelRaw',
+                          'DefectTableIndex', 'DefectTableCoordinateY',
+                          'DefectTableCoordinateX', 'DefectTablePixelCount',
+                          'SerialPortDataBits',
+                          'SerialTransmitQueueMaxCharacterCount',
+                          'SerialReceiveQueueCurrentCharacterCount',
+                          'SerialReceiveFramingErrorCount',
+                          'SerialTransmitQueueCurrentCharacterCount',
+                          'SerialReceiveParityErrorCount',
+                          'SerialReceiveQueueMaxCharacterCount',
+                          'SequencerSetStart', 'SequencerSetSelector',
+                          'SequencerSetActive', 'SequencerSetNext',
+                          'SequencerPathSelector', 'TransferBlockCount',
+                          'TransferQueueMaxBlockCount',
+                          'TransferQueueCurrentBlockCount',
+                          'TransferQueueOverflowCount', 'ChunkFrameID',
+                          'ChunkCompressionMode', 'ChunkTimestamp',
+                          'ChunkExposureEndLineStatusAll', 'ChunkWidth',
+                          'ChunkImage', 'ChunkHeight',
+                          'ChunkSequencerSetActive', 'ChunkCRC', 'ChunkOffsetX',
+                          'ChunkOffsetY', 'ChunkSerialDataLength',
+                          'FileAccessOffset', 'FileAccessLength',
+                          'FileOperationResult', 'FileSize',
+                          'PixelDynamicRangeMin', 'PixelDynamicRangeMax',
+                          'OffsetY', 'BinningHorizontal', 'Width', 'WidthMax',
+                          'BinningVertical', 'OffsetX', 'HeightMax',
+                          'DecimationHorizontal', 'SensorHeight',
+                          'DecimationVertical', 'Height', 'SensorWidth',
+                          'GuiXmlManifestAddress', 'Test0001',
+                          'UserOutputValueAll', 'LineStatusAll', 'CounterValue',
+                          'CounterValueAtReset', 'CounterDelay',
+                          'CounterDuration', 'DeviceSFNCVersionMajor',
+                          'DeviceSFNCVersionMinor', 'DeviceSFNCVersionSubMinor',
+                          'DeviceManifestEntrySelector',
+                          'DeviceManifestXMLMajorVersion',
+                          'DeviceManifestXMLMinorVersion',
+                          'DeviceManifestXMLSubMinorVersion',
+                          'DeviceManifestSchemaMajorVersion',
+                          'DeviceManifestSchemaMinorVersion',
+                          'DeviceTLVersionSubMinor', 'DeviceGenCPVersionMajor',
+                          'DeviceGenCPVersionMinor', 'DeviceConnectionSelector',
+                          'DeviceConnectionSpeed', 'DeviceLinkSelector',
+                          'DeviceLinkConnectionCount',
+                          'DeviceStreamChannelSelector',
+                          'DeviceStreamChannelLink',
+                          'DeviceStreamChannelPacketSize', 'Timestamp',
+                          'LinePitch', 'PixelFormatInfoID',
+                          'ImageCompressionQuality', 'TriggerDivider',
+                          'TriggerMultiplier', 'UserOutputValueAllMask',
+                          'EncoderDivider', 'EncoderValue',
+                          'EncoderValueAtReset', 'ActionDeviceKey',
+                          'ActionQueueSize', 'ActionSelector',
+                          'ActionGroupMask', 'ActionGroupKey',
+                          'EventAcquisitionTrigger',
+                          'EventAcquisitionTriggerTimestamp',
+                          'EventAcquisitionTriggerFrameID',
+                          'EventAcquisitionStart',
+                          'EventAcquisitionStartTimestamp',
+                          'EventAcquisitionStartFrameID', 'EventAcquisitionEnd',
+                          'EventAcquisitionEndTimestamp',
+                          'EventAcquisitionEndFrameID',
+                          'EventAcquisitionTransferStart',
+                          'EventAcquisitionTransferStartTimestamp',
+                          'EventAcquisitionTransferStartFrameID',
+                          'EventAcquisitionTransferEnd',
+                          'EventAcquisitionTransferEndTimestamp',
+                          'EventAcquisitionTransferEndFrameID',
+                          'EventAcquisitionError',
+                          'EventAcquisitionErrorTimestamp',
+                          'EventAcquisitionErrorFrameID', 'EventFrameTrigger',
+                          'EventFrameTriggerTimestamp',
+                          'EventFrameTriggerFrameID', 'EventFrameStart',
+                          'EventFrameStartTimestamp', 'EventFrameStartFrameID',
+                          'EventFrameEnd', 'EventFrameEndTimestamp',
+                          'EventFrameEndFrameID', 'EventFrameBurstStart',
+                          'EventFrameBurstStartTimestamp',
+                          'EventFrameBurstStartFrameID', 'EventFrameBurstEnd',
+                          'EventFrameBurstEndTimestamp',
+                          'EventFrameBurstEndFrameID',
+                          'EventFrameTransferStart',
+                          'EventFrameTransferStartTimestamp',
+                          'EventFrameTransferStartFrameID',
+                          'EventFrameTransferEnd',
+                          'EventFrameTransferEndTimestamp',
+                          'EventFrameTransferEndFrameID', 'EventExposureStart',
+                          'EventExposureStartTimestamp',
+                          'EventExposureStartFrameID',
+                          'EventStream0TransferStart',
+                          'EventStream0TransferStartTimestamp',
+                          'EventStream0TransferStartFrameID',
+                          'EventStream0TransferEnd',
+                          'EventStream0TransferEndTimestamp',
+                          'EventStream0TransferEndFrameID',
+                          'EventStream0TransferPause',
+                          'EventStream0TransferPauseTimestamp',
+                          'EventStream0TransferPauseFrameID',
+                          'EventStream0TransferResume',
+                          'EventStream0TransferResumeTimestamp',
+                          'EventStream0TransferResumeFrameID',
+                          'EventStream0TransferBlockStart',
+                          'EventStream0TransferBlockStartTimestamp',
+                          'EventStream0TransferBlockStartFrameID',
+                          'EventStream0TransferBlockEnd',
+                          'EventStream0TransferBlockEndTimestamp',
+                          'EventStream0TransferBlockEndFrameID',
+                          'EventStream0TransferBlockTrigger',
+                          'EventStream0TransferBlockTriggerTimestamp',
+                          'EventStream0TransferBlockTriggerFrameID',
+                          'EventStream0TransferBurstStart',
+                          'EventStream0TransferBurstStartTimestamp',
+                          'EventStream0TransferBurstStartFrameID',
+                          'EventStream0TransferBurstEnd',
+                          'EventStream0TransferBurstEndTimestamp',
+                          'EventStream0TransferBurstEndFrameID',
+                          'EventStream0TransferOverflow',
+                          'EventStream0TransferOverflowTimestamp',
+                          'EventStream0TransferOverflowFrameID',
+                          'EventSequencerSetChange',
+                          'EventSequencerSetChangeTimestamp',
+                          'EventSequencerSetChangeFrameID',
+                          'EventCounter0Start', 'EventCounter0StartTimestamp',
+                          'EventCounter0StartFrameID', 'EventCounter1Start',
+                          'EventCounter1StartTimestamp',
+                          'EventCounter1StartFrameID', 'EventCounter0End',
+                          'EventCounter0EndTimestamp',
+                          'EventCounter0EndFrameID', 'EventCounter1End',
+                          'EventCounter1EndTimestamp',
+                          'EventCounter1EndFrameID', 'EventTimer0Start',
+                          'EventTimer0StartTimestamp',
+                          'EventTimer0StartFrameID', 'EventTimer1Start',
+                          'EventTimer1StartTimestamp',
+                          'EventTimer1StartFrameID', 'EventTimer0End',
+                          'EventTimer0EndTimestamp', 'EventTimer0EndFrameID',
+                          'EventTimer1End', 'EventTimer1EndTimestamp',
+                          'EventTimer1EndFrameID', 'EventEncoder0Stopped',
+                          'EventEncoder0StoppedTimestamp',
+                          'EventEncoder0StoppedFrameID', 'EventEncoder1Stopped',
+                          'EventEncoder1StoppedTimestamp',
+                          'EventEncoder1StoppedFrameID',
+                          'EventEncoder0Restarted',
+                          'EventEncoder0RestartedTimestamp',
+                          'EventEncoder0RestartedFrameID',
+                          'EventEncoder1Restarted',
+                          'EventEncoder1RestartedTimestamp',
+                          'EventEncoder1RestartedFrameID',
+                          'EventLine0RisingEdge',
+                          'EventLine0RisingEdgeTimestamp',
+                          'EventLine0RisingEdgeFrameID', 'EventLine1RisingEdge',
+                          'EventLine1RisingEdgeTimestamp',
+                          'EventLine1RisingEdgeFrameID',
+                          'EventLine0FallingEdge',
+                          'EventLine0FallingEdgeTimestamp',
+                          'EventLine0FallingEdgeFrameID',
+                          'EventLine1FallingEdge',
+                          'EventLine1FallingEdgeTimestamp',
+                          'EventLine1FallingEdgeFrameID', 'EventLine0AnyEdge',
+                          'EventLine0AnyEdgeTimestamp',
+                          'EventLine0AnyEdgeFrameID', 'EventLine1AnyEdge',
+                          'EventLine1AnyEdgeTimestamp',
+                          'EventLine1AnyEdgeFrameID', 'EventLinkTrigger0',
+                          'EventLinkTrigger0Timestamp',
+                          'EventLinkTrigger0FrameID', 'EventLinkTrigger1',
+                          'EventLinkTrigger1Timestamp',
+                          'EventLinkTrigger1FrameID', 'EventActionLate',
+                          'EventActionLateTimestamp', 'EventActionLateFrameID',
+                          'EventLinkSpeedChange',
+                          'EventLinkSpeedChangeTimestamp',
+                          'EventLinkSpeedChangeFrameID', 'SourceCount',
+                          'TransferBurstCount', 'TransferStreamChannel',
+                          'ChunkPartSelector', 'ChunkPixelDynamicRangeMin',
+                          'ChunkPixelDynamicRangeMax',
+                          'ChunkTimestampLatchValue', 'ChunkLineStatusAll',
+                          'ChunkCounterValue', 'ChunkScanLineSelector',
+                          'ChunkEncoderValue', 'ChunkLinePitch',
+                          'ChunkTransferBlockID',
+                          'ChunkTransferQueueCurrentBlockCount',
+                          'ChunkStreamChannelID', 'TestPendingAck',
+                          'GevActiveLinkCount', 'GevDiscoveryAckDelay',
+                          'GevPrimaryApplicationSwitchoverKey',
+                          'GevPrimaryApplicationSocket',
+                          'GevPrimaryApplicationIPAddress', 'GevSCZoneCount',
+                          'GevSCZoneDirectionAll',
+                          'aPAUSEMACCtrlFramesTransmitted',
+                          'aPAUSEMACCtrlFramesReceived',
+                          'CxpConnectionSelector',
+                          'CxpConnectionTestErrorCount',
+                          'CxpConnectionTestPacketCount',
+                          'ChunkInferenceFrameId', 'ChunkInferenceResult']
+        self.float_nodes = ['ExposureTime', 'AcquisitionResultingFrameRate',
+                            'AcquisitionLineRate', 'TriggerDelay',
+                            'AcquisitionFrameRate', 'ColorTransformationValue',
+                            'Saturation', 'DeviceTemperature',
+                            'PowerSupplyCurrent', 'PowerSupplyVoltage',
+                            'DeviceLinkBandwidthReserve',
+                            'BalanceWhiteAutoLowerLimit',
+                            'BalanceWhiteAutoDamping',
+                            'AutoExposureGreyValueUpperLimit',
+                            'AutoExposureTargetGreyValue',
+                            'AutoExposureGainLowerLimit',
+                            'AutoExposureGreyValueLowerLimit',
+                            'AutoExposureExposureTimeUpperLimit',
+                            'AutoExposureGainUpperLimit',
+                            'AutoExposureControlLoopDamping',
+                            'AutoExposureEVCompensation',
+                            'AutoExposureExposureTimeLowerLimit',
+                            'BalanceWhiteAutoUpperLimit', 'BalanceRatio',
+                            'SharpeningThreshold', 'Sharpening', 'Gain',
+                            'BlackLevel', 'Gamma', 'ChunkBlackLevel',
+                            'ChunkExposureTime', 'ChunkCompressionRatio',
+                            'ChunkGain', 'CompressionRatio', 'LineFilterWidth',
+                            'DeviceLinkHeartbeatTimeout',
+                            'DeviceLinkCommandTimeout', 'DeviceClockFrequency',
+                            'ImageCompressionBitrate', 'WhiteClip',
+                            'TimerDuration', 'TimerDelay', 'TimerValue',
+                            'EncoderTimeout', 'Scan3dCoordinateScale',
+                            'Scan3dCoordinateOffset', 'Scan3dInvalidDataValue',
+                            'Scan3dAxisMin', 'Scan3dAxisMax',
+                            'Scan3dTransformValue',
+                            'Scan3dCoordinateReferenceValue', 'ChunkTimerValue',
+                            'ChunkScan3dCoordinateScale',
+                            'ChunkScan3dCoordinateOffset',
+                            'ChunkScan3dInvalidDataValue', 'ChunkScan3dAxisMin',
+                            'ChunkScan3dAxisMax', 'ChunkScan3dTransformValue',
+                            'ChunkScan3dCoordinateReferenceValue',
+                            'ChunkInferenceConfidence']
+        self.str_nodes = ['EventSerialData', 'DeviceUserID',
+                          'DeviceSerialNumber', 'DeviceVendorName',
+                          'DeviceManufacturerInfo', 'DeviceFirmwareVersion',
+                          'DeviceVersion', 'SensorDescription',
+                          'DeviceModelName', 'DeviceID', 'GevFirstURL',
+                          'GevSecondURL', 'ChunkSerialData', 'DeviceFamilyName',
+                          'DeviceManifestPrimaryURL',
+                          'DeviceManifestSecondaryURL']
+        self.enum_nodes = ['LUTSelector', 'ExposureMode', 'AcquisitionMode',
+                           'TriggerSource', 'TriggerActivation',
+                           'SensorShutterMode', 'TriggerMode', 'TriggerOverlap',
+                           'TriggerSelector', 'ExposureAuto', 'EventSelector',
+                           'EventNotification', 'LogicBlockSelector',
+                           'LogicBlockLUTInputActivation',
+                           'LogicBlockLUTInputSelector',
+                           'LogicBlockLUTInputSource', 'LogicBlockLUTSelector',
+                           'ColorTransformationSelector',
+                           'RgbTransformLightSource',
+                           'ColorTransformationValueSelector',
+                           'DeviceRegistersEndianness', 'DeviceScanType',
+                           'DeviceCharacterSet', 'DeviceTLType',
+                           'DevicePowerSupplySelector',
+                           'DeviceTemperatureSelector', 'DeviceIndicatorMode',
+                           'AutoExposureControlPriority',
+                           'AutoExposureMeteringMode',
+                           'BalanceWhiteAutoProfile', 'AutoAlgorithmSelector',
+                           'AutoExposureTargetGreyValueAuto',
+                           'AutoExposureLightingMode', 'GevIEEE1588Status',
+                           'GevIEEE1588Mode', 'GevIEEE1588ClockAccuracy',
+                           'GevCCP', 'GevSupportedOptionSelector',
+                           'BlackLevelSelector', 'BalanceWhiteAuto', 'GainAuto',
+                           'BalanceRatioSelector', 'GainSelector',
+                           'DefectCorrectionMode', 'UserSetSelector',
+                           'UserSetDefault', 'SerialPortBaudRate',
+                           'SerialPortParity', 'SerialPortSelector',
+                           'SerialPortStopBits', 'SerialPortSource',
+                           'SequencerMode', 'SequencerConfigurationValid',
+                           'SequencerSetValid', 'SequencerTriggerActivation',
+                           'SequencerConfigurationMode',
+                           'SequencerTriggerSource', 'TransferQueueMode',
+                           'TransferOperationMode', 'TransferControlMode',
+                           'ChunkGainSelector', 'ChunkSelector',
+                           'ChunkBlackLevelSelector', 'ChunkPixelFormat',
+                           'FileOperationStatus', 'FileOpenMode',
+                           'FileOperationSelector', 'FileSelector',
+                           'BinningSelector', 'TestPatternGeneratorSelector',
+                           'CompressionSaturationPriority', 'TestPattern',
+                           'PixelColorFilter', 'AdcBitDepth',
+                           'DecimationHorizontalMode', 'BinningVerticalMode',
+                           'PixelSize', 'DecimationSelector',
+                           'ImageCompressionMode', 'BinningHorizontalMode',
+                           'PixelFormat', 'DecimationVerticalMode', 'LineMode',
+                           'LineSource', 'LineInputFilterSelector',
+                           'UserOutputSelector', 'LineFormat', 'LineSelector',
+                           'ExposureActiveMode', 'CounterTriggerActivation',
+                           'CounterSelector', 'CounterStatus',
+                           'CounterTriggerSource', 'CounterResetSource',
+                           'CounterEventSource', 'CounterEventActivation',
+                           'CounterResetActivation', 'DeviceType',
+                           'DeviceConnectionStatus',
+                           'DeviceLinkThroughputLimitMode',
+                           'DeviceLinkHeartbeatMode', 'DeviceStreamChannelType',
+                           'DeviceStreamChannelEndianness',
+                           'DeviceClockSelector', 'DeviceSerialPortSelector',
+                           'DeviceSerialPortBaudRate', 'SensorTaps',
+                           'SensorDigitizationTaps', 'RegionSelector',
+                           'RegionMode', 'RegionDestination',
+                           'ImageComponentSelector', 'PixelFormatInfoSelector',
+                           'Deinterlacing', 'ImageCompressionRateOption',
+                           'ImageCompressionJPEGFormatOption',
+                           'AcquisitionStatusSelector', 'ExposureTimeMode',
+                           'ExposureTimeSelector', 'GainAutoBalance',
+                           'BlackLevelAuto', 'BlackLevelAutoBalance',
+                           'WhiteClipSelector', 'TimerSelector', 'TimerStatus',
+                           'TimerTriggerSource', 'TimerTriggerActivation',
+                           'EncoderSelector', 'EncoderSourceA',
+                           'EncoderSourceB', 'EncoderMode', 'EncoderOutputMode',
+                           'EncoderStatus', 'EncoderResetSource',
+                           'EncoderResetActivation', 'SoftwareSignalSelector',
+                           'ActionUnconditionalMode', 'SourceSelector',
+                           'TransferSelector', 'TransferTriggerSelector',
+                           'TransferTriggerMode', 'TransferTriggerSource',
+                           'TransferTriggerActivation',
+                           'TransferStatusSelector',
+                           'TransferComponentSelector', 'Scan3dDistanceUnit',
+                           'Scan3dCoordinateSystem', 'Scan3dOutputMode',
+                           'Scan3dCoordinateSystemReference',
+                           'Scan3dCoordinateSelector',
+                           'Scan3dCoordinateTransformSelector',
+                           'Scan3dCoordinateReferenceSelector',
+                           'ChunkImageComponent', 'ChunkCounterSelector',
+                           'ChunkTimerSelector', 'ChunkEncoderSelector',
+                           'ChunkEncoderStatus', 'ChunkExposureTimeSelector',
+                           'ChunkSourceID', 'ChunkRegionID',
+                           'ChunkTransferStreamID', 'ChunkScan3dDistanceUnit',
+                           'ChunkScan3dOutputMode',
+                           'ChunkScan3dCoordinateSystem',
+                           'ChunkScan3dCoordinateSystemReference',
+                           'ChunkScan3dCoordinateSelector',
+                           'ChunkScan3dCoordinateTransformSelector',
+                           'ChunkScan3dCoordinateReferenceSelector',
+                           'DeviceTapGeometry', 'GevPhysicalLinkConfiguration',
+                           'GevCurrentPhysicalLinkConfiguration',
+                           'GevIPConfigurationStatus',
+                           'GevGVCPExtendedStatusCodesSelector',
+                           'GevGVSPExtendedIDMode', 'ClConfiguration',
+                           'ClTimeSlotsCount', 'CxpLinkConfigurationStatus',
+                           'CxpLinkConfigurationPreferred',
+                           'CxpLinkConfiguration', 'CxpConnectionTestMode',
+                           'CxpPoCxpStatus']
+        self.command_nodes = ['AcquisitionStop', 'AcquisitionStart',
+                              'TriggerSoftware', 'TimestampReset',
+                              'TimestampLatch', 'DeviceReset', 'FactoryReset',
+                              'DefectTableFactoryRestore', 'DefectTableSave',
+                              'DefectTableApply', 'UserSetSave', 'UserSetLoad',
+                              'SerialReceiveQueueClear', 'SequencerSetSave',
+                              'SequencerSetLoad', 'TransferStart',
+                              'TransferStop', 'FileOperationExecute',
+                              'TestEventGenerate', 'TriggerEventTest',
+                              'DeviceFeaturePersistenceStart',
+                              'DeviceFeaturePersistenceEnd',
+                              'DeviceRegistersStreamingStart',
+                              'DeviceRegistersStreamingEnd',
+                              'DeviceRegistersCheck', 'AcquisitionAbort',
+                              'AcquisitionArm', 'CounterReset', 'TimerReset',
+                              'EncoderReset', 'SoftwareSignalPulse',
+                              'TransferAbort', 'TransferPause',
+                              'TransferResume', 'CxpPoCxpAuto',
+                              'CxpPoCxpTurnOff', 'CxpPoCxpTripReset']
+        self.register_nodes = ['LUTValueAll', 'FileAccessBuffer',
+                               'ChunkInferenceBoundingBoxResult']
+
     def __init__(self, Camera camera):
         pass
 
-    @property.getter
+    @property
     def LUTIndex(self):
         """Control the index (offset) of the coefficient to access in the
         selected LUT.
@@ -32,7 +449,7 @@ cdef class CameraNodes:
             node = self._nodes["LUTIndex"] = node_inst
         return node
 
-    @property.getter
+    @property
     def LUTEnable(self):
         """Activates the selected LUT.
 
@@ -48,7 +465,7 @@ cdef class CameraNodes:
             node = self._nodes["LUTEnable"] = node_inst
         return node
 
-    @property.getter
+    @property
     def LUTValue(self):
         """Returns the Value at entry LUTIndex of the LUT selected by
         LUTSelector.
@@ -65,7 +482,7 @@ cdef class CameraNodes:
             node = self._nodes["LUTValue"] = node_inst
         return node
 
-    @property.getter
+    @property
     def LUTSelector(self):
         """Selects which LUT to control.
 
@@ -84,7 +501,7 @@ cdef class CameraNodes:
             node = self._nodes["LUTSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ExposureTime(self):
         """Exposure time in microseconds when Exposure Mode is Timed.
 
@@ -100,7 +517,7 @@ cdef class CameraNodes:
             node = self._nodes["ExposureTime"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AcquisitionStop(self):
         """This command stops the acquisition of images.
 
@@ -116,7 +533,7 @@ cdef class CameraNodes:
             node = self._nodes["AcquisitionStop"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AcquisitionResultingFrameRate(self):
         """Resulting frame rate in Hertz. If this does not equal the
         Acquisition Frame Rate it is because the Exposure Time is greater
@@ -134,7 +551,7 @@ cdef class CameraNodes:
             node = self._nodes["AcquisitionResultingFrameRate"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AcquisitionLineRate(self):
         """Controls the rate (in Hertz) at which the Lines in a Frame are
         captured.
@@ -151,7 +568,7 @@ cdef class CameraNodes:
             node = self._nodes["AcquisitionLineRate"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AcquisitionStart(self):
         """This command starts the acquisition of images.
 
@@ -167,7 +584,7 @@ cdef class CameraNodes:
             node = self._nodes["AcquisitionStart"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TriggerSoftware(self):
         """Generates an internal trigger if Trigger Source is set to Software.
 
@@ -183,7 +600,7 @@ cdef class CameraNodes:
             node = self._nodes["TriggerSoftware"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ExposureMode(self):
         """Sets the operation mode of the Exposure.
 
@@ -202,7 +619,7 @@ cdef class CameraNodes:
             node = self._nodes["ExposureMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AcquisitionMode(self):
         """Sets the acquisition mode of the device. Continuous: acquires images
         continuously. Multi Frame: acquires a specified number of images
@@ -224,7 +641,7 @@ cdef class CameraNodes:
             node = self._nodes["AcquisitionMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AcquisitionFrameCount(self):
         """Number of images to acquire during a multi frame acquisition.
 
@@ -240,7 +657,7 @@ cdef class CameraNodes:
             node = self._nodes["AcquisitionFrameCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TriggerSource(self):
         """Specifies the internal signal or physical input line to use as the
         trigger source.
@@ -260,7 +677,7 @@ cdef class CameraNodes:
             node = self._nodes["TriggerSource"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TriggerActivation(self):
         """Specifies the activation mode of the trigger.
 
@@ -279,7 +696,7 @@ cdef class CameraNodes:
             node = self._nodes["TriggerActivation"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SensorShutterMode(self):
         """Sets the shutter mode of the device.
 
@@ -298,7 +715,7 @@ cdef class CameraNodes:
             node = self._nodes["SensorShutterMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TriggerDelay(self):
         """Specifies the delay in microseconds (us) to apply after the trigger
         reception before activating it.
@@ -315,7 +732,7 @@ cdef class CameraNodes:
             node = self._nodes["TriggerDelay"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TriggerMode(self):
         """Controls whether or not trigger is active.
 
@@ -334,7 +751,7 @@ cdef class CameraNodes:
             node = self._nodes["TriggerMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AcquisitionFrameRate(self):
         """User controlled acquisition frame rate in Hertz
 
@@ -350,7 +767,7 @@ cdef class CameraNodes:
             node = self._nodes["AcquisitionFrameRate"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TriggerOverlap(self):
         """Specifies the overlap mode of the trigger.
 
@@ -369,7 +786,7 @@ cdef class CameraNodes:
             node = self._nodes["TriggerOverlap"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TriggerSelector(self):
         """Selects the type of trigger to configure.
 
@@ -388,7 +805,7 @@ cdef class CameraNodes:
             node = self._nodes["TriggerSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AcquisitionFrameRateEnable(self):
         """If enabled, AcquisitionFrameRate can be used to manually control the
         frame rate.
@@ -405,7 +822,7 @@ cdef class CameraNodes:
             node = self._nodes["AcquisitionFrameRateEnable"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ExposureAuto(self):
         """Sets the automatic exposure mode
 
@@ -424,7 +841,7 @@ cdef class CameraNodes:
             node = self._nodes["ExposureAuto"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AcquisitionBurstFrameCount(self):
         """This feature is used only if the FrameBurstStart trigger is enabled
         and the FrameBurstEnd trigger is disabled. Note that the total
@@ -444,7 +861,7 @@ cdef class CameraNodes:
             node = self._nodes["AcquisitionBurstFrameCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventTest(self):
         """Returns the unique identifier of the Test type of Event.
 
@@ -460,7 +877,7 @@ cdef class CameraNodes:
             node = self._nodes["EventTest"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventTestTimestamp(self):
         """Returns the Timestamp of the Test Event.
 
@@ -476,7 +893,7 @@ cdef class CameraNodes:
             node = self._nodes["EventTestTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventExposureEndFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Exposure End Event.
@@ -493,7 +910,7 @@ cdef class CameraNodes:
             node = self._nodes["EventExposureEndFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventExposureEnd(self):
         """Returns the unique identifier of the Exposure End type of Event.
 
@@ -509,7 +926,7 @@ cdef class CameraNodes:
             node = self._nodes["EventExposureEnd"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventExposureEndTimestamp(self):
         """Returns the Timestamp of the Exposure End Event.
 
@@ -525,7 +942,7 @@ cdef class CameraNodes:
             node = self._nodes["EventExposureEndTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventError(self):
         """Returns the unique identifier of the Error type of Event.
 
@@ -541,7 +958,7 @@ cdef class CameraNodes:
             node = self._nodes["EventError"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventErrorTimestamp(self):
         """Returns the Timestamp of the Error Event.
 
@@ -557,7 +974,7 @@ cdef class CameraNodes:
             node = self._nodes["EventErrorTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventErrorCode(self):
         """Returns the error code for the error that happened
 
@@ -573,7 +990,7 @@ cdef class CameraNodes:
             node = self._nodes["EventErrorCode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventErrorFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Error Event.
@@ -590,7 +1007,7 @@ cdef class CameraNodes:
             node = self._nodes["EventErrorFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventSelector(self):
         """Selects which Event to enable or disable.
 
@@ -609,7 +1026,7 @@ cdef class CameraNodes:
             node = self._nodes["EventSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventSerialReceiveOverflow(self):
         """Returns the status of the event serial receive overflow.
 
@@ -625,7 +1042,7 @@ cdef class CameraNodes:
             node = self._nodes["EventSerialReceiveOverflow"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventSerialPortReceive(self):
         """Returns the unique identifier of the Serial Port Receive type of
         Event.
@@ -642,7 +1059,7 @@ cdef class CameraNodes:
             node = self._nodes["EventSerialPortReceive"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventSerialPortReceiveTimestamp(self):
         """Returns the Timestamp of the Serial Port Receive Event.
 
@@ -658,7 +1075,7 @@ cdef class CameraNodes:
             node = self._nodes["EventSerialPortReceiveTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventSerialData(self):
         """Returns the serial data that was received.
 
@@ -674,7 +1091,7 @@ cdef class CameraNodes:
             node = self._nodes["EventSerialData"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventSerialDataLength(self):
         """Returns the length of the received serial data that was included in
         the event payload.
@@ -691,7 +1108,7 @@ cdef class CameraNodes:
             node = self._nodes["EventSerialDataLength"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventNotification(self):
         """Enables/Disables the selected event.
 
@@ -710,7 +1127,7 @@ cdef class CameraNodes:
             node = self._nodes["EventNotification"] = node_inst
         return node
 
-    @property.getter
+    @property
     def LogicBlockLUTRowIndex(self):
         """Controls the row of the truth table to access in the selected LUT.
 
@@ -726,7 +1143,7 @@ cdef class CameraNodes:
             node = self._nodes["LogicBlockLUTRowIndex"] = node_inst
         return node
 
-    @property.getter
+    @property
     def LogicBlockSelector(self):
         """Selects which LogicBlock to configure
 
@@ -745,7 +1162,7 @@ cdef class CameraNodes:
             node = self._nodes["LogicBlockSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def LogicBlockLUTInputActivation(self):
         """Selects the activation mode of the Logic Input Source signal.
 
@@ -764,7 +1181,7 @@ cdef class CameraNodes:
             node = self._nodes["LogicBlockLUTInputActivation"] = node_inst
         return node
 
-    @property.getter
+    @property
     def LogicBlockLUTInputSelector(self):
         """Controls which LogicBlockLUT Input Source & Activation to access.
 
@@ -783,7 +1200,7 @@ cdef class CameraNodes:
             node = self._nodes["LogicBlockLUTInputSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def LogicBlockLUTInputSource(self):
         """Selects the source for the input into the Logic LUT.
 
@@ -802,7 +1219,7 @@ cdef class CameraNodes:
             node = self._nodes["LogicBlockLUTInputSource"] = node_inst
         return node
 
-    @property.getter
+    @property
     def LogicBlockLUTOutputValue(self):
         """Controls the output column of the truth table for the selected
         LogicBlockLUTRowIndex.
@@ -819,7 +1236,7 @@ cdef class CameraNodes:
             node = self._nodes["LogicBlockLUTOutputValue"] = node_inst
         return node
 
-    @property.getter
+    @property
     def LogicBlockLUTOutputValueAll(self):
         """Sets the value of all the output bits in the selected LUT.
 
@@ -835,7 +1252,7 @@ cdef class CameraNodes:
             node = self._nodes["LogicBlockLUTOutputValueAll"] = node_inst
         return node
 
-    @property.getter
+    @property
     def LogicBlockLUTSelector(self):
         """Selects which LogicBlock LUT to configure
 
@@ -854,7 +1271,7 @@ cdef class CameraNodes:
             node = self._nodes["LogicBlockLUTSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ColorTransformationValue(self):
         """Represents the value of the selected Gain factor or Offset inside
         the Transformation matrix in floating point precision.
@@ -871,7 +1288,7 @@ cdef class CameraNodes:
             node = self._nodes["ColorTransformationValue"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ColorTransformationEnable(self):
         """Enables/disables the color transform selected with
         ColorTransformationSelector. For RGB to YUV this is read-only.
@@ -890,7 +1307,7 @@ cdef class CameraNodes:
             node = self._nodes["ColorTransformationEnable"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ColorTransformationSelector(self):
         """Selects which Color Transformation module is controlled by the
         various Color Transformation features
@@ -910,7 +1327,7 @@ cdef class CameraNodes:
             node = self._nodes["ColorTransformationSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def RgbTransformLightSource(self):
         """Used to select from a set of RGBtoRGB transform matricies calibrated
         for different light sources. Selecting a value also sets the white
@@ -932,7 +1349,7 @@ cdef class CameraNodes:
             node = self._nodes["RgbTransformLightSource"] = node_inst
         return node
 
-    @property.getter
+    @property
     def Saturation(self):
         """    Controls the color saturation.
 
@@ -948,7 +1365,7 @@ cdef class CameraNodes:
             node = self._nodes["Saturation"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SaturationEnable(self):
         """    Enables/disables Saturation adjustment.
 
@@ -964,7 +1381,7 @@ cdef class CameraNodes:
             node = self._nodes["SaturationEnable"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ColorTransformationValueSelector(self):
         """Selects the Gain factor or Offset of the Transformation matrix to
         access in the selected Color Transformation module
@@ -984,7 +1401,7 @@ cdef class CameraNodes:
             node = self._nodes["ColorTransformationValueSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TimestampLatchValue(self):
         """Returns the latched value of the timestamp counter.
 
@@ -1000,7 +1417,7 @@ cdef class CameraNodes:
             node = self._nodes["TimestampLatchValue"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TimestampReset(self):
         """Resets the current value of the device timestamp counter.
 
@@ -1016,7 +1433,7 @@ cdef class CameraNodes:
             node = self._nodes["TimestampReset"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceUserID(self):
         """User-programmable device identifier.
 
@@ -1032,7 +1449,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceUserID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceTemperature(self):
         """Device temperature in degrees Celsius (C).
 
@@ -1048,7 +1465,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceTemperature"] = node_inst
         return node
 
-    @property.getter
+    @property
     def MaxDeviceResetTime(self):
         """Time to wait until device reset complete (ms).
 
@@ -1064,7 +1481,7 @@ cdef class CameraNodes:
             node = self._nodes["MaxDeviceResetTime"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceTLVersionMinor(self):
         """Minor version of the Transport Layer of the device.
 
@@ -1080,7 +1497,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceTLVersionMinor"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceSerialNumber(self):
         """Device's serial number. This string is a unique identifier of the
         device.
@@ -1097,7 +1514,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceSerialNumber"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceVendorName(self):
         """Name of the manufacturer of the device.
 
@@ -1113,7 +1530,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceVendorName"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceRegistersEndianness(self):
         """Endianness of the registers of the device.
 
@@ -1132,7 +1549,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceRegistersEndianness"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceManufacturerInfo(self):
         """Manufacturer information about the device.
 
@@ -1148,7 +1565,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceManufacturerInfo"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceLinkSpeed(self):
         """Indicates the speed of transmission negotiated on the specified
         Link. (Bps)
@@ -1165,7 +1582,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceLinkSpeed"] = node_inst
         return node
 
-    @property.getter
+    @property
     def LinkUptime(self):
         """Time since the last phy negotiation (enumeration).
 
@@ -1181,7 +1598,7 @@ cdef class CameraNodes:
             node = self._nodes["LinkUptime"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceEventChannelCount(self):
         """Indicates the number of event channels supported by the device.
 
@@ -1197,7 +1614,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceEventChannelCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TimestampLatch(self):
         """Latches the current timestamp counter into TimestampLatchValue.
 
@@ -1213,7 +1630,7 @@ cdef class CameraNodes:
             node = self._nodes["TimestampLatch"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceScanType(self):
         """Scan type of the sensor of the device.
 
@@ -1232,7 +1649,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceScanType"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceReset(self):
         """This is a command that immediately resets and reboots the device.
 
@@ -1248,7 +1665,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceReset"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceCharacterSet(self):
         """Character set used by the strings of the device`s bootstrap
         registers.
@@ -1268,7 +1685,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceCharacterSet"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceLinkThroughputLimit(self):
         """Limits the maximum bandwidth of the data that will be streamed out
         by the device on the selected Link. If necessary, delays will be
@@ -1287,7 +1704,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceLinkThroughputLimit"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceFirmwareVersion(self):
         """Version of the firmware on the device.
 
@@ -1303,7 +1720,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceFirmwareVersion"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceStreamChannelCount(self):
         """Indicates the number of streaming channels supported by the device.
 
@@ -1319,7 +1736,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceStreamChannelCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceTLType(self):
         """Transport Layer type of the device.
 
@@ -1338,7 +1755,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceTLType"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceVersion(self):
         """Version of the device.
 
@@ -1354,7 +1771,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceVersion"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DevicePowerSupplySelector(self):
         """Selects the power supply source to control or read.
 
@@ -1373,7 +1790,7 @@ cdef class CameraNodes:
             node = self._nodes["DevicePowerSupplySelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SensorDescription(self):
         """Returns Sensor Description
 
@@ -1389,7 +1806,7 @@ cdef class CameraNodes:
             node = self._nodes["SensorDescription"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceModelName(self):
         """Model of the device.
 
@@ -1405,7 +1822,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceModelName"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceTLVersionMajor(self):
         """Major version of the Transport Layer of the device.
 
@@ -1421,7 +1838,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceTLVersionMajor"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceTemperatureSelector(self):
         """Selects the location within the device, where the temperature will
         be measured.
@@ -1441,7 +1858,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceTemperatureSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EnumerationCount(self):
         """Number of enumerations since uptime.
 
@@ -1457,7 +1874,7 @@ cdef class CameraNodes:
             node = self._nodes["EnumerationCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def PowerSupplyCurrent(self):
         """Indicates the output current of the selected power supply (A).
 
@@ -1473,7 +1890,7 @@ cdef class CameraNodes:
             node = self._nodes["PowerSupplyCurrent"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceID(self):
         """Device identifier (serial number).
 
@@ -1489,7 +1906,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceUptime(self):
         """Total time since the device was powered up in seconds.
 
@@ -1505,7 +1922,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceUptime"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceLinkCurrentThroughput(self):
         """Current bandwidth of streamed data.
 
@@ -1521,7 +1938,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceLinkCurrentThroughput"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceMaxThroughput(self):
         """Maximum bandwidth of the data that can be streamed out of the
         device. This can be used to estimate if the physical connection(s)
@@ -1540,7 +1957,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceMaxThroughput"] = node_inst
         return node
 
-    @property.getter
+    @property
     def FactoryReset(self):
         """Returns all user tables to factory default
 
@@ -1556,7 +1973,7 @@ cdef class CameraNodes:
             node = self._nodes["FactoryReset"] = node_inst
         return node
 
-    @property.getter
+    @property
     def PowerSupplyVoltage(self):
         """Indicates the current voltage of the selected power supply (V).
 
@@ -1572,7 +1989,7 @@ cdef class CameraNodes:
             node = self._nodes["PowerSupplyVoltage"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceIndicatorMode(self):
         """Controls the LED behaviour: Inactive (off), Active (current status),
         or Error Status (off unless an error occurs).
@@ -1592,7 +2009,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceIndicatorMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceLinkBandwidthReserve(self):
         """Percentage of streamed data bandwidth reserved for packet resend.
 
@@ -1608,7 +2025,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceLinkBandwidthReserve"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AasRoiOffsetY(self):
         """Controls the y-offset of the ROI used by the auto algorithm that is
         currently selected by the AutoAlgorithmSelector feature.
@@ -1625,7 +2042,7 @@ cdef class CameraNodes:
             node = self._nodes["AasRoiOffsetY"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AasRoiOffsetX(self):
         """Controls the x-offset of the ROI used by the auto algorithm that is
         currently selected by the AutoAlgorithmSelector feature.
@@ -1642,7 +2059,7 @@ cdef class CameraNodes:
             node = self._nodes["AasRoiOffsetX"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AutoExposureControlPriority(self):
         """Selects whether to adjust gain or exposure first. When gain priority
         is selected, the camera fixes the gain to 0 dB, and the exposure is
@@ -1670,7 +2087,7 @@ cdef class CameraNodes:
             node = self._nodes["AutoExposureControlPriority"] = node_inst
         return node
 
-    @property.getter
+    @property
     def BalanceWhiteAutoLowerLimit(self):
         """Controls the minimum value Auto White Balance can set for the
         Red/Blue BalanceRatio.
@@ -1687,7 +2104,7 @@ cdef class CameraNodes:
             node = self._nodes["BalanceWhiteAutoLowerLimit"] = node_inst
         return node
 
-    @property.getter
+    @property
     def BalanceWhiteAutoDamping(self):
         """Controls how quickly 'BalanceWhiteAuto' adjusts the values for Red
         and Blue BalanceRatio in response to changing conditions.  Higher
@@ -1705,7 +2122,7 @@ cdef class CameraNodes:
             node = self._nodes["BalanceWhiteAutoDamping"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AasRoiHeight(self):
         """Controls the width of the ROI used by the auto algorithm that is
         currently selected by the AutoAlgorithmSelector feature.
@@ -1722,7 +2139,7 @@ cdef class CameraNodes:
             node = self._nodes["AasRoiHeight"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AutoExposureGreyValueUpperLimit(self):
         """The highest value in percentage that the target mean may reach.
 
@@ -1738,7 +2155,7 @@ cdef class CameraNodes:
             node = self._nodes["AutoExposureGreyValueUpperLimit"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AutoExposureTargetGreyValue(self):
         """This is the user-specified target grey level (image mean) to apply
         to the current image. Note that the target grey level is in the
@@ -1756,7 +2173,7 @@ cdef class CameraNodes:
             node = self._nodes["AutoExposureTargetGreyValue"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AutoExposureGainLowerLimit(self):
         """The smallest gain that auto exposure can set.
 
@@ -1772,7 +2189,7 @@ cdef class CameraNodes:
             node = self._nodes["AutoExposureGainLowerLimit"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AutoExposureGreyValueLowerLimit(self):
         """The lowest value in percentage that the target mean may reach.
 
@@ -1788,7 +2205,7 @@ cdef class CameraNodes:
             node = self._nodes["AutoExposureGreyValueLowerLimit"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AutoExposureMeteringMode(self):
         """Selects a metering mode: average, spot, or partial metering. a.
         Average: Measures the light from the entire scene uniformly to
@@ -1817,7 +2234,7 @@ cdef class CameraNodes:
             node = self._nodes["AutoExposureMeteringMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AutoExposureExposureTimeUpperLimit(self):
         """The largest exposure time that auto exposure can set.
 
@@ -1833,7 +2250,7 @@ cdef class CameraNodes:
             node = self._nodes["AutoExposureExposureTimeUpperLimit"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AutoExposureGainUpperLimit(self):
         """The largest gain that auto exposure can set.
 
@@ -1849,7 +2266,7 @@ cdef class CameraNodes:
             node = self._nodes["AutoExposureGainUpperLimit"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AutoExposureControlLoopDamping(self):
         """It controls how fast the exposure and gain get settled. If the value
         is too small, it may cause the system to be unstable.    Range is
@@ -1867,7 +2284,7 @@ cdef class CameraNodes:
             node = self._nodes["AutoExposureControlLoopDamping"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AutoExposureEVCompensation(self):
         """The EV compensation value used in the exposure compensation. This
         allows you to adjust the resultant image intensity with one control.
@@ -1887,7 +2304,7 @@ cdef class CameraNodes:
             node = self._nodes["AutoExposureEVCompensation"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AutoExposureExposureTimeLowerLimit(self):
         """The smallest exposure time that auto exposure can set.
 
@@ -1903,7 +2320,7 @@ cdef class CameraNodes:
             node = self._nodes["AutoExposureExposureTimeLowerLimit"] = node_inst
         return node
 
-    @property.getter
+    @property
     def BalanceWhiteAutoProfile(self):
         """Selects the profile used by BalanceWhiteAuto.
 
@@ -1922,7 +2339,7 @@ cdef class CameraNodes:
             node = self._nodes["BalanceWhiteAutoProfile"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AutoAlgorithmSelector(self):
         """Selects which Auto Algorithm is controlled by the RoiEnable,
         OffsetX, OffsetY, Width, Height features.
@@ -1942,7 +2359,7 @@ cdef class CameraNodes:
             node = self._nodes["AutoAlgorithmSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AutoExposureTargetGreyValueAuto(self):
         """This indicates whether the target image grey level is automatically
         set by the camera or manually set by the user. Note that the target
@@ -1964,7 +2381,7 @@ cdef class CameraNodes:
             node = self._nodes["AutoExposureTargetGreyValueAuto"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AasRoiEnable(self):
         """Controls whether a user-specified ROI is used for auto algorithm
         that is currently selected by the AutoAlgorithmSelector feature.
@@ -1981,7 +2398,7 @@ cdef class CameraNodes:
             node = self._nodes["AasRoiEnable"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AutoExposureLightingMode(self):
         """Selects a lighting mode: Backlight, Frontlight or Normal (default).
         a. Backlight compensation: used when a strong light is coming from
@@ -2006,7 +2423,7 @@ cdef class CameraNodes:
             node = self._nodes["AutoExposureLightingMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AasRoiWidth(self):
         """Controls the width of the ROI used by the auto algorithm that is
         currently selected by the AutoAlgorithmSelector feature.
@@ -2023,7 +2440,7 @@ cdef class CameraNodes:
             node = self._nodes["AasRoiWidth"] = node_inst
         return node
 
-    @property.getter
+    @property
     def BalanceWhiteAutoUpperLimit(self):
         """Controls the maximum value Auto White Balance can set the Red/Blue
         BalanceRatio.
@@ -2040,7 +2457,7 @@ cdef class CameraNodes:
             node = self._nodes["BalanceWhiteAutoUpperLimit"] = node_inst
         return node
 
-    @property.getter
+    @property
     def LinkErrorCount(self):
         """Counts the number of error on the link.
 
@@ -2056,7 +2473,7 @@ cdef class CameraNodes:
             node = self._nodes["LinkErrorCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevCurrentIPConfigurationDHCP(self):
         """Controls whether the DHCP IP configuration scheme is activated on
         the given logical link.
@@ -2073,7 +2490,7 @@ cdef class CameraNodes:
             node = self._nodes["GevCurrentIPConfigurationDHCP"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevInterfaceSelector(self):
         """Selects which logical link to control.
 
@@ -2089,7 +2506,7 @@ cdef class CameraNodes:
             node = self._nodes["GevInterfaceSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevSCPD(self):
         """Controls the delay (in GEV timestamp counter unit) to insert between
         each packet for this stream channel. This can be used as a crude
@@ -2109,7 +2526,7 @@ cdef class CameraNodes:
             node = self._nodes["GevSCPD"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevTimestampTickFrequency(self):
         """Indicates the number of timestamp ticks in 1 second (frequency in
         Hz).
@@ -2126,7 +2543,7 @@ cdef class CameraNodes:
             node = self._nodes["GevTimestampTickFrequency"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevSCPSPacketSize(self):
         """Specifies the stream packet size (in bytes) to send on this channel.
 
@@ -2142,7 +2559,7 @@ cdef class CameraNodes:
             node = self._nodes["GevSCPSPacketSize"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevCurrentDefaultGateway(self):
         """Reports the default gateway IP address to be used on the given
         logical link.
@@ -2159,7 +2576,7 @@ cdef class CameraNodes:
             node = self._nodes["GevCurrentDefaultGateway"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevSCCFGUnconditionalStreaming(self):
         """Enables the camera to continue to stream, for this stream channel,
         if its control channel is closed or regardless of the reception of
@@ -2177,7 +2594,7 @@ cdef class CameraNodes:
             node = self._nodes["GevSCCFGUnconditionalStreaming"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevMCTT(self):
         """Indicates the transmission timeout of the message channel.
 
@@ -2193,7 +2610,7 @@ cdef class CameraNodes:
             node = self._nodes["GevMCTT"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevSCPSDoNotFragment(self):
         """The state of this feature is copied into the "do not fragment" bit
         of the IP header of each stream packet.
@@ -2210,7 +2627,7 @@ cdef class CameraNodes:
             node = self._nodes["GevSCPSDoNotFragment"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevCurrentSubnetMask(self):
         """Reports the subnet mask of the given logical link.
 
@@ -2226,7 +2643,7 @@ cdef class CameraNodes:
             node = self._nodes["GevCurrentSubnetMask"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevStreamChannelSelector(self):
         """Selects the stream channel to control.
 
@@ -2242,7 +2659,7 @@ cdef class CameraNodes:
             node = self._nodes["GevStreamChannelSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevCurrentIPAddress(self):
         """Reports the IP address for the given logical link.
 
@@ -2258,7 +2675,7 @@ cdef class CameraNodes:
             node = self._nodes["GevCurrentIPAddress"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevMCSP(self):
         """Indicates the source port of the message channel.
 
@@ -2274,7 +2691,7 @@ cdef class CameraNodes:
             node = self._nodes["GevMCSP"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevGVCPPendingTimeout(self):
         """Indicates the longest GVCP command execution time before the device
         returns a PENDING_ACK in milliseconds.
@@ -2291,7 +2708,7 @@ cdef class CameraNodes:
             node = self._nodes["GevGVCPPendingTimeout"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevIEEE1588Status(self):
         """Provides the status of the IEEE 1588 clock.
 
@@ -2310,7 +2727,7 @@ cdef class CameraNodes:
             node = self._nodes["GevIEEE1588Status"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevFirstURL(self):
         """The first choice of URL for the XML device description file.
 
@@ -2326,7 +2743,7 @@ cdef class CameraNodes:
             node = self._nodes["GevFirstURL"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevMACAddress(self):
         """MAC address of the logical link.
 
@@ -2342,7 +2759,7 @@ cdef class CameraNodes:
             node = self._nodes["GevMACAddress"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevPersistentSubnetMask(self):
         """Controls the Persistent subnet mask associated with the Persistent
         IP address on this logical link.
@@ -2359,7 +2776,7 @@ cdef class CameraNodes:
             node = self._nodes["GevPersistentSubnetMask"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevMCPHostPort(self):
         """The port to which the device must send messages
 
@@ -2375,7 +2792,7 @@ cdef class CameraNodes:
             node = self._nodes["GevMCPHostPort"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevSCPHostPort(self):
         """Controls the port of the selected channel to which a GVSP
         transmitter must send data stream or the port from which a GVSP
@@ -2393,7 +2810,7 @@ cdef class CameraNodes:
             node = self._nodes["GevSCPHostPort"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevGVCPPendingAck(self):
         """Enables the generation of PENDING_ACK.
 
@@ -2409,7 +2826,7 @@ cdef class CameraNodes:
             node = self._nodes["GevGVCPPendingAck"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevSCPInterfaceIndex(self):
         """Index of the logical link to use.
 
@@ -2425,7 +2842,7 @@ cdef class CameraNodes:
             node = self._nodes["GevSCPInterfaceIndex"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevSupportedOption(self):
         """Returns if the selected GEV option is supported.
 
@@ -2441,7 +2858,7 @@ cdef class CameraNodes:
             node = self._nodes["GevSupportedOption"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevIEEE1588Mode(self):
         """Provides the mode of the IEEE 1588 clock.
 
@@ -2460,7 +2877,7 @@ cdef class CameraNodes:
             node = self._nodes["GevIEEE1588Mode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevCurrentIPConfigurationLLA(self):
         """Controls whether the Link Local Address IP configuration scheme is
         activated on the given logical link.
@@ -2477,7 +2894,7 @@ cdef class CameraNodes:
             node = self._nodes["GevCurrentIPConfigurationLLA"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevSCSP(self):
         """Indicates the source port of the stream channel.
 
@@ -2493,7 +2910,7 @@ cdef class CameraNodes:
             node = self._nodes["GevSCSP"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevIEEE1588(self):
         """Enables the IEEE 1588 Precision Time Protocol to control the
         timestamp register.
@@ -2510,7 +2927,7 @@ cdef class CameraNodes:
             node = self._nodes["GevIEEE1588"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevSCCFGExtendedChunkData(self):
         """Enables cameras to use the extended chunk data payload type for this
         stream channel.
@@ -2527,7 +2944,7 @@ cdef class CameraNodes:
             node = self._nodes["GevSCCFGExtendedChunkData"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevPersistentIPAddress(self):
         """Controls the Persistent IP address for this logical link.
 
@@ -2543,7 +2960,7 @@ cdef class CameraNodes:
             node = self._nodes["GevPersistentIPAddress"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevCurrentIPConfigurationPersistentIP(self):
         """Controls whether the PersistentIP configuration scheme is activated
         on the given logical link.
@@ -2560,7 +2977,7 @@ cdef class CameraNodes:
             node = self._nodes["GevCurrentIPConfigurationPersistentIP"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevIEEE1588ClockAccuracy(self):
         """Indicates the expected accuracy of the device clock when it is the
         grandmaster, or in the event it becomes the grandmaster.
@@ -2580,7 +2997,7 @@ cdef class CameraNodes:
             node = self._nodes["GevIEEE1588ClockAccuracy"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevHeartbeatTimeout(self):
         """Indicates the current heartbeat timeout in milliseconds.
 
@@ -2596,7 +3013,7 @@ cdef class CameraNodes:
             node = self._nodes["GevHeartbeatTimeout"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevPersistentDefaultGateway(self):
         """Controls the persistent default gateway for this logical link.
 
@@ -2612,7 +3029,7 @@ cdef class CameraNodes:
             node = self._nodes["GevPersistentDefaultGateway"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevCCP(self):
         """Controls the device access privilege of an application.
 
@@ -2631,7 +3048,7 @@ cdef class CameraNodes:
             node = self._nodes["GevCCP"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevMCDA(self):
         """Controls the destination IP address of the message channel
 
@@ -2647,7 +3064,7 @@ cdef class CameraNodes:
             node = self._nodes["GevMCDA"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevSCDA(self):
         """Controls the destination IP address of the selected stream channel
         to which a GVSP transmitter must send data stream or the destination
@@ -2665,7 +3082,7 @@ cdef class CameraNodes:
             node = self._nodes["GevSCDA"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevSCPDirection(self):
         """Transmit or Receive of the channel
 
@@ -2681,7 +3098,7 @@ cdef class CameraNodes:
             node = self._nodes["GevSCPDirection"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevSCPSFireTestPacket(self):
         """Sends a test packet.
 
@@ -2697,7 +3114,7 @@ cdef class CameraNodes:
             node = self._nodes["GevSCPSFireTestPacket"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevSecondURL(self):
         """The second choice of URL to the XML device description file.
 
@@ -2713,7 +3130,7 @@ cdef class CameraNodes:
             node = self._nodes["GevSecondURL"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevSupportedOptionSelector(self):
         """Selects the GEV option to interrogate for existing support.
 
@@ -2732,7 +3149,7 @@ cdef class CameraNodes:
             node = self._nodes["GevSupportedOptionSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevGVCPHeartbeatDisable(self):
         """Disables the GVCP heartbeat.
 
@@ -2748,7 +3165,7 @@ cdef class CameraNodes:
             node = self._nodes["GevGVCPHeartbeatDisable"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevMCRC(self):
         """Indicates the number of retries of the message channel.
 
@@ -2764,7 +3181,7 @@ cdef class CameraNodes:
             node = self._nodes["GevMCRC"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevSCPSBigEndian(self):
         """Endianness of multi-byte pixel data for this stream.
 
@@ -2780,7 +3197,7 @@ cdef class CameraNodes:
             node = self._nodes["GevSCPSBigEndian"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevNumberOfInterfaces(self):
         """Indicates the number of physical network interfaces supported by
         this device.
@@ -2797,7 +3214,7 @@ cdef class CameraNodes:
             node = self._nodes["GevNumberOfInterfaces"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TLParamsLocked(self):
         """
 
@@ -2813,7 +3230,7 @@ cdef class CameraNodes:
             node = self._nodes["TLParamsLocked"] = node_inst
         return node
 
-    @property.getter
+    @property
     def PayloadSize(self):
         """Provides the number of bytes transferred for each image or chunk on
         the stream channel.
@@ -2830,7 +3247,7 @@ cdef class CameraNodes:
             node = self._nodes["PayloadSize"] = node_inst
         return node
 
-    @property.getter
+    @property
     def PacketResendRequestCount(self):
         """Counts the number of resend requests received from the host.
 
@@ -2846,7 +3263,7 @@ cdef class CameraNodes:
             node = self._nodes["PacketResendRequestCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SharpeningEnable(self):
         """Enables/disables the sharpening feature. Sharpening is disabled by
         default.
@@ -2863,7 +3280,7 @@ cdef class CameraNodes:
             node = self._nodes["SharpeningEnable"] = node_inst
         return node
 
-    @property.getter
+    @property
     def BlackLevelSelector(self):
         """Selects which black level to control.  Only All can be set by the
         user. Analog and Digital are read-only.
@@ -2883,7 +3300,7 @@ cdef class CameraNodes:
             node = self._nodes["BlackLevelSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GammaEnable(self):
         """Enables/disables gamma correction.
 
@@ -2899,7 +3316,7 @@ cdef class CameraNodes:
             node = self._nodes["GammaEnable"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SharpeningAuto(self):
         """Enables/disables the auto sharpening feature. When enabled, the
         camera automatically determines the sharpening threshold based on
@@ -2917,7 +3334,7 @@ cdef class CameraNodes:
             node = self._nodes["SharpeningAuto"] = node_inst
         return node
 
-    @property.getter
+    @property
     def BlackLevelClampingEnable(self):
         """Enable the black level auto clamping feature which performing dark
         current compensation.
@@ -2934,7 +3351,7 @@ cdef class CameraNodes:
             node = self._nodes["BlackLevelClampingEnable"] = node_inst
         return node
 
-    @property.getter
+    @property
     def BalanceRatio(self):
         """Controls the balance ratio of the selected color relative to green.
         Used for white balancing.
@@ -2951,7 +3368,7 @@ cdef class CameraNodes:
             node = self._nodes["BalanceRatio"] = node_inst
         return node
 
-    @property.getter
+    @property
     def BalanceWhiteAuto(self):
         """White Balance compensates for color shifts caused by different
         lighting conditions. It can be automatically or manually controlled.
@@ -2973,7 +3390,7 @@ cdef class CameraNodes:
             node = self._nodes["BalanceWhiteAuto"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SharpeningThreshold(self):
         """Controls the minimum intensity gradient change to invoke sharpening.
         When "Sharpening Auto" is enabled, this is determined automatically
@@ -2995,7 +3412,7 @@ cdef class CameraNodes:
             node = self._nodes["SharpeningThreshold"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GainAuto(self):
         """Sets the automatic gain mode. Set to Off for manual control. Set to
         Once for a single automatic adjustment then return to Off. Set to
@@ -3017,7 +3434,7 @@ cdef class CameraNodes:
             node = self._nodes["GainAuto"] = node_inst
         return node
 
-    @property.getter
+    @property
     def Sharpening(self):
         """Controls the amount to sharpen a signal. The sharpened amount is
         proportional to the difference between a pixel and its neighbors. A
@@ -3037,7 +3454,7 @@ cdef class CameraNodes:
             node = self._nodes["Sharpening"] = node_inst
         return node
 
-    @property.getter
+    @property
     def Gain(self):
         """Controls the amplification of the video signal in dB.
 
@@ -3053,7 +3470,7 @@ cdef class CameraNodes:
             node = self._nodes["Gain"] = node_inst
         return node
 
-    @property.getter
+    @property
     def BalanceRatioSelector(self):
         """Selects a balance ratio to configure once a balance ratio control
         has been selected.
@@ -3073,7 +3490,7 @@ cdef class CameraNodes:
             node = self._nodes["BalanceRatioSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GainSelector(self):
         """    Selects which gain to control. The All selection is a total
         amplification across all channels (or taps).
@@ -3093,7 +3510,7 @@ cdef class CameraNodes:
             node = self._nodes["GainSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def BlackLevel(self):
         """Controls the offset of the video signal in percent.
 
@@ -3109,7 +3526,7 @@ cdef class CameraNodes:
             node = self._nodes["BlackLevel"] = node_inst
         return node
 
-    @property.getter
+    @property
     def BlackLevelRaw(self):
         """Controls the offset of the video signal in camera specific units.
 
@@ -3125,7 +3542,7 @@ cdef class CameraNodes:
             node = self._nodes["BlackLevelRaw"] = node_inst
         return node
 
-    @property.getter
+    @property
     def Gamma(self):
         """      Controls the gamma correction of pixel intensity.
 
@@ -3141,7 +3558,7 @@ cdef class CameraNodes:
             node = self._nodes["Gamma"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DefectTableIndex(self):
         """Controls the offset of the element to access in the defective pixel
         location table.
@@ -3158,7 +3575,7 @@ cdef class CameraNodes:
             node = self._nodes["DefectTableIndex"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DefectTableFactoryRestore(self):
         """    Restores the Defective Pixel Table to its factory default state,
         which was calibrated during manufacturing. This permanently
@@ -3176,7 +3593,7 @@ cdef class CameraNodes:
             node = self._nodes["DefectTableFactoryRestore"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DefectTableCoordinateY(self):
         """Returns the Y coordinate of the defective pixel at DefectTableIndex
         within the defective pixel table. Changes made do not take effect in
@@ -3194,7 +3611,7 @@ cdef class CameraNodes:
             node = self._nodes["DefectTableCoordinateY"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DefectTableSave(self):
         """    Saves the current defective pixel table non-volatile memory,
         so that it is preserved when the camera boots up.   This overwrites
@@ -3213,7 +3630,7 @@ cdef class CameraNodes:
             node = self._nodes["DefectTableSave"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DefectCorrectionMode(self):
         """    Controls the method used for replacing defective pixels.
 
@@ -3232,7 +3649,7 @@ cdef class CameraNodes:
             node = self._nodes["DefectCorrectionMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DefectTableCoordinateX(self):
         """Returns the X coordinate of the defective pixel at DefectTableIndex
         within the defective pixel table. Changes made do not take effect in
@@ -3250,7 +3667,7 @@ cdef class CameraNodes:
             node = self._nodes["DefectTableCoordinateX"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DefectTablePixelCount(self):
         """The number of defective pixel locations in the current table.
 
@@ -3266,7 +3683,7 @@ cdef class CameraNodes:
             node = self._nodes["DefectTablePixelCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DefectCorrectStaticEnable(self):
         """Enables/Disables table-based defective pixel correction.
 
@@ -3282,7 +3699,7 @@ cdef class CameraNodes:
             node = self._nodes["DefectCorrectStaticEnable"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DefectTableApply(self):
         """    Applies the current defect table, so that any changes made
         affect images captured by the camera.   This writes the table to
@@ -3302,7 +3719,7 @@ cdef class CameraNodes:
             node = self._nodes["DefectTableApply"] = node_inst
         return node
 
-    @property.getter
+    @property
     def UserSetFeatureEnable(self):
         """    Whether or not the selected feature is saved to user sets.
 
@@ -3318,7 +3735,7 @@ cdef class CameraNodes:
             node = self._nodes["UserSetFeatureEnable"] = node_inst
         return node
 
-    @property.getter
+    @property
     def UserSetSave(self):
         """Saves the User Set specified by UserSetSelector to the non-volatile
         memory of the device.
@@ -3335,7 +3752,7 @@ cdef class CameraNodes:
             node = self._nodes["UserSetSave"] = node_inst
         return node
 
-    @property.getter
+    @property
     def UserSetSelector(self):
         """Selects the feature User Set to load, save or configure.
 
@@ -3354,7 +3771,7 @@ cdef class CameraNodes:
             node = self._nodes["UserSetSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def UserSetLoad(self):
         """Loads the User Set specified by UserSetSelector to the device and
         makes it active.
@@ -3371,7 +3788,7 @@ cdef class CameraNodes:
             node = self._nodes["UserSetLoad"] = node_inst
         return node
 
-    @property.getter
+    @property
     def UserSetDefault(self):
         """Selects the feature User Set to load and make active by default when
         the device is restarted.
@@ -3391,7 +3808,7 @@ cdef class CameraNodes:
             node = self._nodes["UserSetDefault"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SerialPortBaudRate(self):
         """This feature controls the baud rate used by the selected serial
         port.
@@ -3411,7 +3828,7 @@ cdef class CameraNodes:
             node = self._nodes["SerialPortBaudRate"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SerialPortDataBits(self):
         """This feature controls the number of data bits used by the selected
         serial port.  Possible values that can be used are between 5 and 9.
@@ -3428,7 +3845,7 @@ cdef class CameraNodes:
             node = self._nodes["SerialPortDataBits"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SerialPortParity(self):
         """This feature controls the parity used by the selected serial port.
 
@@ -3447,7 +3864,7 @@ cdef class CameraNodes:
             node = self._nodes["SerialPortParity"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SerialTransmitQueueMaxCharacterCount(self):
         """>Returns the maximum number of characters in the serial port
         transmit queue.
@@ -3464,7 +3881,7 @@ cdef class CameraNodes:
             node = self._nodes["SerialTransmitQueueMaxCharacterCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SerialReceiveQueueCurrentCharacterCount(self):
         """Returns the number of characters currently in the serial port
         receive queue.
@@ -3481,7 +3898,7 @@ cdef class CameraNodes:
             node = self._nodes["SerialReceiveQueueCurrentCharacterCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SerialPortSelector(self):
         """Selects which serial port of the device to control.
 
@@ -3500,7 +3917,7 @@ cdef class CameraNodes:
             node = self._nodes["SerialPortSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SerialPortStopBits(self):
         """This feature controls the number of stop bits used by the selected
         serial port.
@@ -3520,7 +3937,7 @@ cdef class CameraNodes:
             node = self._nodes["SerialPortStopBits"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SerialReceiveQueueClear(self):
         """This is a command that clears the device serial port receive queue.
 
@@ -3536,7 +3953,7 @@ cdef class CameraNodes:
             node = self._nodes["SerialReceiveQueueClear"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SerialReceiveFramingErrorCount(self):
         """Returns the number of framing errors that have occurred on the
         serial port.
@@ -3553,7 +3970,7 @@ cdef class CameraNodes:
             node = self._nodes["SerialReceiveFramingErrorCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SerialTransmitQueueCurrentCharacterCount(self):
         """Returns the number of characters currently in the serial port
         transmit queue.
@@ -3570,7 +3987,7 @@ cdef class CameraNodes:
             node = self._nodes["SerialTransmitQueueCurrentCharacterCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SerialReceiveParityErrorCount(self):
         """Returns the number of parity errors that have occurred on the serial
         port.
@@ -3587,7 +4004,7 @@ cdef class CameraNodes:
             node = self._nodes["SerialReceiveParityErrorCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SerialPortSource(self):
         """Specifies the physical input Line on which to receive serial data.
 
@@ -3606,7 +4023,7 @@ cdef class CameraNodes:
             node = self._nodes["SerialPortSource"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SerialReceiveQueueMaxCharacterCount(self):
         """>Returns the maximum number of characters in the serial port receive
         queue.
@@ -3623,7 +4040,7 @@ cdef class CameraNodes:
             node = self._nodes["SerialReceiveQueueMaxCharacterCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SequencerSetStart(self):
         """Sets the first sequencer set to be used.
 
@@ -3639,7 +4056,7 @@ cdef class CameraNodes:
             node = self._nodes["SequencerSetStart"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SequencerMode(self):
         """Controls whether or not a sequencer is active.
 
@@ -3658,7 +4075,7 @@ cdef class CameraNodes:
             node = self._nodes["SequencerMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SequencerConfigurationValid(self):
         """Display whether the current sequencer configuration is valid to run.
 
@@ -3677,7 +4094,7 @@ cdef class CameraNodes:
             node = self._nodes["SequencerConfigurationValid"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SequencerSetValid(self):
         """Displays whether the currently selected sequencer set's register
         contents are valid to use.
@@ -3697,7 +4114,7 @@ cdef class CameraNodes:
             node = self._nodes["SequencerSetValid"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SequencerSetSelector(self):
         """Selects the sequencer set to which subsequent settings apply.
 
@@ -3713,7 +4130,7 @@ cdef class CameraNodes:
             node = self._nodes["SequencerSetSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SequencerTriggerActivation(self):
         """Specifies the activation mode of the sequencer trigger.
 
@@ -3732,7 +4149,7 @@ cdef class CameraNodes:
             node = self._nodes["SequencerTriggerActivation"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SequencerConfigurationMode(self):
         """Controls whether or not a sequencer is in configuration mode.
 
@@ -3751,7 +4168,7 @@ cdef class CameraNodes:
             node = self._nodes["SequencerConfigurationMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SequencerSetSave(self):
         """Saves the current device configuration to the currently selected
         sequencer set.
@@ -3768,7 +4185,7 @@ cdef class CameraNodes:
             node = self._nodes["SequencerSetSave"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SequencerTriggerSource(self):
         """Specifies the internal signal or physical input line to use as the
         sequencer trigger source.
@@ -3788,7 +4205,7 @@ cdef class CameraNodes:
             node = self._nodes["SequencerTriggerSource"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SequencerSetActive(self):
         """Displays the currently active sequencer set.
 
@@ -3804,7 +4221,7 @@ cdef class CameraNodes:
             node = self._nodes["SequencerSetActive"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SequencerSetNext(self):
         """Specifies the next sequencer set.
 
@@ -3820,7 +4237,7 @@ cdef class CameraNodes:
             node = self._nodes["SequencerSetNext"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SequencerSetLoad(self):
         """Loads currently selected sequencer to the current device
         configuration.
@@ -3837,7 +4254,7 @@ cdef class CameraNodes:
             node = self._nodes["SequencerSetLoad"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SequencerPathSelector(self):
         """Selects branching path to be used for subsequent settings.
 
@@ -3853,7 +4270,7 @@ cdef class CameraNodes:
             node = self._nodes["SequencerPathSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SequencerFeatureEnable(self):
         """Enables the selected feature and makes it active in all sequencer
         sets.
@@ -3870,7 +4287,7 @@ cdef class CameraNodes:
             node = self._nodes["SequencerFeatureEnable"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TransferBlockCount(self):
         """Specifies the number of data blocks (images) that the device should
         stream before stopping. This feature is only active if the Transfer
@@ -3888,7 +4305,7 @@ cdef class CameraNodes:
             node = self._nodes["TransferBlockCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TransferStart(self):
         """Starts the streaming of data blocks (images) out of the device. This
         feature is available when the Transfer Control Mode is set to User
@@ -3906,7 +4323,7 @@ cdef class CameraNodes:
             node = self._nodes["TransferStart"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TransferQueueMaxBlockCount(self):
         """Returns the maximum number of data blocks (images) in the transfer
         queue
@@ -3923,7 +4340,7 @@ cdef class CameraNodes:
             node = self._nodes["TransferQueueMaxBlockCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TransferQueueCurrentBlockCount(self):
         """Returns number of data blocks (images) currently in the transfer
         queue.
@@ -3940,7 +4357,7 @@ cdef class CameraNodes:
             node = self._nodes["TransferQueueCurrentBlockCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TransferQueueMode(self):
         """Specifies the operation mode of the transfer queue.
 
@@ -3959,7 +4376,7 @@ cdef class CameraNodes:
             node = self._nodes["TransferQueueMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TransferOperationMode(self):
         """Selects the operation mode of the transfer. Continuous is similar to
         Basic/Automatic but you can start/stop the transfer while
@@ -3981,7 +4398,7 @@ cdef class CameraNodes:
             node = self._nodes["TransferOperationMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TransferStop(self):
         """Stops the streaming of data block (images). The current block
         transmission is completed. This feature is available when the
@@ -3999,7 +4416,7 @@ cdef class CameraNodes:
             node = self._nodes["TransferStop"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TransferQueueOverflowCount(self):
         """Returns number of images that have been lost before being
         transmitted because the transmit queue hasn't been cleared fast
@@ -4017,7 +4434,7 @@ cdef class CameraNodes:
             node = self._nodes["TransferQueueOverflowCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TransferControlMode(self):
         """Selects the control method for the transfers. Basic and Automatic
         start transmitting data as soon as there is enough data to fill a
@@ -4039,7 +4456,7 @@ cdef class CameraNodes:
             node = self._nodes["TransferControlMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkBlackLevel(self):
         """Returns the black level used to capture the image.
 
@@ -4055,7 +4472,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkBlackLevel"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkFrameID(self):
         """Returns the image frame ID.
 
@@ -4071,7 +4488,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkSerialData(self):
         """Returns the serial data that was received.
 
@@ -4087,7 +4504,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkSerialData"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkExposureTime(self):
         """Returns the exposure time used to capture the image.
 
@@ -4103,7 +4520,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkExposureTime"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkCompressionMode(self):
         """Returns the compression mode of the last image payload.
 
@@ -4119,7 +4536,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkCompressionMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkCompressionRatio(self):
         """Returns the compression ratio of the last image payload.
 
@@ -4135,7 +4552,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkCompressionRatio"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkSerialReceiveOverflow(self):
         """Returns the status of the chunk serial receive overflow.
 
@@ -4151,7 +4568,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkSerialReceiveOverflow"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkTimestamp(self):
         """Returns the Timestamp of the image.
 
@@ -4167,7 +4584,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkModeActive(self):
         """Activates the inclusion of Chunk data in the payload of the image.
 
@@ -4183,7 +4600,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkModeActive"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkExposureEndLineStatusAll(self):
         """Returns the status of all the I/O lines at the end of exposure
         event.
@@ -4200,7 +4617,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkExposureEndLineStatusAll"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkGainSelector(self):
         """Selects which gain to retrieve
 
@@ -4219,7 +4636,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkGainSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkSelector(self):
         """Selects which chunk data to enable or disable.
 
@@ -4238,7 +4655,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkBlackLevelSelector(self):
         """Selects which black level to retrieve
 
@@ -4257,7 +4674,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkBlackLevelSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkWidth(self):
         """Returns the width of the image included in the payload.
 
@@ -4273,7 +4690,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkWidth"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkImage(self):
         """Returns the image payload.
 
@@ -4289,7 +4706,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkImage"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkHeight(self):
         """Returns the height of the image included in the payload.
 
@@ -4305,7 +4722,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkHeight"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkPixelFormat(self):
         """Format of the pixel provided by the camera
 
@@ -4324,7 +4741,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkPixelFormat"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkGain(self):
         """Returns the gain used to capture the image.
 
@@ -4340,7 +4757,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkGain"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkSequencerSetActive(self):
         """Returns the index of the active set of the running sequencer
         included in the payload.
@@ -4357,7 +4774,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkSequencerSetActive"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkCRC(self):
         """Returns the CRC of the image payload.
 
@@ -4373,7 +4790,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkCRC"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkOffsetX(self):
         """Returns the Offset X of the image included in the payload.
 
@@ -4389,7 +4806,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkOffsetX"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkOffsetY(self):
         """Returns the Offset Y of the image included in the payload.
 
@@ -4405,7 +4822,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkOffsetY"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkEnable(self):
         """Enables the inclusion of the selected Chunk data in the payload of
         the image.
@@ -4422,7 +4839,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkEnable"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkSerialDataLength(self):
         """Returns the length of the received serial data that was included in
         the payload.
@@ -4439,7 +4856,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkSerialDataLength"] = node_inst
         return node
 
-    @property.getter
+    @property
     def FileAccessOffset(self):
         """Controls the Offset of the mapping between the device file storage
         and the FileAccessBuffer.
@@ -4456,7 +4873,7 @@ cdef class CameraNodes:
             node = self._nodes["FileAccessOffset"] = node_inst
         return node
 
-    @property.getter
+    @property
     def FileAccessLength(self):
         """Controls the Length of the mapping between the device file storage
         and the FileAccessBuffer.
@@ -4473,7 +4890,7 @@ cdef class CameraNodes:
             node = self._nodes["FileAccessLength"] = node_inst
         return node
 
-    @property.getter
+    @property
     def FileOperationStatus(self):
         """Represents the file operation execution status.
 
@@ -4492,7 +4909,7 @@ cdef class CameraNodes:
             node = self._nodes["FileOperationStatus"] = node_inst
         return node
 
-    @property.getter
+    @property
     def FileOperationExecute(self):
         """This is a command that executes the selected file operation on the
         selected file.
@@ -4509,7 +4926,7 @@ cdef class CameraNodes:
             node = self._nodes["FileOperationExecute"] = node_inst
         return node
 
-    @property.getter
+    @property
     def FileOpenMode(self):
         """The mode of the file when it is opened. The file can be opened for
         reading, writting or both. This must be set before opening the file.
@@ -4529,7 +4946,7 @@ cdef class CameraNodes:
             node = self._nodes["FileOpenMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def FileOperationResult(self):
         """Represents the file operation result. For Read or Write operations,
         the number of successfully read/written bytes is returned.
@@ -4546,7 +4963,7 @@ cdef class CameraNodes:
             node = self._nodes["FileOperationResult"] = node_inst
         return node
 
-    @property.getter
+    @property
     def FileOperationSelector(self):
         """Sets operation to execute on the selected file when the execute
         command is given.
@@ -4566,7 +4983,7 @@ cdef class CameraNodes:
             node = self._nodes["FileOperationSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def FileSelector(self):
         """Selects which file is being operated on. This must be set before
         performing any file operations.
@@ -4586,7 +5003,7 @@ cdef class CameraNodes:
             node = self._nodes["FileSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def FileSize(self):
         """Represents the size of the selected file in bytes.
 
@@ -4602,7 +5019,7 @@ cdef class CameraNodes:
             node = self._nodes["FileSize"] = node_inst
         return node
 
-    @property.getter
+    @property
     def BinningSelector(self):
         """Selects which binning engine is controlled by the BinningHorizontal
         and BinningVertical features.
@@ -4622,7 +5039,7 @@ cdef class CameraNodes:
             node = self._nodes["BinningSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def PixelDynamicRangeMin(self):
         """    Minimum value that can be returned during the digitization
         process. This corresponds to the darkest value of the camera. For
@@ -4641,7 +5058,7 @@ cdef class CameraNodes:
             node = self._nodes["PixelDynamicRangeMin"] = node_inst
         return node
 
-    @property.getter
+    @property
     def PixelDynamicRangeMax(self):
         """    Maximum value that can be returned during the digitization
         process. This corresponds to the brightest value of the camera. For
@@ -4660,7 +5077,7 @@ cdef class CameraNodes:
             node = self._nodes["PixelDynamicRangeMax"] = node_inst
         return node
 
-    @property.getter
+    @property
     def OffsetY(self):
         """Vertical offset from the origin to the ROI (in pixels).
 
@@ -4676,7 +5093,7 @@ cdef class CameraNodes:
             node = self._nodes["OffsetY"] = node_inst
         return node
 
-    @property.getter
+    @property
     def BinningHorizontal(self):
         """Number of horizontal photo-sensitive cells to combine together. This
         reduces the horizontal resolution (width) of the image. A value of 1
@@ -4695,7 +5112,7 @@ cdef class CameraNodes:
             node = self._nodes["BinningHorizontal"] = node_inst
         return node
 
-    @property.getter
+    @property
     def Width(self):
         """Width of the image provided by the device (in pixels).
 
@@ -4711,7 +5128,7 @@ cdef class CameraNodes:
             node = self._nodes["Width"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TestPatternGeneratorSelector(self):
         """Selects which test pattern generator is controlled by the
         TestPattern feature.
@@ -4731,7 +5148,7 @@ cdef class CameraNodes:
             node = self._nodes["TestPatternGeneratorSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def CompressionRatio(self):
         """Reports the ratio between the uncompressed image size and compressed
         image size.
@@ -4748,7 +5165,7 @@ cdef class CameraNodes:
             node = self._nodes["CompressionRatio"] = node_inst
         return node
 
-    @property.getter
+    @property
     def CompressionSaturationPriority(self):
         """When FrameRate is enabled, camera drops frames if datarate is
         saturated. If FrameRate is disabled, camera adjusts the framerate to
@@ -4769,7 +5186,7 @@ cdef class CameraNodes:
             node = self._nodes["CompressionSaturationPriority"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ReverseX(self):
         """    Horizontally flips the image sent by the device. The region of
         interest is applied after flipping. For color cameras the bayer
@@ -4788,7 +5205,7 @@ cdef class CameraNodes:
             node = self._nodes["ReverseX"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ReverseY(self):
         """    Vertically flips the image sent by the device. The region of
         interest is applied after flipping. For color cameras the bayer
@@ -4807,7 +5224,7 @@ cdef class CameraNodes:
             node = self._nodes["ReverseY"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TestPattern(self):
         """Selects the type of test pattern that is generated by the device as
         image source.
@@ -4827,7 +5244,7 @@ cdef class CameraNodes:
             node = self._nodes["TestPattern"] = node_inst
         return node
 
-    @property.getter
+    @property
     def PixelColorFilter(self):
         """    Type of color filter that is applied to the image. Only applies
         to Bayer pixel formats. All others have no color filter.
@@ -4847,7 +5264,7 @@ cdef class CameraNodes:
             node = self._nodes["PixelColorFilter"] = node_inst
         return node
 
-    @property.getter
+    @property
     def WidthMax(self):
         """Maximum width of the image (in pixels). The dimension is calculated
         after horizontal binning. WidthMax does not take into account the
@@ -4865,7 +5282,7 @@ cdef class CameraNodes:
             node = self._nodes["WidthMax"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AdcBitDepth(self):
         """Selects which ADC bit depth to use. A higher ADC bit depth results
         in better image quality but slower maximum frame rate.
@@ -4885,7 +5302,7 @@ cdef class CameraNodes:
             node = self._nodes["AdcBitDepth"] = node_inst
         return node
 
-    @property.getter
+    @property
     def BinningVertical(self):
         """Number of vertical photo-sensitive cells to combine together. This
         reduces the vertical resolution (height) of the image. A value of 1
@@ -4904,7 +5321,7 @@ cdef class CameraNodes:
             node = self._nodes["BinningVertical"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DecimationHorizontalMode(self):
         """The mode used to reduce the horizontal resolution when
         DecimationHorizontal is used. The current implementation only
@@ -4926,7 +5343,7 @@ cdef class CameraNodes:
             node = self._nodes["DecimationHorizontalMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def BinningVerticalMode(self):
         """
 
@@ -4945,7 +5362,7 @@ cdef class CameraNodes:
             node = self._nodes["BinningVerticalMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def OffsetX(self):
         """Horizontal offset from the origin to the ROI (in pixels).
 
@@ -4961,7 +5378,7 @@ cdef class CameraNodes:
             node = self._nodes["OffsetX"] = node_inst
         return node
 
-    @property.getter
+    @property
     def HeightMax(self):
         """Maximum height of the image (in pixels). This dimension is
         calculated after vertical binning. HeightMax does not take into
@@ -4979,7 +5396,7 @@ cdef class CameraNodes:
             node = self._nodes["HeightMax"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DecimationHorizontal(self):
         """Horizontal decimation of the image.  This reduces the horizontal
         resolution (width) of the image by only retaining a single pixel
@@ -4999,7 +5416,7 @@ cdef class CameraNodes:
             node = self._nodes["DecimationHorizontal"] = node_inst
         return node
 
-    @property.getter
+    @property
     def PixelSize(self):
         """    Total size in bits of a pixel of the image.
 
@@ -5018,7 +5435,7 @@ cdef class CameraNodes:
             node = self._nodes["PixelSize"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SensorHeight(self):
         """Effective height of the sensor in pixels.
 
@@ -5034,7 +5451,7 @@ cdef class CameraNodes:
             node = self._nodes["SensorHeight"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DecimationSelector(self):
         """Selects which decimation layer is controlled by the
         DecimationHorizontal and DecimationVertical features.
@@ -5054,7 +5471,7 @@ cdef class CameraNodes:
             node = self._nodes["DecimationSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def IspEnable(self):
         """Controls whether the image processing core is used for optional
         pixel format mode (i.e. mono).
@@ -5071,7 +5488,7 @@ cdef class CameraNodes:
             node = self._nodes["IspEnable"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AdaptiveCompressionEnable(self):
         """Controls whether lossless compression adapts to the image content.
         If disabled, a fixed encoding table is used.
@@ -5088,7 +5505,7 @@ cdef class CameraNodes:
             node = self._nodes["AdaptiveCompressionEnable"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ImageCompressionMode(self):
         """
 
@@ -5107,7 +5524,7 @@ cdef class CameraNodes:
             node = self._nodes["ImageCompressionMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DecimationVertical(self):
         """Vertical decimation of the image.  This reduces the vertical
         resolution (height) of the image by only retaining a single pixel
@@ -5127,7 +5544,7 @@ cdef class CameraNodes:
             node = self._nodes["DecimationVertical"] = node_inst
         return node
 
-    @property.getter
+    @property
     def Height(self):
         """Height of the image provided by the device (in pixels).
 
@@ -5143,7 +5560,7 @@ cdef class CameraNodes:
             node = self._nodes["Height"] = node_inst
         return node
 
-    @property.getter
+    @property
     def BinningHorizontalMode(self):
         """
 
@@ -5162,7 +5579,7 @@ cdef class CameraNodes:
             node = self._nodes["BinningHorizontalMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def PixelFormat(self):
         """    Format of the pixel provided by the camera.
 
@@ -5181,7 +5598,7 @@ cdef class CameraNodes:
             node = self._nodes["PixelFormat"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SensorWidth(self):
         """Effective width of the sensor in pixels.
 
@@ -5197,7 +5614,7 @@ cdef class CameraNodes:
             node = self._nodes["SensorWidth"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DecimationVerticalMode(self):
         """The mode used to reduce the vertical resolution when
         DecimationVertical is used. The current implementation only supports
@@ -5219,7 +5636,7 @@ cdef class CameraNodes:
             node = self._nodes["DecimationVerticalMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TestEventGenerate(self):
         """This command generates a test event and sends it to the host.
 
@@ -5235,7 +5652,7 @@ cdef class CameraNodes:
             node = self._nodes["TestEventGenerate"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TriggerEventTest(self):
         """This command generates a test event and sends it to the host.
 
@@ -5251,7 +5668,7 @@ cdef class CameraNodes:
             node = self._nodes["TriggerEventTest"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GuiXmlManifestAddress(self):
         """Location of the GUI XML manifest table.
 
@@ -5267,7 +5684,7 @@ cdef class CameraNodes:
             node = self._nodes["GuiXmlManifestAddress"] = node_inst
         return node
 
-    @property.getter
+    @property
     def Test0001(self):
         """For testing only.
 
@@ -5283,7 +5700,7 @@ cdef class CameraNodes:
             node = self._nodes["Test0001"] = node_inst
         return node
 
-    @property.getter
+    @property
     def V3_3Enable(self):
         """Internally generated 3.3V rail. Enable to supply external circuits
         with power. This is different than standard logic outputs in that it
@@ -5302,7 +5719,7 @@ cdef class CameraNodes:
             node = self._nodes["V3_3Enable"] = node_inst
         return node
 
-    @property.getter
+    @property
     def LineMode(self):
         """Controls if the physical Line is used to Input or Output a signal.
 
@@ -5321,7 +5738,7 @@ cdef class CameraNodes:
             node = self._nodes["LineMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def LineSource(self):
         """Selects which internal acquisition or I/O source signal to output on
         the selected line. LineMode must be Output.
@@ -5341,7 +5758,7 @@ cdef class CameraNodes:
             node = self._nodes["LineSource"] = node_inst
         return node
 
-    @property.getter
+    @property
     def LineInputFilterSelector(self):
         """Selects the kind of input filter to configure: Deglitch or Debounce.
 
@@ -5360,7 +5777,7 @@ cdef class CameraNodes:
             node = self._nodes["LineInputFilterSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def UserOutputValue(self):
         """Value of the selected user output, either logic high (enabled) or
         logic low (disabled).
@@ -5377,7 +5794,7 @@ cdef class CameraNodes:
             node = self._nodes["UserOutputValue"] = node_inst
         return node
 
-    @property.getter
+    @property
     def UserOutputValueAll(self):
         """Returns the current status of all the user output status bits in a
         hexadecimal representation (UserOutput 0 status corresponds to bit
@@ -5396,7 +5813,7 @@ cdef class CameraNodes:
             node = self._nodes["UserOutputValueAll"] = node_inst
         return node
 
-    @property.getter
+    @property
     def UserOutputSelector(self):
         """Selects which bit of the User Output register is set by
         UserOutputValue.
@@ -5416,7 +5833,7 @@ cdef class CameraNodes:
             node = self._nodes["UserOutputSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def LineStatus(self):
         """Returns the current status of the selected input or output Line
 
@@ -5432,7 +5849,7 @@ cdef class CameraNodes:
             node = self._nodes["LineStatus"] = node_inst
         return node
 
-    @property.getter
+    @property
     def LineFormat(self):
         """Displays the current electrical format of the selected physical
         input or output Line.
@@ -5452,7 +5869,7 @@ cdef class CameraNodes:
             node = self._nodes["LineFormat"] = node_inst
         return node
 
-    @property.getter
+    @property
     def LineStatusAll(self):
         """Returns the current status of all the line status bits in a
         hexadecimal representation (Line 0 status corresponds to bit 0, Line
@@ -5471,7 +5888,7 @@ cdef class CameraNodes:
             node = self._nodes["LineStatusAll"] = node_inst
         return node
 
-    @property.getter
+    @property
     def LineSelector(self):
         """Selects the physical line (or pin) of the external device connector
         to configure
@@ -5491,7 +5908,7 @@ cdef class CameraNodes:
             node = self._nodes["LineSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ExposureActiveMode(self):
         """Control sensor active exposure mode.
 
@@ -5510,7 +5927,7 @@ cdef class CameraNodes:
             node = self._nodes["ExposureActiveMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def LineInverter(self):
         """Controls the inversion of the signal of the selected input or output
         line.
@@ -5527,7 +5944,7 @@ cdef class CameraNodes:
             node = self._nodes["LineInverter"] = node_inst
         return node
 
-    @property.getter
+    @property
     def LineFilterWidth(self):
         """Filter width in microseconds for the selected line and filter
         combination
@@ -5544,7 +5961,7 @@ cdef class CameraNodes:
             node = self._nodes["LineFilterWidth"] = node_inst
         return node
 
-    @property.getter
+    @property
     def CounterTriggerActivation(self):
         """Selects the activation mode of the trigger to start the counter.
 
@@ -5563,7 +5980,7 @@ cdef class CameraNodes:
             node = self._nodes["CounterTriggerActivation"] = node_inst
         return node
 
-    @property.getter
+    @property
     def CounterValue(self):
         """Current counter value
 
@@ -5579,7 +5996,7 @@ cdef class CameraNodes:
             node = self._nodes["CounterValue"] = node_inst
         return node
 
-    @property.getter
+    @property
     def CounterSelector(self):
         """Selects which counter to configure
 
@@ -5598,7 +6015,7 @@ cdef class CameraNodes:
             node = self._nodes["CounterSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def CounterValueAtReset(self):
         """Value of the selected Counter when it was reset by a trigger.
 
@@ -5614,7 +6031,7 @@ cdef class CameraNodes:
             node = self._nodes["CounterValueAtReset"] = node_inst
         return node
 
-    @property.getter
+    @property
     def CounterStatus(self):
         """Returns the current status of the counter.
 
@@ -5633,7 +6050,7 @@ cdef class CameraNodes:
             node = self._nodes["CounterStatus"] = node_inst
         return node
 
-    @property.getter
+    @property
     def CounterTriggerSource(self):
         """Selects the source of the trigger to start the counter
 
@@ -5652,7 +6069,7 @@ cdef class CameraNodes:
             node = self._nodes["CounterTriggerSource"] = node_inst
         return node
 
-    @property.getter
+    @property
     def CounterDelay(self):
         """Sets the delay (or number of events) before the CounterStart event
         is generated.
@@ -5669,7 +6086,7 @@ cdef class CameraNodes:
             node = self._nodes["CounterDelay"] = node_inst
         return node
 
-    @property.getter
+    @property
     def CounterResetSource(self):
         """Selects the signal that will be the source to reset the counter.
 
@@ -5688,7 +6105,7 @@ cdef class CameraNodes:
             node = self._nodes["CounterResetSource"] = node_inst
         return node
 
-    @property.getter
+    @property
     def CounterEventSource(self):
         """Selects the event that will increment the counter
 
@@ -5707,7 +6124,7 @@ cdef class CameraNodes:
             node = self._nodes["CounterEventSource"] = node_inst
         return node
 
-    @property.getter
+    @property
     def CounterEventActivation(self):
         """Selects the activation mode of the event to increment the Counter.
 
@@ -5726,7 +6143,7 @@ cdef class CameraNodes:
             node = self._nodes["CounterEventActivation"] = node_inst
         return node
 
-    @property.getter
+    @property
     def CounterDuration(self):
         """Sets the duration (or number of events) before the CounterEnd event
         is generated.
@@ -5743,7 +6160,7 @@ cdef class CameraNodes:
             node = self._nodes["CounterDuration"] = node_inst
         return node
 
-    @property.getter
+    @property
     def CounterResetActivation(self):
         """Selects the Activation mode of the Counter Reset Source signal.
 
@@ -5762,7 +6179,7 @@ cdef class CameraNodes:
             node = self._nodes["CounterResetActivation"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceType(self):
         """Returns the device type.
 
@@ -5781,7 +6198,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceType"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceFamilyName(self):
         """Identifier of the product family of the device.
 
@@ -5797,7 +6214,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceFamilyName"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceSFNCVersionMajor(self):
         """Major version of the Standard Features Naming Convention that was
         used to create the device's GenICam XML.
@@ -5814,7 +6231,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceSFNCVersionMajor"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceSFNCVersionMinor(self):
         """Minor version of the Standard Features Naming Convention that was
         used to create the device's GenICam XML.
@@ -5831,7 +6248,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceSFNCVersionMinor"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceSFNCVersionSubMinor(self):
         """Sub minor version of Standard Features Naming Convention that was
         used to create the device's GenICam XML.
@@ -5848,7 +6265,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceSFNCVersionSubMinor"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceManifestEntrySelector(self):
         """Selects the manifest entry to reference.
 
@@ -5864,7 +6281,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceManifestEntrySelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceManifestXMLMajorVersion(self):
         """Indicates the major version number of the GenICam XML file of the
         selected manifest entry.
@@ -5881,7 +6298,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceManifestXMLMajorVersion"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceManifestXMLMinorVersion(self):
         """Indicates the minor version number of the GenICam XML file of the
         selected manifest entry.
@@ -5898,7 +6315,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceManifestXMLMinorVersion"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceManifestXMLSubMinorVersion(self):
         """Indicates the subminor version number of the GenICam XML file of the
         selected manifest entry.
@@ -5915,7 +6332,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceManifestXMLSubMinorVersion"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceManifestSchemaMajorVersion(self):
         """Indicates the major version number of the schema file of the
         selected manifest entry.
@@ -5932,7 +6349,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceManifestSchemaMajorVersion"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceManifestSchemaMinorVersion(self):
         """Indicates the minor version number of the schema file of the
         selected manifest entry.
@@ -5949,7 +6366,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceManifestSchemaMinorVersion"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceManifestPrimaryURL(self):
         """Indicates the first URL to the GenICam XML device description file
         of the selected manifest entry.
@@ -5966,7 +6383,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceManifestPrimaryURL"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceManifestSecondaryURL(self):
         """Indicates the second URL to the GenICam XML device description file
         of the selected manifest entry.
@@ -5983,7 +6400,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceManifestSecondaryURL"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceTLVersionSubMinor(self):
         """Sub minor version of the Transport Layer of the device.
 
@@ -5999,7 +6416,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceTLVersionSubMinor"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceGenCPVersionMajor(self):
         """Major version of the GenCP protocol supported by the device.
 
@@ -6015,7 +6432,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceGenCPVersionMajor"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceGenCPVersionMinor(self):
         """Minor version of the GenCP protocol supported by the device.
 
@@ -6031,7 +6448,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceGenCPVersionMinor"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceConnectionSelector(self):
         """Selects which Connection of the device to control.
 
@@ -6047,7 +6464,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceConnectionSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceConnectionSpeed(self):
         """Indicates the speed of transmission of the specified Connection
 
@@ -6063,7 +6480,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceConnectionSpeed"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceConnectionStatus(self):
         """Indicates the status of the specified Connection.
 
@@ -6082,7 +6499,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceConnectionStatus"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceLinkSelector(self):
         """Selects which Link of the device to control.
 
@@ -6098,7 +6515,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceLinkSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceLinkThroughputLimitMode(self):
         """Controls if the DeviceLinkThroughputLimit is active. When disabled,
         lower level TL specific features are expected to control the
@@ -6120,7 +6537,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceLinkThroughputLimitMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceLinkConnectionCount(self):
         """Returns the number of physical connection of the device used by a
         particular Link.
@@ -6137,7 +6554,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceLinkConnectionCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceLinkHeartbeatMode(self):
         """Activate or deactivate the Link's heartbeat.
 
@@ -6156,7 +6573,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceLinkHeartbeatMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceLinkHeartbeatTimeout(self):
         """Controls the current heartbeat timeout of the specific Link.
 
@@ -6172,7 +6589,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceLinkHeartbeatTimeout"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceLinkCommandTimeout(self):
         """Indicates the command timeout of the specified Link. This
         corresponds to the maximum response time of the device for a command
@@ -6190,7 +6607,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceLinkCommandTimeout"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceStreamChannelSelector(self):
         """Selects the stream channel to control.
 
@@ -6206,7 +6623,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceStreamChannelSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceStreamChannelType(self):
         """Reports the type of the stream channel.
 
@@ -6225,7 +6642,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceStreamChannelType"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceStreamChannelLink(self):
         """Index of device's Link to use for streaming the specifed stream
         channel.
@@ -6242,7 +6659,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceStreamChannelLink"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceStreamChannelEndianness(self):
         """Endianness of multi-byte pixel data for this stream.
 
@@ -6261,7 +6678,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceStreamChannelEndianness"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceStreamChannelPacketSize(self):
         """Specifies the stream packet size, in bytes, to send on the selected
         channel for a Transmitter or specifies the maximum packet size
@@ -6279,7 +6696,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceStreamChannelPacketSize"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceFeaturePersistenceStart(self):
         """Indicate to the device and GenICam XML to get ready for persisting
         of all streamable features.
@@ -6296,7 +6713,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceFeaturePersistenceStart"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceFeaturePersistenceEnd(self):
         """Indicate to the device the end of feature persistence.
 
@@ -6312,7 +6729,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceFeaturePersistenceEnd"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceRegistersStreamingStart(self):
         """Prepare the device for registers streaming without checking for
         consistency.
@@ -6329,7 +6746,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceRegistersStreamingStart"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceRegistersStreamingEnd(self):
         """Announce the end of registers streaming. This will do a register set
         validation for consistency and activate it. This will also update
@@ -6347,7 +6764,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceRegistersStreamingEnd"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceRegistersCheck(self):
         """Perform the validation of the current register set for consistency.
         This will update the DeviceRegistersValid flag.
@@ -6364,7 +6781,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceRegistersCheck"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceRegistersValid(self):
         """Returns if the current register set is valid and consistent.
 
@@ -6380,7 +6797,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceRegistersValid"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceClockSelector(self):
         """Selects the clock frequency to access from the device.
 
@@ -6399,7 +6816,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceClockSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceClockFrequency(self):
         """Returns the frequency of the selected Clock.
 
@@ -6415,7 +6832,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceClockFrequency"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceSerialPortSelector(self):
         """Selects which serial port of the device to control.
 
@@ -6434,7 +6851,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceSerialPortSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceSerialPortBaudRate(self):
         """This feature controls the baud rate used by the selected serial
         port.
@@ -6454,7 +6871,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceSerialPortBaudRate"] = node_inst
         return node
 
-    @property.getter
+    @property
     def Timestamp(self):
         """Reports the current value of the device timestamp counter.
 
@@ -6470,7 +6887,7 @@ cdef class CameraNodes:
             node = self._nodes["Timestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SensorTaps(self):
         """Number of taps of the camera sensor.
 
@@ -6489,7 +6906,7 @@ cdef class CameraNodes:
             node = self._nodes["SensorTaps"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SensorDigitizationTaps(self):
         """Number of digitized samples outputted simultaneously by the camera
         A/D conversion stage.
@@ -6509,7 +6926,7 @@ cdef class CameraNodes:
             node = self._nodes["SensorDigitizationTaps"] = node_inst
         return node
 
-    @property.getter
+    @property
     def RegionSelector(self):
         """Selects the Region of interest to control. The RegionSelector
         feature allows devices that are able to extract multiple regions out
@@ -6531,7 +6948,7 @@ cdef class CameraNodes:
             node = self._nodes["RegionSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def RegionMode(self):
         """Controls if the selected Region of interest is active and streaming.
 
@@ -6550,7 +6967,7 @@ cdef class CameraNodes:
             node = self._nodes["RegionMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def RegionDestination(self):
         """Control the destination of the selected region.
 
@@ -6569,7 +6986,7 @@ cdef class CameraNodes:
             node = self._nodes["RegionDestination"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ImageComponentSelector(self):
         """Selects a component to activate data streaming from.
 
@@ -6588,7 +7005,7 @@ cdef class CameraNodes:
             node = self._nodes["ImageComponentSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ImageComponentEnable(self):
         """Controls if the selected component streaming is active.
 
@@ -6604,7 +7021,7 @@ cdef class CameraNodes:
             node = self._nodes["ImageComponentEnable"] = node_inst
         return node
 
-    @property.getter
+    @property
     def LinePitch(self):
         """Total number of bytes between 2 successive lines. This feature is
         used to facilitate alignment of image data.
@@ -6621,7 +7038,7 @@ cdef class CameraNodes:
             node = self._nodes["LinePitch"] = node_inst
         return node
 
-    @property.getter
+    @property
     def PixelFormatInfoSelector(self):
         """Select the pixel format for which the information will be returned.
 
@@ -6640,7 +7057,7 @@ cdef class CameraNodes:
             node = self._nodes["PixelFormatInfoSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def PixelFormatInfoID(self):
         """Returns the value used by the streaming channels to identify the
         selected pixel format.
@@ -6657,7 +7074,7 @@ cdef class CameraNodes:
             node = self._nodes["PixelFormatInfoID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def Deinterlacing(self):
         """Controls how the device performs de-interlacing.
 
@@ -6676,7 +7093,7 @@ cdef class CameraNodes:
             node = self._nodes["Deinterlacing"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ImageCompressionRateOption(self):
         """Two rate controlling options are offered: fixed bit rate or fixed
         quality. The exact implementation to achieve one or the other is
@@ -6697,7 +7114,7 @@ cdef class CameraNodes:
             node = self._nodes["ImageCompressionRateOption"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ImageCompressionQuality(self):
         """Control the quality of the produced compressed stream.
 
@@ -6713,7 +7130,7 @@ cdef class CameraNodes:
             node = self._nodes["ImageCompressionQuality"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ImageCompressionBitrate(self):
         """Control the rate of the produced compressed stream.
 
@@ -6729,7 +7146,7 @@ cdef class CameraNodes:
             node = self._nodes["ImageCompressionBitrate"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ImageCompressionJPEGFormatOption(self):
         """When JPEG is selected as the compression format, a device might
         optionally offer better control over JPEG-specific options through
@@ -6750,7 +7167,7 @@ cdef class CameraNodes:
             node = self._nodes["ImageCompressionJPEGFormatOption"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AcquisitionAbort(self):
         """Aborts the Acquisition immediately. This will end the capture
         without completing the current Frame or waiting on a trigger. If no
@@ -6768,7 +7185,7 @@ cdef class CameraNodes:
             node = self._nodes["AcquisitionAbort"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AcquisitionArm(self):
         """Arms the device before an AcquisitionStart command. This optional
         command validates all the current features for consistency and
@@ -6786,7 +7203,7 @@ cdef class CameraNodes:
             node = self._nodes["AcquisitionArm"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AcquisitionStatusSelector(self):
         """Selects the internal acquisition signal to read using
         AcquisitionStatus.
@@ -6806,7 +7223,7 @@ cdef class CameraNodes:
             node = self._nodes["AcquisitionStatusSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def AcquisitionStatus(self):
         """Reads the state of the internal acquisition signal selected using
         AcquisitionStatusSelector.
@@ -6823,7 +7240,7 @@ cdef class CameraNodes:
             node = self._nodes["AcquisitionStatus"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TriggerDivider(self):
         """Specifies a division factor for the incoming trigger pulses.
 
@@ -6839,7 +7256,7 @@ cdef class CameraNodes:
             node = self._nodes["TriggerDivider"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TriggerMultiplier(self):
         """Specifies a multiplication factor for the incoming trigger pulses.
         It is used generally used in conjunction with TriggerDivider to
@@ -6857,7 +7274,7 @@ cdef class CameraNodes:
             node = self._nodes["TriggerMultiplier"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ExposureTimeMode(self):
         """Sets the configuration mode of the ExposureTime feature.
 
@@ -6876,7 +7293,7 @@ cdef class CameraNodes:
             node = self._nodes["ExposureTimeMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ExposureTimeSelector(self):
         """Selects which exposure time is controlled by the ExposureTime
         feature. This allows for independent control over the exposure
@@ -6897,7 +7314,7 @@ cdef class CameraNodes:
             node = self._nodes["ExposureTimeSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GainAutoBalance(self):
         """Sets the mode for automatic gain balancing between the sensor color
         channels or taps. The gain coefficients of each channel or tap are
@@ -6918,7 +7335,7 @@ cdef class CameraNodes:
             node = self._nodes["GainAutoBalance"] = node_inst
         return node
 
-    @property.getter
+    @property
     def BlackLevelAuto(self):
         """Controls the mode for automatic black level adjustment. The exact
         algorithm used to implement this adjustment is device-specific.
@@ -6938,7 +7355,7 @@ cdef class CameraNodes:
             node = self._nodes["BlackLevelAuto"] = node_inst
         return node
 
-    @property.getter
+    @property
     def BlackLevelAutoBalance(self):
         """Controls the mode for automatic black level balancing between the
         sensor color channels or taps. The black level coefficients of each
@@ -6959,7 +7376,7 @@ cdef class CameraNodes:
             node = self._nodes["BlackLevelAutoBalance"] = node_inst
         return node
 
-    @property.getter
+    @property
     def WhiteClipSelector(self):
         """Selects which White Clip to control.
 
@@ -6978,7 +7395,7 @@ cdef class CameraNodes:
             node = self._nodes["WhiteClipSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def WhiteClip(self):
         """Controls the maximal intensity taken by the video signal before
         being clipped as an absolute physical value. The video signal will
@@ -6997,7 +7414,7 @@ cdef class CameraNodes:
             node = self._nodes["WhiteClip"] = node_inst
         return node
 
-    @property.getter
+    @property
     def LUTValueAll(self):
         """Accesses all the LUT coefficients in a single access without using
         individual LUTIndex.
@@ -7014,7 +7431,7 @@ cdef class CameraNodes:
             node = self._nodes["LUTValueAll"] = node_inst
         return node
 
-    @property.getter
+    @property
     def UserOutputValueAllMask(self):
         """Sets the write mask to apply to the value specified by
         UserOutputValueAll before writing it in the User Output register. If
@@ -7034,7 +7451,7 @@ cdef class CameraNodes:
             node = self._nodes["UserOutputValueAllMask"] = node_inst
         return node
 
-    @property.getter
+    @property
     def CounterReset(self):
         """Does a software reset of the selected Counter and starts it. The
         counter starts counting events immediately after the reset unless a
@@ -7054,7 +7471,7 @@ cdef class CameraNodes:
             node = self._nodes["CounterReset"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TimerSelector(self):
         """Selects which Timer to configure.
 
@@ -7073,7 +7490,7 @@ cdef class CameraNodes:
             node = self._nodes["TimerSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TimerDuration(self):
         """Sets the duration (in microseconds) of the Timer pulse.
 
@@ -7089,7 +7506,7 @@ cdef class CameraNodes:
             node = self._nodes["TimerDuration"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TimerDelay(self):
         """Sets the duration (in microseconds) of the delay to apply at the
         reception of a trigger before starting the Timer.
@@ -7106,7 +7523,7 @@ cdef class CameraNodes:
             node = self._nodes["TimerDelay"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TimerReset(self):
         """Does a software reset of the selected timer and starts it. The timer
         starts immediately after the reset unless a timer trigger is active.
@@ -7123,7 +7540,7 @@ cdef class CameraNodes:
             node = self._nodes["TimerReset"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TimerValue(self):
         """Reads or writes the current value (in microseconds) of the selected
         Timer.
@@ -7140,7 +7557,7 @@ cdef class CameraNodes:
             node = self._nodes["TimerValue"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TimerStatus(self):
         """Returns the current status of the Timer.
 
@@ -7159,7 +7576,7 @@ cdef class CameraNodes:
             node = self._nodes["TimerStatus"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TimerTriggerSource(self):
         """Selects the source of the trigger to start the Timer.
 
@@ -7178,7 +7595,7 @@ cdef class CameraNodes:
             node = self._nodes["TimerTriggerSource"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TimerTriggerActivation(self):
         """Selects the activation mode of the trigger to start the Timer.
 
@@ -7197,7 +7614,7 @@ cdef class CameraNodes:
             node = self._nodes["TimerTriggerActivation"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EncoderSelector(self):
         """Selects which Encoder to configure.
 
@@ -7216,7 +7633,7 @@ cdef class CameraNodes:
             node = self._nodes["EncoderSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EncoderSourceA(self):
         """Selects the signal which will be the source of the A input of the
         Encoder.
@@ -7236,7 +7653,7 @@ cdef class CameraNodes:
             node = self._nodes["EncoderSourceA"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EncoderSourceB(self):
         """Selects the signal which will be the source of the B input of the
         Encoder.
@@ -7256,7 +7673,7 @@ cdef class CameraNodes:
             node = self._nodes["EncoderSourceB"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EncoderMode(self):
         """Selects if the count of encoder uses FourPhase mode with jitter
         filtering or the HighResolution mode without jitter filtering.
@@ -7276,7 +7693,7 @@ cdef class CameraNodes:
             node = self._nodes["EncoderMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EncoderDivider(self):
         """Sets how many Encoder increment/decrements that are needed generate
         an Encoder output pulse signal.
@@ -7293,7 +7710,7 @@ cdef class CameraNodes:
             node = self._nodes["EncoderDivider"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EncoderOutputMode(self):
         """Selects the conditions for the Encoder interface to generate a valid
         Encoder output signal.
@@ -7313,7 +7730,7 @@ cdef class CameraNodes:
             node = self._nodes["EncoderOutputMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EncoderStatus(self):
         """Returns the motion status of the encoder.
 
@@ -7332,7 +7749,7 @@ cdef class CameraNodes:
             node = self._nodes["EncoderStatus"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EncoderTimeout(self):
         """Sets the maximum time interval between encoder counter increments
         before the status turns to static.
@@ -7349,7 +7766,7 @@ cdef class CameraNodes:
             node = self._nodes["EncoderTimeout"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EncoderResetSource(self):
         """Selects the signals that will be the source to reset the Encoder.
 
@@ -7368,7 +7785,7 @@ cdef class CameraNodes:
             node = self._nodes["EncoderResetSource"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EncoderResetActivation(self):
         """Selects the Activation mode of the Encoder Reset Source signal.
 
@@ -7387,7 +7804,7 @@ cdef class CameraNodes:
             node = self._nodes["EncoderResetActivation"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EncoderReset(self):
         """Does a software reset of the selected Encoder and starts it. The
         Encoder starts counting events immediately after the reset.
@@ -7406,7 +7823,7 @@ cdef class CameraNodes:
             node = self._nodes["EncoderReset"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EncoderValue(self):
         """Reads or writes the current value of the position counter of the
         selected Encoder.
@@ -7423,7 +7840,7 @@ cdef class CameraNodes:
             node = self._nodes["EncoderValue"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EncoderValueAtReset(self):
         """Reads the value of the of the position counter of the selected
         Encoder when it was reset by a signal or by an explicit EncoderReset
@@ -7441,7 +7858,7 @@ cdef class CameraNodes:
             node = self._nodes["EncoderValueAtReset"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SoftwareSignalSelector(self):
         """Selects which Software Signal features to control.
 
@@ -7460,7 +7877,7 @@ cdef class CameraNodes:
             node = self._nodes["SoftwareSignalSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SoftwareSignalPulse(self):
         """Generates a pulse signal that can be used as a software trigger.
         This command can be used to trigger other modules that accept a
@@ -7478,7 +7895,7 @@ cdef class CameraNodes:
             node = self._nodes["SoftwareSignalPulse"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ActionUnconditionalMode(self):
         """Enables the unconditional action command mode where action commands
         are processed even when the primary control channel is closed.
@@ -7498,7 +7915,7 @@ cdef class CameraNodes:
             node = self._nodes["ActionUnconditionalMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ActionDeviceKey(self):
         """Provides the device key that allows the device to check the validity
         of action commands. The device internal assertion of an action
@@ -7517,7 +7934,7 @@ cdef class CameraNodes:
             node = self._nodes["ActionDeviceKey"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ActionQueueSize(self):
         """Indicates the size of the scheduled action commands queue. This
         number represents the maximum number of scheduled action commands
@@ -7535,7 +7952,7 @@ cdef class CameraNodes:
             node = self._nodes["ActionQueueSize"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ActionSelector(self):
         """Selects to which Action Signal further Action settings apply.
 
@@ -7551,7 +7968,7 @@ cdef class CameraNodes:
             node = self._nodes["ActionSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ActionGroupMask(self):
         """Provides the mask that the device will use to validate the action on
         reception of the action protocol message.
@@ -7568,7 +7985,7 @@ cdef class CameraNodes:
             node = self._nodes["ActionGroupMask"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ActionGroupKey(self):
         """Provides the key that the device will use to validate the action on
         reception of the action protocol message.
@@ -7585,7 +8002,7 @@ cdef class CameraNodes:
             node = self._nodes["ActionGroupKey"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventAcquisitionTrigger(self):
         """Returns the unique Identifier of the Acquisition Trigger type of
         Event.
@@ -7602,7 +8019,7 @@ cdef class CameraNodes:
             node = self._nodes["EventAcquisitionTrigger"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventAcquisitionTriggerTimestamp(self):
         """Returns the Timestamp of the Acquisition Trigger Event.
 
@@ -7618,7 +8035,7 @@ cdef class CameraNodes:
             node = self._nodes["EventAcquisitionTriggerTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventAcquisitionTriggerFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Acquisition Trigger Event.
@@ -7635,7 +8052,7 @@ cdef class CameraNodes:
             node = self._nodes["EventAcquisitionTriggerFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventAcquisitionStart(self):
         """Returns the unique Identifier of the Acquisition Start type of
         Event.
@@ -7652,7 +8069,7 @@ cdef class CameraNodes:
             node = self._nodes["EventAcquisitionStart"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventAcquisitionStartTimestamp(self):
         """Returns the Timestamp of the Acquisition Start Event.
 
@@ -7668,7 +8085,7 @@ cdef class CameraNodes:
             node = self._nodes["EventAcquisitionStartTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventAcquisitionStartFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Acquisition Start Event.
@@ -7685,7 +8102,7 @@ cdef class CameraNodes:
             node = self._nodes["EventAcquisitionStartFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventAcquisitionEnd(self):
         """Returns the unique Identifier of the Acquisition End type of Event.
 
@@ -7701,7 +8118,7 @@ cdef class CameraNodes:
             node = self._nodes["EventAcquisitionEnd"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventAcquisitionEndTimestamp(self):
         """Returns the Timestamp of the Acquisition End Event.
 
@@ -7717,7 +8134,7 @@ cdef class CameraNodes:
             node = self._nodes["EventAcquisitionEndTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventAcquisitionEndFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Acquisition End Event.
@@ -7734,7 +8151,7 @@ cdef class CameraNodes:
             node = self._nodes["EventAcquisitionEndFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventAcquisitionTransferStart(self):
         """Returns the unique Identifier of the Acquisition Transfer Start type
         of Event.
@@ -7751,7 +8168,7 @@ cdef class CameraNodes:
             node = self._nodes["EventAcquisitionTransferStart"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventAcquisitionTransferStartTimestamp(self):
         """Returns the Timestamp of the Acquisition Transfer Start Event.
 
@@ -7767,7 +8184,7 @@ cdef class CameraNodes:
             node = self._nodes["EventAcquisitionTransferStartTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventAcquisitionTransferStartFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Acquisition Transfer Start Event.
@@ -7784,7 +8201,7 @@ cdef class CameraNodes:
             node = self._nodes["EventAcquisitionTransferStartFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventAcquisitionTransferEnd(self):
         """Returns the unique Identifier of the Acquisition Transfer End type
         of Event.
@@ -7801,7 +8218,7 @@ cdef class CameraNodes:
             node = self._nodes["EventAcquisitionTransferEnd"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventAcquisitionTransferEndTimestamp(self):
         """Returns the Timestamp of the Acquisition Transfer End Event.
 
@@ -7817,7 +8234,7 @@ cdef class CameraNodes:
             node = self._nodes["EventAcquisitionTransferEndTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventAcquisitionTransferEndFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Acquisition Transfer End Event.
@@ -7834,7 +8251,7 @@ cdef class CameraNodes:
             node = self._nodes["EventAcquisitionTransferEndFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventAcquisitionError(self):
         """Returns the unique Identifier of the Acquisition Error type of
         Event.
@@ -7851,7 +8268,7 @@ cdef class CameraNodes:
             node = self._nodes["EventAcquisitionError"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventAcquisitionErrorTimestamp(self):
         """Returns the Timestamp of the Acquisition Error Event.
 
@@ -7867,7 +8284,7 @@ cdef class CameraNodes:
             node = self._nodes["EventAcquisitionErrorTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventAcquisitionErrorFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Acquisition Error Event.
@@ -7884,7 +8301,7 @@ cdef class CameraNodes:
             node = self._nodes["EventAcquisitionErrorFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventFrameTrigger(self):
         """Returns the unique Identifier of the FrameTrigger type of Event. It
         can be used to register a callback function to be notified of the
@@ -7903,7 +8320,7 @@ cdef class CameraNodes:
             node = self._nodes["EventFrameTrigger"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventFrameTriggerTimestamp(self):
         """Returns the Timestamp of the FrameTrigger Event. It can be used to
         determine precisely when the event occurred.
@@ -7920,7 +8337,7 @@ cdef class CameraNodes:
             node = self._nodes["EventFrameTriggerTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventFrameTriggerFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the FrameTrigger Event.
@@ -7937,7 +8354,7 @@ cdef class CameraNodes:
             node = self._nodes["EventFrameTriggerFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventFrameStart(self):
         """Returns the unique Identifier of the Frame Start type of Event.
 
@@ -7953,7 +8370,7 @@ cdef class CameraNodes:
             node = self._nodes["EventFrameStart"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventFrameStartTimestamp(self):
         """Returns the Timestamp of the Frame Start Event.
 
@@ -7969,7 +8386,7 @@ cdef class CameraNodes:
             node = self._nodes["EventFrameStartTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventFrameStartFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Frame Start Event.
@@ -7986,7 +8403,7 @@ cdef class CameraNodes:
             node = self._nodes["EventFrameStartFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventFrameEnd(self):
         """Returns the unique Identifier of the Frame End type of Event.
 
@@ -8002,7 +8419,7 @@ cdef class CameraNodes:
             node = self._nodes["EventFrameEnd"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventFrameEndTimestamp(self):
         """Returns the Timestamp of the Frame End Event.
 
@@ -8018,7 +8435,7 @@ cdef class CameraNodes:
             node = self._nodes["EventFrameEndTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventFrameEndFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Frame End Event.
@@ -8035,7 +8452,7 @@ cdef class CameraNodes:
             node = self._nodes["EventFrameEndFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventFrameBurstStart(self):
         """Returns the unique Identifier of the Frame Burst Start type of
         Event.
@@ -8052,7 +8469,7 @@ cdef class CameraNodes:
             node = self._nodes["EventFrameBurstStart"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventFrameBurstStartTimestamp(self):
         """Returns the Timestamp of the Frame Burst Start Event.
 
@@ -8068,7 +8485,7 @@ cdef class CameraNodes:
             node = self._nodes["EventFrameBurstStartTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventFrameBurstStartFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Frame Burst Start Event.
@@ -8085,7 +8502,7 @@ cdef class CameraNodes:
             node = self._nodes["EventFrameBurstStartFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventFrameBurstEnd(self):
         """Returns the unique Identifier of the Frame Burst End type of Event.
 
@@ -8101,7 +8518,7 @@ cdef class CameraNodes:
             node = self._nodes["EventFrameBurstEnd"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventFrameBurstEndTimestamp(self):
         """Returns the Timestamp of the Frame Burst End Event.
 
@@ -8117,7 +8534,7 @@ cdef class CameraNodes:
             node = self._nodes["EventFrameBurstEndTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventFrameBurstEndFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Frame Burst End Event.
@@ -8134,7 +8551,7 @@ cdef class CameraNodes:
             node = self._nodes["EventFrameBurstEndFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventFrameTransferStart(self):
         """Returns the unique Identifier of the Frame Transfer Start type of
         Event.
@@ -8151,7 +8568,7 @@ cdef class CameraNodes:
             node = self._nodes["EventFrameTransferStart"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventFrameTransferStartTimestamp(self):
         """Returns the Timestamp of the Frame Transfer Start Event.
 
@@ -8167,7 +8584,7 @@ cdef class CameraNodes:
             node = self._nodes["EventFrameTransferStartTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventFrameTransferStartFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Frame Transfer Start Event.
@@ -8184,7 +8601,7 @@ cdef class CameraNodes:
             node = self._nodes["EventFrameTransferStartFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventFrameTransferEnd(self):
         """Returns the unique Identifier of the Frame Transfer End type of
         Event.
@@ -8201,7 +8618,7 @@ cdef class CameraNodes:
             node = self._nodes["EventFrameTransferEnd"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventFrameTransferEndTimestamp(self):
         """Returns the Timestamp of the Frame Transfer End Event.
 
@@ -8217,7 +8634,7 @@ cdef class CameraNodes:
             node = self._nodes["EventFrameTransferEndTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventFrameTransferEndFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Frame Transfer End Event.
@@ -8234,7 +8651,7 @@ cdef class CameraNodes:
             node = self._nodes["EventFrameTransferEndFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventExposureStart(self):
         """Returns the unique Identifier of the Exposure Start type of Event.
 
@@ -8250,7 +8667,7 @@ cdef class CameraNodes:
             node = self._nodes["EventExposureStart"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventExposureStartTimestamp(self):
         """Returns the Timestamp of the Exposure Start Event.
 
@@ -8266,7 +8683,7 @@ cdef class CameraNodes:
             node = self._nodes["EventExposureStartTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventExposureStartFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Exposure Start Event.
@@ -8283,7 +8700,7 @@ cdef class CameraNodes:
             node = self._nodes["EventExposureStartFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferStart(self):
         """Returns the unique Identifier of the Stream 0 Transfer Start type of
         Event.
@@ -8300,7 +8717,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferStart"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferStartTimestamp(self):
         """Returns the Timestamp of the Stream 0 Transfer Start Event.
 
@@ -8316,7 +8733,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferStartTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferStartFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer Start Event.
@@ -8333,7 +8750,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferStartFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferEnd(self):
         """Returns the unique Identifier of the Stream 0 Transfer End type of
         Event.
@@ -8350,7 +8767,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferEnd"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferEndTimestamp(self):
         """Returns the Timestamp of the Stream 0 Transfer End Event.
 
@@ -8366,7 +8783,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferEndTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferEndFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer End Event.
@@ -8383,7 +8800,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferEndFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferPause(self):
         """Returns the unique Identifier of the Stream 0 Transfer Pause type of
         Event.
@@ -8400,7 +8817,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferPause"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferPauseTimestamp(self):
         """Returns the Timestamp of the Stream 0 Transfer Pause Event.
 
@@ -8416,7 +8833,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferPauseTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferPauseFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer Pause Event.
@@ -8433,7 +8850,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferPauseFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferResume(self):
         """Returns the unique Identifier of the Stream 0 Transfer Resume type
         of Event.
@@ -8450,7 +8867,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferResume"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferResumeTimestamp(self):
         """Returns the Timestamp of the Stream 0 Transfer Resume Event.
 
@@ -8466,7 +8883,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferResumeTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferResumeFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer Resume Event.
@@ -8483,7 +8900,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferResumeFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferBlockStart(self):
         """Returns the unique Identifier of the Stream 0 Transfer Block Start
         type of Event.
@@ -8500,7 +8917,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferBlockStart"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferBlockStartTimestamp(self):
         """Returns the Timestamp of the Stream 0 Transfer Block Start Event.
 
@@ -8516,7 +8933,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferBlockStartTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferBlockStartFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer Block Start Event.
@@ -8533,7 +8950,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferBlockStartFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferBlockEnd(self):
         """Returns the unique Identifier of the Stream 0 Transfer Block End
         type of Event.
@@ -8550,7 +8967,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferBlockEnd"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferBlockEndTimestamp(self):
         """Returns the Timestamp of the Stream 0 Transfer Block End Event.
 
@@ -8566,7 +8983,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferBlockEndTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferBlockEndFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer Block End Event.
@@ -8583,7 +9000,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferBlockEndFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferBlockTrigger(self):
         """Returns the unique Identifier of the Stream 0 Transfer Block Trigger
         type of Event.
@@ -8600,7 +9017,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferBlockTrigger"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferBlockTriggerTimestamp(self):
         """Returns the Timestamp of the Stream 0 Transfer Block Trigger Event.
 
@@ -8616,7 +9033,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferBlockTriggerTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferBlockTriggerFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer Block Trigger Event.
@@ -8633,7 +9050,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferBlockTriggerFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferBurstStart(self):
         """Returns the unique Identifier of the Stream 0 Transfer Burst Start
         type of Event.
@@ -8650,7 +9067,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferBurstStart"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferBurstStartTimestamp(self):
         """Returns the Timestamp of the Stream 0 Transfer Burst Start Event.
 
@@ -8666,7 +9083,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferBurstStartTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferBurstStartFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer Burst Start Event.
@@ -8683,7 +9100,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferBurstStartFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferBurstEnd(self):
         """Returns the unique Identifier of the Stream 0 Transfer Burst End
         type of Event.
@@ -8700,7 +9117,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferBurstEnd"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferBurstEndTimestamp(self):
         """Returns the Timestamp of the Stream 0 Transfer Burst End Event.
 
@@ -8716,7 +9133,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferBurstEndTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferBurstEndFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer Burst End Event.
@@ -8733,7 +9150,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferBurstEndFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferOverflow(self):
         """Returns the unique Identifier of the Stream 0 Transfer Overflow type
         of Event.
@@ -8750,7 +9167,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferOverflow"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferOverflowTimestamp(self):
         """Returns the Timestamp of the Stream 0 Transfer Overflow Event.
 
@@ -8766,7 +9183,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferOverflowTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventStream0TransferOverflowFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer Overflow Event.
@@ -8783,7 +9200,7 @@ cdef class CameraNodes:
             node = self._nodes["EventStream0TransferOverflowFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventSequencerSetChange(self):
         """Returns the unique Identifier of the Sequencer Set Change type of
         Event.
@@ -8800,7 +9217,7 @@ cdef class CameraNodes:
             node = self._nodes["EventSequencerSetChange"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventSequencerSetChangeTimestamp(self):
         """Returns the Timestamp of the Sequencer Set Change Event.
 
@@ -8816,7 +9233,7 @@ cdef class CameraNodes:
             node = self._nodes["EventSequencerSetChangeTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventSequencerSetChangeFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Sequencer Set Change Event.
@@ -8833,7 +9250,7 @@ cdef class CameraNodes:
             node = self._nodes["EventSequencerSetChangeFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventCounter0Start(self):
         """Returns the unique Identifier of the Counter 0 Start type of Event.
 
@@ -8849,7 +9266,7 @@ cdef class CameraNodes:
             node = self._nodes["EventCounter0Start"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventCounter0StartTimestamp(self):
         """Returns the Timestamp of the Counter 0 Start Event.
 
@@ -8865,7 +9282,7 @@ cdef class CameraNodes:
             node = self._nodes["EventCounter0StartTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventCounter0StartFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Counter 0 Start Event.
@@ -8882,7 +9299,7 @@ cdef class CameraNodes:
             node = self._nodes["EventCounter0StartFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventCounter1Start(self):
         """Returns the unique Identifier of the Counter 1 Start type of Event.
 
@@ -8898,7 +9315,7 @@ cdef class CameraNodes:
             node = self._nodes["EventCounter1Start"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventCounter1StartTimestamp(self):
         """Returns the Timestamp of the Counter 1 Start Event.
 
@@ -8914,7 +9331,7 @@ cdef class CameraNodes:
             node = self._nodes["EventCounter1StartTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventCounter1StartFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Counter 1 Start Event.
@@ -8931,7 +9348,7 @@ cdef class CameraNodes:
             node = self._nodes["EventCounter1StartFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventCounter0End(self):
         """Returns the unique Identifier of the Counter 0 End type of Event.
 
@@ -8947,7 +9364,7 @@ cdef class CameraNodes:
             node = self._nodes["EventCounter0End"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventCounter0EndTimestamp(self):
         """Returns the Timestamp of the Counter 0 End Event.
 
@@ -8963,7 +9380,7 @@ cdef class CameraNodes:
             node = self._nodes["EventCounter0EndTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventCounter0EndFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Counter 0 End Event.
@@ -8980,7 +9397,7 @@ cdef class CameraNodes:
             node = self._nodes["EventCounter0EndFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventCounter1End(self):
         """Returns the unique Identifier of the Counter 1 End type of Event.
 
@@ -8996,7 +9413,7 @@ cdef class CameraNodes:
             node = self._nodes["EventCounter1End"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventCounter1EndTimestamp(self):
         """Returns the Timestamp of the Counter 1 End Event.
 
@@ -9012,7 +9429,7 @@ cdef class CameraNodes:
             node = self._nodes["EventCounter1EndTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventCounter1EndFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Counter 1 End Event.
@@ -9029,7 +9446,7 @@ cdef class CameraNodes:
             node = self._nodes["EventCounter1EndFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventTimer0Start(self):
         """Returns the unique Identifier of the Timer 0 Start type of Event.
 
@@ -9045,7 +9462,7 @@ cdef class CameraNodes:
             node = self._nodes["EventTimer0Start"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventTimer0StartTimestamp(self):
         """Returns the Timestamp of the Timer 0 Start Event.
 
@@ -9061,7 +9478,7 @@ cdef class CameraNodes:
             node = self._nodes["EventTimer0StartTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventTimer0StartFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Timer 0 Start Event.
@@ -9078,7 +9495,7 @@ cdef class CameraNodes:
             node = self._nodes["EventTimer0StartFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventTimer1Start(self):
         """Returns the unique Identifier of the Timer 1 Start type of Event.
 
@@ -9094,7 +9511,7 @@ cdef class CameraNodes:
             node = self._nodes["EventTimer1Start"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventTimer1StartTimestamp(self):
         """Returns the Timestamp of the Timer 1 Start Event.
 
@@ -9110,7 +9527,7 @@ cdef class CameraNodes:
             node = self._nodes["EventTimer1StartTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventTimer1StartFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Timer 1 Start Event.
@@ -9127,7 +9544,7 @@ cdef class CameraNodes:
             node = self._nodes["EventTimer1StartFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventTimer0End(self):
         """Returns the unique Identifier of the Timer 0 End type of Event.
 
@@ -9143,7 +9560,7 @@ cdef class CameraNodes:
             node = self._nodes["EventTimer0End"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventTimer0EndTimestamp(self):
         """Returns the Timestamp of the Timer 0 End Event.
 
@@ -9159,7 +9576,7 @@ cdef class CameraNodes:
             node = self._nodes["EventTimer0EndTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventTimer0EndFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Timer 0 End Event.
@@ -9176,7 +9593,7 @@ cdef class CameraNodes:
             node = self._nodes["EventTimer0EndFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventTimer1End(self):
         """Returns the unique Identifier of the Timer 1 End type of Event.
 
@@ -9192,7 +9609,7 @@ cdef class CameraNodes:
             node = self._nodes["EventTimer1End"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventTimer1EndTimestamp(self):
         """Returns the Timestamp of the Timer 1 End Event.
 
@@ -9208,7 +9625,7 @@ cdef class CameraNodes:
             node = self._nodes["EventTimer1EndTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventTimer1EndFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Timer 1 End Event.
@@ -9225,7 +9642,7 @@ cdef class CameraNodes:
             node = self._nodes["EventTimer1EndFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventEncoder0Stopped(self):
         """Returns the unique Identifier of the Encoder 0 Stopped type of
         Event.
@@ -9242,7 +9659,7 @@ cdef class CameraNodes:
             node = self._nodes["EventEncoder0Stopped"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventEncoder0StoppedTimestamp(self):
         """Returns the Timestamp of the Encoder 0 Stopped Event.
 
@@ -9258,7 +9675,7 @@ cdef class CameraNodes:
             node = self._nodes["EventEncoder0StoppedTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventEncoder0StoppedFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Encoder 0 Stopped Event.
@@ -9275,7 +9692,7 @@ cdef class CameraNodes:
             node = self._nodes["EventEncoder0StoppedFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventEncoder1Stopped(self):
         """Returns the unique Identifier of the Encoder 1 Stopped type of
         Event.
@@ -9292,7 +9709,7 @@ cdef class CameraNodes:
             node = self._nodes["EventEncoder1Stopped"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventEncoder1StoppedTimestamp(self):
         """Returns the Timestamp of the Encoder 1 Stopped Event.
 
@@ -9308,7 +9725,7 @@ cdef class CameraNodes:
             node = self._nodes["EventEncoder1StoppedTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventEncoder1StoppedFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Encoder 1 Stopped Event.
@@ -9325,7 +9742,7 @@ cdef class CameraNodes:
             node = self._nodes["EventEncoder1StoppedFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventEncoder0Restarted(self):
         """Returns the unique Identifier of the Encoder 0 Restarted type of
         Event.
@@ -9342,7 +9759,7 @@ cdef class CameraNodes:
             node = self._nodes["EventEncoder0Restarted"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventEncoder0RestartedTimestamp(self):
         """Returns the Timestamp of the Encoder 0 Restarted Event.
 
@@ -9358,7 +9775,7 @@ cdef class CameraNodes:
             node = self._nodes["EventEncoder0RestartedTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventEncoder0RestartedFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Encoder 0 Restarted Event.
@@ -9375,7 +9792,7 @@ cdef class CameraNodes:
             node = self._nodes["EventEncoder0RestartedFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventEncoder1Restarted(self):
         """Returns the unique Identifier of the Encoder 1 Restarted type of
         Event.
@@ -9392,7 +9809,7 @@ cdef class CameraNodes:
             node = self._nodes["EventEncoder1Restarted"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventEncoder1RestartedTimestamp(self):
         """Returns the Timestamp of the Encoder 1 Restarted Event.
 
@@ -9408,7 +9825,7 @@ cdef class CameraNodes:
             node = self._nodes["EventEncoder1RestartedTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventEncoder1RestartedFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Encoder 1 Restarted Event.
@@ -9425,7 +9842,7 @@ cdef class CameraNodes:
             node = self._nodes["EventEncoder1RestartedFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventLine0RisingEdge(self):
         """Returns the unique Identifier of the Line 0 Rising Edge type of
         Event.
@@ -9442,7 +9859,7 @@ cdef class CameraNodes:
             node = self._nodes["EventLine0RisingEdge"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventLine0RisingEdgeTimestamp(self):
         """Returns the Timestamp of the Line 0 Rising Edge Event.
 
@@ -9458,7 +9875,7 @@ cdef class CameraNodes:
             node = self._nodes["EventLine0RisingEdgeTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventLine0RisingEdgeFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Line 0 Rising Edge Event.
@@ -9475,7 +9892,7 @@ cdef class CameraNodes:
             node = self._nodes["EventLine0RisingEdgeFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventLine1RisingEdge(self):
         """Returns the unique Identifier of the Line 1 Rising Edge type of
         Event.
@@ -9492,7 +9909,7 @@ cdef class CameraNodes:
             node = self._nodes["EventLine1RisingEdge"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventLine1RisingEdgeTimestamp(self):
         """Returns the Timestamp of the Line 1 Rising Edge Event.
 
@@ -9508,7 +9925,7 @@ cdef class CameraNodes:
             node = self._nodes["EventLine1RisingEdgeTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventLine1RisingEdgeFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Line 1 Rising Edge Event.
@@ -9525,7 +9942,7 @@ cdef class CameraNodes:
             node = self._nodes["EventLine1RisingEdgeFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventLine0FallingEdge(self):
         """Returns the unique Identifier of the Line 0 Falling Edge type of
         Event.
@@ -9542,7 +9959,7 @@ cdef class CameraNodes:
             node = self._nodes["EventLine0FallingEdge"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventLine0FallingEdgeTimestamp(self):
         """Returns the Timestamp of the Line 0 Falling Edge Event.
 
@@ -9558,7 +9975,7 @@ cdef class CameraNodes:
             node = self._nodes["EventLine0FallingEdgeTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventLine0FallingEdgeFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Line 0 Falling Edge Event.
@@ -9575,7 +9992,7 @@ cdef class CameraNodes:
             node = self._nodes["EventLine0FallingEdgeFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventLine1FallingEdge(self):
         """Returns the unique Identifier of the Line 1 Falling Edge type of
         Event.
@@ -9592,7 +10009,7 @@ cdef class CameraNodes:
             node = self._nodes["EventLine1FallingEdge"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventLine1FallingEdgeTimestamp(self):
         """Returns the Timestamp of the Line 1 Falling Edge Event.
 
@@ -9608,7 +10025,7 @@ cdef class CameraNodes:
             node = self._nodes["EventLine1FallingEdgeTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventLine1FallingEdgeFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Line 1 Falling Edge Event.
@@ -9625,7 +10042,7 @@ cdef class CameraNodes:
             node = self._nodes["EventLine1FallingEdgeFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventLine0AnyEdge(self):
         """Returns the unique Identifier of the Line 0 Any Edge type of Event.
 
@@ -9641,7 +10058,7 @@ cdef class CameraNodes:
             node = self._nodes["EventLine0AnyEdge"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventLine0AnyEdgeTimestamp(self):
         """Returns the Timestamp of the Line 0 Any Edge Event.
 
@@ -9657,7 +10074,7 @@ cdef class CameraNodes:
             node = self._nodes["EventLine0AnyEdgeTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventLine0AnyEdgeFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Line 0 Any Edge Event.
@@ -9674,7 +10091,7 @@ cdef class CameraNodes:
             node = self._nodes["EventLine0AnyEdgeFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventLine1AnyEdge(self):
         """Returns the unique Identifier of the Line 1 Any Edge type of Event.
 
@@ -9690,7 +10107,7 @@ cdef class CameraNodes:
             node = self._nodes["EventLine1AnyEdge"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventLine1AnyEdgeTimestamp(self):
         """Returns the Timestamp of the Line 1 Any Edge Event.
 
@@ -9706,7 +10123,7 @@ cdef class CameraNodes:
             node = self._nodes["EventLine1AnyEdgeTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventLine1AnyEdgeFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Line 1 Any Edge Event.
@@ -9723,7 +10140,7 @@ cdef class CameraNodes:
             node = self._nodes["EventLine1AnyEdgeFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventLinkTrigger0(self):
         """Returns the unique Identifier of the Link Trigger 0 type of Event.
 
@@ -9739,7 +10156,7 @@ cdef class CameraNodes:
             node = self._nodes["EventLinkTrigger0"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventLinkTrigger0Timestamp(self):
         """Returns the Timestamp of the Link Trigger 0 Event.
 
@@ -9755,7 +10172,7 @@ cdef class CameraNodes:
             node = self._nodes["EventLinkTrigger0Timestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventLinkTrigger0FrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Link Trigger 0 Event.
@@ -9772,7 +10189,7 @@ cdef class CameraNodes:
             node = self._nodes["EventLinkTrigger0FrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventLinkTrigger1(self):
         """Returns the unique Identifier of the Link Trigger 1 type of Event.
 
@@ -9788,7 +10205,7 @@ cdef class CameraNodes:
             node = self._nodes["EventLinkTrigger1"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventLinkTrigger1Timestamp(self):
         """Returns the Timestamp of the Link Trigger 1 Event.
 
@@ -9804,7 +10221,7 @@ cdef class CameraNodes:
             node = self._nodes["EventLinkTrigger1Timestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventLinkTrigger1FrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Link Trigger 1 Event.
@@ -9821,7 +10238,7 @@ cdef class CameraNodes:
             node = self._nodes["EventLinkTrigger1FrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventActionLate(self):
         """Returns the unique Identifier of the Action Late type of Event.
 
@@ -9837,7 +10254,7 @@ cdef class CameraNodes:
             node = self._nodes["EventActionLate"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventActionLateTimestamp(self):
         """Returns the Timestamp of the Action Late Event.
 
@@ -9853,7 +10270,7 @@ cdef class CameraNodes:
             node = self._nodes["EventActionLateTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventActionLateFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Action Late Event.
@@ -9870,7 +10287,7 @@ cdef class CameraNodes:
             node = self._nodes["EventActionLateFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventLinkSpeedChange(self):
         """Returns the unique Identifier of the Link Speed Change type of
         Event.
@@ -9887,7 +10304,7 @@ cdef class CameraNodes:
             node = self._nodes["EventLinkSpeedChange"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventLinkSpeedChangeTimestamp(self):
         """Returns the Timestamp of the Link Speed Change Event.
 
@@ -9903,7 +10320,7 @@ cdef class CameraNodes:
             node = self._nodes["EventLinkSpeedChangeTimestamp"] = node_inst
         return node
 
-    @property.getter
+    @property
     def EventLinkSpeedChangeFrameID(self):
         """Returns the unique Identifier of the Frame (or image) that generated
         the Link Speed Change Event.
@@ -9920,7 +10337,7 @@ cdef class CameraNodes:
             node = self._nodes["EventLinkSpeedChangeFrameID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def FileAccessBuffer(self):
         """Defines the intermediate access buffer that allows the exchange of
         data between the device file storage and the application.
@@ -9937,7 +10354,7 @@ cdef class CameraNodes:
             node = self._nodes["FileAccessBuffer"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SourceCount(self):
         """Controls or returns the number of sources supported by the device.
 
@@ -9953,7 +10370,7 @@ cdef class CameraNodes:
             node = self._nodes["SourceCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def SourceSelector(self):
         """Selects the source to control.
 
@@ -9972,7 +10389,7 @@ cdef class CameraNodes:
             node = self._nodes["SourceSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TransferSelector(self):
         """Selects which stream transfers are currently controlled by the
         selected Transfer features.
@@ -9992,7 +10409,7 @@ cdef class CameraNodes:
             node = self._nodes["TransferSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TransferBurstCount(self):
         """Number of Block(s) to transfer for each TransferBurstStart trigger.
 
@@ -10008,7 +10425,7 @@ cdef class CameraNodes:
             node = self._nodes["TransferBurstCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TransferAbort(self):
         """Aborts immediately the streaming of data block(s). Aborting the
         transfer will result in the lost of the data that is present or
@@ -10030,7 +10447,7 @@ cdef class CameraNodes:
             node = self._nodes["TransferAbort"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TransferPause(self):
         """Pauses the streaming of data Block(s). Pausing the streaming will
         immediately suspend the ongoing data transfer even if a block is
@@ -10049,7 +10466,7 @@ cdef class CameraNodes:
             node = self._nodes["TransferPause"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TransferResume(self):
         """Resumes a data Blocks streaming that was previously paused by a
         TransferPause command.
@@ -10066,7 +10483,7 @@ cdef class CameraNodes:
             node = self._nodes["TransferResume"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TransferTriggerSelector(self):
         """Selects the type of transfer trigger to configure.
 
@@ -10085,7 +10502,7 @@ cdef class CameraNodes:
             node = self._nodes["TransferTriggerSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TransferTriggerMode(self):
         """Controls if the selected trigger is active.
 
@@ -10104,7 +10521,7 @@ cdef class CameraNodes:
             node = self._nodes["TransferTriggerMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TransferTriggerSource(self):
         """Specifies the signal to use as the trigger source for transfers.
 
@@ -10123,7 +10540,7 @@ cdef class CameraNodes:
             node = self._nodes["TransferTriggerSource"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TransferTriggerActivation(self):
         """Specifies the activation mode of the transfer control trigger.
 
@@ -10142,7 +10559,7 @@ cdef class CameraNodes:
             node = self._nodes["TransferTriggerActivation"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TransferStatusSelector(self):
         """Selects which status of the transfer module to read.
 
@@ -10161,7 +10578,7 @@ cdef class CameraNodes:
             node = self._nodes["TransferStatusSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TransferStatus(self):
         """Reads the status of the Transfer module signal selected by
         TransferStatusSelector.
@@ -10178,7 +10595,7 @@ cdef class CameraNodes:
             node = self._nodes["TransferStatus"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TransferComponentSelector(self):
         """Selects the color component for the control of the
         TransferStreamChannel feature.
@@ -10198,7 +10615,7 @@ cdef class CameraNodes:
             node = self._nodes["TransferComponentSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TransferStreamChannel(self):
         """Selects the streaming channel that will be used to transfer the
         selected stream of data. In general, this feature can be omitted and
@@ -10216,7 +10633,7 @@ cdef class CameraNodes:
             node = self._nodes["TransferStreamChannel"] = node_inst
         return node
 
-    @property.getter
+    @property
     def Scan3dDistanceUnit(self):
         """Specifies the unit used when delivering calibrated distance data.
 
@@ -10235,7 +10652,7 @@ cdef class CameraNodes:
             node = self._nodes["Scan3dDistanceUnit"] = node_inst
         return node
 
-    @property.getter
+    @property
     def Scan3dCoordinateSystem(self):
         """Specifies the Coordinate system to use for the device.
 
@@ -10254,7 +10671,7 @@ cdef class CameraNodes:
             node = self._nodes["Scan3dCoordinateSystem"] = node_inst
         return node
 
-    @property.getter
+    @property
     def Scan3dOutputMode(self):
         """Controls the Calibration and data organization of the device, naming
         the coordinates transmitted.
@@ -10274,7 +10691,7 @@ cdef class CameraNodes:
             node = self._nodes["Scan3dOutputMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def Scan3dCoordinateSystemReference(self):
         """Defines coordinate system reference location.
 
@@ -10293,7 +10710,7 @@ cdef class CameraNodes:
             node = self._nodes["Scan3dCoordinateSystemReference"] = node_inst
         return node
 
-    @property.getter
+    @property
     def Scan3dCoordinateSelector(self):
         """Selects the individual coordinates in the vectors for 3D
         information/transformation.
@@ -10313,7 +10730,7 @@ cdef class CameraNodes:
             node = self._nodes["Scan3dCoordinateSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def Scan3dCoordinateScale(self):
         """Scale factor when transforming a pixel from relative coordinates to
         world coordinates.
@@ -10330,7 +10747,7 @@ cdef class CameraNodes:
             node = self._nodes["Scan3dCoordinateScale"] = node_inst
         return node
 
-    @property.getter
+    @property
     def Scan3dCoordinateOffset(self):
         """Offset when transforming a pixel from relative coordinates to world
         coordinates.
@@ -10347,7 +10764,7 @@ cdef class CameraNodes:
             node = self._nodes["Scan3dCoordinateOffset"] = node_inst
         return node
 
-    @property.getter
+    @property
     def Scan3dInvalidDataFlag(self):
         """Enables the definition of a non-valid flag value in the data stream.
         Note that the confidence output is an alternate recommended way to
@@ -10366,7 +10783,7 @@ cdef class CameraNodes:
             node = self._nodes["Scan3dInvalidDataFlag"] = node_inst
         return node
 
-    @property.getter
+    @property
     def Scan3dInvalidDataValue(self):
         """Value which identifies a non-valid pixel if Scan3dInvalidDataFlag is
         enabled.
@@ -10383,7 +10800,7 @@ cdef class CameraNodes:
             node = self._nodes["Scan3dInvalidDataValue"] = node_inst
         return node
 
-    @property.getter
+    @property
     def Scan3dAxisMin(self):
         """Minimum valid transmitted coordinate value of the selected Axis.
 
@@ -10399,7 +10816,7 @@ cdef class CameraNodes:
             node = self._nodes["Scan3dAxisMin"] = node_inst
         return node
 
-    @property.getter
+    @property
     def Scan3dAxisMax(self):
         """Maximum valid transmitted coordinate value of the selected Axis.
 
@@ -10415,7 +10832,7 @@ cdef class CameraNodes:
             node = self._nodes["Scan3dAxisMax"] = node_inst
         return node
 
-    @property.getter
+    @property
     def Scan3dCoordinateTransformSelector(self):
         """Sets the index to read/write a coordinate transform value.
 
@@ -10434,7 +10851,7 @@ cdef class CameraNodes:
             node = self._nodes["Scan3dCoordinateTransformSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def Scan3dTransformValue(self):
         """Specifies the transform value selected. For translations
         (Scan3dCoordinateTransformSelector = TranslationX/Y/Z) it is
@@ -10453,7 +10870,7 @@ cdef class CameraNodes:
             node = self._nodes["Scan3dTransformValue"] = node_inst
         return node
 
-    @property.getter
+    @property
     def Scan3dCoordinateReferenceSelector(self):
         """Sets the index to read a coordinate system reference value defining
         the transform of a point from the current (Anchor or Transformed)
@@ -10474,7 +10891,7 @@ cdef class CameraNodes:
             node = self._nodes["Scan3dCoordinateReferenceSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def Scan3dCoordinateReferenceValue(self):
         """Returns the reference value selected. Reads the value of a rotation
         or translation value for the current (Anchor or Transformed)
@@ -10492,7 +10909,7 @@ cdef class CameraNodes:
             node = self._nodes["Scan3dCoordinateReferenceValue"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkPartSelector(self):
         """Selects the part to access in chunk data in a multipart
         transmission.
@@ -10509,7 +10926,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkPartSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkImageComponent(self):
         """Returns the component of the payload image. This can be used to
         identify the image component of a generic part in a multipart
@@ -10530,7 +10947,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkImageComponent"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkPixelDynamicRangeMin(self):
         """Returns the minimum value of dynamic range of the image included in
         the payload.
@@ -10547,7 +10964,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkPixelDynamicRangeMin"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkPixelDynamicRangeMax(self):
         """Returns the maximum value of dynamic range of the image included in
         the payload.
@@ -10564,7 +10981,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkPixelDynamicRangeMax"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkTimestampLatchValue(self):
         """Returns the last Timestamp latched with the TimestampLatch command.
 
@@ -10580,7 +10997,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkTimestampLatchValue"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkLineStatusAll(self):
         """Returns the status of all the I/O lines at the time of the
         FrameStart internal event.
@@ -10597,7 +11014,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkLineStatusAll"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkCounterSelector(self):
         """Selects which counter to retrieve data from.
 
@@ -10616,7 +11033,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkCounterSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkCounterValue(self):
         """Returns the value of the selected Chunk counter at the time of the
         FrameStart event.
@@ -10633,7 +11050,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkCounterValue"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkTimerSelector(self):
         """Selects which Timer to retrieve data from.
 
@@ -10652,7 +11069,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkTimerSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkTimerValue(self):
         """Returns the value of the selected Timer at the time of the
         FrameStart internal event.
@@ -10669,7 +11086,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkTimerValue"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkEncoderSelector(self):
         """Selects which Encoder to retrieve data from.
 
@@ -10688,7 +11105,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkEncoderSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkScanLineSelector(self):
         """Index for vector representation of one chunk value per line in an
         image.
@@ -10705,7 +11122,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkScanLineSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkEncoderValue(self):
         """Returns the counter's value of the selected Encoder at the time of
         the FrameStart in area scan mode or the counter's value at the time
@@ -10723,7 +11140,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkEncoderValue"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkEncoderStatus(self):
         """Returns the motion status of the selected encoder.
 
@@ -10742,7 +11159,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkEncoderStatus"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkExposureTimeSelector(self):
         """Selects which exposure time is read by the ChunkExposureTime
         feature.
@@ -10762,7 +11179,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkExposureTimeSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkLinePitch(self):
         """Returns the LinePitch of the image included in the payload.
 
@@ -10778,7 +11195,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkLinePitch"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkSourceID(self):
         """Returns the identifier of Source that the image comes from.
 
@@ -10797,7 +11214,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkSourceID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkRegionID(self):
         """Returns the identifier of Region that the image comes from.
 
@@ -10816,7 +11233,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkRegionID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkTransferBlockID(self):
         """Returns the unique identifier of the transfer block used to
         transport the payload.
@@ -10833,7 +11250,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkTransferBlockID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkTransferStreamID(self):
         """Returns identifier of the stream that generated this block.
 
@@ -10852,7 +11269,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkTransferStreamID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkTransferQueueCurrentBlockCount(self):
         """Returns the current number of blocks in the transfer queue.
 
@@ -10868,7 +11285,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkTransferQueueCurrentBlockCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkStreamChannelID(self):
         """Returns identifier of the stream channel used to carry the block.
 
@@ -10884,7 +11301,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkStreamChannelID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkScan3dDistanceUnit(self):
         """Returns the Distance Unit of the payload image.
 
@@ -10903,7 +11320,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkScan3dDistanceUnit"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkScan3dOutputMode(self):
         """Returns the Calibrated Mode of the payload image.
 
@@ -10922,7 +11339,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkScan3dOutputMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkScan3dCoordinateSystem(self):
         """Returns the Coordinate System of the image included in the payload.
 
@@ -10941,7 +11358,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkScan3dCoordinateSystem"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkScan3dCoordinateSystemReference(self):
         """Returns the Coordinate System Position of the image included in the
         payload.
@@ -10961,7 +11378,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkScan3dCoordinateSystemReference"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkScan3dCoordinateSelector(self):
         """Selects which Coordinate to retrieve data from.
 
@@ -10980,7 +11397,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkScan3dCoordinateSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkScan3dCoordinateScale(self):
         """Returns the Scale for the selected coordinate axis of the image
         included in the payload.
@@ -10997,7 +11414,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkScan3dCoordinateScale"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkScan3dCoordinateOffset(self):
         """Returns the Offset for the selected coordinate axis of the image
         included in the payload.
@@ -11014,7 +11431,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkScan3dCoordinateOffset"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkScan3dInvalidDataFlag(self):
         """Returns if a specific non-valid data flag is used in the data
         stream.
@@ -11031,7 +11448,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkScan3dInvalidDataFlag"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkScan3dInvalidDataValue(self):
         """Returns the Invalid Data Value used for the image included in the
         payload.
@@ -11048,7 +11465,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkScan3dInvalidDataValue"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkScan3dAxisMin(self):
         """Returns the Minimum Axis value for the selected coordinate axis of
         the image included in the payload.
@@ -11065,7 +11482,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkScan3dAxisMin"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkScan3dAxisMax(self):
         """Returns the Maximum Axis value for the selected coordinate axis of
         the image included in the payload.
@@ -11082,7 +11499,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkScan3dAxisMax"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkScan3dCoordinateTransformSelector(self):
         """Selector for transform values.
 
@@ -11101,7 +11518,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkScan3dCoordinateTransformSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkScan3dTransformValue(self):
         """Returns the transform value.
 
@@ -11117,7 +11534,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkScan3dTransformValue"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkScan3dCoordinateReferenceSelector(self):
         """Selector to read a coordinate system reference value defining the
         transform of a point from one system to the other.
@@ -11137,7 +11554,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkScan3dCoordinateReferenceSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkScan3dCoordinateReferenceValue(self):
         """Reads the value of a position or pose coordinate for the anchor or
         transformed coordinate systems relative to the reference point.
@@ -11154,7 +11571,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkScan3dCoordinateReferenceValue"] = node_inst
         return node
 
-    @property.getter
+    @property
     def TestPendingAck(self):
         """Tests the device's pending acknowledge feature. When this feature is
         written, the device waits a time period corresponding to the value
@@ -11172,7 +11589,7 @@ cdef class CameraNodes:
             node = self._nodes["TestPendingAck"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceTapGeometry(self):
         """This device tap geometry feature describes the geometrical
         properties characterizing the taps of a camera as presented at the
@@ -11193,7 +11610,7 @@ cdef class CameraNodes:
             node = self._nodes["DeviceTapGeometry"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevPhysicalLinkConfiguration(self):
         """Controls the principal physical link configuration to use on next
         restart/power-up of the device.
@@ -11213,7 +11630,7 @@ cdef class CameraNodes:
             node = self._nodes["GevPhysicalLinkConfiguration"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevCurrentPhysicalLinkConfiguration(self):
         """Indicates the current physical link configuration of the device.
 
@@ -11232,7 +11649,7 @@ cdef class CameraNodes:
             node = self._nodes["GevCurrentPhysicalLinkConfiguration"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevActiveLinkCount(self):
         """Indicates the current number of active logical links.
 
@@ -11248,7 +11665,7 @@ cdef class CameraNodes:
             node = self._nodes["GevActiveLinkCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevPAUSEFrameReception(self):
         """Controls whether incoming PAUSE Frames are handled on the given
         logical link.
@@ -11265,7 +11682,7 @@ cdef class CameraNodes:
             node = self._nodes["GevPAUSEFrameReception"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevPAUSEFrameTransmission(self):
         """Controls whether PAUSE Frames can be generated on the given logical
         link.
@@ -11282,7 +11699,7 @@ cdef class CameraNodes:
             node = self._nodes["GevPAUSEFrameTransmission"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevIPConfigurationStatus(self):
         """Reports the current IP configuration status.
 
@@ -11301,7 +11718,7 @@ cdef class CameraNodes:
             node = self._nodes["GevIPConfigurationStatus"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevDiscoveryAckDelay(self):
         """Indicates the maximum randomized delay the device will wait to
         acknowledge a discovery command.
@@ -11318,7 +11735,7 @@ cdef class CameraNodes:
             node = self._nodes["GevDiscoveryAckDelay"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevGVCPExtendedStatusCodesSelector(self):
         """Selects the GigE Vision version to control extended status codes
         for.
@@ -11338,7 +11755,7 @@ cdef class CameraNodes:
             node = self._nodes["GevGVCPExtendedStatusCodesSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevGVCPExtendedStatusCodes(self):
         """Enables the generation of extended status codes.
 
@@ -11354,7 +11771,7 @@ cdef class CameraNodes:
             node = self._nodes["GevGVCPExtendedStatusCodes"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevPrimaryApplicationSwitchoverKey(self):
         """Controls the key to use to authenticate primary application
         switchover requests.
@@ -11371,7 +11788,7 @@ cdef class CameraNodes:
             node = self._nodes["GevPrimaryApplicationSwitchoverKey"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevGVSPExtendedIDMode(self):
         """Enables the extended IDs mode.
 
@@ -11390,7 +11807,7 @@ cdef class CameraNodes:
             node = self._nodes["GevGVSPExtendedIDMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevPrimaryApplicationSocket(self):
         """Returns the UDP source port of the primary application.
 
@@ -11406,7 +11823,7 @@ cdef class CameraNodes:
             node = self._nodes["GevPrimaryApplicationSocket"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevPrimaryApplicationIPAddress(self):
         """Returns the address of the primary application.
 
@@ -11422,7 +11839,7 @@ cdef class CameraNodes:
             node = self._nodes["GevPrimaryApplicationIPAddress"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevSCCFGPacketResendDestination(self):
         """Enables the alternate IP destination for stream packets resent due
         to a packet resend request. When True, the source IP address
@@ -11442,7 +11859,7 @@ cdef class CameraNodes:
             node = self._nodes["GevSCCFGPacketResendDestination"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevSCCFGAllInTransmission(self):
         """Enables the selected GVSP transmitter to use the single packet per
         data block All-in Transmission mode.
@@ -11459,7 +11876,7 @@ cdef class CameraNodes:
             node = self._nodes["GevSCCFGAllInTransmission"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevSCZoneCount(self):
         """Reports the number of zones per block transmitted on the selected
         stream channel.
@@ -11476,7 +11893,7 @@ cdef class CameraNodes:
             node = self._nodes["GevSCZoneCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevSCZoneDirectionAll(self):
         """Reports the transmission direction of each zone transmitted on the
         selected stream channel.
@@ -11493,7 +11910,7 @@ cdef class CameraNodes:
             node = self._nodes["GevSCZoneDirectionAll"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevSCZoneConfigurationLock(self):
         """Controls whether the selected stream channel multi-zone
         configuration is locked. When locked, the GVSP transmitter is not
@@ -11512,7 +11929,7 @@ cdef class CameraNodes:
             node = self._nodes["GevSCZoneConfigurationLock"] = node_inst
         return node
 
-    @property.getter
+    @property
     def aPAUSEMACCtrlFramesTransmitted(self):
         """Reports the number of transmitted PAUSE frames.
 
@@ -11528,7 +11945,7 @@ cdef class CameraNodes:
             node = self._nodes["aPAUSEMACCtrlFramesTransmitted"] = node_inst
         return node
 
-    @property.getter
+    @property
     def aPAUSEMACCtrlFramesReceived(self):
         """Reports the number of received PAUSE frames.
 
@@ -11544,7 +11961,7 @@ cdef class CameraNodes:
             node = self._nodes["aPAUSEMACCtrlFramesReceived"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ClConfiguration(self):
         """This Camera Link specific feature describes the configuration used
         by the camera. It helps especially when a camera is capable of
@@ -11568,7 +11985,7 @@ cdef class CameraNodes:
             node = self._nodes["ClConfiguration"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ClTimeSlotsCount(self):
         """This Camera Link specific feature describes the time multiplexing of
         the camera link connection to transfer more than the configuration
@@ -11589,7 +12006,7 @@ cdef class CameraNodes:
             node = self._nodes["ClTimeSlotsCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def CxpLinkConfigurationStatus(self):
         """This feature indicates the current and active Link configuration
         used by the Device.
@@ -11609,7 +12026,7 @@ cdef class CameraNodes:
             node = self._nodes["CxpLinkConfigurationStatus"] = node_inst
         return node
 
-    @property.getter
+    @property
     def CxpLinkConfigurationPreferred(self):
         """Provides the Link configuration that allows the Transmitter Device
         to operate in its default mode.
@@ -11629,7 +12046,7 @@ cdef class CameraNodes:
             node = self._nodes["CxpLinkConfigurationPreferred"] = node_inst
         return node
 
-    @property.getter
+    @property
     def CxpLinkConfiguration(self):
         """This feature allows specifying the Link configuration for the
         communication between the Receiver and Transmitter Device. In most
@@ -11654,7 +12071,7 @@ cdef class CameraNodes:
             node = self._nodes["CxpLinkConfiguration"] = node_inst
         return node
 
-    @property.getter
+    @property
     def CxpConnectionSelector(self):
         """Selects the CoaXPress physical connection to control.
 
@@ -11670,7 +12087,7 @@ cdef class CameraNodes:
             node = self._nodes["CxpConnectionSelector"] = node_inst
         return node
 
-    @property.getter
+    @property
     def CxpConnectionTestMode(self):
         """Enables the test mode for an individual physical connection of the
         Device.
@@ -11690,7 +12107,7 @@ cdef class CameraNodes:
             node = self._nodes["CxpConnectionTestMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def CxpConnectionTestErrorCount(self):
         """Reports the current connection error count for test packets recieved
         by the device on the connection selected by CxpConnectionSelector.
@@ -11707,7 +12124,7 @@ cdef class CameraNodes:
             node = self._nodes["CxpConnectionTestErrorCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def CxpConnectionTestPacketCount(self):
         """Reports the current count for test packets recieved by the device on
         the connection selected by CxpConnectionSelector.
@@ -11724,7 +12141,7 @@ cdef class CameraNodes:
             node = self._nodes["CxpConnectionTestPacketCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def CxpPoCxpAuto(self):
         """Activate automatic control of the Power over CoaXPress (PoCXP) for
         the Link.
@@ -11741,7 +12158,7 @@ cdef class CameraNodes:
             node = self._nodes["CxpPoCxpAuto"] = node_inst
         return node
 
-    @property.getter
+    @property
     def CxpPoCxpTurnOff(self):
         """Disable Power over CoaXPress (PoCXP) for the Link.
 
@@ -11757,7 +12174,7 @@ cdef class CameraNodes:
             node = self._nodes["CxpPoCxpTurnOff"] = node_inst
         return node
 
-    @property.getter
+    @property
     def CxpPoCxpTripReset(self):
         """Reset the Power over CoaXPress (PoCXP) Link after an over-current
         trip on the Device connection(s).
@@ -11774,7 +12191,7 @@ cdef class CameraNodes:
             node = self._nodes["CxpPoCxpTripReset"] = node_inst
         return node
 
-    @property.getter
+    @property
     def CxpPoCxpStatus(self):
         """Returns the Power over CoaXPress (PoCXP) status of the Device.
 
@@ -11793,7 +12210,7 @@ cdef class CameraNodes:
             node = self._nodes["CxpPoCxpStatus"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkInferenceFrameId(self):
         """Returns the frame ID associated with the most recent inference
         result.
@@ -11810,7 +12227,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkInferenceFrameId"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkInferenceResult(self):
         """Returns the chunk data inference result.
 
@@ -11826,7 +12243,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkInferenceResult"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkInferenceConfidence(self):
         """Returns the chunk data inference confidence percentage.
 
@@ -11842,7 +12259,7 @@ cdef class CameraNodes:
             node = self._nodes["ChunkInferenceConfidence"] = node_inst
         return node
 
-    @property.getter
+    @property
     def ChunkInferenceBoundingBoxResult(self):
         """Returns the chunk inference bounding box result data.
 
@@ -11864,11 +12281,34 @@ cdef class TLDevNodes:
     def __cinit__(self, Camera camera):
         self._camera = camera
         self._nodes = {}
+        self.bool_nodes = ['DeviceIsUpdater', 'GevDeviceModeIsBigEndian',
+                           'GevDeviceIsWrongSubnet',
+                           'DeviceMulticastMonitorMode', 'DeviceU3VProtocol']
+        self.int_nodes = ['GevDeviceIPAddress', 'GevDeviceSubnetMask',
+                          'GevDeviceMACAddress', 'GevDeviceGateway',
+                          'DeviceLinkSpeed', 'GevVersionMajor',
+                          'GevVersionMinor', 'GevDeviceReadAndWriteTimeout',
+                          'GevDeviceMaximumRetryCount', 'GevDevicePort',
+                          'GevDeviceMaximumPacketSize',
+                          'GevDeviceForceIPAddress', 'GevDeviceForceSubnetMask',
+                          'GevDeviceForceGateway']
+        self.float_nodes = []
+        self.str_nodes = ['DeviceID', 'DeviceSerialNumber', 'DeviceVendorName',
+                          'DeviceModelName', 'DeviceDisplayName',
+                          'DeviceVersion', 'DeviceUserID',
+                          'DeviceDriverVersion', 'GUIXMLPath', 'GenICamXMLPath',
+                          'DeviceInstanceId', 'DeviceLocation', 'DevicePortId']
+        self.enum_nodes = ['DeviceType', 'DeviceAccessStatus', 'GevCCP',
+                           'GUIXMLLocation', 'GenICamXMLLocation',
+                           'DeviceEndianessMechanism', 'DeviceCurrentSpeed']
+        self.command_nodes = ['GevDeviceDiscoverMaximumPacketSize',
+                              'GevDeviceAutoForceIP', 'GevDeviceForceIP']
+        self.register_nodes = []
 
     def __init__(self, Camera camera):
         pass
 
-    @property.getter
+    @property
     def DeviceID(self):
         """Interface-wide unique identifier of this device.
 
@@ -11884,7 +12324,7 @@ cdef class TLDevNodes:
             node = self._nodes["DeviceID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceSerialNumber(self):
         """Serial number of the remote device.
 
@@ -11900,7 +12340,7 @@ cdef class TLDevNodes:
             node = self._nodes["DeviceSerialNumber"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceVendorName(self):
         """Name of the remote device vendor.
 
@@ -11916,7 +12356,7 @@ cdef class TLDevNodes:
             node = self._nodes["DeviceVendorName"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceModelName(self):
         """Name of the remote device model.
 
@@ -11932,7 +12372,7 @@ cdef class TLDevNodes:
             node = self._nodes["DeviceModelName"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceType(self):
         """Transport layer type of the device.
 
@@ -11951,7 +12391,7 @@ cdef class TLDevNodes:
             node = self._nodes["DeviceType"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceDisplayName(self):
         """User readable name of the device. If this is not defined in the
         device this should be "VENDOR MODEL (ID)".
@@ -11968,7 +12408,7 @@ cdef class TLDevNodes:
             node = self._nodes["DeviceDisplayName"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceAccessStatus(self):
         """Gets the access status the transport layer Producer has on the
         device.
@@ -11988,7 +12428,7 @@ cdef class TLDevNodes:
             node = self._nodes["DeviceAccessStatus"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceVersion(self):
         """Version of the device.
 
@@ -12004,7 +12444,7 @@ cdef class TLDevNodes:
             node = self._nodes["DeviceVersion"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceUserID(self):
         """User Defined Name.
 
@@ -12020,7 +12460,7 @@ cdef class TLDevNodes:
             node = self._nodes["DeviceUserID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceDriverVersion(self):
         """Version of the device driver.
 
@@ -12036,7 +12476,7 @@ cdef class TLDevNodes:
             node = self._nodes["DeviceDriverVersion"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceIsUpdater(self):
         """Indicates whether the device is in updater mode.
 
@@ -12052,7 +12492,7 @@ cdef class TLDevNodes:
             node = self._nodes["DeviceIsUpdater"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevCCP(self):
         """Controls the device access privilege of an application.
 
@@ -12071,7 +12511,7 @@ cdef class TLDevNodes:
             node = self._nodes["GevCCP"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GUIXMLLocation(self):
         """Sets the location to load GUI XML.
 
@@ -12090,7 +12530,7 @@ cdef class TLDevNodes:
             node = self._nodes["GUIXMLLocation"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GUIXMLPath(self):
         """GUI XML Path.
 
@@ -12106,7 +12546,7 @@ cdef class TLDevNodes:
             node = self._nodes["GUIXMLPath"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GenICamXMLLocation(self):
         """Sets the location to load GenICam XML.
 
@@ -12125,7 +12565,7 @@ cdef class TLDevNodes:
             node = self._nodes["GenICamXMLLocation"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GenICamXMLPath(self):
         """GenICam XML Path.
 
@@ -12141,7 +12581,7 @@ cdef class TLDevNodes:
             node = self._nodes["GenICamXMLPath"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevDeviceIPAddress(self):
         """Current IP address of the GVCP interface of the selected remote
         device.
@@ -12158,7 +12598,7 @@ cdef class TLDevNodes:
             node = self._nodes["GevDeviceIPAddress"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevDeviceSubnetMask(self):
         """Current subnet mask of the GVCP interface of the selected remote
         device.
@@ -12175,7 +12615,7 @@ cdef class TLDevNodes:
             node = self._nodes["GevDeviceSubnetMask"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevDeviceMACAddress(self):
         """48-bit MAC address of the GVCP interface of the selected remote
         device.
@@ -12192,7 +12632,7 @@ cdef class TLDevNodes:
             node = self._nodes["GevDeviceMACAddress"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevDeviceGateway(self):
         """Current gateway IP address of the GVCP interface of the remote
         device.
@@ -12209,7 +12649,7 @@ cdef class TLDevNodes:
             node = self._nodes["GevDeviceGateway"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceLinkSpeed(self):
         """Indicates the speed of transmission negotiated by the given network
         interface in Mbps.
@@ -12226,7 +12666,7 @@ cdef class TLDevNodes:
             node = self._nodes["DeviceLinkSpeed"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevVersionMajor(self):
         """Major version of the specification.
 
@@ -12242,7 +12682,7 @@ cdef class TLDevNodes:
             node = self._nodes["GevVersionMajor"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevVersionMinor(self):
         """Minor version of the specification.
 
@@ -12258,7 +12698,7 @@ cdef class TLDevNodes:
             node = self._nodes["GevVersionMinor"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevDeviceModeIsBigEndian(self):
         """This represents the endianness of all device's registers (bootstrap
         registers and manufacturer-specific registers).
@@ -12275,7 +12715,7 @@ cdef class TLDevNodes:
             node = self._nodes["GevDeviceModeIsBigEndian"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevDeviceReadAndWriteTimeout(self):
         """The timeout in us for read/write operations to the camera.
 
@@ -12291,7 +12731,7 @@ cdef class TLDevNodes:
             node = self._nodes["GevDeviceReadAndWriteTimeout"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevDeviceMaximumRetryCount(self):
         """Maximum number of times to retry a read/write operation.
 
@@ -12307,7 +12747,7 @@ cdef class TLDevNodes:
             node = self._nodes["GevDeviceMaximumRetryCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevDevicePort(self):
         """Current IP port of the GVCP interface of the selected remote device.
 
@@ -12323,7 +12763,7 @@ cdef class TLDevNodes:
             node = self._nodes["GevDevicePort"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevDeviceDiscoverMaximumPacketSize(self):
         """Discovers and updates the maximum packet size that can be safely
         used by the device on the current interface.
@@ -12340,7 +12780,7 @@ cdef class TLDevNodes:
             node = self._nodes["GevDeviceDiscoverMaximumPacketSize"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevDeviceMaximumPacketSize(self):
         """The maximum packet size that can be safely used by the device on the
         current interface.
@@ -12357,7 +12797,7 @@ cdef class TLDevNodes:
             node = self._nodes["GevDeviceMaximumPacketSize"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevDeviceIsWrongSubnet(self):
         """Indicates whether the device is on the wrong subnet.
 
@@ -12373,7 +12813,7 @@ cdef class TLDevNodes:
             node = self._nodes["GevDeviceIsWrongSubnet"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevDeviceAutoForceIP(self):
         """Forces the camera to be on the same subnet as its corresponding
         interface.
@@ -12390,7 +12830,7 @@ cdef class TLDevNodes:
             node = self._nodes["GevDeviceAutoForceIP"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevDeviceForceIP(self):
         """Apply the force IP settings (GevDeviceForceIPAddress,
         GevDeviceForceSubnetMask and GevDeviceForceGateway) in the Device
@@ -12408,7 +12848,7 @@ cdef class TLDevNodes:
             node = self._nodes["GevDeviceForceIP"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevDeviceForceIPAddress(self):
         """Static IP address to set for the GVCP interface of the remote
         device.
@@ -12425,7 +12865,7 @@ cdef class TLDevNodes:
             node = self._nodes["GevDeviceForceIPAddress"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevDeviceForceSubnetMask(self):
         """Static subnet mask to set for GVCP interface of the remote device.
 
@@ -12441,7 +12881,7 @@ cdef class TLDevNodes:
             node = self._nodes["GevDeviceForceSubnetMask"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevDeviceForceGateway(self):
         """Static gateway IP address to set for the GVCP interface of the
         remote device.
@@ -12458,7 +12898,7 @@ cdef class TLDevNodes:
             node = self._nodes["GevDeviceForceGateway"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceMulticastMonitorMode(self):
         """Controls and indicates if the device is operating in as a Multicast
         Monitor.
@@ -12475,7 +12915,7 @@ cdef class TLDevNodes:
             node = self._nodes["DeviceMulticastMonitorMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceEndianessMechanism(self):
         """Identifies the endianness handling mode.
 
@@ -12494,7 +12934,7 @@ cdef class TLDevNodes:
             node = self._nodes["DeviceEndianessMechanism"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceInstanceId(self):
         """
 
@@ -12510,7 +12950,7 @@ cdef class TLDevNodes:
             node = self._nodes["DeviceInstanceId"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceLocation(self):
         """Device Location.
 
@@ -12526,7 +12966,7 @@ cdef class TLDevNodes:
             node = self._nodes["DeviceLocation"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceCurrentSpeed(self):
         """The USB Speed that the device is currently operating at.
 
@@ -12545,7 +12985,7 @@ cdef class TLDevNodes:
             node = self._nodes["DeviceCurrentSpeed"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DeviceU3VProtocol(self):
         """Indicates whether the device is communicating in U3V Protocol.
 
@@ -12561,7 +13001,7 @@ cdef class TLDevNodes:
             node = self._nodes["DeviceU3VProtocol"] = node_inst
         return node
 
-    @property.getter
+    @property
     def DevicePortId(self):
         """Device Port ID.
 
@@ -12583,11 +13023,41 @@ cdef class TLStreamNodes:
     def __cinit__(self, Camera camera):
         self._camera = camera
         self._nodes = {}
+        self.bool_nodes = ['StreamIsGrabbing', 'StreamCRCCheckEnable',
+                           'StreamPacketResendEnable', 'GevPacketResendMode']
+        self.int_nodes = ['StreamBufferCountManual', 'StreamBufferCountResult',
+                          'StreamBufferCountMax', 'StreamAnnounceBufferMinimum',
+                          'StreamAnnouncedBufferCount',
+                          'StreamStartedFrameCount',
+                          'StreamDeliveredFrameCount',
+                          'StreamReceivedFrameCount',
+                          'StreamIncompleteFrameCount', 'StreamLostFrameCount',
+                          'StreamDroppedFrameCount', 'StreamInputBufferCount',
+                          'StreamOutputBufferCount', 'StreamChunkCountMaximum',
+                          'StreamBufferAlignment', 'StreamReceivedPacketCount',
+                          'StreamMissedPacketCount',
+                          'StreamPacketResendTimeout',
+                          'StreamPacketResendMaxRequests',
+                          'StreamPacketResendRequestCount',
+                          'StreamPacketResendRequestSuccessCount',
+                          'StreamPacketResendRequestedPacketCount',
+                          'StreamPacketResendReceivedPacketCount',
+                          'GevMaximumNumberResendRequests',
+                          'GevPacketResendTimeout', 'GevTotalPacketCount',
+                          'GevFailedPacketCount', 'GevResendPacketCount',
+                          'StreamFailedBufferCount', 'GevResendRequestCount',
+                          'StreamBlockTransferSize']
+        self.float_nodes = []
+        self.str_nodes = ['StreamID']
+        self.enum_nodes = ['StreamType', 'StreamMode', 'StreamBufferCountMode',
+                           'StreamBufferHandlingMode']
+        self.command_nodes = []
+        self.register_nodes = []
 
     def __init__(self, Camera camera):
         pass
 
-    @property.getter
+    @property
     def StreamID(self):
         """Device unique ID for the data stream, e.g. a GUID.
 
@@ -12603,7 +13073,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamID"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamType(self):
         """Stream type of the device.
 
@@ -12622,7 +13092,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamType"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamMode(self):
         """Stream mode of the device.
 
@@ -12641,7 +13111,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamBufferCountManual(self):
         """Controls the number of buffers to be used on this stream upon
         acquisition start when in manual mode.
@@ -12658,7 +13128,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamBufferCountManual"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamBufferCountResult(self):
         """Displays the number of buffers to be used on this stream upon
         acquisition start. Recalculated on acquisition start if in auto
@@ -12676,7 +13146,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamBufferCountResult"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamBufferCountMax(self):
         """Controls the maximum number of buffers that should be used on this
         stream. This value is calculated based on the available system
@@ -12694,7 +13164,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamBufferCountMax"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamBufferCountMode(self):
         """Controls access to setting the number of buffers used for the
         stream.
@@ -12714,7 +13184,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamBufferCountMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamBufferHandlingMode(self):
         """Available buffer handling modes of this data stream:
 
@@ -12733,7 +13203,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamBufferHandlingMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamAnnounceBufferMinimum(self):
         """Minimal number of buffers to announce to enable selected buffer
         handling mode.
@@ -12750,7 +13220,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamAnnounceBufferMinimum"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamAnnouncedBufferCount(self):
         """Number of announced (known) buffers on this stream. This value is
         volatile. It may change if additional buffers are announced and/or
@@ -12768,7 +13238,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamAnnouncedBufferCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamStartedFrameCount(self):
         """Number of frames started in the acquisition engine. This number is
         incremented every time in case of a new buffer is started and then
@@ -12789,7 +13259,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamStartedFrameCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamDeliveredFrameCount(self):
         """Number of delivered frames since last acquisition start. It is not
         reset until the stream is closed.
@@ -12806,7 +13276,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamDeliveredFrameCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamReceivedFrameCount(self):
         """Number of successful GVSP data blocks received. Only valid while
         stream is active.
@@ -12823,7 +13293,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamReceivedFrameCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamIncompleteFrameCount(self):
         """Displays number of images with missing packet.
 
@@ -12839,7 +13309,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamIncompleteFrameCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamLostFrameCount(self):
         """Number of lost frames due to queue underrun. This number is
         initialized with zero at the time the stream is opened and
@@ -12859,7 +13329,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamLostFrameCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamDroppedFrameCount(self):
         """Number of dropped frames due to queue overrun. This number is
         initialized with zero at the time the stream is opened and
@@ -12878,7 +13348,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamDroppedFrameCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamInputBufferCount(self):
         """Number of buffers in the input buffer pool plus the buffers(s)
         currently being filled.
@@ -12895,7 +13365,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamInputBufferCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamOutputBufferCount(self):
         """Number of buffers in the output buffer queue.
 
@@ -12911,7 +13381,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamOutputBufferCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamIsGrabbing(self):
         """Flag indicating whether the acquisition engine is started or not.
 
@@ -12927,7 +13397,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamIsGrabbing"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamChunkCountMaximum(self):
         """Maximum number of chunks to be expected in a buffer.
 
@@ -12943,7 +13413,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamChunkCountMaximum"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamBufferAlignment(self):
         """Alignment size in bytes of the buffer passed to DSAnnounceBuffer.
 
@@ -12959,7 +13429,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamBufferAlignment"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamCRCCheckEnable(self):
         """Enables or disables CRC checks on received images.
 
@@ -12975,7 +13445,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamCRCCheckEnable"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamReceivedPacketCount(self):
         """Displays number of packets received on this stream.
 
@@ -12991,7 +13461,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamReceivedPacketCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamMissedPacketCount(self):
         """Displays number of packets missed by this stream. Successful resent
         packets are not counted as a missed packet.
@@ -13008,7 +13478,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamMissedPacketCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamPacketResendEnable(self):
         """Enables or disables the packet resend mechanism.
 
@@ -13024,7 +13494,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamPacketResendEnable"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamPacketResendTimeout(self):
         """Time in milliseconds to wait after the image trailer is received and
         before the image is completed by the driver.
@@ -13041,7 +13511,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamPacketResendTimeout"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamPacketResendMaxRequests(self):
         """Maximum number of resend requests per image. Each resend request
         consists of a span of consecutive packet IDs.
@@ -13058,7 +13528,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamPacketResendMaxRequests"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamPacketResendRequestCount(self):
         """Displays number of packet resend requests transmitted to the camera.
 
@@ -13074,7 +13544,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamPacketResendRequestCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamPacketResendRequestSuccessCount(self):
         """Displays number of packet resend requests successfully transmitted
         to the camera.
@@ -13091,7 +13561,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamPacketResendRequestSuccessCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamPacketResendRequestedPacketCount(self):
         """Displays number of packets requested to be retransmitted on this
         stream.
@@ -13108,7 +13578,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamPacketResendRequestedPacketCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamPacketResendReceivedPacketCount(self):
         """Displays number of retransmitted packets received on this stream.
 
@@ -13124,7 +13594,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamPacketResendReceivedPacketCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevPacketResendMode(self):
         """DEPRECATED; Replaced by StreamPacketResendEnable. Enables or
         disables the packet resend mechanism.
@@ -13141,7 +13611,7 @@ cdef class TLStreamNodes:
             node = self._nodes["GevPacketResendMode"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevMaximumNumberResendRequests(self):
         """DEPRECATED; Replaced by StreamPacketResendMaxRequests. Maximum
         number of resend requests per image. Each resend request consists of
@@ -13159,7 +13629,7 @@ cdef class TLStreamNodes:
             node = self._nodes["GevMaximumNumberResendRequests"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevPacketResendTimeout(self):
         """DEPRECATED; Replaced by StreamPacketResendTimeout. Time in
         milliseconds to wait after the image trailer is received and before
@@ -13177,7 +13647,7 @@ cdef class TLStreamNodes:
             node = self._nodes["GevPacketResendTimeout"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevTotalPacketCount(self):
         """DEPRECATED; Replaced by StreamReceivedPacketCount. Displays number
         of packets received on this stream.
@@ -13194,7 +13664,7 @@ cdef class TLStreamNodes:
             node = self._nodes["GevTotalPacketCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevFailedPacketCount(self):
         """DEPRECATED; Replaced by StreamMissedPacketCount. Displays number of
         packets missed by this stream. Successful resent packets are not
@@ -13212,7 +13682,7 @@ cdef class TLStreamNodes:
             node = self._nodes["GevFailedPacketCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevResendPacketCount(self):
         """DEPRECATED; Replaced by StreamPacketResendReceivedPacketCount.
         Displays number of packets received after retransmit request on this
@@ -13230,7 +13700,7 @@ cdef class TLStreamNodes:
             node = self._nodes["GevResendPacketCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamFailedBufferCount(self):
         """DEPRECATED; Replaced by StreamIncompleteFrameCount. Displays number
         of images with missing packet.
@@ -13247,7 +13717,7 @@ cdef class TLStreamNodes:
             node = self._nodes["StreamFailedBufferCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def GevResendRequestCount(self):
         """DEPRECATED; Replaced by StreamPacketResendRequestedPacketCount.
         Displays number of packets requested to be retransmitted on this
@@ -13265,7 +13735,7 @@ cdef class TLStreamNodes:
             node = self._nodes["GevResendRequestCount"] = node_inst
         return node
 
-    @property.getter
+    @property
     def StreamBlockTransferSize(self):
         """Controls the image breakup size that should be used on this stream.
 

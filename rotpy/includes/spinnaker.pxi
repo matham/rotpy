@@ -473,6 +473,8 @@ cdef extern from "Camera.h" namespace "Spinnaker" nogil:
         void RegisterEventHandler(CEventHandler& evtHandlerToRegister) except +
         void RegisterEventHandler(CEventHandler& evtHandlerToRegister, const gcstring &eventName) except +
         void UnregisterEventHandler(CEventHandler& evtHandlerToUnregister) except +
+        void SetUserBuffers(void * pMemBuffers, uint64_t totalSize) except +
+        void SetUserBuffers(void** ppMemBuffers, const uint64_t bufferCount, const uint64_t bufferSize) except +
 
         TransportLayerDevice TLDevice
         TransportLayerStream TLStream
@@ -1167,6 +1169,58 @@ cdef extern from "CameraList.h" namespace "Spinnaker" nogil:
         void Append(const CCameraList& list) except +
 
 
+cdef extern from "TransportLayerInterface.h" namespace "Spinnaker" nogil:
+    cdef cppclass TransportLayerInterface:
+        IString & InterfaceID
+        IString & InterfaceDisplayName
+        IEnumerationT[InterfaceTypeEnum] & InterfaceType
+        IInteger & GevInterfaceGatewaySelector
+        IInteger & GevInterfaceGateway
+        IInteger & GevInterfaceMACAddress
+        IInteger & GevInterfaceSubnetSelector
+        IInteger & GevInterfaceSubnetIPAddress
+        IInteger & GevInterfaceSubnetMask
+        IInteger & GevInterfaceTransmitLinkSpeed
+        IInteger & GevInterfaceReceiveLinkSpeed
+        IInteger & GevInterfaceMTU
+        IEnumerationT[POEStatusEnum] & POEStatus
+        IEnumerationT[FilterDriverStatusEnum] & FilterDriverStatus
+        IInteger & GevActionDeviceKey
+        IInteger & GevActionGroupKey
+        IInteger & GevActionGroupMask
+        IInteger & GevActionTime
+        ICommand & ActionCommand
+        IString & DeviceUnlock
+        ICommand & DeviceUpdateList
+        IInteger & DeviceCount
+        IInteger & DeviceSelector
+        IString & DeviceID
+        IString & DeviceVendorName
+        IString & DeviceModelName
+        IString & DeviceSerialNumber
+        IEnumerationT[DeviceAccessStatusEnum] & DeviceAccessStatus
+        IInteger & GevDeviceIPAddress
+        IInteger & GevDeviceSubnetMask
+        IInteger & GevDeviceGateway
+        IInteger & GevDeviceMACAddress
+        IInteger & IncompatibleDeviceCount
+        IInteger & IncompatibleDeviceSelector
+        IString & IncompatibleDeviceID
+        IString & IncompatibleDeviceVendorName
+        IString & IncompatibleDeviceModelName
+        IInteger & IncompatibleGevDeviceIPAddress
+        IInteger & IncompatibleGevDeviceSubnetMask
+        IInteger & IncompatibleGevDeviceMACAddress
+        ICommand & GevDeviceForceIP
+        IInteger & GevDeviceForceIPAddress
+        IInteger & GevDeviceForceSubnetMask
+        IInteger & GevDeviceForceGateway
+        ICommand & GevDeviceAutoForceIP
+        IString & HostAdapterName
+        IString & HostAdapterVendor
+        IString & HostAdapterDriverVersion
+
+
 cdef extern from "InterfacePtr.h" namespace "Spinnaker" nogil:
     pass
 
@@ -1191,6 +1245,8 @@ cdef extern from "Interface.h" namespace "Spinnaker" nogil:
         #         unsigned int * pResultSize,
         #         ActionCommandResult results[]) except +
         # cbool IsValid() except +
+
+        TransportLayerInterface TLInterface
 
 
 cdef extern from "InterfaceList.h" namespace "Spinnaker" nogil:
@@ -1280,6 +1336,36 @@ cdef extern from "ImageEventHandler.h" namespace "Spinnaker" nogil:
         pass
 
 
+cdef extern from "TransportLayerSystem.h" namespace "Spinnaker" nogil:
+    cdef cppclass TransportLayerSystem:
+        IString & TLID
+        IString & TLVendorName
+        IString & TLModelName
+        IString & TLVersion
+        IString & TLFileName
+        IString & TLDisplayName
+        IString & TLPath
+        IEnumerationT[TLTypeEnum] & TLType
+        IInteger & GenTLVersionMajor
+        IInteger & GenTLVersionMinor
+        IInteger & GenTLSFNCVersionMajor
+        IInteger & GenTLSFNCVersionMinor
+        IInteger & GenTLSFNCVersionSubMinor
+        IInteger & GevVersionMajor
+        IInteger & GevVersionMinor
+        ICommand & InterfaceUpdateList
+        IInteger & InterfaceSelector
+        IString & InterfaceID
+        IString & InterfaceDisplayName
+        IInteger & GevInterfaceMACAddress
+        IInteger & GevInterfaceDefaultIPAddress
+        IInteger & GevInterfaceDefaultSubnetMask
+        IInteger & GevInterfaceDefaultGateway
+        IBoolean & EnumerateGEVInterfaces
+        IBoolean & EnumerateUSBInterfaces
+        IBoolean & EnumerateGen2Cameras
+
+
 cdef extern from "SystemPtr.h" namespace "Spinnaker" nogil:
     pass
 
@@ -1317,6 +1403,8 @@ cdef extern from "System.h" namespace "Spinnaker" nogil:
                 unsigned long long actionTime,
                 unsigned int * pResultSize,
                 ActionCommandResult results[]) except +
+
+        TransportLayerSystem TLSystem
 
 
 cdef extern from "DeviceEventUtility.h" namespace "Spinnaker" nogil:

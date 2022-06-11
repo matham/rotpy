@@ -1,5 +1,6 @@
 from ._interface cimport *
 from .node cimport NodeMap
+from .system_nodes cimport SystemNodes, InterfaceNodes
 
 # cdef class SpinError:
 #
@@ -54,6 +55,8 @@ cdef class SpinSystem:
     cdef set _interface_handlers
     cdef set _log_handlers
 
+    cdef public SystemNodes system_nodes
+
     cpdef set_logging_level(self, str level)
     cpdef get_logging_level(self)
     cpdef detach_all_log_handlers(self)
@@ -91,6 +94,8 @@ cdef class InterfaceDevice:
     cdef InterfacePtr _interface
     cdef int _interface_set
     cdef InterfaceDeviceList _dev_list
+
+    cdef public InterfaceNodes interface_nodes
 
     cdef object set_interface(self, InterfaceDeviceList dev_list, unsigned int index)
     cpdef get_in_use(self)

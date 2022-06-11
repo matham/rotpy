@@ -7,6 +7,7 @@ from .camera_nodes cimport CameraNodes, TLDevNodes, TLStreamNodes
 
 from cpython.ref cimport PyObject
 cimport cpython.array
+from libc.stdlib cimport malloc, free
 from array import array
 
 __all__ = ('CameraList', 'Camera')
@@ -243,6 +244,7 @@ cdef class Camera:
         self.camera_nodes = CameraNodes(camera=self)
         self.tl_dev_nodes = TLDevNodes(camera=self)
         self.tl_stream_nodes = TLStreamNodes(camera=self)
+        self._user_buf = None
 
     def __dealloc__(self):
         if self._cam_set:
@@ -519,6 +521,59 @@ cdef class Camera:
         with nogil:
             n = self._camera.get().GetUserBufferTotalSize()
         return n
+
+    cpdef set_user_buffer(self, buffer):
+        """Specify contiguous user allocated memory to use as data buffers.
+
+        To prevent image tearing when working with USB3 cameras, the size of
+        the buffer should be equal to
+        ``((len(buffer) + 1024 - 1) // 1024) * 1024`` where 1024 is the USB3
+        packet size.
+
+        :param buffer: A memoryview such as an array, bytes, bytesarray etc.
+        """
+        cdef unsigned char[:] arr = buffer
+        cdef uint64_t n = len(buffer)
+        self._user_buf = buffer
+
+        with nogil:
+            self._camera.get().SetUserBuffers(&arr[0], n)
+
+    cpdef set_user_buffers(self, buffers, uint64_t buffer_size):
+        """Specify non-contiguous user allocated memory to use as data buffers.
+
+        Each buffer must have enough memory to hold one image.
+        To prevent image tearing when working with USB3 cameras, the size of
+        each buffer should be equal to
+        ``((len(buffer) + 1024 - 1) // 1024) * 1024`` where 1024 is the USB3
+        packet size.
+
+        :param buffers: A list of memoryviews such as arrays, bytes,
+            bytesarrays etc. Each memoryview in the list will be a individual
+            buffer.
+        :param buffer_size: The size of the smallest buffer in ``buffers`` in
+            bytes. Individual buffer items can be larger, but not smaller.
+        """
+        cdef unsigned char[:] arr
+        cdef uint64_t n = len(buffers)
+        cdef uint64_t i
+        cdef void** items = <void**>malloc(n * sizeof(void*))
+
+        if items == NULL:
+            raise MemoryError
+        self._user_buf = buffers
+
+        for i in range(n):
+            if len(buffers[i]) < buffer_size:
+                raise ValueError(
+                    f'Buffer {i} is smaller than buffer size {buffer_size}')
+
+            arr = buffers[i]
+            items[i] = &arr[0]
+
+        with nogil:
+            self._camera.get().SetUserBuffers(items, n, buffer_size)
+        free(items)
 
     cpdef get_unique_id(self):
         """This returns a unique id string that identifies the camera. This is
