@@ -1,16 +1,123 @@
 from .system import SpinSystem
 from.names.spin import img_status_values, buffer_owner_values, \
-    buffer_owner_names
+    buffer_owner_names, event_values
 from names.geni import AccessMode_values
 from .node import NodeMap
 from .camera_nodes cimport CameraNodes, TLDevNodes, TLStreamNodes
 
+from cpython.ref cimport PyObject
 cimport cpython.array
 from array import array
 
 __all__ = ('CameraList', 'Camera')
 
 DEF MAX_BUFF_LEN = 256
+
+
+cdef class DeviceEventHandler(EventHandlerBase):
+
+    def __init__(self, callback, str event_name=''):
+        EventHandlerBase.__init__()
+
+        cdef bytes name_b = event_name.encode()
+        cdef size_t n = len(event_name)
+        cdef const char* name_c = name_b
+        cdef gcstring s
+
+        self._callback = callback
+
+        if event_name:
+            s.assign(name_c, n)
+        self._handler.SetCallback(
+            <PyObject*>self,
+            <void (*)(void *, const gcstring *) nogil>self.handler_callback, s)
+
+    cpdef get_event_metadata(self):
+        """Returns the metadata associated with the callback event.
+
+        It returns a 3-tuple of ``(event_type, dev_name, dev_event_id)``.
+        Where ``event_type`` is the string event type from
+        :attr:`~rotpy.names.spin.event_names`. ``dev_name`` is the name of the
+        device event. And ``dev_event_id`` is the ID of the device event.
+
+        .. warning::
+
+            This is only valid if called from within the callback, not once the
+            callback is completed.
+        """
+        cdef const char * msg
+        cdef uint64_t dev_event_id
+        cdef EventType event_tp
+
+        with nogil:
+            dev_event_id = self._handler.GetDeviceEventId()
+            event_tp = self._handler.GetEventType()
+            msg = self._handler.GetDeviceEventName().c_str()
+
+        dev_name = msg.decode()
+        event_type = event_values[event_tp]
+
+        return event_type, dev_name, dev_event_id
+
+    cpdef get_event_data(self, str event_name):
+        """Returns the data associated with the callback event.
+
+        It returns a dictionary of data values or None if no data is associated
+        with the event.
+
+        .. warning::
+
+            This is only valid if called from within the callback, not once the
+            callback is completed.
+        """
+        cdef DeviceEventInferenceData inference_data
+        cdef DeviceEventExposureEndData exposure_end_data
+        cdef dict data = None
+
+        if event_name == "EventInference":
+            with nogil:
+                DeviceEventUtility.ParseDeviceEventInference(
+                    self._handler.GetEventPayloadData(),
+                    self._handler.GetEventPayloadDataSize(), inference_data)
+            data = {
+                'value': inference_data.result,
+                'confidence': inference_data.confidence,
+                'frame_id': inference_data.frameID}
+        elif event_name == "EventExposureEnd":
+            with nogil:
+                DeviceEventUtility.ParseDeviceEventExposureEnd(
+                    self._handler.GetEventPayloadData(),
+                    self._handler.GetEventPayloadDataSize(), exposure_end_data)
+            data = {'frame_id': exposure_end_data.frameID}
+
+        return data
+
+    cdef void handler_callback(self, const gcstring* event) nogil except *:
+        cdef const char *msg = event.c_str()
+        with gil:
+            if self._callback is None:
+                return
+            self._callback(msg.decode())
+
+
+cdef class ImageEventHandler(EventHandlerBase):
+
+    def __init__(self, callback):
+        EventHandlerBase.__init__()
+        self._callback = callback
+
+        self._handler.SetCallback(
+            <PyObject*>self, <void (*)(void *, ImagePtr) nogil>
+            self.handler_callback)
+
+    cdef void handler_callback(self, ImagePtr image_ptr) nogil except*:
+        if image_ptr.get().IsIncomplete():
+            return
+
+        with gil:
+            if self._callback is None:
+                return
+            self._callback(Image.create_from_camera(image_ptr))
 
 
 cdef class CameraList:
@@ -131,6 +238,8 @@ cdef class Camera:
 
     def __cinit__(self):
         self._cam_set = 0
+        self._image_handlers = set()
+        self._dev_handlers = set()
         self.camera_nodes = CameraNodes(camera=self)
         self.tl_dev_nodes = TLDevNodes(camera=self)
         self.tl_stream_nodes = TLStreamNodes(camera=self)
@@ -253,6 +362,97 @@ cdef class Camera:
         """
         with nogil:
             self._camera.get().EndAcquisition()
+
+    cpdef attach_device_event_handler(
+            self, DeviceEventHandler handler, str name=''):
+        """Registers an event handler for the camera device.
+
+        :param handler: The :class:`DeviceEventHandler` to handle the events.
+        :param name: An optional event name. If empty (the default), all events
+            will be handled.
+
+        The ``handler`` will receive the camera events while it is registered.
+
+        .. warning::
+
+            The camera has to be initialized first with :meth:`init_cam` before
+            registering handlers for events.
+        """
+        cdef bytes name_b = name.encode()
+        cdef size_t n = len(name)
+        cdef const char * name_c = name_b
+        cdef gcstring name_s
+
+        if handler in self._dev_handlers:
+            raise ValueError("Handler is already attached to the system")
+
+        with nogil:
+            if n:
+                name_s.assign(name_c, n)
+                self._camera.get().RegisterEventHandler(
+                    handler._handler, name_s)
+            else:
+                self._camera.get().RegisterEventHandler(handler._handler)
+        self._dev_handlers.add(handler)
+
+    cpdef detach_device_event_handler(self, DeviceEventHandler handler):
+        """Detaches the event handler previously attached with
+        :meth:`attach_device_event_handler`.
+
+        :param handler: The :class:`DeviceEventHandler` that handled the events.
+
+        .. warning::
+
+            Event handlers should be unregistered first before calling
+            :meth:`deinit_cam`. Otherwise an exception will be thrown in the
+            :meth:`deinit_cam` call and require the user to unregister event
+            handlers before the camera can be re-initialized again.
+        """
+        if handler not in self._dev_handlers:
+            raise ValueError("Handler is not attached to the system")
+
+        with nogil:
+            self._camera.get().UnregisterEventHandler(handler._handler)
+        self._dev_handlers.remove(handler)
+
+    cpdef attach_image_event_handler(self, ImageEventHandler handler):
+        """Registers an event handler for camera images.
+
+        :param handler: The :class:`ImageEventHandler` to handle the events.
+
+        The ``handler`` will receive the camera images while it is registered.
+
+        .. warning::
+
+            The camera has to be initialized first with :meth:`init_cam` before
+            registering handlers for images.
+        """
+        if handler in self._image_handlers:
+            raise ValueError("Handler is already attached to the system")
+
+        with nogil:
+            self._camera.get().RegisterEventHandler(handler._handler)
+        self._image_handlers.add(handler)
+
+    cpdef detach_image_event_handler(self, ImageEventHandler handler):
+        """Detaches the event handler previously attached with
+        :meth:`attach_image_event_handler`.
+
+        :param handler: The :class:`ImageEventHandler` that handled the events.
+
+        .. warning::
+
+            Event handlers should be unregistered first before calling
+            :meth:`deinit_cam`. Otherwise an exception will be thrown in the
+            :meth:`deinit_cam` call and require the user to unregister event
+            handlers before the camera can be re-initialized again.
+        """
+        if handler not in self._image_handlers:
+            raise ValueError("Handler is not attached to the system")
+
+        with nogil:
+            self._camera.get().UnregisterEventHandler(handler._handler)
+        self._image_handlers.remove(handler)
 
     cpdef get_buffer_ownership(self):
         """Gets data buffer ownership as a string from

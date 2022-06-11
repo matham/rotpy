@@ -1,6 +1,6 @@
-from .names.spin import log_level_names, log_level_values, event_values
+from .names.spin import log_level_names, log_level_values, cmd_status_values
 from cpython.ref cimport PyObject
-
+from libc.stdlib cimport malloc, free
 
 # __all__ = ('SpinError', 'SpinSystem')
 
@@ -95,57 +95,92 @@ DEF MAX_BUFF_LEN = 256
 #         }
 
 
-cdef class EventHandler:
+cdef class EventHandlerBase:
+    pass
 
-    def __cinit__(self, callback, str event_name=''):
+
+cdef class LoggingEventHandler(EventHandlerBase):
+    """NDC is Nested Diagnostic Context."""
+
+    def __init__(self, callback):
+        EventHandlerBase.__init__()
         self._callback = callback
 
-    def __init__(self, callback, str event_name=''):
-        cdef bytes name_b = event_name.encode()
-        cdef size_t n = len(event_name)
-        cdef const char* name_c = name_b
-        cdef gcstring s
-
-        if event_name:
-            s.assign(name_c, n)
         self._handler.SetCallback(
             <PyObject*>self,
-            <void (*)(void *, const gcstring *) nogil>self.handler_callback, s)
+            <void (*)(void *, const LoggingEventDataPtr) nogil>
+            self.handler_callback)
 
-    cdef void handler_callback(self, const gcstring* event) nogil except *:
-        cdef uint64_t dev_event_id = self._handler.GetDeviceEventId()
-        cdef EventType event_tp = self._handler.GetEventType()
-        cdef DeviceEventInferenceData inference_data
-        cdef DeviceEventExposureEndData exposure_end_data
-        cdef int event_id = 0
-
-        if event[0] == "EventInference":
-            DeviceEventUtility.ParseDeviceEventInference(
-                self._handler.GetEventPayloadData(),
-                self._handler.GetEventPayloadDataSize(), inference_data)
-            event_id = 1
-        elif event[0] == "EventExposureEnd":
-            DeviceEventUtility.ParseDeviceEventExposureEnd(
-                self._handler.GetEventPayloadData(),
-                self._handler.GetEventPayloadDataSize(), exposure_end_data)
-            event_id = 2
+    cdef void handler_callback(
+            self, const LoggingEventDataPtr event) nogil except *:
+        cdef LoggingEventData *item = event.get()
 
         with gil:
-            event_name = event.c_str().decode()
-            dev_name = self._handler.GetDeviceEventName().c_str().decode()
-            event_type = event_values[event_tp]
+            if self._callback is None:
+                return
 
-            if event_id == 1:
-                data = {
-                    'valur': inference_data.result,
-                    'confidence': inference_data.confidence,
-                    'frame_id': inference_data.frameID}
-            elif event_id == 2:
-                data = {'frame_id': exposure_end_data.frameID}
-            else:
-                data = None
+            data = {
+                'category': item.GetCategoryName().decode(),
+                'message': item.GetLogMessage().decode(),
+                'ndc': item.GetNDC().decode(),
+                'thread': item.GetThreadName().decode(),
+                'timestamp': item.GetTimestamp().decode(),
+                'priority': item.GetPriorityName().decode(),
+                'priority_num': item.GetPriority(),
+            }
+            self._callback(data)
 
-            self._callback(event_name, event_type, dev_name, dev_event_id, data)
+
+cdef class SystemEventHandler(EventHandlerBase):
+
+    def __init__(self, callback_arrival, callback_removal):
+        EventHandlerBase.__init__()
+        self._callback_arrival = callback_arrival
+        self._callback_removal = callback_removal
+
+        self._handler.SetCallback(
+            <PyObject*>self,
+            <void (*)(void *, cstr) nogil>self.handler_callback_arrival,
+            <void (*)(void *, cstr) nogil> self.handler_callback_removal
+        )
+
+    cdef void handler_callback_arrival(self, cstr interface) nogil except *:
+        with gil:
+            if self._callback_arrival is None:
+                return
+            self._callback_arrival(interface.c_str().decode())
+
+    cdef void handler_callback_removal(self, cstr interface) nogil except *:
+        with gil:
+            if self._callback_removal is None:
+                return
+            self._callback_removal(interface.c_str().decode())
+
+
+cdef class InterfaceEventHandler(EventHandlerBase):
+
+    def __init__(self, callback_arrival, callback_removal):
+        EventHandlerBase.__init__()
+        self._callback_arrival = callback_arrival
+        self._callback_removal = callback_removal
+
+        self._handler.SetCallback(
+            <PyObject*>self,
+            <void (*)(void *, uint64_t) nogil>self.handler_callback_arrival,
+            <void (*)(void *, uint64_t) nogil> self.handler_callback_removal
+        )
+
+    cdef void handler_callback_arrival(self, uint64_t serial) nogil except *:
+        with gil:
+            if self._callback_arrival is None:
+                return
+            self._callback_arrival(serial)
+
+    cdef void handler_callback_removal(self, uint64_t serial) nogil except *:
+        with gil:
+            if self._callback_removal is None:
+                return
+            self._callback_removal(serial)
 
 
 cdef class SpinSystem:
@@ -156,6 +191,9 @@ cdef class SpinSystem:
 
     def __cinit__(self):
         self._system_set = 0
+        self._sys_handlers = set()
+        self._interface_handlers = set()
+        self._log_handlers = set()
 
     def __init__(self):
         with nogil:
@@ -240,7 +278,146 @@ cdef class SpinSystem:
 
         return node_map
 
-#
+    cpdef attach_event_handler(self, SystemEventHandler handler):
+        """Registers an event handler for the system to get interface
+        arrival/removal events.
+
+        :param handler: The :class:`SystemEventHandler` to handle the events.
+
+        The ``handler`` will receive the system events while it is registered.
+        """
+        if handler in self._sys_handlers:
+            raise ValueError("Handler is already attached to the system")
+
+        with nogil:
+            self._system.get().RegisterEventHandler(handler._handler)
+        self._sys_handlers.add(handler)
+
+    cpdef detach_event_handler(self, SystemEventHandler handler):
+        """Detaches the event handler previously attached with
+        :meth:`attach_event_handler`.
+
+        :param handler: The :class:`SystemEventHandler` that handled the events.
+        """
+        if handler not in self._sys_handlers:
+            raise ValueError("Handler is not attached to the system")
+
+        with nogil:
+            self._system.get().UnregisterEventHandler(handler._handler)
+        self._sys_handlers.remove(handler)
+
+    cpdef attach_interface_event_handler(
+            self, InterfaceEventHandler handler, cbool update=True):
+        """Registers the event handler for all available interfaces that are
+        found on the system. If new interfaces are detected by the system after
+        this call, those interfaces will be automatically registered with this
+        event.
+
+        :param handler: The :class:`InterfaceEventHandler` to handle the events.
+        :param update: Whether to update the interface list before attaching
+            event for the available interfaces on the system.
+
+        .. note::
+
+            Only GEV interface arrivals and removals are currently handled.
+
+        The ``handler`` will receive the interface events while it is
+        registered.
+        """
+        if handler in self._interface_handlers:
+            raise ValueError("Handler is already attached to the interfaces")
+
+        with nogil:
+            self._system.get().RegisterInterfaceEventHandler(
+                handler._handler, update)
+        self._interface_handlers.add(handler)
+
+    cpdef detach_interface_event_handler(self, InterfaceEventHandler handler):
+        """Detaches the event handler previously attached with
+        :meth:`attach_interface_event_handler`.
+
+        :param handler: The :class:`InterfaceEventHandler` that handled the
+            events.
+        """
+        if handler not in self._interface_handlers:
+            raise ValueError("Handler is not attached to the system")
+
+        with nogil:
+            self._system.get().UnregisterInterfaceEventHandler(handler._handler)
+        self._interface_handlers.remove(handler)
+
+    cpdef attach_log_event_handler(self, LoggingEventHandler handler):
+        """Registers the event handler for the logging system.
+
+        :param handler: The :class:`LoggingEventHandler` to handle the events.
+
+        The ``handler`` will receive the events while it is registered.
+        """
+        if handler in self._log_handlers:
+            raise ValueError(
+                "Handler is already attached to the logging system")
+
+        with nogil:
+            self._system.get().RegisterLoggingEventHandler(handler._handler)
+        self._log_handlers.add(handler)
+
+    cpdef detach_log_event_handler(self, LoggingEventHandler handler):
+        """Detaches the event handler previously attached with
+        :meth:`attach_log_event_handler`.
+
+        :param handler: The :class:`LoggingEventHandler` that handled the
+            events.
+        """
+        if handler not in self._log_handlers:
+            raise ValueError("Handler is not attached to the logging system")
+
+        with nogil:
+            self._system.get().UnregisterLoggingEventHandler(handler._handler)
+        self._log_handlers.remove(handler)
+
+    cpdef send_command(
+            self, unsigned int device_key, unsigned int group_key,
+            unsigned int group_mask, unsigned long long action_time=0,
+            unsigned int num_results=0):
+        """Broadcast an Action Command to all devices on the system.
+
+        :param device_key: The action command's device key.
+        :param group_key: The action command's group key.
+        :param group_mask: The action command's group mask.
+        :param action_time: Time when to assert a future action. Zero (default)
+            means immediate action.
+        :param num_results: The number of results expected in the return list.
+            The value passed should be equal to the expected number of devices
+            that acknowledge the command. The returned list will be the actual
+            number of received results. If this is 0, the function will return
+            as soon as the command has been broadcasted.
+        :return: A list of tuples, one tuple for each item in the result.
+            Each tuple is ``(address, status)``, where ``address`` is the device
+            address and ``status`` is the status string from
+            :attr:`~rotpy.names.spin.cmd_status_names`.
+        """
+        cdef unsigned int n = num_results
+        cdef ActionCommandResult* results = NULL
+        cdef list out = []
+        cdef size_t i
+
+        if n:
+            results = <ActionCommandResult *>malloc(
+                n * sizeof(ActionCommandResult))
+
+        with nogil:
+            self._system.get().SendActionCommand(
+                device_key, group_key, group_mask, action_time, &n, results)
+
+        for i in range(n):
+            out.append((
+                results[i].DeviceAddress, cmd_status_values[results[i].status]))
+
+        if results != NULL:
+            free(results)
+        return out
+
+
 cdef class InterfaceDeviceList:
     """Provides access to a list of the interface devices to which cameras
     can be attached (e.g. USB, ethernet etc.). This includes updating, size, and

@@ -1,20 +1,6 @@
 from ._interface cimport *
 from .node cimport NodeMap
 
-
-cdef extern from "rotpy_event.h" nogil:
-    cdef cppclass RotpyDeviceEventHandler:
-        RotpyDeviceEventHandler() except +
-        EventType GetEventType() except +
-        const uint8_t * GetEventPayloadData() except +
-        const size_t GetEventPayloadDataSize() except +
-        uint64_t GetDeviceEventId() except +
-        gcstring GetDeviceEventName() except +
-        void SetCallback(
-            void * callback_data, void (*callback_f)(void *, const gcstring*),
-                gcstring &eventName
-        ) except +
-
 # cdef class SpinError:
 #
 #     cpdef spinError get_last_error(self)
@@ -28,18 +14,45 @@ cdef extern from "rotpy_event.h" nogil:
 #     cpdef dict get_error_data(self)
 
 
-cdef class EventHandler:
+cdef class EventHandlerBase:
+    pass
 
-    cdef RotpyDeviceEventHandler _handler
+
+cdef class LoggingEventHandler(EventHandlerBase):
+
     cdef object _callback
+    cdef RotpyLoggingEventHandler _handler
 
-    cdef void handler_callback(self, const gcstring* event) nogil except*
+    cdef void handler_callback(self, const LoggingEventDataPtr event) nogil except*
+
+
+cdef class SystemEventHandler(EventHandlerBase):
+
+    cdef object _callback_arrival
+    cdef object _callback_removal
+    cdef RotpySystemEventHandler _handler
+
+    cdef void handler_callback_arrival(self, cstr interface) nogil except*
+    cdef void handler_callback_removal(self, cstr interface) nogil except*
+
+
+cdef class InterfaceEventHandler(EventHandlerBase):
+
+    cdef object _callback_arrival
+    cdef object _callback_removal
+    cdef RotpyInterfaceEventHandler _handler
+
+    cdef void handler_callback_arrival(self, uint64_t serial) nogil except*
+    cdef void handler_callback_removal(self, uint64_t serial) nogil except*
 
 
 cdef class SpinSystem:
 
     cdef SystemPtr _system
     cdef int _system_set
+    cdef set _sys_handlers
+    cdef set _interface_handlers
+    cdef set _log_handlers
 
     cpdef set_logging_level(self, str level)
     cpdef get_logging_level(self)
@@ -48,6 +61,17 @@ cdef class SpinSystem:
     cpdef refresh_camera_list(self, cbool update_interfaces=*)
     cpdef get_library_version(self)
     cpdef get_tl_node_map(self)
+    cpdef attach_event_handler(self, SystemEventHandler handler)
+    cpdef detach_event_handler(self, SystemEventHandler handler)
+    cpdef attach_interface_event_handler(
+            self, InterfaceEventHandler handler, cbool update=*)
+    cpdef detach_interface_event_handler(self, InterfaceEventHandler handler)
+    cpdef attach_log_event_handler(self, LoggingEventHandler handler)
+    cpdef detach_log_event_handler(self, LoggingEventHandler handler)
+    cpdef send_command(
+            self, unsigned int device_key, unsigned int group_key,
+            unsigned int group_mask, unsigned long long action_time=*,
+            unsigned int num_results=*)
 
 
 cdef class InterfaceDeviceList:

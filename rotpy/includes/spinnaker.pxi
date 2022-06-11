@@ -470,6 +470,9 @@ cdef extern from "Camera.h" namespace "Spinnaker" nogil:
         INodeMap& GetNodeMap() except +
         INodeMap& GetTLDeviceNodeMap() except +
         INodeMap& GetTLStreamNodeMap() except +
+        void RegisterEventHandler(CEventHandler& evtHandlerToRegister) except +
+        void RegisterEventHandler(CEventHandler& evtHandlerToRegister, const gcstring &eventName) except +
+        void UnregisterEventHandler(CEventHandler& evtHandlerToUnregister) except +
 
         TransportLayerDevice TLDevice
         TransportLayerStream TLStream
@@ -1199,6 +1202,84 @@ cdef extern from "InterfaceList.h" namespace "Spinnaker" nogil:
         void Append(const CInterfaceList * list) except +
 
 
+cdef extern from "EventHandler.h" namespace "Spinnaker" nogil:
+    cdef cppclass CEventHandler "Spinnaker::EventHandler":
+        EventType GetEventType() except +
+        const uint8_t * GetEventPayloadData() except +
+        const size_t GetEventPayloadDataSize() except +
+
+
+cdef extern from "Interface/ISystemEventHandler.h" namespace "Spinnaker" nogil:
+    cdef cppclass ISystemEventHandler(CEventHandler):
+        pass
+
+
+cdef extern from "SystemEventHandler.h" namespace "Spinnaker" nogil:
+    cdef cppclass CSystemEventHandler "Spinnaker::SystemEventHandler"(ISystemEventHandler):
+        pass
+
+
+cdef extern from "Interface/IInterfaceEventHandler.h" namespace "Spinnaker" nogil:
+    cdef cppclass IInterfaceEventHandler(CEventHandler):
+        pass
+
+
+cdef extern from "InterfaceEventHandler.h" namespace "Spinnaker" nogil:
+    cdef cppclass CInterfaceEventHandler "Spinnaker::InterfaceEventHandler"(IInterfaceEventHandler):
+        pass
+
+
+cdef extern from "Interface/IDeviceEventHandler.h" namespace "Spinnaker" nogil:
+    cdef cppclass IDeviceEventHandler(CEventHandler):
+        uint64_t GetDeviceEventId() except +
+        gcstring GetDeviceEventName() except +
+
+
+cdef extern from "DeviceEventHandler.h" namespace "Spinnaker" nogil:
+    cdef cppclass CDeviceEventHandler "Spinnaker::DeviceEventHandler"(IDeviceEventHandler):
+        pass
+
+
+cdef extern from "LoggingEventDataPtr.h" namespace "Spinnaker" nogil:
+    pass
+
+
+cdef extern from "LoggingEventData.h" namespace "Spinnaker" nogil:
+    cdef cppclass LoggingEventDataPtr:
+        LoggingEventDataPtr() except +
+        LoggingEventData * get() const
+        cbool IsValid() except +
+
+    cdef cppclass LoggingEventData:
+        const char * GetCategoryName() except +
+        const char * GetLogMessage() except +
+        const char * GetNDC() except +
+        const int GetPriority() except +
+        const char * GetThreadName() except +
+        const char * GetTimestamp() except +
+        const char * GetPriorityName() except +
+
+
+cdef extern from "Interface/ILoggingEventHandler.h" namespace "Spinnaker" nogil:
+    cdef cppclass ILoggingEventHandler(CEventHandler):
+        pass
+
+
+cdef extern from "LoggingEventHandler.h" namespace "Spinnaker" nogil:
+    cdef cppclass CLoggingEventHandler "Spinnaker::LoggingEventHandler"(ILoggingEventHandler):
+        pass
+
+
+cdef extern from "Interface/IImageEventHandler.h" namespace "Spinnaker" nogil:
+    cdef cppclass IImageEventHandler(CEventHandler):
+        pass
+
+
+cdef extern from "ImageEventHandler.h" namespace "Spinnaker" nogil:
+    cdef cppclass CImageEventHandler "Spinnaker::ImageEventHandler"(IImageEventHandler):
+        pass
+
+
 cdef extern from "SystemPtr.h" namespace "Spinnaker" nogil:
     pass
 
@@ -1223,6 +1304,19 @@ cdef extern from "System.h" namespace "Spinnaker" nogil:
         CCameraList GetCameras(cbool updateInterfaces, cbool updateCameras) except +
         const LibraryVersion GetLibraryVersion() except +
         INodeMap& GetTLNodeMap() except +
+        void RegisterEventHandler(CEventHandler& evtHandlerToRegister) except +
+        void UnregisterEventHandler(CEventHandler& evtHandlerToUnregister) except +
+        void RegisterInterfaceEventHandler(CEventHandler& evtHandlerToRegister, cbool updateInterface) except +
+        void UnregisterInterfaceEventHandler(CEventHandler& evtHandlerToUnregister) except +
+        void RegisterLoggingEventHandler(CLoggingEventHandler& handler) except +
+        void UnregisterLoggingEventHandler(CLoggingEventHandler& handler) except +
+        void SendActionCommand(
+                unsigned int deviceKey,
+                unsigned int groupKey,
+                unsigned int groupMask,
+                unsigned long long actionTime,
+                unsigned int * pResultSize,
+                ActionCommandResult results[]) except +
 
 
 cdef extern from "DeviceEventUtility.h" namespace "Spinnaker" nogil:

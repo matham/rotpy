@@ -1,8 +1,26 @@
 from ._interface cimport *
-from .system cimport SpinSystem
+from .system cimport SpinSystem, EventHandlerBase
 from .image cimport Image
 from .node cimport NodeMap
 from .camera_nodes cimport CameraNodes, TLDevNodes, TLStreamNodes
+
+
+cdef class DeviceEventHandler(EventHandlerBase):
+
+    cdef object _callback
+    cdef RotpyDeviceEventHandler _handler
+
+    cpdef get_event_metadata(self)
+    cpdef get_event_data(self, str event_name)
+    cdef void handler_callback(self, const gcstring* event) nogil except*
+
+
+cdef class ImageEventHandler(EventHandlerBase):
+
+    cdef object _callback
+    cdef RotpyImageEventHandler _handler
+
+    cdef void handler_callback(self, ImagePtr image_ptr) nogil except*
 
 
 cdef class CameraList:
@@ -27,6 +45,8 @@ cdef class Camera:
     cdef CameraPtr _camera
     cdef CameraList _cam_list
     cdef int _cam_set
+    cdef set _image_handlers
+    cdef set _dev_handlers
 
     cdef public CameraNodes camera_nodes
     cdef public TLDevNodes tl_dev_nodes
@@ -42,6 +62,10 @@ cdef class Camera:
     cpdef write_port(self, uint64_t address, const unsigned char[:] data)
     cpdef begin_acquisition(self)
     cpdef end_acquisition(self)
+    cpdef attach_device_event_handler(self, DeviceEventHandler handler, str name=*)
+    cpdef detach_device_event_handler(self, DeviceEventHandler handler)
+    cpdef attach_image_event_handler(self, ImageEventHandler handler)
+    cpdef detach_image_event_handler(self, ImageEventHandler handler)
     cpdef get_buffer_ownership(self)
     cpdef set_buffer_ownership(self, str ownership)
     cpdef get_buffer_count(self)

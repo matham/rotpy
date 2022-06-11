@@ -10,6 +10,42 @@ include "includes/TransportLayerDefs.pxi"
 include "includes/CameraDefs.pxi"
 include "includes/spinnaker.pxi"
 
+
+cdef extern from "rotpy_event.h" nogil:
+    cdef cppclass RotpyDeviceEventHandler(CDeviceEventHandler):
+        RotpyDeviceEventHandler() except +
+        void SetCallback(
+            void * callback_data, void (*callback_f)(void *, const gcstring*),
+                gcstring &eventName
+        ) except +
+
+    cdef cppclass RotpyLoggingEventHandler(CLoggingEventHandler):
+        RotpyLoggingEventHandler() except +
+        void SetCallback(
+            void * callback_data, void (*callback_f)(void *, const LoggingEventDataPtr)
+        ) except +
+
+    cdef cppclass RotpyImageEventHandler(CImageEventHandler):
+        RotpyImageEventHandler() except +
+        void SetCallback(
+            void * callback_data, void (*callback_f)(void *, ImagePtr)
+        ) except +
+
+    cdef cppclass RotpyInterfaceEventHandler(CInterfaceEventHandler):
+        RotpyInterfaceEventHandler() except +
+        void SetCallback(
+            void * callback_data, void (*callback_f_arrival)(void *, uint64_t),
+            void (*callback_f_removal)(void *, uint64_t)
+        ) except +
+
+    cdef cppclass RotpySystemEventHandler(CSystemEventHandler):
+        RotpySystemEventHandler() except +
+        void SetCallback(
+            void * callback_data, void (*callback_f_arrival)(void *, cstr),
+            void (*callback_f_removal)(void *, cstr)
+        ) except +
+
+
 include "includes/compat.pxi"
 
 
