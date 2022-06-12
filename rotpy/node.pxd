@@ -13,6 +13,7 @@ cdef class NodeMap:
     cpdef get_node_by_index(self, size_t index)
     cpdef invalidate_nodes(self)
     cpdef get_dev_name(self)
+    cpdef connect_port(self, SpinPortNode node, str name=*)
 
 
 cdef class SpinBaseNode:
@@ -22,6 +23,11 @@ cdef class SpinBaseNode:
 
     cdef void set_handle(self, object source, IBase* handle) except *
     cpdef get_access_mode(self)
+    cpdef is_readable(self)
+    cpdef is_writable(self)
+    cpdef is_implemented(self)
+    cpdef is_available(self)
+    cpdef is_visible(self, str visibility, str max_visibility)
 
 
 cdef class SpinSelectorNode(SpinBaseNode):
@@ -37,12 +43,7 @@ cdef class SpinNode(SpinSelectorNode):
 
     cdef INode* _node_handle
 
-    cpdef dict get_metadata(self, include_value=*)
-    # cpdef is_implemented(self)
-    # cpdef is_readable(self)
-    # cpdef is_writable(self)
-    # cpdef is_available(self)
-    # cpdef is_equal(self, SpinBaseNode other)
+    cpdef dict get_metadata(self)
     cpdef is_cachable(self)
     cpdef is_access_cachable(self)
     cpdef is_streamable(self)

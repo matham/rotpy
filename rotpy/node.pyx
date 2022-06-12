@@ -131,7 +131,7 @@ cdef class NodeMap:
         """Gets a node from the nodemap by name.
 
         :param name: The name of the node.
-        :return: A :class:`Node` derived instance.
+        :return: A :class:`Node` derived instance or None if there isn't one.
         """
         cdef bytes name_b = name.encode()
         cdef const char * name_c = name_b
@@ -143,6 +143,8 @@ cdef class NodeMap:
             s.assign(name_c, n)
             handle = self._handle.GetNode(s)
 
+        if handle == NULL:
+            return None
         return create_node_inst(self, handle)
 
     cpdef get_node_by_index(self, size_t index):
@@ -177,23 +179,28 @@ cdef class NodeMap:
             s = self._handle.GetDeviceName()
         return s.c_str().decode()
 
+    cpdef connect_port(self, SpinPortNode node, str name=''):
+        """Connects a port to another port.
 
-"""
-/**
- * Connects a port to a port node with given name
- */
-virtual bool Connect(IPort * pPort, const GenICam::gcstring& PortName) const = 0;
+        :param node: The :class:`SpinPortNode` node to connect.
+        :param name: The name of the node to connect to. If not specified (the
+            default), it connects to the standard port "Device".
+        :return: bool, whether it connected.
+        """
+        cdef bytes name_b = name.encode()
+        cdef size_t n = len(name)
+        cdef const char * name_c = name_b
+        cdef gcstring name_s
+        cdef cbool res
 
-/**
- * Connects a port to the standard port "Device"
- */
-virtual bool Connect(IPort * pPort) const = 0;
+        with nogil:
+            if n:
+                name_s.assign(name_c, n)
+                res = self._handle.Connect(node._handle, name_s)
+            else:
+                res = self._handle.Connect(node._handle)
 
-/**
- * Returns the lock which guards the node map
- */
-virtual CLock& GetLock() const = 0;
-"""
+        return bool(res)
 
 
 cdef class SpinBaseNode:
@@ -214,6 +221,45 @@ cdef class SpinBaseNode:
         with nogil:
             n = self._base_handle.GetAccessMode()
         return AccessMode_values[n]
+
+    cpdef is_readable(self):
+        """Returns whether the node is readable.
+        """
+        cdef EAccessMode n
+        with nogil:
+            n = self._base_handle.GetAccessMode()
+        return RO == n or RW == n
+
+    cpdef is_writable(self):
+        """Returns whether the node is writable.
+        """
+        cdef EAccessMode n
+        with nogil:
+            n = self._base_handle.GetAccessMode()
+        return WO == n or RW == n
+
+    cpdef is_implemented(self):
+        """Returns whether the node is implemented.
+        """
+        cdef EAccessMode n
+        with nogil:
+            n = self._base_handle.GetAccessMode()
+        return NI != n
+
+    cpdef is_available(self):
+        """Returns whether the node is available.
+        """
+        cdef EAccessMode n
+        with nogil:
+            n = self._base_handle.GetAccessMode()
+        return not (n == NA or n == NI)
+
+    cpdef is_visible(self, str visibility, str max_visibility):
+        """Returns whether the visibility level is less than or equal than the
+         maximum visibility according to the visibility levels of
+         :attr:`~rotpy.names.geni.Visibility_names`.
+        """
+        return Visibility_names[visibility] <= Visibility_names[max_visibility]
 
 
 cdef class SpinSelectorNode(SpinBaseNode):
@@ -244,7 +290,9 @@ cdef class SpinSelectorNode(SpinBaseNode):
             n = nodes.size()
 
         for i in range(n):
-            items.append(create_node_inst(self, dynamic_cast[INodePointer]((&nodes.at(i))[0])))
+            items.append(
+                create_node_inst(
+                    self, dynamic_cast[INodePointer]((&nodes.at(i))[0])))
 
         return items
 
@@ -260,7 +308,9 @@ cdef class SpinSelectorNode(SpinBaseNode):
             n = nodes.size()
 
         for i in range(n):
-            items.append(create_node_inst(self, dynamic_cast[INodePointer]((&nodes.at(i))[0])))
+            items.append(
+                create_node_inst(
+                    self, dynamic_cast[INodePointer]((&nodes.at(i))[0])))
 
         return items
 
@@ -274,14 +324,11 @@ cdef class SpinNode(SpinSelectorNode):
         SpinSelectorNode.set_handle(self, object, handle)
         self._node_handle = dynamic_cast[INodePointer](handle)
 
-    cpdef dict get_metadata(self, include_value=False):
+    cpdef dict get_metadata(self):
         """Returns a dict of metadata of the node.
 
         The items are the various info on the node as accessible from the node's
         methods (e.g. whether it's readable etc.).
-
-        :param include_value: If True, we read the value and include it in the
-            dict as a string.
         """
         d = {
             'implemented': self.is_implemented(),
@@ -299,49 +346,7 @@ cdef class SpinNode(SpinSelectorNode):
             'type': self.get_node_type(),
             'polling_time': self.get_polling_time(),
         }
-        if include_value:
-            d['value'] = self.get_node_value_as_str()
         return d
-
-    # cpdef is_implemented(self):
-    #     """Checks whether the node is implemented.
-    #     """
-    #     cdef bool8_t n
-    #     with nogil:
-    #         check_ret(spinNodeIsImplemented(self._handle, &n))
-    #     return bool(n)
-    #
-    # cpdef is_readable(self):
-    #     """Checks whether the node is readable.
-    #     """
-    #     cdef bool8_t n
-    #     with nogil:
-    #         check_ret(spinNodeIsReadable(self._handle, &n))
-    #     return bool(n)
-    #
-    # cpdef is_writable(self):
-    #     """Checks whether the node is writable.
-    #     """
-    #     cdef bool8_t n
-    #     with nogil:
-    #         check_ret(spinNodeIsWritable(self._handle, &n))
-    #     return bool(n)
-    #
-    # cpdef is_available(self):
-    #     """Checks whether the node is available.
-    #     """
-    #     cdef bool8_t n
-    #     with nogil:
-    #         check_ret(spinNodeIsAvailable(self._handle, &n))
-    #     return bool(n)
-    #
-    # cpdef is_equal(self, SpinBaseNode other):
-    #     """Checks whether the node is equal to the other node.
-    #     """
-    #     cdef bool8_t n
-    #     with nogil:
-    #         check_ret(spinNodeIsEqual(self._handle, other._handle, &n))
-    #     return bool(n)
 
     cpdef is_cachable(self):
         """Checks whether the node value is cacheable.
@@ -562,22 +567,28 @@ cdef class SpinNode(SpinSelectorNode):
         """Gets a alias node which describes the same feature in a different
         way.
 
-        :return: A :class:`Node` derived instance.
+        :return: A :class:`Node` derived instance or None if there isn't one.
         """
         cdef INode* handle
         with nogil:
             handle = self._node_handle.GetAlias()
+
+        if handle == NULL:
+            return None
         return create_node_inst(self, handle)
 
     cpdef get_cast_alias_node(self):
         """Gets a alias node which describes the same feature so that it can be
         casted.
 
-        :return: A :class:`Node` derived instance.
+        :return: A :class:`Node` derived instance or None if there isn't one.
         """
         cdef INode* handle
         with nogil:
             handle = self._node_handle.GetCastAlias()
+
+        if handle == NULL:
+            return None
         return create_node_inst(self, handle)
 
     cpdef set_ref(self, SpinNode node):
@@ -1136,7 +1147,7 @@ cdef class SpinEnumNode(SpinValueNode):
         """Gets a enum entry node from the enum class by its int value.
 
         :param value: The int value of the entry to get.
-        :return: A :class:`SpinEnumItemNode` instance.
+        :return: A :class:`SpinEnumItemNode` instance or None if not found.
 
         .. note::
 
@@ -1148,6 +1159,9 @@ cdef class SpinEnumNode(SpinValueNode):
         with nogil:
             handle = self._handle.GetEntry(value)
 
+        if handle == NULL:
+            return None
+
         entry = SpinEnumItemNode()
         entry.set_handle(self, dynamic_cast[IBasePointer](handle))
         return entry
@@ -1156,7 +1170,7 @@ cdef class SpinEnumNode(SpinValueNode):
         """Gets a enum entry node from the enum class by its string name.
 
         :param name: The symbolic string name of the enum entry to get.
-        :return: A :class:`SpinEnumItemNode` instance.
+        :return: A :class:`SpinEnumItemNode` instance or None if not found.
 
         .. note::
 
@@ -1172,6 +1186,9 @@ cdef class SpinEnumNode(SpinValueNode):
         with nogil:
             s.assign(name_c, n)
             handle = self._handle.GetEntryByName(s)
+
+        if handle == NULL:
+            return None
 
         entry = SpinEnumItemNode()
         entry.set_handle(self, dynamic_cast[IBasePointer](handle))
@@ -1218,6 +1235,9 @@ cdef class SpinEnumNode(SpinValueNode):
         with nogil:
             handle = self._handle.GetCurrentEntry(verify, ignore_cache)
 
+        if handle == NULL:
+            return None
+
         entry = SpinEnumItemNode()
         entry.set_handle(self, dynamic_cast[IBasePointer](handle))
         return entry
@@ -1250,7 +1270,7 @@ cdef class SpinEnumDefNode(SpinEnumNode):
 
         :param value: The string value of the entry to get as listed in
             :attr:`enum_names`.
-        :return: A :class:`SpinEnumItemNode` instance.
+        :return: A :class:`SpinEnumItemNode` instance or None if not found.
 
         .. note::
 
@@ -1262,6 +1282,9 @@ cdef class SpinEnumDefNode(SpinEnumNode):
 
         with nogil:
             handle = self._enum_handle.GetEntry(n)
+
+        if handle == NULL:
+            return None
 
         entry = SpinEnumItemNode()
         entry.set_handle(self, dynamic_cast[IBasePointer](handle))

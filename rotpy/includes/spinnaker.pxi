@@ -213,8 +213,8 @@ cdef extern from "SpinGenApi/INodeMap.h" namespace "Spinnaker::GenApi" nogil:
         void GetNodes(NodeList_t& Nodes) except +
         INode * GetNode(const gcstring& Name) except +
         void InvalidateNodes() except +
-        # cbool Connect(IPort * pPort, const gcstring& PortName) except +
-        # cbool Connect(IPort * pPort) except +
+        cbool Connect(IPort * pPort, const gcstring& PortName) except +
+        cbool Connect(IPort * pPort) except +
         gcstring GetDeviceName() except +
         void Poll(int64_t ElapsedTime) except +
         uint64_t GetNumNodes() except +
