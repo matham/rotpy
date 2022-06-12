@@ -3,6 +3,18 @@ from libcpp.string cimport string as cstr
 from libc.stdint cimport int64_t, uint64_t, uint8_t, uint32_t
 
 
+cdef extern from "SpinnakerDefs.h" namespace "Spinnaker::TIFFOption" nogil:
+    cpdef enum CompressionMethod:
+        NONE = 1
+        PACKBITS
+        DEFLATE
+        ADOBE_DEFLATE
+        CCITTFAX3
+        CCITTFAX4
+        LZW
+        JPEG_ENC "Spinnaker::TIFFOption::JPEG"
+
+
 cdef extern from "SpinnakerDefs.h" namespace "Spinnaker" nogil:
 
     const uint64_t EVENT_TIMEOUT_NONE = 0
@@ -125,19 +137,9 @@ cdef extern from "SpinnakerDefs.h" namespace "Spinnaker" nogil:
         cbool binaryFile
         unsigned int reserved[16]
 
-    # cpdef enum CompressionMethod:
-    #     NONE = 1
-    #     PACKBITS
-    #     DEFLATE
-    #     ADOBE_DEFLATE
-    #     CCITTFAX3
-    #     CCITTFAX4
-    #     LZW
-    #     JPEG
-    #
-    # cdef struct TIFFOption:
-    #     CompressionMethod compression
-    #     unsigned int reserved[16]
+    cdef struct TIFFOption:
+        CompressionMethod compression
+        unsigned int reserved[16]
 
     cdef struct JPEGOption:
         cbool progressive

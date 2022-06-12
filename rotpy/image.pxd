@@ -61,3 +61,11 @@ cdef class Image:
     cpdef get_status(self)
     @staticmethod
     cdef str get_status_description_c(str status)
+    cpdef save_file(self, str filename, str file_format=*)
+    cpdef save_png(self, str filename, cbool interlaced=*, unsigned int compression=*)
+    cpdef save_ppm(self, str filename, cbool binary=*)
+    cpdef save_pgm(self, str filename, cbool binary=*)
+    cpdef save_tiff(self, str filename, str compression=*)
+    cpdef save_jpeg(self, str filename, cbool progressive=*, unsigned int quality=*)
+    cpdef save_jpeg2(self, str filename, unsigned int quality=*)
+    cpdef save_bmp(self, str filename, cbool indexed_color_8bit=*)

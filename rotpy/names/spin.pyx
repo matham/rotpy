@@ -2,7 +2,8 @@ from rotpy._interface import Error, EventType, PixelFormatNamespaceID, \
     ColorProcessingAlgorithm, ImageFileFormat, ImageStatus, \
     StatisticsChannel, SpinnakerLogLevel, PayloadTypeInfoIDs, \
     ActionCommandStatus, PixelFormatIntType, BufferOwnership, \
-    CCMColorTemperature, CCMType, CCMSensor, CCMColorSpace, CCMApplication
+    CCMColorTemperature, CCMType, CCMSensor, CCMColorSpace, CCMApplication, \
+    CompressionMethod
 from ..names import _split_name, _lower_names, _invert_dict
 
 __all__ = (
@@ -10,7 +11,7 @@ __all__ = (
     'pix_fmt_namespace_names', 'pix_fmt_namespace_values',
     'color_processing_algo_names', 'color_processing_algo_values',
     'img_file_fmt_names', 'img_file_fmt_values', 'img_status_names',
-    'img_status_values', # 'compression_names', 'compression_values',
+    'img_status_values', 'compression_names', 'compression_values',
     'stats_channel_names', 'stats_channel_values', 'log_level_names',
     'log_level_values', 'payload_type_names', 'payload_type_values',
     'cmd_status_names', 'cmd_status_values', 'pix_fmt_int_names',
@@ -41,8 +42,8 @@ img_file_fmt_values = _invert_dict(img_file_fmt_names)
 img_status_names = _split_name(1, ImageStatus, lower=True)
 img_status_values = _invert_dict(img_status_names)
 
-# compression_names = _lower_names(CompressionMethod)
-# compression_values = _invert_dict(compression_names)
+compression_names = _lower_names(CompressionMethod)
+compression_values = _invert_dict(compression_names)
 
 stats_channel_names = _lower_names(StatisticsChannel)
 stats_channel_values = _invert_dict(stats_channel_names)

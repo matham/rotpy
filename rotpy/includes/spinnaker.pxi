@@ -342,6 +342,14 @@ cdef extern from "Image.h" namespace "Spinnaker" nogil:
         cbool IsInUse() except +
         ImageStatus GetImageStatus() except +
         cbool IsCompressed() except +
+        void Save(const char * pFilename, ImageFileFormat format)
+        void Save(const char * pFilename, PNGOption& pOption)
+        void Save(const char * pFilename, PPMOption& pOption)
+        void Save(const char * pFilename, PGMOption& pOption)
+        void Save(const char * pFilename, TIFFOption& pOption)
+        void Save(const char * pFilename, JPEGOption& pOption)
+        void Save(const char * pFilename, JPG2Option& pOption)
+        void Save(const char * pFilename, BMPOption& pOption)
 
 
 cdef extern from "TransportLayerDevice.h" namespace "Spinnaker" nogil:

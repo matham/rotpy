@@ -5,7 +5,7 @@ from .names.spin import payload_type_names, \
     payload_type_values, color_processing_algo_names, \
     color_processing_algo_values, \
     pix_fmt_namespace_values, pix_fmt_int_values,\
-    img_status_values, img_status_names
+    img_status_values, img_status_names, img_file_fmt_names, compression_names
 from .names.camera import PixelFormat_values, PixelFormat_names
 
 DEF MAX_BUFF_LEN = 256
@@ -687,3 +687,155 @@ cdef class Image:
         with nogil:
             msg = CImage.GetImageStatusDescription(n)
         return msg.decode()
+
+    cpdef save_file(self, str filename, str file_format='from_file_ext'):
+        """Saves the image to a file, depending on the format specified.
+
+        :param filename: The filename.
+        :param file_format: The file format to save - it's a string from the
+            options :attr:`~rotpy.names.spin.img_file_fmt_names`. By default it
+            guesses from the extension.
+        """
+        cdef ImageFileFormat fmt = img_file_fmt_names[file_format]
+        cdef bytes filename_b = filename.encode()
+        cdef const char * filename_c = filename_b
+
+        with nogil:
+            self._image.get().Save(filename_c, fmt)
+
+    cpdef save_png(
+            self, str filename, cbool interlaced=False,
+            unsigned int compression=6):
+        """Saves the image to a png file.
+
+        :param filename: The filename.
+        :param interlaced: Whether to save interlaced (default False).
+        :param compression: The compression level (default 6) (0-9). 0 is no
+            compression, 9 is best compression.
+        """
+        cdef PNGOption opt
+        cdef bytes filename_b = filename.encode()
+        cdef const char * filename_c = filename_b
+
+        opt.interlaced = interlaced
+        opt.compressionLevel = compression
+
+        with nogil:
+            self._image.get().Save(filename_c, opt)
+
+    cpdef save_ppm(self, str filename, cbool binary=True):
+        """Saves the image to a ppm file.
+
+        :param filename: The filename.
+        :param binary: Whether to save as a binary file (default True).
+        """
+        cdef PPMOption opt
+        cdef bytes filename_b = filename.encode()
+        cdef const char * filename_c = filename_b
+
+        opt.binaryFile = binary
+
+        with nogil:
+            self._image.get().Save(filename_c, opt)
+
+    cpdef save_pgm(self, str filename, cbool binary=True):
+        """Saves the image to a pgm file.
+
+        :param filename: The filename.
+        :param binary: Whether to save as a binary file (default True).
+        """
+        cdef PGMOption opt
+        cdef bytes filename_b = filename.encode()
+        cdef const char * filename_c = filename_b
+
+        opt.binaryFile = binary
+
+        with nogil:
+            self._image.get().Save(filename_c, opt)
+
+    cpdef save_tiff(self, str filename, str compression='lzw'):
+        """Saves the image to a tiff file.
+
+        :param filename: The filename.
+        :param compression: The compression used to save the image (default
+            lzw). It's a string from the options
+            :attr:`~rotpy.names.spin.compression_names`.
+        """
+        cdef TIFFOption opt
+        cdef bytes filename_b = filename.encode()
+        cdef const char * filename_c = filename_b
+
+        opt.compression = compression_names[compression]
+
+        with nogil:
+            self._image.get().Save(filename_c, opt)
+
+    cpdef save_jpeg(
+            self, str filename, cbool progressive=False,
+            unsigned int quality=75):
+        """Saves the image to a JPEG file.
+
+        :param filename: The filename.
+        :param progressive: Whether to save as a progressive JPEG (default
+            False).
+        :param quality: JPEG image quality in range (0-100) (default 75).
+            100 - Superb quality, 75 - Good quality, 50 - Normal quality, 10 -
+            Poor quality.
+        """
+        cdef JPEGOption opt
+        cdef bytes filename_b = filename.encode()
+        cdef const char * filename_c = filename_b
+
+        opt.progressive = progressive
+        opt.quality = quality
+
+        with nogil:
+            self._image.get().Save(filename_c, opt)
+
+    cpdef save_jpeg2(self, str filename, unsigned int quality=16):
+        """Saves the image to a JPEG2000 file.
+
+        :param filename: The filename.
+        :param quality: JPEG image quality in range (1-512) (default 16).
+        """
+        cdef JPG2Option opt
+        cdef bytes filename_b = filename.encode()
+        cdef const char * filename_c = filename_b
+
+        opt.quality = quality
+
+        with nogil:
+            self._image.get().Save(filename_c, opt)
+
+    cpdef save_bmp(self, str filename, cbool indexed_color_8bit=False):
+        """Saves the image to a bmp file.
+
+        :param filename: The filename.
+        :param indexed_color_8bit: Whether to save as a 8-bit color index bmp
+            (default False).
+        """
+        cdef BMPOption opt
+        cdef bytes filename_b = filename.encode()
+        cdef const char * filename_c = filename_b
+
+        opt.indexedColor_8bit = indexed_color_8bit
+
+        with nogil:
+            self._image.get().Save(filename_c, opt)
+
+"""
+API not implemented:
+
+/**
+* Gets a pointer to the user passed data associated with the image.
+* This function is considered unsafe. The pointer returned could be
+* invalidated if the buffer is released. The pointer may also be
+* invalidated if the Image object is passed to
+* Image::Release().
+*
+* TODO: no way to set private data for image yet.
+*
+* @return A pointer to the user passed data pointer.
+*/
+void* GetPrivateData() const;
+"""
