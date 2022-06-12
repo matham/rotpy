@@ -126,36 +126,27 @@ cdef class CameraList:
     camera retrieval.
     """
 
-    def __cinit__(self, SpinSystem system):
-        self._list_set = 0
-        self.system = system
-
-    def __init__(self, SpinSystem system):
-        cdef SystemPtr system_ptr = system._system
-        with nogil:
-            self._cam_list = system_ptr.get().GetCameras(0, 0)
-        self._list_set = 1
+    def __cinit__(self):
+        self.system = None
+        self._interface = None
 
     def __dealloc__(self):
-        if self._list_set:
-            self._list_set = 0
+        if self.system is not None or self._interface is not None:
+            # this is only called after all cameras are dead because each camera
+            # has a ref to the camera list
             with nogil:
                 self._cam_list.Clear()
+            self.system = None
+            self._interface = None
 
-    cpdef refresh_cameras(
-            self, cbool update_interfaces=False, cbool update_cams=False):
-        """Retrieves the list of detected (and enumerable) cameras on the
-        system.
+    cdef void set_system(self, SpinSystem system, CCameraList cam_list):
+        self.system = system
+        self._cam_list = cam_list
 
-        :param update_interfaces: Whether to update the interface list.
-        :param update_cams: Whether to update the camera list to detect
-            new/removed cameras.
-        """
-        cdef SystemPtr system = self.system._system
-        with nogil:
-            self._cam_list.Clear()
-            self._cam_list = system.get().GetCameras(
-                update_interfaces, update_cams)
+    cdef void set_interface(
+            self, InterfaceDevice interface, CCameraList cam_list):
+        self._interface = interface
+        self._cam_list = cam_list
 
     cpdef get_size(self):
         """Retrieves the number of cameras in the camera list.
@@ -165,13 +156,13 @@ cdef class CameraList:
             n = self._cam_list.GetSize()
         return n
 
-    cpdef Camera create_camera_by_index(self, unsigned int index):
+    cpdef create_camera_by_index(self, unsigned int index):
         """Retrieves a camera from this camera list using an index.
 
         :param index: The index of the camera.
         :return: A :class:`Camera`.
         """
-        camera = Camera()
+        cdef Camera camera = Camera()
         camera.set_camera_by_index(self, index)
         return camera
 
@@ -183,14 +174,14 @@ cdef class CameraList:
         with nogil:
             self._cam_list.RemoveByIndex(index)
 
-    cpdef Camera create_camera_by_serial(self, str serial):
+    cpdef create_camera_by_serial(self, str serial):
         """Retrieves a camera from this camera list using its serial number.
 
         :param serial: The serial number of the camera to retrieve.
         :return: A :class:`Camera`.
         """
         cdef bytes buf = serial.encode()
-        camera = Camera()
+        cdef Camera camera = Camera()
         camera.set_camera_by_serial(self, buf)
         return camera
 
@@ -204,14 +195,14 @@ cdef class CameraList:
         with nogil:
             self._cam_list.RemoveBySerial(c_string)
 
-    cpdef Camera create_camera_by_dev_id(self, str dev_id):
+    cpdef create_camera_by_dev_id(self, str dev_id):
         """Retrieves a camera from this camera list using its device identifier.
 
         :param dev_id: The device identifier of the camera to retrieve.
         :return: A :class:`Camera`.
         """
         cdef bytes buf = dev_id.encode()
-        camera = Camera()
+        cdef Camera camera = Camera()
         camera.set_camera_by_dev_id(self, buf)
         return camera
 

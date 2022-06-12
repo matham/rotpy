@@ -1,6 +1,7 @@
 from .names.spin import log_level_names, log_level_values, cmd_status_values
 from cpython.ref cimport PyObject
 from libc.stdlib cimport malloc, free
+cimport rotpy.camera
 
 # __all__ = ('SpinError', 'SpinSystem')
 
@@ -243,20 +244,6 @@ cdef class SpinSystem:
             val = self._system.get().IsInUse()
         return bool(val)
 
-    cpdef refresh_camera_list(self, cbool update_interfaces=True):
-        """Updates the list of cameras on the system, returning a bool
-        indicating whether there has been any changes and cameras have arrived
-        or been removed.
-
-        :param update_interfaces: If True, the interface lists will also be
-            updated.
-        :return: True if cameras changed on interface and False otherwise.
-        """
-        cdef cbool changed
-        with nogil:
-            changed = self._system.get().UpdateCameras(update_interfaces)
-        return bool(changed)
-
     cpdef get_library_version(self):
         """Gets the current Spinnaker library version as a 4 tuple of
         ``(major, minor, type, build)``.
@@ -420,38 +407,92 @@ cdef class SpinSystem:
             free(results)
         return out
 
+    cpdef create_interface_list(self, cbool update_interfaces=True):
+        """Creates and returns a new :class:`InterfaceDeviceList` for accessing
+        interfaces on the system.
+
+        This returns GigE and Usb2 and Usb3 interfaces. Note that on MacOS only
+        active GigE interfaces will be stored in the returned interface list.
+
+        :param update_interfaces: Whether to update the internal interface list
+            before getting the available interfaces list.
+        :return: A :class:`InterfaceDeviceList`.
+        """
+        cdef InterfaceDeviceList interface_list = InterfaceDeviceList()
+        interface_list.set_system(
+            self, self._system.get().GetInterfaces(update_interfaces))
+        return interface_list
+
+    cpdef create_camera_list(
+            self, cbool update_interfaces=True, cbool update_cams=True):
+        """Creates and returns a new :class:`CameraList` for accessing
+        cameras on the system.
+
+        This returns both GigE Vision and Usb3 Vision cameras from all
+        interfaces.
+
+        :param update_interfaces: Whether to update the internal interface list
+            before getting the camera list from all the interfaces.
+        :param update_cams: Whether to update the internal camera list to detect
+            new/removed cameras before getting the camera list.
+        :return: A :class:`CameraList`.
+        """
+        cdef rotpy.camera.CameraList cam_list = rotpy.camera.CameraList()
+        cam_list.set_system(
+            self, self._system.get().GetCameras(update_interfaces, update_cams))
+        return cam_list
+
+    cpdef update_interface_list(self):
+        """Updates the internal list of interfaces on the system.
+
+        If desired to get the new interfaces, call
+        :meth:`create_interface_list`.
+        """
+        with nogil:
+            self._system.get().UpdateInterfaceList()
+
+    cpdef update_camera_list(self, cbool update_interfaces=True):
+        """Updates the internal list of cameras on the system, returning a bool
+        indicating whether there has been any changes and cameras have arrived
+        or been removed.
+
+        :param update_interfaces: If True, the interface lists will also be
+            updated.
+        :return: True if cameras changed on interface and False otherwise.
+
+        If desired to get the new interfaces or cameras, call
+        :meth:`create_interface_list` or :meth:`create_camera_list`,
+        respectively.
+        """
+        cdef cbool changed
+        with nogil:
+            changed = self._system.get().UpdateCameras(update_interfaces)
+        return bool(changed)
+
 
 cdef class InterfaceDeviceList:
     """Provides access to a list of the interface devices to which cameras
-    can be attached (e.g. USB, ethernet etc.). This includes updating, size, and
-    camera retrieval.
+    can be attached e.g. GigE and Usb2 and Usb3 interfaces. Note that on MacOS
+    only active GigE interfaces will be stored in the returned InterfaceList.
     """
 
-    def __cinit__(self, SpinSystem system):
+    def __cinit__(self):
         self._list_set = 0
-        self.system = system
-
-    def __init__(self, SpinSystem system):
-        cdef SystemPtr system_ptr = system._system
-        with nogil:
-            self._interface_list = system_ptr.get().GetInterfaces(False)
-        self._list_set = 1
 
     def __dealloc__(self):
         if self._list_set:
             self._list_set = 0
             with nogil:
+                # because cameras have a ref to the cam list, which has a ref to
+                # the interface, which has a ref to this interface list, this is
+                # only called once they are all dead
                 self._interface_list.Clear()
 
-    cpdef refresh_interfaces(self):
-        """Retrieves the list of detected (and enumerable) interface devices on
-        the system.
-        """
-        cdef SystemPtr system = self.system._system
-        with nogil:
-            system.get().UpdateInterfaceList()
-            self._interface_list.Clear()
-            self._interface_list = system.get().GetInterfaces(False)
+    cdef void set_system(
+            self, SpinSystem system, CInterfaceList interface_list):
+        self.system = system
+        self._interface_list = interface_list
+        self._list_set = 1
 
     cpdef get_size(self):
         """Retrieves the number of interface devices in the interface device
@@ -462,14 +503,14 @@ cdef class InterfaceDeviceList:
             n = self._interface_list.GetSize()
         return n
 
-    cpdef InterfaceDevice create_interface(self, unsigned int index):
+    cpdef create_interface(self, unsigned int index):
         """Retrieves an interface device from this interface device list using
         an index.
 
         :param index: The index of the interface device.
         :return: A :class:`InterfaceDevice`.
         """
-        dev = InterfaceDevice()
+        cdef InterfaceDevice dev = InterfaceDevice()
         dev.set_interface(self, index)
         return dev
 
@@ -488,6 +529,7 @@ cdef class InterfaceDevice:
     def __cinit__(self):
         self._interface_set = 0
         self.interface_nodes = InterfaceNodes(interface=self)
+        self._event_handlers = set()
 
     def __dealloc__(self):
         if self._interface_set:
@@ -504,22 +546,139 @@ cdef class InterfaceDevice:
         self._interface_set = 1
         self._dev_list = dev_list
 
+    cpdef attach_event_handler(self, InterfaceEventHandler handler):
+        """Registers an event handler for the interface.
+
+        :param handler: The :class:`InterfaceEventHandler` to handle the events.
+
+        The ``handler`` will receive the interface events while it is
+        registered.
+
+        Event handlers are automatically cleaned up when an interface is
+        removed, and must be registered to interfaces as they arrive. Note that
+        GEV interfaces experience arrival/removal events when the IP information
+        changes, similar to GEV cameras.
+        """
+        if handler in self._event_handlers:
+            raise ValueError("Handler is already attached to the system")
+
+        with nogil:
+            self._interface.get().RegisterEventHandler(handler._handler)
+        self._event_handlers.add(handler)
+
+    cpdef detach_event_handler(self, InterfaceEventHandler handler):
+        """Detaches the event handler previously attached with
+        :meth:`attach_event_handler`.
+
+        :param handler: The :class:`InterfaceEventHandler` that handled the
+            events.
+        """
+        if handler not in self._event_handlers:
+            raise ValueError("Handler is not attached to the system")
+
+        with nogil:
+            self._interface.get().UnregisterEventHandler(handler._handler)
+        self._event_handlers.remove(handler)
+
     cpdef get_in_use(self):
         """Returns whether the interface is in use by any camera objects.
         """
         cdef cbool n
         with nogil:
             n = self._interface.get().IsInUse()
-#
-#     cpdef NodeMap get_tl_node_map(self):
-#         """Gets the transport layer nodemap from the interface.
-#
-#         :return: A :class:`~rotpy.node.NodeMap`.
-#         """
-#         cdef spinNodeMapHandle handle
-#         cdef NodeMap node_map = NodeMap()
-#         with nogil:
-#             check_ret(spinInterfaceGetTLNodeMap(self._interface, &handle))
-#         node_map.set_handle(handle)
-#
-#         return node_map
+        return bool(n)
+
+    cpdef send_command(
+            self, unsigned int device_key, unsigned int group_key,
+            unsigned int group_mask, unsigned long long action_time=0,
+            unsigned int num_results=0):
+        """Broadcast an Action Command to all devices on the interface.
+
+        :param device_key: The action command's device key.
+        :param group_key: The action command's group key.
+        :param group_mask: The action command's group mask.
+        :param action_time: Time when to assert a future action. Zero (default)
+            means immediate action.
+        :param num_results: The number of results expected in the return list.
+            The value passed should be equal to the expected number of devices
+            that acknowledge the command. The returned list will be the actual
+            number of received results. If this is 0, the function will return
+            as soon as the command has been broadcasted.
+        :return: A list of tuples, one tuple for each item in the result.
+            Each tuple is ``(address, status)``, where ``address`` is the device
+            address and ``status`` is the status string from
+            :attr:`~rotpy.names.spin.cmd_status_names`.
+        """
+        cdef unsigned int n = num_results
+        cdef ActionCommandResult * results = NULL
+        cdef list out = []
+        cdef size_t i
+
+        if n:
+            results = <ActionCommandResult *> malloc(
+                n * sizeof(ActionCommandResult))
+            if results == NULL:
+                raise MemoryError
+
+        with nogil:
+            self._interface.get().SendActionCommand(
+                device_key, group_key, group_mask, action_time, &n, results)
+
+        for i in range(n):
+            out.append((
+                results[i].DeviceAddress, cmd_status_values[results[i].status]))
+
+        if results != NULL:
+            free(results)
+        return out
+
+    cpdef get_is_valid(self):
+        """Returns whether the interface is still valid for use.
+        """
+        cdef cbool n
+        with nogil:
+            n = self._interface.get().IsValid()
+        return bool(n)
+
+    cpdef create_camera_list(self, cbool update_cams=True):
+        """Creates and returns a new :class:`CameraList` for accessing
+        the cameras on this interface.
+
+        It returns either usb3 vision or gige vision cameras depending on the
+        underlying transport layer of this interface.
+
+        :param update_cams: Whether to update the internal camera list to detect
+            new/removed cameras before getting the camera list.
+        :return: A :class:`CameraList`.
+        """
+        cdef rotpy.camera.CameraList cam_list = rotpy.camera.CameraList()
+        cam_list.set_interface(
+            self, self._interface.get().GetCameras(update_cams))
+        return cam_list
+
+    cpdef update_camera_list(self):
+        """Updates the internal list of cameras on the system, returning a bool
+        indicating whether there has been any changes and cameras have arrived
+        or been removed.
+
+        :return: True if cameras changed on interface and False otherwise.
+
+        If desired to get the new cameras, call :meth:`create_camera_list`.
+        """
+        cdef cbool changed
+        with nogil:
+            changed = self._interface.get().UpdateCameras()
+        return bool(changed)
+
+    cpdef get_tl_node_map(self):
+        """Gets the transport layer nodemap from the interface.
+
+        :return: A :class:`~rotpy.node.NodeMap`.
+        """
+        cdef INodeMap* handle
+        cdef NodeMap node_map = NodeMap()
+        with nogil:
+            handle = &self._interface.get().GetTLNodeMap()
+        node_map.set_handle(handle)
+
+        return node_map

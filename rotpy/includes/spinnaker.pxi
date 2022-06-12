@@ -1232,19 +1232,20 @@ cdef extern from "Interface.h" namespace "Spinnaker" nogil:
         cbool IsValid() except +
 
     cdef cppclass CInterface "Spinnaker::Interface":
-        # CameraList GetCameras(cbool updateCameras) except +
-        # cbool UpdateCameras() except +
-        # void RegisterEventHandler(EventHandler& evtHandlerToRegister) except +
-        # void UnregisterEventHandler(EventHandler& evtHandlerToUnregister) except +
+        CCameraList GetCameras(cbool updateCameras) except +
+        cbool UpdateCameras() except +
+        void RegisterEventHandler(CEventHandler& evtHandlerToRegister) except +
+        void UnregisterEventHandler(CEventHandler& evtHandlerToUnregister) except +
         cbool IsInUse() except +
-        # void SendActionCommand(
-        #         unsigned int deviceKey,
-        #         unsigned int groupKey,
-        #         unsigned int groupMask,
-        #         unsigned long long actionTime,
-        #         unsigned int * pResultSize,
-        #         ActionCommandResult results[]) except +
-        # cbool IsValid() except +
+        INodeMap& GetTLNodeMap() except +
+        void SendActionCommand(
+                unsigned int deviceKey,
+                unsigned int groupKey,
+                unsigned int groupMask,
+                unsigned long long actionTime,
+                unsigned int * pResultSize,
+                ActionCommandResult results[]) except +
+        cbool IsValid() except +
 
         TransportLayerInterface TLInterface
 

@@ -1,5 +1,5 @@
 from ._interface cimport *
-from .system cimport SpinSystem, EventHandlerBase
+from .system cimport SpinSystem, EventHandlerBase, InterfaceDevice
 from .image cimport Image
 from .node cimport NodeMap
 from .camera_nodes cimport CameraNodes, TLDevNodes, TLStreamNodes
@@ -26,16 +26,17 @@ cdef class ImageEventHandler(EventHandlerBase):
 cdef class CameraList:
 
     cdef SpinSystem system
+    cdef InterfaceDevice _interface
     cdef CCameraList _cam_list
-    cdef int _list_set
 
-    cpdef refresh_cameras(self, cbool update_interfaces=*, cbool update_cams=*)
+    cdef void set_system(self, SpinSystem system, CCameraList cam_list)
+    cdef void set_interface(self, InterfaceDevice interface, CCameraList cam_list)
     cpdef get_size(self)
-    cpdef Camera create_camera_by_index(self, unsigned int index)
+    cpdef create_camera_by_index(self, unsigned int index)
     cpdef remove_camera_by_index(self, unsigned int index)
-    cpdef Camera create_camera_by_serial(self, str serial)
+    cpdef create_camera_by_serial(self, str serial)
     cpdef remove_camera_by_serial(self, str serial)
-    cpdef Camera create_camera_by_dev_id(self, str dev_id)
+    cpdef create_camera_by_dev_id(self, str dev_id)
     cpdef remove_camera_by_dev_id(self, str dev_id)
     cpdef extend_camera_list(self, CameraList other_list)
 
