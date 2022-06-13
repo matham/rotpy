@@ -4,11 +4,15 @@ from libcpp cimport bool as cbool
 from libcpp.string cimport string as cstr
 from libcpp.cast cimport dynamic_cast
 
+from ._cam_defs._cam_defs1 cimport *
+from ._cam_defs._cam_defs2 cimport *
+from ._cam_defs._cam_defs3 cimport *
+from ._cam_defs._cam_defs4 cimport *
+from ._cam_defs._cam_defs5 cimport *
 
 include "includes/Types.pxi"
 include "includes/SpinnakerDefs.pxi"
 include "includes/TransportLayerDefs.pxi"
-include "includes/CameraDefs.pxi"
 include "includes/spinnaker.pxi"
 
 

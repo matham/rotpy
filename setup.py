@@ -42,8 +42,10 @@ if lib:
 
 
 mods = [
+    '_cam_defs._cam_defs1', '_cam_defs._cam_defs2', '_cam_defs._cam_defs3',
+    '_cam_defs._cam_defs4', '_cam_defs._cam_defs5',
     '_interface', 'system', 'names.camera', 'names.geni', 'names.spin',
-    'names.tl', 'camera', 'image', 'node', 'camera_nodes', 'system_nodes'
+    'names.tl', 'camera', 'image', 'node', 'camera_nodes', 'system_nodes',
 ]
 mod_suffix = '.pyx'
 include_dirs.append(join(abspath(dirname(__file__)), 'rotpy', 'includes'))
@@ -85,6 +87,8 @@ setup(
     packages=['rotpy'],
     package_data={
         'rotpy': [
-            '*.pxd', '*.pyx', 'includes/*.pxi', 'names/*.pyx', 'includes/*.h']},
+            '*.pxd', '*.pyx', 'includes/*.pxi', 'names/*.pyx', 'includes/*.h',
+            '_cam_defs/*.pyx', '_cam_defs/*.pxd'
+        ]},
     data_files=get_wheel_data(),
     cmdclass=cmdclass, ext_modules=ext_modules)
