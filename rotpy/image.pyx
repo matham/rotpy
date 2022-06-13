@@ -823,6 +823,19 @@ cdef class Image:
         with nogil:
             self._image.get().Save(filename_c, opt)
 
+    cpdef get_chunk_data(self):
+        """Returns a :class:`ImageChunkData` of the image.
+
+        .. warning::
+
+            The :class:`ImageChunkData` is only valid until :meth:`release` is
+            called.
+        """
+        cdef ImageChunkData chunk = ImageChunkData()
+        chunk.set_image(self)
+        return chunk
+
+
 """
 API not implemented:
 
@@ -838,4 +851,567 @@ API not implemented:
 * @return A pointer to the user passed data pointer.
 */
 void* GetPrivateData() const;
+
+/**
+* Retrieves a number of pixel statistics for an image including
+* a histogram array of the range of pixel values.
+*
+* @param pStatistics The statistics of an image.
+*/
+void CalculateStatistics(ImageStatistics& pStatistics);
 """
+
+
+cdef class ImageChunkData:
+
+    def __cinit__(self):
+        self._image = None
+
+    cdef void set_image(self, Image image):
+        self._image = image
+
+    cpdef get_black_level(self):
+        """Returns the black level used to capture the image.
+
+        Visibility: ``default``.
+        """
+        cdef float64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetBlackLevel()
+        return n
+
+    cpdef get_frame_id(self):
+        """Returns the image frame ID.
+
+        Visibility: ``default``.
+        """
+        cdef int64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetFrameID()
+        return n
+
+    cpdef get_exposure_time(self):
+        """Returns the exposure time used to capture the image.
+
+        Visibility: ``default``.
+        """
+        cdef float64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetExposureTime()
+        return n
+
+    cpdef get_compression_mode(self):
+        """Returns the compression mode of the last image payload.
+
+        Visibility: ``default``.
+        """
+        cdef int64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetCompressionMode()
+        return n
+
+    cpdef get_compression_ratio(self):
+        """Returns the compression ratio of the last image payload.
+
+        Visibility: ``default``.
+        """
+        cdef float64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetCompressionRatio()
+        return n
+
+    cpdef get_timestamp(self):
+        """Returns the Timestamp of the image.
+
+        Visibility: ``default``.
+        """
+        cdef int64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetTimestamp()
+        return n
+
+    cpdef get_exposure_end_line_status_all(self):
+        """Returns the status of all the I/O lines at the end of exposure event.
+
+        Visibility: ``default``.
+        """
+        cdef int64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetExposureEndLineStatusAll()
+        return n
+
+    cpdef get_width(self):
+        """Returns the width of the image included in the payload.
+
+        Visibility: ``default``.
+        """
+        cdef int64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetWidth()
+        return n
+
+    cpdef get_image(self):
+        """Returns the image payload.
+
+        Visibility: ``default``.
+        """
+        cdef int64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetImage()
+        return n
+
+    cpdef get_height(self):
+        """Returns the height of the image included in the payload.
+
+        Visibility: ``default``.
+        """
+        cdef int64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetHeight()
+        return n
+
+    cpdef get_gain(self):
+        """Returns the gain used to capture the image.
+
+        Visibility: ``default``.
+        """
+        cdef float64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetGain()
+        return n
+
+    cpdef get_sequencer_set_active(self):
+        """Returns the index of the active set of the running sequencer included in the payload.
+
+        Visibility: ``default``.
+        """
+        cdef int64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetSequencerSetActive()
+        return n
+
+    cpdef get_crc(self):
+        """Returns the CRC of the image payload.
+
+        Visibility: ``default``.
+        """
+        cdef int64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetCRC()
+        return n
+
+    cpdef get_offset_x(self):
+        """Returns the Offset X of the image included in the payload.
+
+        Visibility: ``default``.
+        """
+        cdef int64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetOffsetX()
+        return n
+
+    cpdef get_offset_y(self):
+        """Returns the Offset Y of the image included in the payload.
+
+        Visibility: ``default``.
+        """
+        cdef int64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetOffsetY()
+        return n
+
+    cpdef get_serial_data_length(self):
+        """Returns the length of the received serial data that was included in the payload.
+
+        Visibility: ``default``.
+        """
+        cdef int64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetSerialDataLength()
+        return n
+
+    cpdef get_part_selector(self):
+        """Selects the part to access in chunk data in a multipart transmission.
+
+        Visibility: ``Expert``.
+        """
+        cdef int64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetPartSelector()
+        return n
+
+    cpdef get_pixel_dynamic_range_min(self):
+        """Returns the minimum value of dynamic range of the image included in the payload.
+
+        Visibility: ``Expert``.
+        """
+        cdef int64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetPixelDynamicRangeMin()
+        return n
+
+    cpdef get_pixel_dynamic_range_max(self):
+        """Returns the maximum value of dynamic range of the image included in the payload.
+
+        Visibility: ``Expert``.
+        """
+        cdef int64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetPixelDynamicRangeMax()
+        return n
+
+    cpdef get_timestamp_latch_value(self):
+        """Returns the last Timestamp latched with the TimestampLatch command.
+
+        Visibility: ``Expert``.
+        """
+        cdef int64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetTimestampLatchValue()
+        return n
+
+    cpdef get_line_status_all(self):
+        """Returns the status of all the I/O lines at the time of the FrameStart internal event.
+
+        Visibility: ``Expert``.
+        """
+        cdef int64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetLineStatusAll()
+        return n
+
+    cpdef get_counter_value(self):
+        """Returns the value of the selected Chunk counter at the time of the FrameStart event.
+
+        Visibility: ``Expert``.
+        """
+        cdef int64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetCounterValue()
+        return n
+
+    cpdef get_timer_value(self):
+        """Returns the value of the selected Timer at the time of the FrameStart internal event.
+
+        Visibility: ``Expert``.
+        """
+        cdef float64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetTimerValue()
+        return n
+
+    cpdef get_scan_line_selector(self):
+        """Index for vector representation of one chunk value per line in an image.
+
+        Visibility: ``Expert``.
+        """
+        cdef int64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetScanLineSelector()
+        return n
+
+    cpdef get_encoder_value(self):
+        """Returns the counter's value of the selected Encoder at the time of the FrameStart in area scan mode or the counter's value at the time of the LineStart selected by ChunkScanLineSelector in LineScan mode.
+
+        Visibility: ``Expert``.
+        """
+        cdef int64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetEncoderValue()
+        return n
+
+    cpdef get_line_pitch(self):
+        """Returns the LinePitch of the image included in the payload.
+
+        Visibility: ``Expert``.
+        """
+        cdef int64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetLinePitch()
+        return n
+
+    cpdef get_transfer_block_id(self):
+        """Returns the unique identifier of the transfer block used to transport the payload.
+
+        Visibility: ``Expert``.
+        """
+        cdef int64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetTransferBlockID()
+        return n
+
+    cpdef get_transfer_queue_current_block_count(self):
+        """Returns the current number of blocks in the transfer queue.
+
+        Visibility: ``Expert``.
+        """
+        cdef int64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetTransferQueueCurrentBlockCount()
+        return n
+
+    cpdef get_stream_channel_id(self):
+        """Returns identifier of the stream channel used to carry the block.
+
+        Visibility: ``Expert``.
+        """
+        cdef int64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetStreamChannelID()
+        return n
+
+    cpdef get_scan3d_coordinate_scale(self):
+        """Returns the Scale for the selected coordinate axis of the image included in the payload.
+
+        Visibility: ``Expert``.
+        """
+        cdef float64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetScan3dCoordinateScale()
+        return n
+
+    cpdef get_scan3d_coordinate_offset(self):
+        """Returns the Offset for the selected coordinate axis of the image included in the payload.
+
+        Visibility: ``Expert``.
+        """
+        cdef float64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetScan3dCoordinateOffset()
+        return n
+
+    cpdef get_scan3d_invalid_data_value(self):
+        """Returns the Invalid Data Value used for the image included in the payload.
+
+        Visibility: ``Expert``.
+        """
+        cdef float64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetScan3dInvalidDataValue()
+        return n
+
+    cpdef get_scan3d_axis_min(self):
+        """Returns the Minimum Axis value for the selected coordinate axis of the image included in the payload.
+
+        Visibility: ``Expert``.
+        """
+        cdef float64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetScan3dAxisMin()
+        return n
+
+    cpdef get_scan3d_axis_max(self):
+        """Returns the Maximum Axis value for the selected coordinate axis of the image included in the payload.
+
+        Visibility: ``Expert``.
+        """
+        cdef float64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetScan3dAxisMax()
+        return n
+
+    cpdef get_scan3d_transform_value(self):
+        """Returns the transform value.
+
+        Visibility: ``Expert``.
+        """
+        cdef float64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetScan3dTransformValue()
+        return n
+
+    cpdef get_scan3d_coordinate_reference_value(self):
+        """Reads the value of a position or pose coordinate for the anchor or transformed coordinate systems relative to the reference point.
+
+        Visibility: ``Expert``.
+        """
+        cdef float64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetScan3dCoordinateReferenceValue()
+        return n
+
+    cpdef get_inference_frame_id(self):
+        """Returns the frame ID associated with the most recent inference result.
+
+        Visibility: ``Expert``.
+        """
+        cdef int64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetInferenceFrameId()
+        return n
+
+    cpdef get_inference_result(self):
+        """Returns the chunk data inference result.
+
+        Visibility: ``Expert``.
+        """
+        cdef int64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetInferenceResult()
+        return n
+
+    cpdef get_inference_confidence(self):
+        """Returns the chunk data inference confidence percentage.
+
+        Visibility: ``Expert``.
+        """
+        cdef float64_t n
+        with nogil:
+            n = self._image._image.get().GetChunkData().GetInferenceConfidence()
+        return n
+
+    cpdef get_data(self):
+        """Returns a dict with all the chunk data labeled with a visibility of
+        ``default``.
+        """
+        cdef ChunkData chunk = self._image._image.get().GetChunkData()
+        cdef dict data = {
+            "black_level": chunk.GetBlackLevel(),
+            "frame_id": chunk.GetFrameID(),
+            "exposure_time": chunk.GetExposureTime(),
+            "compression_mode": chunk.GetCompressionMode(),
+            "compression_ratio": chunk.GetCompressionRatio(),
+            "timestamp": chunk.GetTimestamp(),
+            "exposure_end_line_status_all": chunk.GetExposureEndLineStatusAll(),
+            "width": chunk.GetWidth(),
+            "image": chunk.GetImage(),
+            "height": chunk.GetHeight(),
+            "gain": chunk.GetGain(),
+            "sequencer_set_active": chunk.GetSequencerSetActive(),
+            "crc": chunk.GetCRC(),
+            "offset_x": chunk.GetOffsetX(),
+            "offset_y": chunk.GetOffsetY(),
+            "serial_data_length": chunk.GetSerialDataLength(),
+        }
+        return data
+
+    cpdef get_expert_data(self):
+        """Returns a dict with all the chunk data labeled with a visibility of
+        ``expert``.
+        """
+        cdef ChunkData chunk = self._image._image.get().GetChunkData()
+        cdef dict data = {
+            "part_selector": chunk.GetPartSelector(),
+            "pixel_dynamic_range_min": chunk.GetPixelDynamicRangeMin(),
+            "pixel_dynamic_range_max": chunk.GetPixelDynamicRangeMax(),
+            "timestamp_latch_value": chunk.GetTimestampLatchValue(),
+            "line_status_all": chunk.GetLineStatusAll(),
+            "counter_value": chunk.GetCounterValue(),
+            "timer_value": chunk.GetTimerValue(),
+            "scan_line_selector": chunk.GetScanLineSelector(),
+            "encoder_value": chunk.GetEncoderValue(),
+            "line_pitch": chunk.GetLinePitch(),
+            "transfer_block_id": chunk.GetTransferBlockID(),
+            "transfer_queue_current_block_count": chunk.GetTransferQueueCurrentBlockCount(),
+            "stream_channel_id": chunk.GetStreamChannelID(),
+            "scan3d_coordinate_scale": chunk.GetScan3dCoordinateScale(),
+            "scan3d_coordinate_offset": chunk.GetScan3dCoordinateOffset(),
+            "scan3d_invalid_data_value": chunk.GetScan3dInvalidDataValue(),
+            "scan3d_axis_min": chunk.GetScan3dAxisMin(),
+            "scan3d_axis_max": chunk.GetScan3dAxisMax(),
+            "scan3d_transform_value": chunk.GetScan3dTransformValue(),
+            "scan3d_coordinate_reference_value": chunk.GetScan3dCoordinateReferenceValue(),
+            "inference_frame_id": chunk.GetInferenceFrameId(),
+            "inference_result": chunk.GetInferenceResult(),
+            "inference_confidence": chunk.GetInferenceConfidence(),
+        }
+        return data
+
+    cpdef get_inference_data(self):
+        """Returns a :class:`ChunkDataInference` that represents the inferred
+        labeling of various areas of the image chunk.
+        """
+        cdef ChunkDataInference inference = ChunkDataInference()
+        inference.set_chunk(self)
+        return inference
+
+
+cdef class ChunkDataInference:
+
+    def __cinit__(self):
+        self.chunk = None
+
+    cdef set_chunk(self, ImageChunkData chunk):
+        self.chunk = chunk
+        with nogil:
+            self.box_result = chunk._image._image.get().GetChunkData(
+                ).GetInferenceBoundingBoxResult()
+
+    cpdef get_version(self):
+        """Returns the bounding box format version number.
+        """
+        cdef int8_t n
+        with nogil:
+            n = self.box_result.GetVersion()
+        return n
+
+    cpdef get_box_size(self):
+        """Returns the number of bytes allocated for one bounding box.
+        """
+        cdef int8_t n
+        with nogil:
+            n = self.box_result.GetBoxSize()
+        return n
+
+    cpdef get_num_boxes(self):
+        """Returns the number of bounding boxes.
+        """
+        cdef int16_t n
+        with nogil:
+            n = self.box_result.GetBoxCount()
+        return n
+
+    cpdef get_box(self, uint16_t index):
+        """Returns the bounding box at ``index``.
+
+        The total number of boxes is :meth:`get_num_boxes`.
+
+        :param index: The box index to get.
+        :return: Returns a 4-tuple of ``(class, confidence, type, value)``,
+            where ``class`` is the class ID of the box, ``confidence`` is our
+            confidence in it, type is a string indicating the box type and it's
+            one of ``"rect"``, ``"rotated_rect"``, or ``"circle"``. ``value``
+            is dependant on the type.
+
+            If type is ``"rect"``, ``value`` is a 4-tuple of
+            ``(top_left_x, top_left_y, bottom_right_x, bottom_right_y)``.
+            If type is ``"rotated_rect"``, ``value`` is a 5-tuple of
+            ``(top_left_x, top_left_y, bottom_right_x, bottom_right_y,
+            rotation_angle)``.
+            If type is ``"circle"``, ``value`` is a 3-tuple of
+            ``(center_x, center_y, radius)``.
+        """
+        cdef InferenceBoundingBox box
+        with nogil:
+            box = self.box_result.GetBoxAt(index)
+
+        if box.boxType == INFERENCE_BOX_TYPE_RECTANGLE:
+            tp = 'rect'
+            val = box.rect.topLeftXCoord, box.rect.topLeftYCoord, \
+                box.rect.bottomRightXCoord, box.rect.bottomRightYCoord
+        elif box.boxType == INFERENCE_BOX_TYPE_ROTATED_RECTANGLE:
+            tp = 'rotated_rect'
+            val = box.rotatedRect.topLeftXCoord,\
+                box.rotatedRect.topLeftYCoord, \
+                box.rotatedRect.bottomRightXCoord,\
+                box.rotatedRect.bottomRightYCoord, \
+                box.rotatedRect.rotationAngle
+        else:
+            tp = 'circle'
+            val = box.circle.centerXCoord, box.circle.centerYCoord, \
+                box.circle.radius
+
+        return box.classId, box.confidence, tp, val
+
+    cpdef get_boxes(self):
+        """Returns a list of all the inferred boxes.
+
+        It returns a list of tuples, where each tuple is in the format as
+        returned by :meth:`get_box`.
+        """
+        cdef int16_t n = self.box_result.GetBoxCount()
+        cdef uint16_t i
+        cdef list boxes = []
+        for i in range(n):
+            boxes.append(self.get_box(i))
+        return boxes

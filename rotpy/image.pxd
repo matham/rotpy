@@ -69,3 +69,67 @@ cdef class Image:
     cpdef save_jpeg(self, str filename, cbool progressive=*, unsigned int quality=*)
     cpdef save_jpeg2(self, str filename, unsigned int quality=*)
     cpdef save_bmp(self, str filename, cbool indexed_color_8bit=*)
+    cpdef get_chunk_data(self)
+
+
+cdef class ImageChunkData:
+
+    cdef Image _image
+
+    cdef void set_image(self, Image image)
+
+    cpdef get_black_level(self)
+    cpdef get_frame_id(self)
+    cpdef get_exposure_time(self)
+    cpdef get_compression_mode(self)
+    cpdef get_compression_ratio(self)
+    cpdef get_timestamp(self)
+    cpdef get_exposure_end_line_status_all(self)
+    cpdef get_width(self)
+    cpdef get_image(self)
+    cpdef get_height(self)
+    cpdef get_gain(self)
+    cpdef get_sequencer_set_active(self)
+    cpdef get_crc(self)
+    cpdef get_offset_x(self)
+    cpdef get_offset_y(self)
+    cpdef get_serial_data_length(self)
+    cpdef get_part_selector(self)
+    cpdef get_pixel_dynamic_range_min(self)
+    cpdef get_pixel_dynamic_range_max(self)
+    cpdef get_timestamp_latch_value(self)
+    cpdef get_line_status_all(self)
+    cpdef get_counter_value(self)
+    cpdef get_timer_value(self)
+    cpdef get_scan_line_selector(self)
+    cpdef get_encoder_value(self)
+    cpdef get_line_pitch(self)
+    cpdef get_transfer_block_id(self)
+    cpdef get_transfer_queue_current_block_count(self)
+    cpdef get_stream_channel_id(self)
+    cpdef get_scan3d_coordinate_scale(self)
+    cpdef get_scan3d_coordinate_offset(self)
+    cpdef get_scan3d_invalid_data_value(self)
+    cpdef get_scan3d_axis_min(self)
+    cpdef get_scan3d_axis_max(self)
+    cpdef get_scan3d_transform_value(self)
+    cpdef get_scan3d_coordinate_reference_value(self)
+    cpdef get_inference_frame_id(self)
+    cpdef get_inference_result(self)
+    cpdef get_inference_confidence(self)
+    cpdef get_data(self)
+    cpdef get_expert_data(self)
+    cpdef get_inference_data(self)
+
+
+cdef class ChunkDataInference:
+
+    cdef ImageChunkData chunk
+    cdef InferenceBoundingBoxResult box_result
+
+    cdef set_chunk(self, ImageChunkData chunk)
+    cpdef get_version(self)
+    cpdef get_box_size(self)
+    cpdef get_num_boxes(self)
+    cpdef get_box(self, uint16_t index)
+    cpdef get_boxes(self)

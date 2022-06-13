@@ -2,6 +2,12 @@ from libcpp cimport bool as cbool
 from libcpp.string cimport string as cstr
 from libc.stdint cimport int64_t, uint64_t, uint8_t, uint32_t
 
+
+cdef extern from "SpinGenApi/GCTypes.h" nogil:
+    ctypedef float float32_t
+    ctypedef double float64_t
+
+
 cdef extern from "SpinGenApi/GCString.h" namespace "Spinnaker::GenICam" nogil:
     cdef cppclass gcstring:
         gcstring() except +
@@ -233,6 +239,90 @@ cdef extern from "Exception.h" namespace "Spinnaker" nogil:
         Error GetError() except +
 
 
+cdef extern from "ChunkDataInference.h" namespace "Spinnaker" nogil:
+    cdef enum InferenceBoxType:
+        INFERENCE_BOX_TYPE_RECTANGLE = 0
+        INFERENCE_BOX_TYPE_CIRCLE = 1
+        INFERENCE_BOX_TYPE_ROTATED_RECTANGLE = 2
+
+    cdef struct InferenceBoxRect:
+        int16_t topLeftXCoord
+        int16_t topLeftYCoord
+        int16_t bottomRightXCoord
+        int16_t bottomRightYCoord
+
+    cdef struct InferenceBoxCircle:
+        int16_t centerXCoord
+        int16_t centerYCoord
+        int16_t radius
+
+    cdef struct InferenceBoxRotatedRect:
+        int16_t topLeftXCoord
+        int16_t topLeftYCoord
+        int16_t bottomRightXCoord
+        int16_t bottomRightYCoord
+        short rotationAngle
+
+    cdef struct InferenceBoundingBox:
+        InferenceBoxType boxType
+        int16_t classId
+        float32_t confidence
+
+        InferenceBoxRect rect
+        InferenceBoxCircle circle
+        InferenceBoxRotatedRect rotatedRect
+
+    cdef cppclass InferenceBoundingBoxResult:
+        int8_t GetVersion() except +
+        int16_t GetBoxCount() except +
+        int8_t GetBoxSize() except +
+        InferenceBoundingBox GetBoxAt(const uint16_t index) except +
+
+
+cdef extern from "ChunkData.h" namespace "Spinnaker" nogil:
+    cdef cppclass ChunkData:
+        float64_t GetBlackLevel() except +
+        int64_t GetFrameID() except +
+        float64_t GetExposureTime() except +
+        int64_t GetCompressionMode() except +
+        float64_t GetCompressionRatio() except +
+        int64_t GetTimestamp() except +
+        int64_t GetExposureEndLineStatusAll() except +
+        int64_t GetWidth() except +
+        int64_t GetImage() except +
+        int64_t GetHeight() except +
+        float64_t GetGain() except +
+        int64_t GetSequencerSetActive() except +
+        int64_t GetCRC() except +
+        int64_t GetOffsetX() except +
+        int64_t GetOffsetY() except +
+        int64_t GetSerialDataLength() except +
+        int64_t GetPartSelector() except +
+        int64_t GetPixelDynamicRangeMin() except +
+        int64_t GetPixelDynamicRangeMax() except +
+        int64_t GetTimestampLatchValue() except +
+        int64_t GetLineStatusAll() except +
+        int64_t GetCounterValue() except +
+        float64_t GetTimerValue() except +
+        int64_t GetScanLineSelector() except +
+        int64_t GetEncoderValue() except +
+        int64_t GetLinePitch() except +
+        int64_t GetTransferBlockID() except +
+        int64_t GetTransferQueueCurrentBlockCount() except +
+        int64_t GetStreamChannelID() except +
+        float64_t GetScan3dCoordinateScale() except +
+        float64_t GetScan3dCoordinateOffset() except +
+        float64_t GetScan3dInvalidDataValue() except +
+        float64_t GetScan3dAxisMin() except +
+        float64_t GetScan3dAxisMax() except +
+        float64_t GetScan3dTransformValue() except +
+        float64_t GetScan3dCoordinateReferenceValue() except +
+        int64_t GetInferenceFrameId() except +
+        int64_t GetInferenceResult() except +
+        float64_t GetInferenceConfidence() except +
+        InferenceBoundingBoxResult GetInferenceBoundingBoxResult() except +
+
+
 cdef extern from "Image.h" namespace "Spinnaker" nogil:
     cdef cppclass ImagePtr:
         ImagePtr() except +
@@ -342,14 +432,15 @@ cdef extern from "Image.h" namespace "Spinnaker" nogil:
         cbool IsInUse() except +
         ImageStatus GetImageStatus() except +
         cbool IsCompressed() except +
-        void Save(const char * pFilename, ImageFileFormat format)
-        void Save(const char * pFilename, PNGOption& pOption)
-        void Save(const char * pFilename, PPMOption& pOption)
-        void Save(const char * pFilename, PGMOption& pOption)
-        void Save(const char * pFilename, TIFFOption& pOption)
-        void Save(const char * pFilename, JPEGOption& pOption)
-        void Save(const char * pFilename, JPG2Option& pOption)
-        void Save(const char * pFilename, BMPOption& pOption)
+        void Save(const char * pFilename, ImageFileFormat format) except +
+        void Save(const char * pFilename, PNGOption& pOption) except +
+        void Save(const char * pFilename, PPMOption& pOption) except +
+        void Save(const char * pFilename, PGMOption& pOption) except +
+        void Save(const char * pFilename, TIFFOption& pOption) except +
+        void Save(const char * pFilename, JPEGOption& pOption) except +
+        void Save(const char * pFilename, JPG2Option& pOption) except +
+        void Save(const char * pFilename, BMPOption& pOption) except +
+        ChunkData& GetChunkData() except +
 
 
 cdef extern from "TransportLayerDevice.h" namespace "Spinnaker" nogil:

@@ -1,4 +1,5 @@
-from libc.stdint cimport int64_t, uint64_t, uint8_t, uint32_t
+from libc.stdint cimport int64_t, uint64_t, uint8_t, uint32_t, int8_t, \
+    int16_t, uint16_t, uint8_t
 from libcpp cimport bool as cbool
 from libcpp.string cimport string as cstr
 from libcpp.cast cimport dynamic_cast
