@@ -15,15 +15,11 @@ def get_wheel_data():
         return []
 
     root = pathlib.Path(deps)
-    items = list(map(str, root.glob('FlyCap*_v140.dll')))
-    items = [
-        val for val in items
-        if val[-10] != 'd' or val[:-10] + 'd' + val[-10:] in items
-    ]
-    items.extend(map(str, root.glob('msvcp140.dll')))
-    items.extend(map(str, root.glob('libiomp5md.dll')))
+    items = list(map(str, root.glob('Spinnaker_v*.dll')))
+    items.extend(map(str, root.glob('GCBase_MD_*.dll')))
+    items.extend(map(str, root.glob('GenApi_MD_*.dll')))
 
-    return [('share/rotpy/flycapture2/bin', items)]
+    return [('share/rotpy/spinnaker/bin', items)]
 
 
 include_dirs = []
@@ -36,11 +32,11 @@ else:
     include_dirs.append('/usr/include/flycapture')
     include_dirs.append('/usr/include/flycapture/C')
 
-include = environ.get('ROTPY_INCLUDE', r'E:\FLIR\Spinnaker\include')
+include = environ.get('ROTPY_INCLUDE')
 if include:
     include_dirs.extend(include.split(pathsep))
 
-lib = environ.get('ROTPY_LIB', r'E:\FLIR\Spinnaker\lib64\vs2015')
+lib = environ.get('ROTPY_LIB')
 if lib:
     library_dirs.extend(lib.split(pathsep))
 
@@ -72,19 +68,23 @@ setup(
     version=__version__,
     author='Matthew Einhorn',
     license='MIT',
-    description='Cython bindings for Point Gray Fly Capture 2.',
+    description='Cython bindings for the Spinnaker camera control API.',
     url='https://matham.github.io/rotpy/',
     long_description=long_description,
     classifiers=[
         'License :: OSI Approved :: MIT License',
         'Topic :: Multimedia :: Graphics :: Capture :: Digital Camera',
         'Topic :: Multimedia :: Graphics :: Capture',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         'Operating System :: Microsoft :: Windows',
         'Operating System :: POSIX :: Linux',
         'Intended Audience :: Developers'],
     packages=['rotpy'],
+    package_data={
+        'rotpy': [
+            '*.pxd', '*.pyx', 'includes/*.pxi', 'names/*.pyx', 'includes/*.h']},
     data_files=get_wheel_data(),
     cmdclass=cmdclass, ext_modules=ext_modules)

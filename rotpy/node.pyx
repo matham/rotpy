@@ -6,8 +6,6 @@ from array import array
 
 cimport cpython.array
 
-DEF MAX_BUFF_LEN = 256
-
 cdef dict node_cls_map = {
     InterfaceType_names['Value']: SpinValueNode,
     InterfaceType_names['Base']: SpinBaseNode,

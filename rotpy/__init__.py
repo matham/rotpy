@@ -1,8 +1,8 @@
-"""PyFlyCap2 Library
+"""RotPy Library
 ====================
 
-Project that provides python bindings for the FlyCapture2 library
-by Point Gray.
+Project that provides python bindings for the Spinnaker SDK that provides
+access to GigE and USB camera control.
 """
 __version__ = '0.1.0.dev0'
 
@@ -21,8 +21,7 @@ It is read only.
 '''
 
 for d in [sys.prefix, site.USER_BASE]:
-    # p = join(d, 'share', 'rotpy', 'flycapture2', 'bin')
-    p = r'E:\FLIR\Spinnaker\bin64\vs2015'
+    p = join(d, 'share', 'rotpy', 'spinnaker', 'bin')
     if os.path.isdir(p):
         os.environ["PATH"] = p + os.pathsep + os.environ["PATH"]
         if hasattr(os, 'add_dll_directory'):

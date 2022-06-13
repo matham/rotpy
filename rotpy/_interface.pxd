@@ -47,9 +47,6 @@ cdef extern from "rotpy_event.h" nogil:
         ) except +
 
 
-include "includes/compat.pxi"
-
-
 ctypedef IBase* IBasePointer
 ctypedef IValue* IValuePointer
 ctypedef IInteger* IIntegerPointer

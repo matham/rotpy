@@ -8,8 +8,6 @@ from .names.spin import payload_type_names, \
     img_status_values, img_status_names, img_file_fmt_names, compression_names
 from .names.camera import PixelFormat_values, PixelFormat_names
 
-DEF MAX_BUFF_LEN = 256
-
 __all__ = ('Image',)
 
 

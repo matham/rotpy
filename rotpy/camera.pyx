@@ -12,8 +12,6 @@ from array import array
 
 __all__ = ('CameraList', 'Camera')
 
-DEF MAX_BUFF_LEN = 256
-
 
 cdef class DeviceEventHandler(EventHandlerBase):
 
