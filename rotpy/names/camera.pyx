@@ -1,4 +1,4 @@
-from rotpy._interface import LUTSelectorEnums, \
+from rotpy._cam_defs._cam_defs1 import LUTSelectorEnums, \
     ExposureModeEnums, AcquisitionModeEnums, TriggerSourceEnums, \
     TriggerActivationEnums, SensorShutterModeEnums, TriggerModeEnums, \
     TriggerOverlapEnums, TriggerSelectorEnums, ExposureAutoEnums, \
@@ -20,7 +20,8 @@ from rotpy._interface import LUTSelectorEnums, \
     SerialPortParityEnums, SerialPortSelectorEnums, SerialPortStopBitsEnums, \
     SerialPortSourceEnums, SequencerModeEnums, SequencerConfigurationValidEnums, \
     SequencerSetValidEnums, SequencerTriggerActivationEnums, \
-    SequencerConfigurationModeEnums, SequencerTriggerSourceEnums, \
+    SequencerConfigurationModeEnums
+from rotpy._cam_defs._cam_defs2 import SequencerTriggerSourceEnums, \
     TransferQueueModeEnums, TransferOperationModeEnums, \
     TransferControlModeEnums, ChunkGainSelectorEnums, ChunkSelectorEnums, \
     ChunkBlackLevelSelectorEnums, ChunkPixelFormatEnums, \
@@ -29,7 +30,8 @@ from rotpy._interface import LUTSelectorEnums, \
     CompressionSaturationPriorityEnums, TestPatternEnums, PixelColorFilterEnums, \
     AdcBitDepthEnums, DecimationHorizontalModeEnums, BinningVerticalModeEnums, \
     PixelSizeEnums, DecimationSelectorEnums, ImageCompressionModeEnums, \
-    BinningHorizontalModeEnums, PixelFormatEnums, DecimationVerticalModeEnums, \
+    BinningHorizontalModeEnums, PixelFormatEnums
+from rotpy._cam_defs._cam_defs3 import DecimationVerticalModeEnums, \
     LineModeEnums, LineSourceEnums, LineInputFilterSelectorEnums, \
     UserOutputSelectorEnums, LineFormatEnums, LineSelectorEnums, \
     ExposureActiveModeEnums, CounterTriggerActivationEnums, \
@@ -42,7 +44,8 @@ from rotpy._interface import LUTSelectorEnums, \
     DeviceSerialPortSelectorEnums, DeviceSerialPortBaudRateEnums, \
     SensorTapsEnums, SensorDigitizationTapsEnums, RegionSelectorEnums, \
     RegionModeEnums, RegionDestinationEnums, ImageComponentSelectorEnums, \
-    PixelFormatInfoSelectorEnums, DeinterlacingEnums, \
+    PixelFormatInfoSelectorEnums
+from rotpy._cam_defs._cam_defs4 import DeinterlacingEnums, \
     ImageCompressionRateOptionEnums, ImageCompressionJPEGFormatOptionEnums, \
     AcquisitionStatusSelectorEnums, ExposureTimeModeEnums, \
     ExposureTimeSelectorEnums, GainAutoBalanceEnums, BlackLevelAutoEnums, \
@@ -57,7 +60,8 @@ from rotpy._interface import LUTSelectorEnums, \
     TransferTriggerActivationEnums, TransferStatusSelectorEnums, \
     TransferComponentSelectorEnums, Scan3dDistanceUnitEnums, \
     Scan3dCoordinateSystemEnums, Scan3dOutputModeEnums, \
-    Scan3dCoordinateSystemReferenceEnums, Scan3dCoordinateSelectorEnums, \
+    Scan3dCoordinateSystemReferenceEnums
+from rotpy._cam_defs._cam_defs5 import Scan3dCoordinateSelectorEnums, \
     Scan3dCoordinateTransformSelectorEnums, \
     Scan3dCoordinateReferenceSelectorEnums, ChunkImageComponentEnums, \
     ChunkCounterSelectorEnums, ChunkTimerSelectorEnums, \

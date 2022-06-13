@@ -87,6 +87,8 @@ setup(
     packages=['rotpy'],
     package_data={
         'rotpy': [
-            '*.pxd', '*.pyx', 'includes/*.pxi', 'names/*.pyx', 'includes/*.h']},
+            '*.pxd', '*.pyx', 'includes/*.pxi', 'names/*.pyx', 'includes/*.h',
+            '_cam_defs/*.pyx', '_cam_defs/*.pxd'
+        ]},
     data_files=get_wheel_data(),
     cmdclass=cmdclass, ext_modules=ext_modules)
