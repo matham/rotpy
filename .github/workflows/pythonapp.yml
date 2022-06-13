@@ -1,6 +1,6 @@
 name: Python application
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   linux_wheels:
@@ -126,9 +126,9 @@ jobs:
 
     - name: Make wheel
       run: |
-        $env:PYFLYCAP2_INCLUDE = "${pwd}/spinnaker/include"
-        $env:PYFLYCAP2_LIB = "${pwd}/spinnaker/bin_${{ matrix.arch }};${pwd}/spinnaker/lib_${{ matrix.arch }}"
-        $env:PYFLYCAP2_WHEEL_DEPS = "${pwd}/spinnaker/bin_${{ matrix.arch }}"
+        $env:ROTPY_INCLUDE = "${pwd}/spinnaker/include"
+        $env:ROTPY_LIB = "${pwd}/spinnaker/bin_${{ matrix.arch }};${pwd}/spinnaker/lib_${{ matrix.arch }}"
+        $env:ROTPY_WHEEL_DEPS = "${pwd}/spinnaker/bin_${{ matrix.arch }}"
 
         python -m pip install build
         python -m build --wheel
