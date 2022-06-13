@@ -1,7 +1,7 @@
 from .system import SpinSystem
-from.names.spin import img_status_values, buffer_owner_values, \
+from .names.spin import img_status_values, buffer_owner_values, \
     buffer_owner_names, event_values
-from names.geni import AccessMode_values
+from .names.geni import AccessMode_values
 from .node import NodeMap
 from .camera_nodes cimport CameraNodes, TLDevNodes, TLStreamNodes
 
