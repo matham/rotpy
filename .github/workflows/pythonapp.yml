@@ -3,7 +3,7 @@ name: Python application
 on: [push, pull_request]
 
 jobs:
-  linux_wheels:
+  linux_wheels_:
     if: ${{ false }}
     runs-on: ubuntu-latest
     strategy:
@@ -88,6 +88,55 @@ jobs:
         git add .
         git commit -a -m "Docs for git-$GITHUB_SHA"
         git push origin gh-pages -f
+
+  linux_wheels:
+    env:
+      CIBW_MANYLINUX_X86_64_IMAGE: manylinux_2_24
+      CIBW_BUILD_VERBOSITY: 3
+      CIBW_PLATFORM: linux
+      CIBW_BUILD: 'cp37-manylinux_x86_64 cp38-manylinux_x86_64 cp39-manylinux_x86_64 cp310-manylinux_x86_64'
+      CIBW_ARCHS: x86_64
+      CIBW_BEFORE_ALL_LINUX: >
+        apt install debconf-utils libusb-1.0-0 libusb-1.0-0-dev -y &&
+        curl -OsL https://github.com/matham/rotpy/releases/download/v0.1.0.dev0/spinnaker.tar.xz &&
+        tar -xf spinnaker.tar.xz &&
+        echo "libspinnaker libspinnaker/accepted-flir-eula select true" | /usr/bin/debconf-set-selections &&
+        dpkg -i spinnaker/libspinnaker_2.6.0.160_amd64.deb &&
+        dpkg -i spinnaker/libspinnaker-dev_2.6.0.160_amd64.deb &&
+        dpkg -i spinnaker/libgentl_2.6.0.160_amd64.deb &&
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Python 3.x
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      - name: Install cibuildwheel
+        run: |
+          python -m pip install cibuildwheel
+      - name: Make wheels
+        run: |
+          python -m cibuildwheel --output-dir dist
+      - name: Upload wheel
+        uses: actions/upload-artifact@v2
+        with:
+          name: py_wheel
+          path: dist
+      - name: Upload to GitHub Release
+        uses: softprops/action-gh-release@v0.1.14
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: dist/*
+      - name: Publish to PyPI
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          TWINE_USERNAME: "__token__"
+          TWINE_PASSWORD: ${{ secrets.pypi_password }}
+        run: |
+          python -m pip install twine
+          twine upload dist/*
 
   windows_wheels:
     runs-on: windows-latest

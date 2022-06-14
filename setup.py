@@ -28,9 +28,9 @@ library_dirs = []
 if sys.platform in ('win32', 'cygwin'):
     libraries = ['Spinnaker_v140', ]
 else:
-    libraries = ['flycapturegui-c', 'flycapture-c']
-    include_dirs.append('/usr/include/flycapture')
-    include_dirs.append('/usr/include/flycapture/C')
+    libraries = ['Spinnaker']
+    include_dirs.append('/opt/spinnaker/include')
+    library_dirs.append('/opt/spinnaker/lib')
 
 include = environ.get('ROTPY_INCLUDE')
 if include:
