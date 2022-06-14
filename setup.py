@@ -1,4 +1,4 @@
-from setuptools import setup, Extension
+from setuptools import setup, Extension, find_packages
 import sys
 from os.path import join, exists, dirname, abspath, isdir, pathsep
 from os import environ, listdir
@@ -84,7 +84,7 @@ setup(
         'Operating System :: Microsoft :: Windows',
         'Operating System :: POSIX :: Linux',
         'Intended Audience :: Developers'],
-    packages=['rotpy'],
+    packages=find_packages(),
     package_data={
         'rotpy': [
             '*.pxd', '*.pyx', 'includes/*.pxi', 'names/*.pyx', 'includes/*.h',
