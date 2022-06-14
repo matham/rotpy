@@ -102,9 +102,9 @@ jobs:
         curl -OsL https://github.com/matham/rotpy/releases/download/v0.1.0.dev0/spinnaker.tar.xz &&
         tar -xf spinnaker.tar.xz &&
         echo "libspinnaker libspinnaker/accepted-flir-eula select true" | /usr/bin/debconf-set-selections &&
-        dpkg -i spinnaker/libspinnaker_2.6.0.160_amd64.deb &&
-        dpkg -i spinnaker/libspinnaker-dev_2.6.0.160_amd64.deb &&
-        dpkg -i spinnaker/libgentl_2.6.0.160_amd64.deb
+        dpkg -i spinnaker/libgentl_*.deb &&
+        dpkg -i spinnaker/libspinnaker_*.deb &&
+        dpkg -i spinnaker/libspinnaker-dev_*.deb
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
