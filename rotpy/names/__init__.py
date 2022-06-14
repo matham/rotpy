@@ -1,3 +1,10 @@
+"""Enum names
+=============
+
+Provides access to all the enums defined in the Spinnaker headers as Python
+enums.
+
+"""
 from enum import Enum
 
 

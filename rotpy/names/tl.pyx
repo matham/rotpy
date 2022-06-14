@@ -1,3 +1,8 @@
+"""Transport layer enums
+========================
+
+Provides access to all the transport-layer-related enums.
+"""
 from rotpy._interface import StreamTypeEnum, StreamModeEnum, \
     StreamBufferCountModeEnum,\
     StreamBufferHandlingModeEnum, DeviceTypeEnum, DeviceAccessStatusEnum,\

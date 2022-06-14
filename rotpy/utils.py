@@ -1,12 +1,17 @@
 """Utilities
 =============
 
-Module for extracting cython headers from the Spinnaker c headers.
+Module for extracting cython headers from the Spinnaker headers.
 For example::
 
     header = r'E:\\FLIR\\Spinnaker\\include\\spinc\\FSpinnakerC'
     content = parse_header('{}.h'.format(header))
     dump_cython(content, '{}.h'.format(header), '{}.pxi'.format(header))
+
+Or to get the class nodes::
+
+    content = parse_class_vars(f)
+    dump_genapi_var_type_prop_cython(content, f'{name}.px')
 """
 
 from typing import List
@@ -18,9 +23,11 @@ from collections import namedtuple, defaultdict
 
 __all__ = (
     'VariableSpec', 'FunctionSpec', 'StructSpec', 'EnumSpec', 'EnumMemberSpec',
-    'TypeDef', 'strip_comments', 'parse_prototype', 'parse_struct',
-    'parse_enum', 'parse_header', 'format_typedef', 'format_enum',
-    'format_variable', 'format_function', 'format_struct', 'dump_cython')
+    'TypeDef', 'GenAPIVarSpec', 'strip_comments', 'parse_prototype',
+    'parse_struct', 'parse_enum', 'parse_header', 'format_typedef',
+    'format_enum', 'format_variable', 'format_function', 'format_struct',
+    'dump_cython', 'parse_class_vars', 'dump_genapi_prop_cython',
+    'dump_genapi_import_prop_cython', 'dump_genapi_var_type_prop_cython')
 
 tab = '    '
 sp_pat = compile(' +')
@@ -79,6 +86,8 @@ GenAPIVarSpec = namedtuple(
     'GenAPIVarSpec',
     ['visibility', 'type_name', 'type_template', 'name', 'description']
 )
+"""Represnts a Node that is a class variable in the header.
+"""
 
 
 def strip_comments(code):
@@ -287,6 +296,8 @@ def dump_cython(content, name, ofile):
 
 
 def parse_class_vars(filename):
+    """Parses the variable nodes from a header.
+    """
     with open(filename, 'r') as fh:
         content = fh.read()
 
@@ -312,6 +323,8 @@ def dump_genapi_prop_cython(
         items: List[GenAPIVarSpec], ofile, prop_storage_name='_nodes',
         cam_name='_camera', handle_name='_camera', prop_prefix='',
         name_mod='.camera'):
+    """Dumps all the nodes as ``@property`` methods of a cython class.
+    """
     node_cls_map = {
         'IInteger': 'SpinIntNode',
         'IBoolean': 'SpinBoolNode',
@@ -370,6 +383,9 @@ def dump_genapi_prop_cython(
 
 
 def dump_genapi_import_prop_cython(items: List[GenAPIVarSpec], ofile):
+    """Dumps all the C++ class nodes in the format to be included in a pxi
+    file representing the header import.
+    """
     with open(ofile, 'w') as fh:
         for item in items:
             tp = item.type_name
@@ -379,6 +395,9 @@ def dump_genapi_import_prop_cython(items: List[GenAPIVarSpec], ofile):
 
 
 def dump_genapi_var_type_prop_cython(items: List[GenAPIVarSpec], ofile):
+    """Dumps all the names of the nodes of a cython class and groups them
+    into the type of node, e.g. string, float, enum etc.
+    """
     node_name_map = {
         'IBoolean': 'bool',
         'IInteger': 'int',

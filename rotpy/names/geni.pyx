@@ -1,3 +1,8 @@
+"""GenAPI enums
+===============
+
+Provides access to all the GenAPI-related enums.
+"""
 from rotpy._interface import _ESign, _EAccessMode, _EVisibility, _ECachingMode,\
     _ERepresentation, \
     _EEndianess, _ENameSpace, _EStandardNameSpace, _EYesNo, _ESlope, \

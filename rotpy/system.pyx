@@ -3,10 +3,15 @@ from cpython.ref cimport PyObject
 from libc.stdlib cimport malloc, free
 cimport rotpy.camera
 
-# __all__ = ('SpinError', 'SpinSystem')
+__all__ = (
+    'EventHandlerBase', 'LoggingEventHandler', 'SystemEventHandler',
+    'InterfaceEventHandler', 'SpinSystem', 'InterfaceDeviceList',
+    'InterfaceDevice')
 
 
 cdef class EventHandlerBase:
+    """Base class for all event handlers.
+    """
     pass
 
 

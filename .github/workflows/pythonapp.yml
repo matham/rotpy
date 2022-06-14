@@ -18,7 +18,7 @@ jobs:
         sudo apt install xz-utils debconf-utils libusb-1.0-0 libusb-1.0-0-dev -y
         curl -OsL https://github.com/matham/rotpy/releases/download/v0.1.0.dev0/spinnaker.tar.xz
         tar -xf spinnaker.tar.xz
-        echo "libspinnaker libspinnaker/accepted-flir-eula select true" | /usr/bin/debconf-set-selections
+        echo "libspinnaker libspinnaker/accepted-flir-eula select true" | sudo tee -a /usr/bin/debconf-set-selections
         sudo dpkg -i spinnaker/libgentl_*.deb
         sudo dpkg -i spinnaker/libspinnaker_*.deb
         sudo dpkg -i spinnaker/libspinnaker-dev_*.deb
@@ -116,7 +116,7 @@ jobs:
           twine upload dist/*
 
   test_wheel:
-    runs-on: ${{ matrix.python }}
+    runs-on: ${{ matrix.os }}
     needs: [ linux_wheels, windows_wheels ]
     strategy:
       matrix:

@@ -1,3 +1,8 @@
+"""Spinnaker enums
+=================
+
+Provides access to all the basic Spinnaker enums.
+"""
 from rotpy._interface import Error, EventType, PixelFormatNamespaceID, \
     ColorProcessingAlgorithm, ImageFileFormat, ImageStatus, \
     StatisticsChannel, SpinnakerLogLevel, PayloadTypeInfoIDs, \

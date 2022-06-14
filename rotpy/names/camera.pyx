@@ -1,3 +1,8 @@
+"""Camera enums
+===============
+
+Provides access to all the camera-related enums.
+"""
 from rotpy._cam_defs._cam_defs1 import LUTSelectorEnums, \
     ExposureModeEnums, AcquisitionModeEnums, TriggerSourceEnums, \
     TriggerActivationEnums, SensorShutterModeEnums, TriggerModeEnums, \
