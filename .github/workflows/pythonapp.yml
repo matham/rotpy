@@ -96,6 +96,7 @@ jobs:
       CIBW_PLATFORM: linux
       CIBW_BUILD: 'cp37-manylinux_x86_64 cp38-manylinux_x86_64 cp39-manylinux_x86_64 cp310-manylinux_x86_64'
       CIBW_ARCHS: x86_64
+      CIBW_REPAIR_WHEEL_COMMAND: 'auditwheel repair --plat manylinux_2_27_x86_64 -w {dest_dir} {wheel}'
       CIBW_BEFORE_ALL_LINUX: >
         apt update &&
         apt install xz-utils debconf-utils libusb-1.0-0 libusb-1.0-0-dev -y &&
