@@ -97,6 +97,7 @@ jobs:
       CIBW_BUILD: 'cp37-manylinux_x86_64 cp38-manylinux_x86_64 cp39-manylinux_x86_64 cp310-manylinux_x86_64'
       CIBW_ARCHS: x86_64
       CIBW_BEFORE_ALL_LINUX: >
+        apt update &&
         apt install debconf-utils libusb-1.0-0 libusb-1.0-0-dev -y &&
         curl -OsL https://github.com/matham/rotpy/releases/download/v0.1.0.dev0/spinnaker.tar.xz &&
         tar -xf spinnaker.tar.xz &&
