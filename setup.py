@@ -16,9 +16,8 @@ def get_wheel_data():
 
     if deps and isdir(deps):
         root = pathlib.Path(deps)
-        items = list(map(str, root.glob('Spinnaker_v*.dll')))
-        items.extend(map(str, root.glob('GCBase_MD_*.dll')))
-        items.extend(map(str, root.glob('GenApi_MD_*.dll')))
+        items = list(map(str, root.glob('*.dll')))
+        items.extend(map(str, root.glob('*LICENSE')))
 
         data.append(('share/rotpy/spinnaker/bin', items))
 
@@ -26,6 +25,7 @@ def get_wheel_data():
         root = pathlib.Path(cti)
         items = list(map(str, root.glob('*.cti')))
         items.extend(map(str, root.glob('*.property')))
+        items.extend(map(str, root.glob('*LICENSE')))
 
         data.append(('share/rotpy/spinnaker/cti', items))
 

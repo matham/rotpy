@@ -20,9 +20,7 @@ packaging for including required binaries.
 It is read only.
 '''
 
-_gentl_name = 'GENICAM_GENTL32_PATH'
-if sys.maxsize > 2 ** 32:
-    _gentl_name = 'GENICAM_GENTL64_PATH'
+_bitness = '64' if sys.maxsize > 2 ** 32 else '32'
 
 for d in [sys.prefix, site.USER_BASE]:
     p = join(d, 'share', 'rotpy', 'spinnaker', 'bin')
@@ -34,7 +32,9 @@ for d in [sys.prefix, site.USER_BASE]:
 
     p = join(d, 'share', 'rotpy', 'spinnaker', 'cti')
     if os.path.isdir(p):
-        if _gentl_name in os.environ:
-            os.environ[_gentl_name] = p + os.pathsep + os.environ[_gentl_name]
-        else:
-            os.environ[_gentl_name] = p
+        for _name in (
+                f'GENICAM_GENTL{_bitness}_PATH', f'FLIR_GENTL{_bitness}_CTI'):
+            if _name in os.environ:
+                os.environ[_name] = p + os.pathsep + os.environ[_name]
+            else:
+                os.environ[_name] = p

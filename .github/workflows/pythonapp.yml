@@ -71,12 +71,15 @@ jobs:
       CIBW_BEFORE_ALL_LINUX: >
         apt update &&
         apt install xz-utils debconf-utils libusb-1.0-0 libusb-1.0-0-dev -y &&
-        curl -OsL https://github.com/matham/rotpy/releases/download/v0.1.0.dev0/spinnaker.tar.xz &&
+        curl -OsL "https://github.com/matham/rotpy/releases/download/v0.1.0.dev0/spinnaker.tar.xz" &&
         tar -xf spinnaker.tar.xz &&
         echo "libspinnaker libspinnaker/accepted-flir-eula select true" | /usr/bin/debconf-set-selections &&
         dpkg -i spinnaker/libgentl_*.deb &&
         dpkg -i spinnaker/libspinnaker_*.deb &&
-        dpkg -i spinnaker/libspinnaker-dev_*.deb
+        dpkg -i spinnaker/libspinnaker-dev_*.deb &&
+        cp /opt/spinnaker/bin/*.property /opt/spinnaker/lib/flir-gentl &&
+        curl -OsL "https://github.com/matham/rotpy/releases/download/v0.1.0.dev0/SPINNAKER_LICENSE" &&
+        cp SPINNAKER_LICENSE /opt/spinnaker/lib/flir-gentl
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -180,6 +183,8 @@ jobs:
       run: |
         Invoke-WebRequest "https://github.com/matham/rotpy/releases/download/v0.1.0.dev0/spinnaker.7z" -OutFile "spinnaker.7z"
         7z x "spinnaker.7z"
+        Invoke-WebRequest "https://github.com/matham/rotpy/releases/download/v0.1.0.dev0/SPINNAKER_LICENSE" -OutFile "spinnaker/bin_${{ matrix.arch }}/SPINNAKER_LICENSE"
+        cp "spinnaker/bin_${{ matrix.arch }}/SPINNAKER_LICENSE" "${pwd}/spinnaker/cti_${{ matrix.arch }}"
 
     - name: Make wheel
       run: |
