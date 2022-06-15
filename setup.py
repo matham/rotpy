@@ -27,7 +27,7 @@ def get_wheel_data():
         items = list(map(str, root.glob('*.cti')))
         items.extend(map(str, root.glob('*.property')))
 
-        data.append(('share/rotpy/spinnaker/bin', items))
+        data.append(('share/rotpy/spinnaker/cti', items))
 
     return data
 

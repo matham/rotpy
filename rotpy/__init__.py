@@ -20,6 +20,10 @@ packaging for including required binaries.
 It is read only.
 '''
 
+_gentl_name = 'GENICAM_GENTL32_PATH'
+if sys.maxsize > 2 ** 32:
+    _gentl_name = 'GENICAM_GENTL64_PATH'
+
 for d in [sys.prefix, site.USER_BASE]:
     p = join(d, 'share', 'rotpy', 'spinnaker', 'bin')
     if os.path.isdir(p):
@@ -27,3 +31,10 @@ for d in [sys.prefix, site.USER_BASE]:
         if hasattr(os, 'add_dll_directory'):
             os.add_dll_directory(p)
         dep_bins.append(p)
+
+    p = join(d, 'share', 'rotpy', 'spinnaker', 'cti')
+    if os.path.isdir(p):
+        if _gentl_name in os.environ:
+            os.environ[_gentl_name] = p + os.pathsep + os.environ[_gentl_name]
+        else:
+            os.environ[_gentl_name] = p
