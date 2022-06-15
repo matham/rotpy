@@ -1,5 +1,6 @@
 .. _names-api:
 
+
 .. automodule:: rotpy.names
    :members:
    :show-inheritance:

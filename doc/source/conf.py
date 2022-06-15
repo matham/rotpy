@@ -53,3 +53,29 @@ html_theme = 'sphinx_rtd_theme'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+
+def setup(app):
+    from sphinx.ext.autodoc import DataDocumenter, ModuleDocumenter
+
+    class EnumDataDocumentor(DataDocumenter):
+
+        objtype = 'cython_enum_dict'
+        directivetype = DataDocumenter.objtype
+
+        @classmethod
+        def can_document_member(cls, member, membername, isattr, parent):
+            return isinstance(parent, ModuleDocumenter) and \
+                   (membername.endswith('_names') or membername.endswith(
+                       '_values')) \
+                   and isinstance(member, dict)
+
+        def get_doc(self):
+            # Check the variable has a docstring-comment
+            comment = self.get_module_comment(self.objpath[-1])
+            if comment:
+                return [comment]
+            else:
+                return [['']]
+
+    app.add_autodocumenter(EnumDataDocumentor)

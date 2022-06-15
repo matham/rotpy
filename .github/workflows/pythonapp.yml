@@ -23,7 +23,7 @@ jobs:
         sudo dpkg -i spinnaker/libspinnaker_*.deb
         sudo dpkg -i spinnaker/libspinnaker-dev_*.deb
 
-        python3 -m pip install --upgrade sphinx sphinx-rtd-theme
+        python3 -m pip install --upgrade sphinx sphinx-rtd-theme cython
 
     - name: Build rotpy
       run: python3 -m pip install -e .
@@ -64,6 +64,7 @@ jobs:
       CIBW_MANYLINUX_X86_64_IMAGE: manylinux_2_24
       CIBW_BUILD_VERBOSITY: 3
       CIBW_PLATFORM: linux
+      CIBW_ENVIRONMENT: ROTPY_CTI=/opt/spinnaker/lib/flir-gentl
       CIBW_BUILD: 'cp37-manylinux_x86_64 cp38-manylinux_x86_64 cp39-manylinux_x86_64 cp310-manylinux_x86_64'
       CIBW_ARCHS: x86_64
       CIBW_REPAIR_WHEEL_COMMAND: 'auditwheel repair --plat manylinux_2_27_x86_64 -w {dest_dir} {wheel}'
@@ -184,7 +185,8 @@ jobs:
       run: |
         $env:ROTPY_INCLUDE = "${pwd}/spinnaker/include"
         $env:ROTPY_LIB = "${pwd}/spinnaker/bin_${{ matrix.arch }};${pwd}/spinnaker/lib_${{ matrix.arch }}"
-        $env:ROTPY_WHEEL_DEPS = "${pwd}/spinnaker/bin_${{ matrix.arch }}"
+        $env:ROTPY_WHEEL_BIN = "${pwd}/spinnaker/bin_${{ matrix.arch }}"
+        $env:ROTPY_CTI = "${pwd}/spinnaker/cti_${{ matrix.arch }}"
 
         python -m pip install build
         python -m build --wheel

@@ -10,16 +10,26 @@ cmdclass = {'build_ext': build_ext}
 
 
 def get_wheel_data():
-    deps = environ.get('ROTPY_WHEEL_DEPS')
-    if not deps or not isdir(deps):
-        return []
+    data = []
+    deps = environ.get('ROTPY_WHEEL_BIN')
+    cti = environ.get('ROTPY_CTI')
 
-    root = pathlib.Path(deps)
-    items = list(map(str, root.glob('Spinnaker_v*.dll')))
-    items.extend(map(str, root.glob('GCBase_MD_*.dll')))
-    items.extend(map(str, root.glob('GenApi_MD_*.dll')))
+    if deps and isdir(deps):
+        root = pathlib.Path(deps)
+        items = list(map(str, root.glob('Spinnaker_v*.dll')))
+        items.extend(map(str, root.glob('GCBase_MD_*.dll')))
+        items.extend(map(str, root.glob('GenApi_MD_*.dll')))
 
-    return [('share/rotpy/spinnaker/bin', items)]
+        data.append(('share/rotpy/spinnaker/bin', items))
+
+    if cti and isdir(cti):
+        root = pathlib.Path(cti)
+        items = list(map(str, root.glob('*.cti')))
+        items.extend(map(str, root.glob('*.property')))
+
+        data.append(('share/rotpy/spinnaker/bin', items))
+
+    return data
 
 
 include_dirs = []
@@ -60,7 +70,7 @@ ext_modules = [Extension(
 for e in ext_modules:
     e.cython_directives = {
         "embedsignature": True, 'c_string_encoding': 'utf-8',
-        'language_level': 3}
+        'language_level': 3, 'binding': True}
 
 with open('README.rst') as fh:
     long_description = fh.read()
