@@ -86,7 +86,7 @@ jobs:
         dpkg -i /project/spinnaker/libspinnaker_*.deb &&
         dpkg -i /project/spinnaker/libspinnaker-dev_*.deb &&
         cp /opt/spinnaker/bin/*.property /opt/spinnaker/lib/flir-gentl &&
-        cp /project/SPINNAKER_LICENSE /opt/spinnaker/lib/flir-gentl/ &&
+        cp /project/spinnaker/SPINNAKER_LICENSE /opt/spinnaker/lib/flir-gentl/ &&
         mkdir /project/rotpy.libs &&
         cp -r /opt/spinnaker/lib/flir-gentl /project/rotpy.libs/
     runs-on: ubuntu-latest
