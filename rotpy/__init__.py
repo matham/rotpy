@@ -33,8 +33,14 @@ for d in [sys.prefix, site.USER_BASE]:
     p = join(d, 'share', 'rotpy', 'spinnaker', 'cti')
     if os.path.isdir(p):
         for _name in (
-                f'GENICAM_GENTL{_bitness}_PATH', f'FLIR_GENTL{_bitness}_CTI'):
+                f'GENICAM_GENTL{_bitness}_PATH', f'FLIR_GENTL{_bitness}_CTI',
+                f'FLIR_GENTL{_bitness}_CTI_VS140'):
             if _name in os.environ:
                 os.environ[_name] = p + os.pathsep + os.environ[_name]
             else:
                 os.environ[_name] = p
+
+        os.environ["PATH"] = p + os.pathsep + os.environ["PATH"]
+        if hasattr(os, 'add_dll_directory'):
+            os.add_dll_directory(p)
+        dep_bins.append(p)
