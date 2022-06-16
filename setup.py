@@ -98,7 +98,7 @@ setup(
     package_data={
         'rotpy': [
             '*.pxd', '*.pyx', 'includes/*.pxi', 'names/*.pyx', 'includes/*.h',
-            '_cam_defs/*.pyx', '_cam_defs/*.pxd'
+            '_cam_defs/*.pyx', '_cam_defs/*.pxd', '../rotpy.libs/flir-gentl/*'
         ]},
     data_files=get_wheel_data(),
     cmdclass=cmdclass, ext_modules=ext_modules)

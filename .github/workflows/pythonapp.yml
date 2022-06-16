@@ -12,12 +12,22 @@ jobs:
       with:
         python-version: 3.x
 
+    - uses: actions/cache@v2
+      id: get-deps
+      with:
+        path: spinnaker/
+        key: spinnaker-docs-0
+
+    - name: Get dependencies
+      if: steps.get-deps.outputs.cache-hit != 'true'
+      run: |
+        curl -OsL "https://github.com/matham/rotpy/releases/download/v0.1.0.dev0/spinnaker.tar.xz"
+        tar -xf spinnaker.tar.xz
+
     - name: Install dependencies
       run: |
         sudo apt update
         sudo apt install xz-utils debconf-utils libusb-1.0-0 libusb-1.0-0-dev -y
-        curl -OsL https://github.com/matham/rotpy/releases/download/v0.1.0.dev0/spinnaker.tar.xz
-        tar -xf spinnaker.tar.xz
         sudo sh -c 'echo "libspinnaker libspinnaker/accepted-flir-eula select true" | /usr/bin/debconf-set-selections'
         sudo dpkg -i spinnaker/libgentl_*.deb
         sudo dpkg -i spinnaker/libspinnaker_*.deb
@@ -71,15 +81,14 @@ jobs:
       CIBW_BEFORE_ALL_LINUX: >
         apt update &&
         apt install xz-utils debconf-utils libusb-1.0-0 libusb-1.0-0-dev -y &&
-        curl -OsL "https://github.com/matham/rotpy/releases/download/v0.1.0.dev0/spinnaker.tar.xz" &&
-        tar -xf spinnaker.tar.xz &&
         echo "libspinnaker libspinnaker/accepted-flir-eula select true" | /usr/bin/debconf-set-selections &&
-        dpkg -i spinnaker/libgentl_*.deb &&
-        dpkg -i spinnaker/libspinnaker_*.deb &&
-        dpkg -i spinnaker/libspinnaker-dev_*.deb &&
+        dpkg -i /project/spinnaker/libgentl_*.deb &&
+        dpkg -i /project/spinnaker/libspinnaker_*.deb &&
+        dpkg -i /project/spinnaker/libspinnaker-dev_*.deb &&
         cp /opt/spinnaker/bin/*.property /opt/spinnaker/lib/flir-gentl &&
-        curl -OsL "https://github.com/matham/rotpy/releases/download/v0.1.0.dev0/SPINNAKER_LICENSE" &&
-        cp SPINNAKER_LICENSE /opt/spinnaker/lib/flir-gentl
+        cp /project/SPINNAKER_LICENSE /opt/spinnaker/lib/flir-gentl/ &&
+        mkdir /project/rotpy.libs &&
+        cp -r /opt/spinnaker/lib/flir-gentl /project/rotpy.libs/
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -87,6 +96,20 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: 3.x
+
+      - uses: actions/cache@v2
+        id: get-deps
+        with:
+          path: spinnaker/
+          key: spinnaker-linux-0
+
+      - name: Get dependencies
+        if: steps.get-deps.outputs.cache-hit != 'true'
+        run: |
+          curl -OsL "https://github.com/matham/rotpy/releases/download/v0.1.0.dev0/spinnaker.tar.xz"
+          tar -xf spinnaker.tar.xz
+          curl -OsL "https://github.com/matham/rotpy/releases/download/v0.1.0.dev0/SPINNAKER_LICENSE"
+          cp SPINNAKER_LICENSE spinnaker/
 
       - name: Install cibuildwheel
         run: |
@@ -174,11 +197,9 @@ jobs:
       id: get-deps
       with:
         path: spinnaker/
-        key: spinnaker-win-${{ matrix.arch }}-0
+        key: spinnaker-win-${{ matrix.arch }}-1
 
     - name: Get dependencies
-      env:
-        ZIP_PASS: ${{ secrets.ZIP_PASS }}
       if: steps.get-deps.outputs.cache-hit != 'true'
       run: |
         Invoke-WebRequest "https://github.com/matham/rotpy/releases/download/v0.1.0.dev0/spinnaker.7z" -OutFile "spinnaker.7z"
