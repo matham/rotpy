@@ -28,6 +28,7 @@ def get_wheel_data():
         items.extend(map(str, root.glob('*LICENSE')))
 
         data.append(('share/rotpy/spinnaker/cti', items))
+        data.append(('share/rotpy/spinnaker/bin', items))
 
     return data
 
