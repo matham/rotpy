@@ -19,7 +19,8 @@ def get_wheel_data():
         items = list(map(str, root.glob('*.dll')))
         items.extend(map(str, root.glob('*LICENSE')))
 
-        data.append(('share/rotpy/spinnaker/bin', items))
+        if items:
+            data.append(('share/rotpy/spinnaker/bin', items))
 
     if cti and isdir(cti):
         root = pathlib.Path(cti)
@@ -27,7 +28,8 @@ def get_wheel_data():
         items.extend(map(str, root.glob('*.property')))
         items.extend(map(str, root.glob('*LICENSE')))
 
-        data.append(('share/rotpy/spinnaker/cti', items))
+        if items:
+            data.append(('share/rotpy/spinnaker/cti', items))
 
     return data
 
@@ -41,13 +43,15 @@ if sys.platform in ('win32', 'cygwin'):
 else:
     libraries.append('Spinnaker')
 
-    include_dirs.append('/opt/spinnaker/include')
-    include_dirs.append('/usr/local/include/spinnaker')
-    include_dirs.append('/Applications/Spinnaker/include')
+    for d in ('/opt/spinnaker/include', '/usr/local/include/spinnaker',
+              '/Applications/Spinnaker/include'):
+        if exists(d):
+            include_dirs.append(d)
 
-    library_dirs.append('/opt/spinnaker/lib')
-    library_dirs.append('/usr/local/lib')
-    library_dirs.append('/Applications/Spinnaker/lib')
+    for d in ('/opt/spinnaker/lib', '/usr/local/lib',
+              '/Applications/Spinnaker/lib'):
+        if exists(d):
+            library_dirs.append(d)
 
 include = environ.get('ROTPY_INCLUDE')
 if include:
