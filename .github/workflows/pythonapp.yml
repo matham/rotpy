@@ -142,36 +142,6 @@ jobs:
           python -m pip install twine
           twine upload dist/*
 
-  test_wheel:
-    runs-on: ${{ matrix.os }}
-    needs: [ linux_wheels, windows_wheels ]
-    strategy:
-      matrix:
-        os: [ 'ubuntu-latest', 'windows-latest' ]
-        arch: ['x64', ]
-        include:
-          - os: windows-latest
-            arch: x86
-    steps:
-      - uses: actions/checkout@v1
-      - name: Set up Python 3.x
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.x
-          architecture: ${{ matrix.arch }}
-      - uses: actions/download-artifact@v2
-        with:
-          name: py_wheel
-          path: dist
-      - name: Install
-        run: |
-          python -m pip install --upgrade pytest
-          python -m pip install --no-index --only-binary rotpy --find-links=dist rotpy
-      - name: Test
-        run: |
-          cd ~/
-          pytest --pyargs rotpy.test
-
   windows_wheels:
     runs-on: windows-latest
     strategy:
@@ -271,7 +241,7 @@ jobs:
 
       - name: Prep environment
         run: |
-          brew install pkg-config libomp libusb
+          brew install pkg-config libomp libusb gcc
           cp -r spinnaker/include /usr/local/include/spinnaker
           cp -r spinnaker/lib/* /usr/local/lib/
 
@@ -305,3 +275,36 @@ jobs:
         run: |
           python -m pip install twine
           twine upload dist/*
+
+  test_wheel:
+    runs-on: ${{ matrix.os }}
+    needs: [ linux_wheels, windows_wheels, mac_wheels ]
+    strategy:
+      matrix:
+        os: [ 'ubuntu-latest', 'windows-latest', 'macos-latest' ]
+        arch: ['x64', ]
+        include:
+          - os: windows-latest
+            arch: x86
+    steps:
+      - uses: actions/checkout@v1
+      - name: Set up Python 3.x
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+          architecture: ${{ matrix.arch }}
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: py_wheel
+          path: dist
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pytest
+          python -m pip install --no-index --only-binary rotpy --find-links=dist rotpy
+
+      - name: Test
+        run: |
+          cd ~/
+          pytest --pyargs rotpy.test
