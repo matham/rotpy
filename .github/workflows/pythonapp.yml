@@ -214,7 +214,7 @@ jobs:
     env:
       CIBW_BUILD_VERBOSITY: 3
       CIBW_PLATFORM: macos
-      CIBW_ENVIRONMENT: ROTPY_CTI=/usr/local/lib/flir-gentl CXX="/usr/bin/clang"
+      CIBW_ENVIRONMENT: ROTPY_CTI=/usr/local/lib/flir-gentl CXX="/usr/bin/clang" CXXFLAGS="-std=c++11" CPPFLAGS="-std=c++11"
       CIBW_BUILD: 'cp37-*_x86_64 cp38-*_x86_64 cp39-*_x86_64 cp310-*_x86_64'
       CIBW_ARCHS: x86_64
     runs-on: macos-latest
