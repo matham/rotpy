@@ -214,7 +214,7 @@ jobs:
     env:
       CIBW_BUILD_VERBOSITY: 3
       CIBW_PLATFORM: macos
-      CIBW_ENVIRONMENT: ROTPY_CTI=/usr/local/lib/flir-gentl
+      CIBW_ENVIRONMENT: ROTPY_CTI=/usr/local/lib/flir-gentl CXX="/usr/bin/clang"
       CIBW_BUILD: 'cp37-*_x86_64 cp38-*_x86_64 cp39-*_x86_64 cp310-*_x86_64'
       CIBW_ARCHS: x86_64
     runs-on: macos-latest
@@ -241,7 +241,7 @@ jobs:
 
       - name: Prep environment
         run: |
-          brew install pkg-config libomp libusb gcc
+          brew install pkg-config libomp libusb
           cp -r spinnaker/include /usr/local/include/spinnaker
           cp -r spinnaker/lib/* /usr/local/lib/
 
