@@ -6,8 +6,12 @@ import rotpy.names.tl
 import rotpy.names.spin
 import rotpy.names.geni
 
+__all__ = ('SystemNodes', 'InterfaceNodes')
+
 
 cdef class SystemNodes:
+    """All the system nodes.
+    """
 
     def __cinit__(self, system):
         self._system = system
@@ -478,6 +482,8 @@ cdef class SystemNodes:
 
 
 cdef class InterfaceNodes:
+    """All the interface device nodes.
+    """
 
     def __cinit__(self, interface):
         self._interface = interface

@@ -6,8 +6,12 @@ import rotpy.names.tl
 import rotpy.names.spin
 import rotpy.names.geni
 
+__all__ = ('CameraNodes', 'TLDevNodes', 'TLStreamNodes')
+
 
 cdef class CameraNodes:
+    """All the camera nodes.
+    """
 
     def __cinit__(self, camera):
         self._camera = camera
@@ -12278,6 +12282,8 @@ cdef class CameraNodes:
 
 
 cdef class TLDevNodes:
+    """All the camera transport layer device nodes.
+    """
 
     def __cinit__(self, camera):
         self._camera = camera
@@ -13020,6 +13026,8 @@ cdef class TLDevNodes:
 
 
 cdef class TLStreamNodes:
+    """All the camera transport layer stream nodes.
+    """
 
     def __cinit__(self, camera):
         self._camera = camera

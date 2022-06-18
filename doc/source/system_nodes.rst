@@ -1,3 +1,3 @@
-.. automodule:: rotpy.utils
+.. automodule:: rotpy.system_nodes
    :members:
    :show-inheritance:
