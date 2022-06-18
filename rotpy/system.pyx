@@ -1,7 +1,8 @@
 from .names.spin import log_level_names, log_level_values, cmd_status_values
+
 from cpython.ref cimport PyObject
 from libc.stdlib cimport malloc, free
-cimport rotpy.camera
+cimport rotpy.system_nodes
 
 __all__ = (
     'EventHandlerBase', 'LoggingEventHandler', 'SystemEventHandler',
@@ -19,7 +20,7 @@ cdef class LoggingEventHandler(EventHandlerBase):
     """NDC is Nested Diagnostic Context."""
 
     def __init__(self, callback):
-        EventHandlerBase.__init__()
+        super().__init__()
         self._callback = callback
 
         self._handler.SetCallback(
@@ -50,7 +51,7 @@ cdef class LoggingEventHandler(EventHandlerBase):
 cdef class SystemEventHandler(EventHandlerBase):
 
     def __init__(self, callback_arrival, callback_removal):
-        EventHandlerBase.__init__()
+        super().__init__()
         self._callback_arrival = callback_arrival
         self._callback_removal = callback_removal
 
@@ -76,7 +77,7 @@ cdef class SystemEventHandler(EventHandlerBase):
 cdef class InterfaceEventHandler(EventHandlerBase):
 
     def __init__(self, callback_arrival, callback_removal):
-        EventHandlerBase.__init__()
+        super().__init__()
         self._callback_arrival = callback_arrival
         self._callback_removal = callback_removal
 
@@ -110,7 +111,7 @@ cdef class SpinSystem:
         self._sys_handlers = set()
         self._interface_handlers = set()
         self._log_handlers = set()
-        self.system_nodes = SystemNodes(system=self)
+        self.system_nodes = rotpy.system_nodes.SystemNodes(system=self)
 
     def __init__(self):
         with nogil:
@@ -338,25 +339,6 @@ cdef class SpinSystem:
             self, self._system.get().GetInterfaces(update_interfaces))
         return interface_list
 
-    cpdef create_camera_list(
-            self, cbool update_interfaces=True, cbool update_cams=True):
-        """Creates and returns a new :class:`CameraList` for accessing
-        cameras on the system.
-
-        This returns both GigE Vision and Usb3 Vision cameras from all
-        interfaces.
-
-        :param update_interfaces: Whether to update the internal interface list
-            before getting the camera list from all the interfaces.
-        :param update_cams: Whether to update the internal camera list to detect
-            new/removed cameras before getting the camera list.
-        :return: A :class:`CameraList`.
-        """
-        cdef rotpy.camera.CameraList cam_list = rotpy.camera.CameraList()
-        cam_list.set_system(
-            self, self._system.get().GetCameras(update_interfaces, update_cams))
-        return cam_list
-
     cpdef update_interface_list(self):
         """Updates the internal list of interfaces on the system.
 
@@ -376,8 +358,8 @@ cdef class SpinSystem:
         :return: True if cameras changed on interface and False otherwise.
 
         If desired to get the new interfaces or cameras, call
-        :meth:`create_interface_list` or :meth:`create_camera_list`,
-        respectively.
+        :meth:`create_interface_list` or
+        :meth:`~rotpy.camera.CameraList.create_from_system`, respectively.
         """
         cdef cbool changed
         with nogil:
@@ -443,7 +425,7 @@ cdef class InterfaceDevice:
 
     def __cinit__(self):
         self._interface_set = 0
-        self.interface_nodes = InterfaceNodes(interface=self)
+        self.interface_nodes = rotpy.system_nodes.InterfaceNodes(interface=self)
         self._event_handlers = set()
 
     def __dealloc__(self):
@@ -555,22 +537,6 @@ cdef class InterfaceDevice:
             n = self._interface.get().IsValid()
         return bool(n)
 
-    cpdef create_camera_list(self, cbool update_cams=True):
-        """Creates and returns a new :class:`CameraList` for accessing
-        the cameras on this interface.
-
-        It returns either usb3 vision or gige vision cameras depending on the
-        underlying transport layer of this interface.
-
-        :param update_cams: Whether to update the internal camera list to detect
-            new/removed cameras before getting the camera list.
-        :return: A :class:`CameraList`.
-        """
-        cdef rotpy.camera.CameraList cam_list = rotpy.camera.CameraList()
-        cam_list.set_interface(
-            self, self._interface.get().GetCameras(update_cams))
-        return cam_list
-
     cpdef update_camera_list(self):
         """Updates the internal list of cameras on the system, returning a bool
         indicating whether there has been any changes and cameras have arrived
@@ -578,7 +544,8 @@ cdef class InterfaceDevice:
 
         :return: True if cameras changed on interface and False otherwise.
 
-        If desired to get the new cameras, call :meth:`create_camera_list`.
+        If desired to get the new cameras, call
+        :meth:`~rotpy.camera.CameraList.create_from_interface`.
         """
         cdef cbool changed
         with nogil:

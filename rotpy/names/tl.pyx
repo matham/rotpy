@@ -3,12 +3,7 @@
 
 Provides access to all the transport-layer-related enums.
 """
-from rotpy._interface import StreamTypeEnum, StreamModeEnum, \
-    StreamBufferCountModeEnum,\
-    StreamBufferHandlingModeEnum, DeviceTypeEnum, DeviceAccessStatusEnum,\
-    GevCCPEnum, GUIXMLLocationEnum, GenICamXMLLocationEnum, \
-    DeviceEndianessMechanismEnum, DeviceCurrentSpeedEnum, InterfaceTypeEnum,\
-    POEStatusEnum, FilterDriverStatusEnum, TLTypeEnum
+import rotpy._interface
 from ..names import _split_name, _invert_dict
 
 __all__ = (
@@ -27,47 +22,54 @@ __all__ = (
 )
 
 
-StreamType_names = _split_name(1, StreamTypeEnum)
+StreamType_names = _split_name(1, rotpy._interface.StreamTypeEnum)
 StreamType_values = _invert_dict(StreamType_names)
 
-StreamMode_names = _split_name(1, StreamModeEnum)
+StreamMode_names = _split_name(1, rotpy._interface.StreamModeEnum)
 StreamMode_values = _invert_dict(StreamMode_names)
 
-StreamBufferCountMode_names = _split_name(1, StreamBufferCountModeEnum)
+StreamBufferCountMode_names = _split_name(
+    1, rotpy._interface.StreamBufferCountModeEnum)
 StreamBufferCountMode_values = _invert_dict(StreamBufferCountMode_names)
 
-StreamBufferHandlingMode_names = _split_name(1, StreamBufferHandlingModeEnum)
+StreamBufferHandlingMode_names = _split_name(
+    1, rotpy._interface.StreamBufferHandlingModeEnum)
 StreamBufferHandlingMode_values = _invert_dict(StreamBufferHandlingMode_names)
 
-DeviceType_names = _split_name(1, DeviceTypeEnum)
+DeviceType_names = _split_name(1, rotpy._interface.DeviceTypeEnum)
 DeviceType_values = _invert_dict(DeviceType_names)
 
-DeviceAccessStatus_names = _split_name(1, DeviceAccessStatusEnum)
+DeviceAccessStatus_names = _split_name(
+    1, rotpy._interface.DeviceAccessStatusEnum)
 DeviceAccessStatus_values = _invert_dict(DeviceAccessStatus_names)
 
-GevCCP_tl_names = _split_name(3, GevCCPEnum)
+GevCCP_tl_names = _split_name(3, rotpy._interface.GevCCPEnum)
 GevCCP_tl_values = _invert_dict(GevCCP_tl_names)
 
-GUIXMLLocation_names = _split_name(1, GUIXMLLocationEnum)
+GUIXMLLocation_names = _split_name(1, rotpy._interface.GUIXMLLocationEnum)
 GUIXMLLocation_values = _invert_dict(GUIXMLLocation_names)
 
-GenICamXMLLocation_names = _split_name(1, GenICamXMLLocationEnum)
+GenICamXMLLocation_names = _split_name(
+    1, rotpy._interface.GenICamXMLLocationEnum)
 GenICamXMLLocation_values = _invert_dict(GenICamXMLLocation_names)
 
-DeviceEndianessMechanism_names = _split_name(1, DeviceEndianessMechanismEnum)
+DeviceEndianessMechanism_names = _split_name(
+    1, rotpy._interface.DeviceEndianessMechanismEnum)
 DeviceEndianessMechanism_values = _invert_dict(DeviceEndianessMechanism_names)
 
-DeviceCurrentSpeed_names = _split_name(1, DeviceCurrentSpeedEnum)
+DeviceCurrentSpeed_names = _split_name(
+    1, rotpy._interface.DeviceCurrentSpeedEnum)
 DeviceCurrentSpeed_values = _invert_dict(DeviceCurrentSpeed_names)
 
-InterfaceType_names = _split_name(1, InterfaceTypeEnum)
+InterfaceType_names = _split_name(1, rotpy._interface.InterfaceTypeEnum)
 InterfaceType_values = _invert_dict(InterfaceType_names)
 
-POEStatus_names = _split_name(1, POEStatusEnum)
+POEStatus_names = _split_name(1, rotpy._interface.POEStatusEnum)
 POEStatus_values = _invert_dict(POEStatus_names)
 
-FilterDriverStatus_names = _split_name(1, FilterDriverStatusEnum)
+FilterDriverStatus_names = _split_name(
+    1, rotpy._interface.FilterDriverStatusEnum)
 FilterDriverStatus_values = _invert_dict(FilterDriverStatus_names)
 
-TLType_names = _split_name(1, TLTypeEnum)
+TLType_names = _split_name(1, rotpy._interface.TLTypeEnum)
 TLType_values = _invert_dict(TLType_names)

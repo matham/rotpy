@@ -1,5 +1,6 @@
 from .node cimport SpinIntNode, SpinFloatNode, SpinBoolNode, SpinStrNode, \
     SpinCommandNode, SpinRegisterNode, SpinEnumDefNode
+
 import rotpy.names.camera
 import rotpy.names.tl
 import rotpy.names.spin
@@ -8,7 +9,7 @@ import rotpy.names.geni
 
 cdef class SystemNodes:
 
-    def __cinit__(self, SpinSystem system):
+    def __cinit__(self, system):
         self._system = system
         self._nodes = {}
 
@@ -30,7 +31,7 @@ cdef class SystemNodes:
         self.command_nodes = ['InterfaceUpdateList']
         self.register_nodes = []
 
-    def __init__(self, SpinSystem system):
+    def __init__(self, system):
         pass
 
     @property
@@ -478,7 +479,7 @@ cdef class SystemNodes:
 
 cdef class InterfaceNodes:
 
-    def __cinit__(self, InterfaceDevice interface):
+    def __cinit__(self, interface):
         self._interface = interface
         self._nodes = {}
 
@@ -514,7 +515,7 @@ cdef class InterfaceNodes:
                               'GevDeviceForceIP', 'GevDeviceAutoForceIP']
         self.register_nodes = []
 
-    def __init__(self, InterfaceDevice interface):
+    def __init__(self, interface):
         pass
 
     @property

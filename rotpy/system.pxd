@@ -1,6 +1,6 @@
 from ._interface cimport *
 from .node cimport NodeMap
-from .system_nodes cimport SystemNodes, InterfaceNodes
+cimport rotpy.system_nodes
 
 
 cdef class EventHandlerBase:
@@ -43,7 +43,7 @@ cdef class SpinSystem:
     cdef set _interface_handlers
     cdef set _log_handlers
 
-    cdef public SystemNodes system_nodes
+    cdef public rotpy.system_nodes.SystemNodes system_nodes
 
     cpdef set_logging_level(self, str level)
     cpdef get_logging_level(self)
@@ -63,7 +63,6 @@ cdef class SpinSystem:
             unsigned int group_mask, unsigned long long action_time=*,
             unsigned int num_results=*)
     cpdef create_interface_list(self, cbool update_interfaces=*)
-    cpdef create_camera_list(self, cbool update_interfaces=*, cbool update_cams=*)
     cpdef update_interface_list(self)
     cpdef update_camera_list(self, cbool update_interfaces=*)
 
@@ -87,7 +86,7 @@ cdef class InterfaceDevice:
     cdef InterfaceDeviceList _dev_list
     cdef set _event_handlers
 
-    cdef public InterfaceNodes interface_nodes
+    cdef public rotpy.system_nodes.InterfaceNodes interface_nodes
 
     cdef object set_interface(self, InterfaceDeviceList dev_list, unsigned int index)
     cpdef attach_event_handler(self, InterfaceEventHandler handler)
@@ -98,6 +97,5 @@ cdef class InterfaceDevice:
             unsigned int group_mask, unsigned long long action_time=*,
             unsigned int num_results=*)
     cpdef get_is_valid(self)
-    cpdef create_camera_list(self, cbool update_cams=*)
     cpdef update_camera_list(self)
     cpdef get_tl_node_map(self)

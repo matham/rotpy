@@ -3,12 +3,7 @@
 
 Provides access to all the basic Spinnaker enums.
 """
-from rotpy._interface import Error, EventType, PixelFormatNamespaceID, \
-    ColorProcessingAlgorithm, ImageFileFormat, ImageStatus, \
-    StatisticsChannel, SpinnakerLogLevel, PayloadTypeInfoIDs, \
-    ActionCommandStatus, PixelFormatIntType, BufferOwnership, \
-    CCMColorTemperature, CCMType, CCMSensor, CCMColorSpace, CCMApplication, \
-    CompressionMethod
+import rotpy._interface
 from ..names import _split_name, _lower_names, _invert_dict
 
 __all__ = (
@@ -29,31 +24,33 @@ __all__ = (
 )
 
 
-error_code_names = _split_name(2, Error, lower=True)
+error_code_names = _split_name(2, rotpy._interface.Error, lower=True)
 error_code_values = _invert_dict(error_code_names)
 
-event_names = _split_name(2, EventType, lower=True)
+event_names = _split_name(2, rotpy._interface.EventType, lower=True)
 event_values = _invert_dict(event_names)
 
-pix_fmt_namespace_names = _split_name(3, PixelFormatNamespaceID, lower=True)
+pix_fmt_namespace_names = _split_name(
+    3, rotpy._interface.PixelFormatNamespaceID, lower=True)
 pix_fmt_namespace_values = _invert_dict(pix_fmt_namespace_names)
 
-color_processing_algo_names = _lower_names(ColorProcessingAlgorithm)
+color_processing_algo_names = _lower_names(
+    rotpy._interface.ColorProcessingAlgorithm)
 color_processing_algo_values = _invert_dict(color_processing_algo_names)
 
-img_file_fmt_names = _lower_names(ImageFileFormat)
+img_file_fmt_names = _lower_names(rotpy._interface.ImageFileFormat)
 img_file_fmt_values = _invert_dict(img_file_fmt_names)
 
-img_status_names = _split_name(1, ImageStatus, lower=True)
+img_status_names = _split_name(1, rotpy._interface.ImageStatus, lower=True)
 img_status_values = _invert_dict(img_status_names)
 
-compression_names = _lower_names(CompressionMethod)
+compression_names = _lower_names(rotpy._interface.CompressionMethod)
 compression_values = _invert_dict(compression_names)
 
-stats_channel_names = _lower_names(StatisticsChannel)
+stats_channel_names = _lower_names(rotpy._interface.StatisticsChannel)
 stats_channel_values = _invert_dict(stats_channel_names)
 
-log_level_names = _split_name(2, SpinnakerLogLevel, lower=True)
+log_level_names = _split_name(2, rotpy._interface.SpinnakerLogLevel, lower=True)
 """
 Logging events below each level will not trigger callbacks.
 
@@ -68,29 +65,34 @@ Spinnaker uses five levels of logging:
 """
 log_level_values = _invert_dict(log_level_names)
 
-payload_type_names = _split_name(2, PayloadTypeInfoIDs, lower=True)
+payload_type_names = _split_name(
+    2, rotpy._interface.PayloadTypeInfoIDs, lower=True)
 payload_type_values = _invert_dict(payload_type_names)
 
-cmd_status_names = _split_name(3, ActionCommandStatus, lower=True)
+cmd_status_names = _split_name(
+    3, rotpy._interface.ActionCommandStatus, lower=True)
 cmd_status_values = _invert_dict(cmd_status_names)
 
-pix_fmt_int_names = _split_name(1, PixelFormatIntType, lower=True)
+pix_fmt_int_names = _split_name(
+    1, rotpy._interface.PixelFormatIntType, lower=True)
 pix_fmt_int_values = _invert_dict(pix_fmt_int_names)
 
-buffer_owner_names = _split_name(2, BufferOwnership, lower=True)
+buffer_owner_names = _split_name(
+    2, rotpy._interface.BufferOwnership, lower=True)
 buffer_owner_values = _invert_dict(buffer_owner_names)
 
-img_correction_temp_names = _lower_names(CCMColorTemperature)
+img_correction_temp_names = _lower_names(rotpy._interface.CCMColorTemperature)
 img_correction_temp_values = _invert_dict(img_correction_temp_names)
 
-img_correction_type_names = _lower_names(CCMType)
+img_correction_type_names = _lower_names(rotpy._interface.CCMType)
 img_correction_type_values = _invert_dict(img_correction_type_names)
 
-img_correction_sensor_names = _lower_names(CCMSensor)
+img_correction_sensor_names = _lower_names(rotpy._interface.CCMSensor)
 img_correction_sensor_values = _invert_dict(img_correction_sensor_names)
 
-img_correction_space_names = _lower_names(CCMColorSpace)
+img_correction_space_names = _lower_names(rotpy._interface.CCMColorSpace)
 img_correction_space_values = _invert_dict(img_correction_space_names)
 
-img_correction_app_names = _split_name(2, CCMApplication, lower=True)
+img_correction_app_names = _split_name(
+    2, rotpy._interface.CCMApplication, lower=True)
 img_correction_app_values = _invert_dict(img_correction_app_names)

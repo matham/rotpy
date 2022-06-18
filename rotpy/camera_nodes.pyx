@@ -1,5 +1,6 @@
 from .node cimport SpinIntNode, SpinFloatNode, SpinBoolNode, SpinStrNode, \
     SpinCommandNode, SpinRegisterNode, SpinEnumDefNode
+
 import rotpy.names.camera
 import rotpy.names.tl
 import rotpy.names.spin
@@ -8,7 +9,7 @@ import rotpy.names.geni
 
 cdef class CameraNodes:
 
-    def __cinit__(self, Camera camera):
+    def __cinit__(self, camera):
         self._camera = camera
         self._nodes = {}
 
@@ -429,7 +430,7 @@ cdef class CameraNodes:
         self.register_nodes = ['LUTValueAll', 'FileAccessBuffer',
                                'ChunkInferenceBoundingBoxResult']
 
-    def __init__(self, Camera camera):
+    def __init__(self, camera):
         pass
 
     @property
@@ -12278,7 +12279,7 @@ cdef class CameraNodes:
 
 cdef class TLDevNodes:
 
-    def __cinit__(self, Camera camera):
+    def __cinit__(self, camera):
         self._camera = camera
         self._nodes = {}
         self.bool_nodes = ['DeviceIsUpdater', 'GevDeviceModeIsBigEndian',
@@ -12305,7 +12306,7 @@ cdef class TLDevNodes:
                               'GevDeviceAutoForceIP', 'GevDeviceForceIP']
         self.register_nodes = []
 
-    def __init__(self, Camera camera):
+    def __init__(self, camera):
         pass
 
     @property
@@ -13020,7 +13021,7 @@ cdef class TLDevNodes:
 
 cdef class TLStreamNodes:
 
-    def __cinit__(self, Camera camera):
+    def __cinit__(self, camera):
         self._camera = camera
         self._nodes = {}
         self.bool_nodes = ['StreamIsGrabbing', 'StreamCRCCheckEnable',
@@ -13054,7 +13055,7 @@ cdef class TLStreamNodes:
         self.command_nodes = []
         self.register_nodes = []
 
-    def __init__(self, Camera camera):
+    def __init__(self, camera):
         pass
 
     @property

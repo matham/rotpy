@@ -1,11 +1,11 @@
 from ._interface cimport *
-from .system cimport SpinSystem, EventHandlerBase, InterfaceDevice
-from .image cimport Image
+cimport rotpy.system
+cimport rotpy.image
+cimport rotpy.camera_nodes
 from .node cimport NodeMap
-from .camera_nodes cimport CameraNodes, TLDevNodes, TLStreamNodes
 
 
-cdef class DeviceEventHandler(EventHandlerBase):
+cdef class DeviceEventHandler(rotpy.system.EventHandlerBase):
 
     cdef object _callback
     cdef RotpyDeviceEventHandler _handler
@@ -15,7 +15,7 @@ cdef class DeviceEventHandler(EventHandlerBase):
     cdef void handler_callback(self, const gcstring* event) nogil except*
 
 
-cdef class ImageEventHandler(EventHandlerBase):
+cdef class ImageEventHandler(rotpy.system.EventHandlerBase):
 
     cdef object _callback
     cdef RotpyImageEventHandler _handler
@@ -25,12 +25,12 @@ cdef class ImageEventHandler(EventHandlerBase):
 
 cdef class CameraList:
 
-    cdef SpinSystem system
-    cdef InterfaceDevice _interface
+    cdef rotpy.system.SpinSystem system
+    cdef rotpy.system.InterfaceDevice _interface
     cdef CCameraList _cam_list
 
-    cdef void set_system(self, SpinSystem system, CCameraList cam_list)
-    cdef void set_interface(self, InterfaceDevice interface, CCameraList cam_list)
+    cdef void set_system(self, rotpy.system.SpinSystem system, CCameraList cam_list)
+    cdef void set_interface(self, rotpy.system.InterfaceDevice interface, CCameraList cam_list)
     cpdef get_size(self)
     cpdef create_camera_by_index(self, unsigned int index)
     cpdef remove_camera_by_index(self, unsigned int index)
@@ -50,9 +50,9 @@ cdef class Camera:
     cdef set _dev_handlers
     cdef object _user_buf
 
-    cdef public CameraNodes camera_nodes
-    cdef public TLDevNodes tl_dev_nodes
-    cdef public TLStreamNodes tl_stream_nodes
+    cdef public rotpy.camera_nodes.CameraNodes camera_nodes
+    cdef public rotpy.camera_nodes.TLDevNodes tl_dev_nodes
+    cdef public rotpy.camera_nodes.TLStreamNodes tl_stream_nodes
 
     cdef object set_camera_by_index(self, CameraList cam_list, unsigned int index)
     cdef object set_camera_by_serial(self, CameraList cam_list, bytes serial)

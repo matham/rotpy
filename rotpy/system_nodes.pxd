@@ -1,10 +1,10 @@
 from ._interface cimport *
-from .system cimport SpinSystem, InterfaceDevice
+cimport rotpy.system
 
 
 cdef class SystemNodes:
 
-    cdef SpinSystem _system
+    cdef rotpy.system.SpinSystem _system
     cdef dict _nodes
 
     cdef public list bool_nodes
@@ -18,7 +18,7 @@ cdef class SystemNodes:
 
 cdef class InterfaceNodes:
 
-    cdef InterfaceDevice _interface
+    cdef rotpy.system.InterfaceDevice _interface
     cdef dict _nodes
 
     cdef public list bool_nodes

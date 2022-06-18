@@ -1,10 +1,10 @@
 from ._interface cimport *
-from .camera cimport Camera
+cimport rotpy.camera
 
 
 cdef class CameraNodes:
 
-    cdef Camera _camera
+    cdef rotpy.camera.Camera _camera
     cdef dict _nodes
 
     cdef public list bool_nodes
@@ -18,7 +18,7 @@ cdef class CameraNodes:
 
 cdef class TLDevNodes:
 
-    cdef Camera _camera
+    cdef rotpy.camera.Camera _camera
     cdef dict _nodes
 
     cdef public list bool_nodes
@@ -32,7 +32,7 @@ cdef class TLDevNodes:
 
 cdef class TLStreamNodes:
 
-    cdef Camera _camera
+    cdef rotpy.camera.Camera _camera
     cdef dict _nodes
 
     cdef public list bool_nodes

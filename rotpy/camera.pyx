@@ -1,22 +1,24 @@
-from .system import SpinSystem
 from .names.spin import img_status_values, buffer_owner_values, \
     buffer_owner_names, event_values
 from .names.geni import AccessMode_values
 from .node import NodeMap
-from .camera_nodes cimport CameraNodes, TLDevNodes, TLStreamNodes
+
+cimport rotpy.system
+cimport rotpy.image
+cimport rotpy.camera_nodes
 
 from cpython.ref cimport PyObject
 cimport cpython.array
 from libc.stdlib cimport malloc, free
 from array import array
 
-__all__ = ('CameraList', 'Camera')
+__all__ = ('DeviceEventHandler', 'ImageEventHandler', 'CameraList', 'Camera')
 
 
-cdef class DeviceEventHandler(EventHandlerBase):
+cdef class DeviceEventHandler(rotpy.system.EventHandlerBase):
 
     def __init__(self, callback, str event_name=''):
-        EventHandlerBase.__init__()
+        super().__init__()
 
         cdef bytes name_b = event_name.encode()
         cdef size_t n = len(event_name)
@@ -99,10 +101,10 @@ cdef class DeviceEventHandler(EventHandlerBase):
             self._callback(msg.decode())
 
 
-cdef class ImageEventHandler(EventHandlerBase):
+cdef class ImageEventHandler(rotpy.system.EventHandlerBase):
 
     def __init__(self, callback):
-        EventHandlerBase.__init__()
+        super().__init__()
         self._callback = callback
 
         self._handler.SetCallback(
@@ -116,7 +118,7 @@ cdef class ImageEventHandler(EventHandlerBase):
         with gil:
             if self._callback is None:
                 return
-            self._callback(Image.create_from_camera(image_ptr))
+            self._callback(rotpy.image.Image.create_from_camera(image_ptr))
 
 
 cdef class CameraList:
@@ -137,14 +139,58 @@ cdef class CameraList:
             self.system = None
             self._interface = None
 
-    cdef void set_system(self, SpinSystem system, CCameraList cam_list):
+    cdef void set_system(
+            self, rotpy.system.SpinSystem system, CCameraList cam_list):
         self.system = system
         self._cam_list = cam_list
 
     cdef void set_interface(
-            self, InterfaceDevice interface, CCameraList cam_list):
+            self, rotpy.system.InterfaceDevice interface, CCameraList cam_list):
         self._interface = interface
         self._cam_list = cam_list
+
+    @staticmethod
+    def create_from_system(
+            rotpy.system.SpinSystem system, cbool update_interfaces=True,
+            cbool update_cams=True):
+        """Creates and returns a new :class:`CameraList` for accessing
+        cameras across all interfaces on the system.
+
+        This returns both GigE Vision and Usb3 Vision cameras from all
+        interfaces.
+
+        :param system: A :class:`~rotpy.system.SpinSystem` instance.
+        :param update_interfaces: Whether to update the system's internal
+            interface list before getting the camera list from all the
+            interfaces.
+        :param update_cams: Whether to update the system's internal camera list
+            to detect new/removed cameras before getting the camera list.
+        :return: A :class:`CameraList`.
+        """
+        cdef CameraList cam_list = CameraList()
+        cam_list.set_system(
+            system,
+            system._system.get().GetCameras(update_interfaces, update_cams))
+        return cam_list
+
+    @staticmethod
+    def create_from_interface(
+            rotpy.system.InterfaceDevice interface, cbool update_cams=True):
+        """Creates and returns a new :class:`CameraList` for accessing
+        the cameras on a specific interface.
+
+        It returns either usb3 vision or gige vision cameras depending on the
+        underlying transport layer of this interface.
+
+        :param interface: A :class:`~rotpy.system.InterfaceDevice` instance.
+        :param update_cams: Whether to update the interface's internal camera
+            list to detect new/removed cameras before getting the camera list.
+        :return: A :class:`CameraList`.
+        """
+        cdef CameraList cam_list = CameraList()
+        cam_list.set_interface(
+            interface, interface._interface.get().GetCameras(update_cams))
+        return cam_list
 
     cpdef get_size(self):
         """Retrieves the number of cameras in the camera list.
@@ -230,9 +276,9 @@ cdef class Camera:
         self._cam_set = 0
         self._image_handlers = set()
         self._dev_handlers = set()
-        self.camera_nodes = CameraNodes(camera=self)
-        self.tl_dev_nodes = TLDevNodes(camera=self)
-        self.tl_stream_nodes = TLStreamNodes(camera=self)
+        self.camera_nodes = rotpy.camera_nodes.CameraNodes(camera=self)
+        self.tl_dev_nodes = rotpy.camera_nodes.TLDevNodes(camera=self)
+        self.tl_stream_nodes = rotpy.camera_nodes.TLStreamNodes(camera=self)
         self._user_buf = None
 
     def __dealloc__(self):
@@ -681,7 +727,7 @@ cdef class Camera:
             raise ValueError(
                 f'Image incomplete: "{msg.decode()}" '
                 f'"({img_status_values[status]})"')
-        return Image.create_from_camera(raw_img)
+        return rotpy.image.Image.create_from_camera(raw_img)
 
     cpdef get_node_map(self):
         """Gets the :class:`~rotpy.node.NodeMap` that is generated from a
