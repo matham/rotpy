@@ -55,6 +55,9 @@ html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
 
 
+add_module_names = False
+
+
 def setup(app):
     from sphinx.ext.autodoc import DataDocumenter, ModuleDocumenter
 
@@ -71,7 +74,6 @@ def setup(app):
                    and isinstance(member, dict)
 
         def get_doc(self):
-            # Check the variable has a docstring-comment
             comment = self.get_module_comment(self.objpath[-1])
             if comment:
                 return [comment]
