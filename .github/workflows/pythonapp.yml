@@ -215,13 +215,17 @@ jobs:
       CIBW_BUILD_VERBOSITY: 3
       CIBW_PLATFORM: macos
       CIBW_ENVIRONMENT: ROTPY_CTI="/usr/local/lib/flir-gentl" CXX="/usr/bin/clang" CXXFLAGS="-std=c++11" CPPFLAGS="-std=c++11" LD_LIBRARY_PATH="/usr/local/lib:${LD_LIBRARY_PATH}"
-      CIBW_BUILD: 'cp37-*_x86_64 cp38-*_x86_64 cp39-*_x86_64 cp310-*_x86_64'
+      CIBW_BUILD: ${{ matrix.cibw_build }}
       CIBW_ARCHS: x86_64
       MACOSX_DEPLOYMENT_TARGET: "10.14"
       CIBW_REPAIR_WHEEL_COMMAND_MACOS: >
         DYLD_FALLBACK_LIBRARY_PATH="/usr/local/lib" delocate-listdeps {wheel} &&
         DYLD_FALLBACK_LIBRARY_PATH="/usr/local/lib" delocate-wheel --require-archs {delocate_archs} -w {dest_dir} {wheel}
     runs-on: macos-latest
+    strategy:
+      matrix:
+        cibw_build: [ 'cp37-*', 'cp38-*', 'cp39-*', 'cp310-*' ]
+
     steps:
       - uses: actions/checkout@v1
       - name: Set up Python 3.x
