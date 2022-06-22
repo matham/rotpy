@@ -442,7 +442,7 @@ cdef class CameraNodes:
         pass
 
     @property
-    def LUTIndex(self):
+    def LUTIndex(self) -> SpinIntNode:
         """Control the index (offset) of the coefficient to access in the
         selected LUT.
 
@@ -459,7 +459,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def LUTEnable(self):
+    def LUTEnable(self) -> SpinBoolNode:
         """Activates the selected LUT.
 
         :Property type: :class:`~rotpy.node.SpinBoolNode`.
@@ -475,7 +475,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def LUTValue(self):
+    def LUTValue(self) -> SpinIntNode:
         """Returns the Value at entry LUTIndex of the LUT selected by
         LUTSelector.
 
@@ -492,7 +492,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def LUTSelector(self):
+    def LUTSelector(self) -> SpinEnumDefNode:
         """Selects which LUT to control.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -511,7 +511,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ExposureTime(self):
+    def ExposureTime(self) -> SpinFloatNode:
         """Exposure time in microseconds when Exposure Mode is Timed.
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -527,7 +527,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AcquisitionStop(self):
+    def AcquisitionStop(self) -> SpinCommandNode:
         """This command stops the acquisition of images.
 
         :Property type: :class:`~rotpy.node.SpinCommandNode`.
@@ -543,7 +543,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AcquisitionResultingFrameRate(self):
+    def AcquisitionResultingFrameRate(self) -> SpinFloatNode:
         """Resulting frame rate in Hertz. If this does not equal the
         Acquisition Frame Rate it is because the Exposure Time is greater
         than the frame time.
@@ -561,7 +561,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AcquisitionLineRate(self):
+    def AcquisitionLineRate(self) -> SpinFloatNode:
         """Controls the rate (in Hertz) at which the Lines in a Frame are
         captured.
 
@@ -578,7 +578,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AcquisitionStart(self):
+    def AcquisitionStart(self) -> SpinCommandNode:
         """This command starts the acquisition of images.
 
         :Property type: :class:`~rotpy.node.SpinCommandNode`.
@@ -594,7 +594,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TriggerSoftware(self):
+    def TriggerSoftware(self) -> SpinCommandNode:
         """Generates an internal trigger if Trigger Source is set to Software.
 
         :Property type: :class:`~rotpy.node.SpinCommandNode`.
@@ -610,7 +610,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ExposureMode(self):
+    def ExposureMode(self) -> SpinEnumDefNode:
         """Sets the operation mode of the Exposure.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -629,7 +629,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AcquisitionMode(self):
+    def AcquisitionMode(self) -> SpinEnumDefNode:
         """Sets the acquisition mode of the device. Continuous: acquires images
         continuously. Multi Frame: acquires a specified number of images
         before stopping acquisition. Single Frame: acquires 1 image before
@@ -651,7 +651,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AcquisitionFrameCount(self):
+    def AcquisitionFrameCount(self) -> SpinIntNode:
         """Number of images to acquire during a multi frame acquisition.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -667,7 +667,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TriggerSource(self):
+    def TriggerSource(self) -> SpinEnumDefNode:
         """Specifies the internal signal or physical input line to use as the
         trigger source.
 
@@ -687,7 +687,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TriggerActivation(self):
+    def TriggerActivation(self) -> SpinEnumDefNode:
         """Specifies the activation mode of the trigger.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -706,7 +706,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SensorShutterMode(self):
+    def SensorShutterMode(self) -> SpinEnumDefNode:
         """Sets the shutter mode of the device.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -725,7 +725,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TriggerDelay(self):
+    def TriggerDelay(self) -> SpinFloatNode:
         """Specifies the delay in microseconds (us) to apply after the trigger
         reception before activating it.
 
@@ -742,7 +742,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TriggerMode(self):
+    def TriggerMode(self) -> SpinEnumDefNode:
         """Controls whether or not trigger is active.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -761,7 +761,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AcquisitionFrameRate(self):
+    def AcquisitionFrameRate(self) -> SpinFloatNode:
         """User controlled acquisition frame rate in Hertz
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -777,7 +777,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TriggerOverlap(self):
+    def TriggerOverlap(self) -> SpinEnumDefNode:
         """Specifies the overlap mode of the trigger.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -796,7 +796,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TriggerSelector(self):
+    def TriggerSelector(self) -> SpinEnumDefNode:
         """Selects the type of trigger to configure.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -815,7 +815,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AcquisitionFrameRateEnable(self):
+    def AcquisitionFrameRateEnable(self) -> SpinBoolNode:
         """If enabled, AcquisitionFrameRate can be used to manually control the
         frame rate.
 
@@ -832,7 +832,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ExposureAuto(self):
+    def ExposureAuto(self) -> SpinEnumDefNode:
         """Sets the automatic exposure mode
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -851,7 +851,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AcquisitionBurstFrameCount(self):
+    def AcquisitionBurstFrameCount(self) -> SpinIntNode:
         """This feature is used only if the FrameBurstStart trigger is enabled
         and the FrameBurstEnd trigger is disabled. Note that the total
         number of frames captured is also conditioned by
@@ -871,7 +871,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventTest(self):
+    def EventTest(self) -> SpinIntNode:
         """Returns the unique identifier of the Test type of Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -887,7 +887,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventTestTimestamp(self):
+    def EventTestTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Test Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -903,7 +903,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventExposureEndFrameID(self):
+    def EventExposureEndFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Exposure End Event.
 
@@ -920,7 +920,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventExposureEnd(self):
+    def EventExposureEnd(self) -> SpinIntNode:
         """Returns the unique identifier of the Exposure End type of Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -936,7 +936,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventExposureEndTimestamp(self):
+    def EventExposureEndTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Exposure End Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -952,7 +952,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventError(self):
+    def EventError(self) -> SpinIntNode:
         """Returns the unique identifier of the Error type of Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -968,7 +968,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventErrorTimestamp(self):
+    def EventErrorTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Error Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -984,7 +984,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventErrorCode(self):
+    def EventErrorCode(self) -> SpinIntNode:
         """Returns the error code for the error that happened
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -1000,7 +1000,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventErrorFrameID(self):
+    def EventErrorFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Error Event.
 
@@ -1017,7 +1017,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventSelector(self):
+    def EventSelector(self) -> SpinEnumDefNode:
         """Selects which Event to enable or disable.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -1036,7 +1036,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventSerialReceiveOverflow(self):
+    def EventSerialReceiveOverflow(self) -> SpinBoolNode:
         """Returns the status of the event serial receive overflow.
 
         :Property type: :class:`~rotpy.node.SpinBoolNode`.
@@ -1052,7 +1052,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventSerialPortReceive(self):
+    def EventSerialPortReceive(self) -> SpinIntNode:
         """Returns the unique identifier of the Serial Port Receive type of
         Event.
 
@@ -1069,7 +1069,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventSerialPortReceiveTimestamp(self):
+    def EventSerialPortReceiveTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Serial Port Receive Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -1085,7 +1085,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventSerialData(self):
+    def EventSerialData(self) -> SpinStrNode:
         """Returns the serial data that was received.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -1101,7 +1101,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventSerialDataLength(self):
+    def EventSerialDataLength(self) -> SpinIntNode:
         """Returns the length of the received serial data that was included in
         the event payload.
 
@@ -1118,7 +1118,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventNotification(self):
+    def EventNotification(self) -> SpinEnumDefNode:
         """Enables/Disables the selected event.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -1137,7 +1137,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def LogicBlockLUTRowIndex(self):
+    def LogicBlockLUTRowIndex(self) -> SpinIntNode:
         """Controls the row of the truth table to access in the selected LUT.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -1153,7 +1153,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def LogicBlockSelector(self):
+    def LogicBlockSelector(self) -> SpinEnumDefNode:
         """Selects which LogicBlock to configure
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -1172,7 +1172,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def LogicBlockLUTInputActivation(self):
+    def LogicBlockLUTInputActivation(self) -> SpinEnumDefNode:
         """Selects the activation mode of the Logic Input Source signal.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -1191,7 +1191,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def LogicBlockLUTInputSelector(self):
+    def LogicBlockLUTInputSelector(self) -> SpinEnumDefNode:
         """Controls which LogicBlockLUT Input Source & Activation to access.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -1210,7 +1210,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def LogicBlockLUTInputSource(self):
+    def LogicBlockLUTInputSource(self) -> SpinEnumDefNode:
         """Selects the source for the input into the Logic LUT.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -1229,7 +1229,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def LogicBlockLUTOutputValue(self):
+    def LogicBlockLUTOutputValue(self) -> SpinBoolNode:
         """Controls the output column of the truth table for the selected
         LogicBlockLUTRowIndex.
 
@@ -1246,7 +1246,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def LogicBlockLUTOutputValueAll(self):
+    def LogicBlockLUTOutputValueAll(self) -> SpinIntNode:
         """Sets the value of all the output bits in the selected LUT.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -1262,7 +1262,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def LogicBlockLUTSelector(self):
+    def LogicBlockLUTSelector(self) -> SpinEnumDefNode:
         """Selects which LogicBlock LUT to configure
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -1281,7 +1281,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ColorTransformationValue(self):
+    def ColorTransformationValue(self) -> SpinFloatNode:
         """Represents the value of the selected Gain factor or Offset inside
         the Transformation matrix in floating point precision.
 
@@ -1298,7 +1298,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ColorTransformationEnable(self):
+    def ColorTransformationEnable(self) -> SpinBoolNode:
         """Enables/disables the color transform selected with
         ColorTransformationSelector. For RGB to YUV this is read-only.
         Enabling/disabling RGB to YUV can only be done by changing pixel
@@ -1317,7 +1317,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ColorTransformationSelector(self):
+    def ColorTransformationSelector(self) -> SpinEnumDefNode:
         """Selects which Color Transformation module is controlled by the
         various Color Transformation features
 
@@ -1337,7 +1337,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def RgbTransformLightSource(self):
+    def RgbTransformLightSource(self) -> SpinEnumDefNode:
         """Used to select from a set of RGBtoRGB transform matricies calibrated
         for different light sources. Selecting a value also sets the white
         balance ratios (BalanceRatioRed and BalanceRatioBlue), but those can
@@ -1359,7 +1359,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def Saturation(self):
+    def Saturation(self) -> SpinFloatNode:
         """    Controls the color saturation.
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -1375,7 +1375,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SaturationEnable(self):
+    def SaturationEnable(self) -> SpinBoolNode:
         """    Enables/disables Saturation adjustment.
 
         :Property type: :class:`~rotpy.node.SpinBoolNode`.
@@ -1391,7 +1391,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ColorTransformationValueSelector(self):
+    def ColorTransformationValueSelector(self) -> SpinEnumDefNode:
         """Selects the Gain factor or Offset of the Transformation matrix to
         access in the selected Color Transformation module
 
@@ -1411,7 +1411,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TimestampLatchValue(self):
+    def TimestampLatchValue(self) -> SpinIntNode:
         """Returns the latched value of the timestamp counter.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -1427,7 +1427,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TimestampReset(self):
+    def TimestampReset(self) -> SpinCommandNode:
         """Resets the current value of the device timestamp counter.
 
         :Property type: :class:`~rotpy.node.SpinCommandNode`.
@@ -1443,7 +1443,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceUserID(self):
+    def DeviceUserID(self) -> SpinStrNode:
         """User-programmable device identifier.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -1459,7 +1459,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceTemperature(self):
+    def DeviceTemperature(self) -> SpinFloatNode:
         """Device temperature in degrees Celsius (C).
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -1475,7 +1475,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def MaxDeviceResetTime(self):
+    def MaxDeviceResetTime(self) -> SpinIntNode:
         """Time to wait until device reset complete (ms).
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -1491,7 +1491,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceTLVersionMinor(self):
+    def DeviceTLVersionMinor(self) -> SpinIntNode:
         """Minor version of the Transport Layer of the device.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -1507,7 +1507,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceSerialNumber(self):
+    def DeviceSerialNumber(self) -> SpinStrNode:
         """Device's serial number. This string is a unique identifier of the
         device.
 
@@ -1524,7 +1524,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceVendorName(self):
+    def DeviceVendorName(self) -> SpinStrNode:
         """Name of the manufacturer of the device.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -1540,7 +1540,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceRegistersEndianness(self):
+    def DeviceRegistersEndianness(self) -> SpinEnumDefNode:
         """Endianness of the registers of the device.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -1559,7 +1559,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceManufacturerInfo(self):
+    def DeviceManufacturerInfo(self) -> SpinStrNode:
         """Manufacturer information about the device.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -1575,7 +1575,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceLinkSpeed(self):
+    def DeviceLinkSpeed(self) -> SpinIntNode:
         """Indicates the speed of transmission negotiated on the specified
         Link. (Bps)
 
@@ -1592,7 +1592,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def LinkUptime(self):
+    def LinkUptime(self) -> SpinIntNode:
         """Time since the last phy negotiation (enumeration).
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -1608,7 +1608,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceEventChannelCount(self):
+    def DeviceEventChannelCount(self) -> SpinIntNode:
         """Indicates the number of event channels supported by the device.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -1624,7 +1624,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TimestampLatch(self):
+    def TimestampLatch(self) -> SpinCommandNode:
         """Latches the current timestamp counter into TimestampLatchValue.
 
         :Property type: :class:`~rotpy.node.SpinCommandNode`.
@@ -1640,7 +1640,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceScanType(self):
+    def DeviceScanType(self) -> SpinEnumDefNode:
         """Scan type of the sensor of the device.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -1659,7 +1659,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceReset(self):
+    def DeviceReset(self) -> SpinCommandNode:
         """This is a command that immediately resets and reboots the device.
 
         :Property type: :class:`~rotpy.node.SpinCommandNode`.
@@ -1675,7 +1675,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceCharacterSet(self):
+    def DeviceCharacterSet(self) -> SpinEnumDefNode:
         """Character set used by the strings of the device`s bootstrap
         registers.
 
@@ -1695,7 +1695,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceLinkThroughputLimit(self):
+    def DeviceLinkThroughputLimit(self) -> SpinIntNode:
         """Limits the maximum bandwidth of the data that will be streamed out
         by the device on the selected Link. If necessary, delays will be
         uniformly inserted between transport layer packets in order to
@@ -1714,7 +1714,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceFirmwareVersion(self):
+    def DeviceFirmwareVersion(self) -> SpinStrNode:
         """Version of the firmware on the device.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -1730,7 +1730,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceStreamChannelCount(self):
+    def DeviceStreamChannelCount(self) -> SpinIntNode:
         """Indicates the number of streaming channels supported by the device.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -1746,7 +1746,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceTLType(self):
+    def DeviceTLType(self) -> SpinEnumDefNode:
         """Transport Layer type of the device.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -1765,7 +1765,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceVersion(self):
+    def DeviceVersion(self) -> SpinStrNode:
         """Version of the device.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -1781,7 +1781,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DevicePowerSupplySelector(self):
+    def DevicePowerSupplySelector(self) -> SpinEnumDefNode:
         """Selects the power supply source to control or read.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -1800,7 +1800,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SensorDescription(self):
+    def SensorDescription(self) -> SpinStrNode:
         """Returns Sensor Description
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -1816,7 +1816,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceModelName(self):
+    def DeviceModelName(self) -> SpinStrNode:
         """Model of the device.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -1832,7 +1832,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceTLVersionMajor(self):
+    def DeviceTLVersionMajor(self) -> SpinIntNode:
         """Major version of the Transport Layer of the device.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -1848,7 +1848,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceTemperatureSelector(self):
+    def DeviceTemperatureSelector(self) -> SpinEnumDefNode:
         """Selects the location within the device, where the temperature will
         be measured.
 
@@ -1868,7 +1868,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EnumerationCount(self):
+    def EnumerationCount(self) -> SpinIntNode:
         """Number of enumerations since uptime.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -1884,7 +1884,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def PowerSupplyCurrent(self):
+    def PowerSupplyCurrent(self) -> SpinFloatNode:
         """Indicates the output current of the selected power supply (A).
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -1900,7 +1900,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceID(self):
+    def DeviceID(self) -> SpinStrNode:
         """Device identifier (serial number).
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -1916,7 +1916,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceUptime(self):
+    def DeviceUptime(self) -> SpinIntNode:
         """Total time since the device was powered up in seconds.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -1932,7 +1932,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceLinkCurrentThroughput(self):
+    def DeviceLinkCurrentThroughput(self) -> SpinIntNode:
         """Current bandwidth of streamed data.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -1948,7 +1948,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceMaxThroughput(self):
+    def DeviceMaxThroughput(self) -> SpinIntNode:
         """Maximum bandwidth of the data that can be streamed out of the
         device. This can be used to estimate if the physical connection(s)
         can sustain transfer of free-running images from the camera at its
@@ -1967,7 +1967,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def FactoryReset(self):
+    def FactoryReset(self) -> SpinCommandNode:
         """Returns all user tables to factory default
 
         :Property type: :class:`~rotpy.node.SpinCommandNode`.
@@ -1983,7 +1983,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def PowerSupplyVoltage(self):
+    def PowerSupplyVoltage(self) -> SpinFloatNode:
         """Indicates the current voltage of the selected power supply (V).
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -1999,7 +1999,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceIndicatorMode(self):
+    def DeviceIndicatorMode(self) -> SpinEnumDefNode:
         """Controls the LED behaviour: Inactive (off), Active (current status),
         or Error Status (off unless an error occurs).
 
@@ -2019,7 +2019,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceLinkBandwidthReserve(self):
+    def DeviceLinkBandwidthReserve(self) -> SpinFloatNode:
         """Percentage of streamed data bandwidth reserved for packet resend.
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -2035,7 +2035,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AasRoiOffsetY(self):
+    def AasRoiOffsetY(self) -> SpinIntNode:
         """Controls the y-offset of the ROI used by the auto algorithm that is
         currently selected by the AutoAlgorithmSelector feature.
 
@@ -2052,7 +2052,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AasRoiOffsetX(self):
+    def AasRoiOffsetX(self) -> SpinIntNode:
         """Controls the x-offset of the ROI used by the auto algorithm that is
         currently selected by the AutoAlgorithmSelector feature.
 
@@ -2069,7 +2069,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AutoExposureControlPriority(self):
+    def AutoExposureControlPriority(self) -> SpinEnumDefNode:
         """Selects whether to adjust gain or exposure first. When gain priority
         is selected, the camera fixes the gain to 0 dB, and the exposure is
         adjusted according to the target grey level. If the maximum exposure
@@ -2097,7 +2097,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def BalanceWhiteAutoLowerLimit(self):
+    def BalanceWhiteAutoLowerLimit(self) -> SpinFloatNode:
         """Controls the minimum value Auto White Balance can set for the
         Red/Blue BalanceRatio.
 
@@ -2114,7 +2114,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def BalanceWhiteAutoDamping(self):
+    def BalanceWhiteAutoDamping(self) -> SpinFloatNode:
         """Controls how quickly 'BalanceWhiteAuto' adjusts the values for Red
         and Blue BalanceRatio in response to changing conditions.  Higher
         damping means the changes are more gradual.
@@ -2132,7 +2132,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AasRoiHeight(self):
+    def AasRoiHeight(self) -> SpinIntNode:
         """Controls the width of the ROI used by the auto algorithm that is
         currently selected by the AutoAlgorithmSelector feature.
 
@@ -2149,7 +2149,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AutoExposureGreyValueUpperLimit(self):
+    def AutoExposureGreyValueUpperLimit(self) -> SpinFloatNode:
         """The highest value in percentage that the target mean may reach.
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -2165,7 +2165,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AutoExposureTargetGreyValue(self):
+    def AutoExposureTargetGreyValue(self) -> SpinFloatNode:
         """This is the user-specified target grey level (image mean) to apply
         to the current image. Note that the target grey level is in the
         linear domain before gamma correction is applied.
@@ -2183,7 +2183,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AutoExposureGainLowerLimit(self):
+    def AutoExposureGainLowerLimit(self) -> SpinFloatNode:
         """The smallest gain that auto exposure can set.
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -2199,7 +2199,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AutoExposureGreyValueLowerLimit(self):
+    def AutoExposureGreyValueLowerLimit(self) -> SpinFloatNode:
         """The lowest value in percentage that the target mean may reach.
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -2215,7 +2215,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AutoExposureMeteringMode(self):
+    def AutoExposureMeteringMode(self) -> SpinEnumDefNode:
         """Selects a metering mode: average, spot, or partial metering. a.
         Average: Measures the light from the entire scene uniformly to
         determine the final exposure value. Every portion of the exposed
@@ -2244,7 +2244,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AutoExposureExposureTimeUpperLimit(self):
+    def AutoExposureExposureTimeUpperLimit(self) -> SpinFloatNode:
         """The largest exposure time that auto exposure can set.
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -2260,7 +2260,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AutoExposureGainUpperLimit(self):
+    def AutoExposureGainUpperLimit(self) -> SpinFloatNode:
         """The largest gain that auto exposure can set.
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -2276,7 +2276,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AutoExposureControlLoopDamping(self):
+    def AutoExposureControlLoopDamping(self) -> SpinFloatNode:
         """It controls how fast the exposure and gain get settled. If the value
         is too small, it may cause the system to be unstable.    Range is
         from 0.0 to 1.0. Default = 0.2.
@@ -2294,7 +2294,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AutoExposureEVCompensation(self):
+    def AutoExposureEVCompensation(self) -> SpinFloatNode:
         """The EV compensation value used in the exposure compensation. This
         allows you to adjust the resultant image intensity with one control.
         A positive value makes the image brighter. A negative value makes
@@ -2314,7 +2314,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AutoExposureExposureTimeLowerLimit(self):
+    def AutoExposureExposureTimeLowerLimit(self) -> SpinFloatNode:
         """The smallest exposure time that auto exposure can set.
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -2330,7 +2330,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def BalanceWhiteAutoProfile(self):
+    def BalanceWhiteAutoProfile(self) -> SpinEnumDefNode:
         """Selects the profile used by BalanceWhiteAuto.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -2349,7 +2349,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AutoAlgorithmSelector(self):
+    def AutoAlgorithmSelector(self) -> SpinEnumDefNode:
         """Selects which Auto Algorithm is controlled by the RoiEnable,
         OffsetX, OffsetY, Width, Height features.
 
@@ -2369,7 +2369,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AutoExposureTargetGreyValueAuto(self):
+    def AutoExposureTargetGreyValueAuto(self) -> SpinEnumDefNode:
         """This indicates whether the target image grey level is automatically
         set by the camera or manually set by the user. Note that the target
         grey level is in the linear domain before gamma correction is
@@ -2391,7 +2391,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AasRoiEnable(self):
+    def AasRoiEnable(self) -> SpinBoolNode:
         """Controls whether a user-specified ROI is used for auto algorithm
         that is currently selected by the AutoAlgorithmSelector feature.
 
@@ -2408,7 +2408,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AutoExposureLightingMode(self):
+    def AutoExposureLightingMode(self) -> SpinEnumDefNode:
         """Selects a lighting mode: Backlight, Frontlight or Normal (default).
         a. Backlight compensation: used when a strong light is coming from
         the back of the object. b. Frontlight compensation: used when a
@@ -2433,7 +2433,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AasRoiWidth(self):
+    def AasRoiWidth(self) -> SpinIntNode:
         """Controls the width of the ROI used by the auto algorithm that is
         currently selected by the AutoAlgorithmSelector feature.
 
@@ -2450,7 +2450,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def BalanceWhiteAutoUpperLimit(self):
+    def BalanceWhiteAutoUpperLimit(self) -> SpinFloatNode:
         """Controls the maximum value Auto White Balance can set the Red/Blue
         BalanceRatio.
 
@@ -2467,7 +2467,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def LinkErrorCount(self):
+    def LinkErrorCount(self) -> SpinIntNode:
         """Counts the number of error on the link.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -2483,7 +2483,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevCurrentIPConfigurationDHCP(self):
+    def GevCurrentIPConfigurationDHCP(self) -> SpinBoolNode:
         """Controls whether the DHCP IP configuration scheme is activated on
         the given logical link.
 
@@ -2500,7 +2500,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevInterfaceSelector(self):
+    def GevInterfaceSelector(self) -> SpinIntNode:
         """Selects which logical link to control.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -2516,7 +2516,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevSCPD(self):
+    def GevSCPD(self) -> SpinIntNode:
         """Controls the delay (in GEV timestamp counter unit) to insert between
         each packet for this stream channel. This can be used as a crude
         flow-control mechanism if the application or the network
@@ -2536,7 +2536,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevTimestampTickFrequency(self):
+    def GevTimestampTickFrequency(self) -> SpinIntNode:
         """Indicates the number of timestamp ticks in 1 second (frequency in
         Hz).
 
@@ -2553,7 +2553,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevSCPSPacketSize(self):
+    def GevSCPSPacketSize(self) -> SpinIntNode:
         """Specifies the stream packet size (in bytes) to send on this channel.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -2569,7 +2569,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevCurrentDefaultGateway(self):
+    def GevCurrentDefaultGateway(self) -> SpinIntNode:
         """Reports the default gateway IP address to be used on the given
         logical link.
 
@@ -2586,7 +2586,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevSCCFGUnconditionalStreaming(self):
+    def GevSCCFGUnconditionalStreaming(self) -> SpinBoolNode:
         """Enables the camera to continue to stream, for this stream channel,
         if its control channel is closed or regardless of the reception of
         any ICMP messages (such as destination unreachable messages).
@@ -2604,7 +2604,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevMCTT(self):
+    def GevMCTT(self) -> SpinIntNode:
         """Indicates the transmission timeout of the message channel.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -2620,7 +2620,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevSCPSDoNotFragment(self):
+    def GevSCPSDoNotFragment(self) -> SpinBoolNode:
         """The state of this feature is copied into the "do not fragment" bit
         of the IP header of each stream packet.
 
@@ -2637,7 +2637,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevCurrentSubnetMask(self):
+    def GevCurrentSubnetMask(self) -> SpinIntNode:
         """Reports the subnet mask of the given logical link.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -2653,7 +2653,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevStreamChannelSelector(self):
+    def GevStreamChannelSelector(self) -> SpinIntNode:
         """Selects the stream channel to control.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -2669,7 +2669,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevCurrentIPAddress(self):
+    def GevCurrentIPAddress(self) -> SpinIntNode:
         """Reports the IP address for the given logical link.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -2685,7 +2685,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevMCSP(self):
+    def GevMCSP(self) -> SpinIntNode:
         """Indicates the source port of the message channel.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -2701,7 +2701,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevGVCPPendingTimeout(self):
+    def GevGVCPPendingTimeout(self) -> SpinIntNode:
         """Indicates the longest GVCP command execution time before the device
         returns a PENDING_ACK in milliseconds.
 
@@ -2718,7 +2718,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevIEEE1588Status(self):
+    def GevIEEE1588Status(self) -> SpinEnumDefNode:
         """Provides the status of the IEEE 1588 clock.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -2737,7 +2737,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevFirstURL(self):
+    def GevFirstURL(self) -> SpinStrNode:
         """The first choice of URL for the XML device description file.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -2753,7 +2753,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevMACAddress(self):
+    def GevMACAddress(self) -> SpinIntNode:
         """MAC address of the logical link.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -2769,7 +2769,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevPersistentSubnetMask(self):
+    def GevPersistentSubnetMask(self) -> SpinIntNode:
         """Controls the Persistent subnet mask associated with the Persistent
         IP address on this logical link.
 
@@ -2786,7 +2786,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevMCPHostPort(self):
+    def GevMCPHostPort(self) -> SpinIntNode:
         """The port to which the device must send messages
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -2802,7 +2802,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevSCPHostPort(self):
+    def GevSCPHostPort(self) -> SpinIntNode:
         """Controls the port of the selected channel to which a GVSP
         transmitter must send data stream or the port from which a GVSP
         receiver may receive data stream.
@@ -2820,7 +2820,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevGVCPPendingAck(self):
+    def GevGVCPPendingAck(self) -> SpinBoolNode:
         """Enables the generation of PENDING_ACK.
 
         :Property type: :class:`~rotpy.node.SpinBoolNode`.
@@ -2836,7 +2836,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevSCPInterfaceIndex(self):
+    def GevSCPInterfaceIndex(self) -> SpinIntNode:
         """Index of the logical link to use.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -2852,7 +2852,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevSupportedOption(self):
+    def GevSupportedOption(self) -> SpinBoolNode:
         """Returns if the selected GEV option is supported.
 
         :Property type: :class:`~rotpy.node.SpinBoolNode`.
@@ -2868,7 +2868,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevIEEE1588Mode(self):
+    def GevIEEE1588Mode(self) -> SpinEnumDefNode:
         """Provides the mode of the IEEE 1588 clock.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -2887,7 +2887,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevCurrentIPConfigurationLLA(self):
+    def GevCurrentIPConfigurationLLA(self) -> SpinBoolNode:
         """Controls whether the Link Local Address IP configuration scheme is
         activated on the given logical link.
 
@@ -2904,7 +2904,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevSCSP(self):
+    def GevSCSP(self) -> SpinIntNode:
         """Indicates the source port of the stream channel.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -2920,7 +2920,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevIEEE1588(self):
+    def GevIEEE1588(self) -> SpinBoolNode:
         """Enables the IEEE 1588 Precision Time Protocol to control the
         timestamp register.
 
@@ -2937,7 +2937,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevSCCFGExtendedChunkData(self):
+    def GevSCCFGExtendedChunkData(self) -> SpinBoolNode:
         """Enables cameras to use the extended chunk data payload type for this
         stream channel.
 
@@ -2954,7 +2954,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevPersistentIPAddress(self):
+    def GevPersistentIPAddress(self) -> SpinIntNode:
         """Controls the Persistent IP address for this logical link.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -2970,7 +2970,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevCurrentIPConfigurationPersistentIP(self):
+    def GevCurrentIPConfigurationPersistentIP(self) -> SpinBoolNode:
         """Controls whether the PersistentIP configuration scheme is activated
         on the given logical link.
 
@@ -2987,7 +2987,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevIEEE1588ClockAccuracy(self):
+    def GevIEEE1588ClockAccuracy(self) -> SpinEnumDefNode:
         """Indicates the expected accuracy of the device clock when it is the
         grandmaster, or in the event it becomes the grandmaster.
 
@@ -3007,7 +3007,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevHeartbeatTimeout(self):
+    def GevHeartbeatTimeout(self) -> SpinIntNode:
         """Indicates the current heartbeat timeout in milliseconds.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -3023,7 +3023,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevPersistentDefaultGateway(self):
+    def GevPersistentDefaultGateway(self) -> SpinIntNode:
         """Controls the persistent default gateway for this logical link.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -3039,7 +3039,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevCCP(self):
+    def GevCCP(self) -> SpinEnumDefNode:
         """Controls the device access privilege of an application.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -3058,7 +3058,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevMCDA(self):
+    def GevMCDA(self) -> SpinIntNode:
         """Controls the destination IP address of the message channel
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -3074,7 +3074,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevSCDA(self):
+    def GevSCDA(self) -> SpinIntNode:
         """Controls the destination IP address of the selected stream channel
         to which a GVSP transmitter must send data stream or the destination
         IP address from which a GVSP receiver may receive data stream.
@@ -3092,7 +3092,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevSCPDirection(self):
+    def GevSCPDirection(self) -> SpinIntNode:
         """Transmit or Receive of the channel
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -3108,7 +3108,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevSCPSFireTestPacket(self):
+    def GevSCPSFireTestPacket(self) -> SpinBoolNode:
         """Sends a test packet.
 
         :Property type: :class:`~rotpy.node.SpinBoolNode`.
@@ -3124,7 +3124,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevSecondURL(self):
+    def GevSecondURL(self) -> SpinStrNode:
         """The second choice of URL to the XML device description file.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -3140,7 +3140,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevSupportedOptionSelector(self):
+    def GevSupportedOptionSelector(self) -> SpinEnumDefNode:
         """Selects the GEV option to interrogate for existing support.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -3159,7 +3159,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevGVCPHeartbeatDisable(self):
+    def GevGVCPHeartbeatDisable(self) -> SpinBoolNode:
         """Disables the GVCP heartbeat.
 
         :Property type: :class:`~rotpy.node.SpinBoolNode`.
@@ -3175,7 +3175,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevMCRC(self):
+    def GevMCRC(self) -> SpinIntNode:
         """Indicates the number of retries of the message channel.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -3191,7 +3191,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevSCPSBigEndian(self):
+    def GevSCPSBigEndian(self) -> SpinBoolNode:
         """Endianness of multi-byte pixel data for this stream.
 
         :Property type: :class:`~rotpy.node.SpinBoolNode`.
@@ -3207,7 +3207,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevNumberOfInterfaces(self):
+    def GevNumberOfInterfaces(self) -> SpinIntNode:
         """Indicates the number of physical network interfaces supported by
         this device.
 
@@ -3224,7 +3224,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TLParamsLocked(self):
+    def TLParamsLocked(self) -> SpinIntNode:
         """
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -3240,7 +3240,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def PayloadSize(self):
+    def PayloadSize(self) -> SpinIntNode:
         """Provides the number of bytes transferred for each image or chunk on
         the stream channel.
 
@@ -3257,7 +3257,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def PacketResendRequestCount(self):
+    def PacketResendRequestCount(self) -> SpinIntNode:
         """Counts the number of resend requests received from the host.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -3273,7 +3273,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SharpeningEnable(self):
+    def SharpeningEnable(self) -> SpinBoolNode:
         """Enables/disables the sharpening feature. Sharpening is disabled by
         default.
 
@@ -3290,7 +3290,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def BlackLevelSelector(self):
+    def BlackLevelSelector(self) -> SpinEnumDefNode:
         """Selects which black level to control.  Only All can be set by the
         user. Analog and Digital are read-only.
 
@@ -3310,7 +3310,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GammaEnable(self):
+    def GammaEnable(self) -> SpinBoolNode:
         """Enables/disables gamma correction.
 
         :Property type: :class:`~rotpy.node.SpinBoolNode`.
@@ -3326,7 +3326,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SharpeningAuto(self):
+    def SharpeningAuto(self) -> SpinBoolNode:
         """Enables/disables the auto sharpening feature. When enabled, the
         camera automatically determines the sharpening threshold based on
         the noise level of the camera.
@@ -3344,7 +3344,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def BlackLevelClampingEnable(self):
+    def BlackLevelClampingEnable(self) -> SpinBoolNode:
         """Enable the black level auto clamping feature which performing dark
         current compensation.
 
@@ -3361,7 +3361,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def BalanceRatio(self):
+    def BalanceRatio(self) -> SpinFloatNode:
         """Controls the balance ratio of the selected color relative to green.
         Used for white balancing.
 
@@ -3378,7 +3378,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def BalanceWhiteAuto(self):
+    def BalanceWhiteAuto(self) -> SpinEnumDefNode:
         """White Balance compensates for color shifts caused by different
         lighting conditions. It can be automatically or manually controlled.
         For manual control, set to Off. For automatic control, set to Once
@@ -3400,7 +3400,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SharpeningThreshold(self):
+    def SharpeningThreshold(self) -> SpinFloatNode:
         """Controls the minimum intensity gradient change to invoke sharpening.
         When "Sharpening Auto" is enabled, this is determined automatically
         by the device.       The threshold is specified as a fraction of the
@@ -3422,7 +3422,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GainAuto(self):
+    def GainAuto(self) -> SpinEnumDefNode:
         """Sets the automatic gain mode. Set to Off for manual control. Set to
         Once for a single automatic adjustment then return to Off. Set to
         Continuous for constant adjustment. In automatic modes, the camera
@@ -3444,7 +3444,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def Sharpening(self):
+    def Sharpening(self) -> SpinFloatNode:
         """Controls the amount to sharpen a signal. The sharpened amount is
         proportional to the difference between a pixel and its neighbors. A
         negative value smooths out the difference, while a positive value
@@ -3464,7 +3464,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def Gain(self):
+    def Gain(self) -> SpinFloatNode:
         """Controls the amplification of the video signal in dB.
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -3480,7 +3480,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def BalanceRatioSelector(self):
+    def BalanceRatioSelector(self) -> SpinEnumDefNode:
         """Selects a balance ratio to configure once a balance ratio control
         has been selected.
 
@@ -3500,7 +3500,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GainSelector(self):
+    def GainSelector(self) -> SpinEnumDefNode:
         """    Selects which gain to control. The All selection is a total
         amplification across all channels (or taps).
 
@@ -3520,7 +3520,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def BlackLevel(self):
+    def BlackLevel(self) -> SpinFloatNode:
         """Controls the offset of the video signal in percent.
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -3536,7 +3536,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def BlackLevelRaw(self):
+    def BlackLevelRaw(self) -> SpinIntNode:
         """Controls the offset of the video signal in camera specific units.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -3552,7 +3552,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def Gamma(self):
+    def Gamma(self) -> SpinFloatNode:
         """      Controls the gamma correction of pixel intensity.
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -3568,7 +3568,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DefectTableIndex(self):
+    def DefectTableIndex(self) -> SpinIntNode:
         """Controls the offset of the element to access in the defective pixel
         location table.
 
@@ -3585,7 +3585,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DefectTableFactoryRestore(self):
+    def DefectTableFactoryRestore(self) -> SpinCommandNode:
         """    Restores the Defective Pixel Table to its factory default state,
         which was calibrated during manufacturing. This permanently
         overwrites any changes made to the defect table.
@@ -3603,7 +3603,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DefectTableCoordinateY(self):
+    def DefectTableCoordinateY(self) -> SpinIntNode:
         """Returns the Y coordinate of the defective pixel at DefectTableIndex
         within the defective pixel table. Changes made do not take effect in
         captured images until the command DefectTableApply is written.
@@ -3621,7 +3621,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DefectTableSave(self):
+    def DefectTableSave(self) -> SpinCommandNode:
         """    Saves the current defective pixel table non-volatile memory,
         so that it is preserved when the camera boots up.   This overwrites
         the existing defective pixel table.     The new table is loaded
@@ -3640,7 +3640,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DefectCorrectionMode(self):
+    def DefectCorrectionMode(self) -> SpinEnumDefNode:
         """    Controls the method used for replacing defective pixels.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -3659,7 +3659,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DefectTableCoordinateX(self):
+    def DefectTableCoordinateX(self) -> SpinIntNode:
         """Returns the X coordinate of the defective pixel at DefectTableIndex
         within the defective pixel table. Changes made do not take effect in
         captured images until the command DefectTableApply is written.
@@ -3677,7 +3677,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DefectTablePixelCount(self):
+    def DefectTablePixelCount(self) -> SpinIntNode:
         """The number of defective pixel locations in the current table.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -3693,7 +3693,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DefectCorrectStaticEnable(self):
+    def DefectCorrectStaticEnable(self) -> SpinBoolNode:
         """Enables/Disables table-based defective pixel correction.
 
         :Property type: :class:`~rotpy.node.SpinBoolNode`.
@@ -3709,7 +3709,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DefectTableApply(self):
+    def DefectTableApply(self) -> SpinCommandNode:
         """    Applies the current defect table, so that any changes made
         affect images captured by the camera.   This writes the table to
         volatile memory, so changes to the     table are lost if the camera
@@ -3729,7 +3729,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def UserSetFeatureEnable(self):
+    def UserSetFeatureEnable(self) -> SpinBoolNode:
         """    Whether or not the selected feature is saved to user sets.
 
         :Property type: :class:`~rotpy.node.SpinBoolNode`.
@@ -3745,7 +3745,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def UserSetSave(self):
+    def UserSetSave(self) -> SpinCommandNode:
         """Saves the User Set specified by UserSetSelector to the non-volatile
         memory of the device.
 
@@ -3762,7 +3762,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def UserSetSelector(self):
+    def UserSetSelector(self) -> SpinEnumDefNode:
         """Selects the feature User Set to load, save or configure.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -3781,7 +3781,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def UserSetLoad(self):
+    def UserSetLoad(self) -> SpinCommandNode:
         """Loads the User Set specified by UserSetSelector to the device and
         makes it active.
 
@@ -3798,7 +3798,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def UserSetDefault(self):
+    def UserSetDefault(self) -> SpinEnumDefNode:
         """Selects the feature User Set to load and make active by default when
         the device is restarted.
 
@@ -3818,7 +3818,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SerialPortBaudRate(self):
+    def SerialPortBaudRate(self) -> SpinEnumDefNode:
         """This feature controls the baud rate used by the selected serial
         port.
 
@@ -3838,7 +3838,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SerialPortDataBits(self):
+    def SerialPortDataBits(self) -> SpinIntNode:
         """This feature controls the number of data bits used by the selected
         serial port.  Possible values that can be used are between 5 and 9.
 
@@ -3855,7 +3855,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SerialPortParity(self):
+    def SerialPortParity(self) -> SpinEnumDefNode:
         """This feature controls the parity used by the selected serial port.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -3874,7 +3874,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SerialTransmitQueueMaxCharacterCount(self):
+    def SerialTransmitQueueMaxCharacterCount(self) -> SpinIntNode:
         """>Returns the maximum number of characters in the serial port
         transmit queue.
 
@@ -3891,7 +3891,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SerialReceiveQueueCurrentCharacterCount(self):
+    def SerialReceiveQueueCurrentCharacterCount(self) -> SpinIntNode:
         """Returns the number of characters currently in the serial port
         receive queue.
 
@@ -3908,7 +3908,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SerialPortSelector(self):
+    def SerialPortSelector(self) -> SpinEnumDefNode:
         """Selects which serial port of the device to control.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -3927,7 +3927,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SerialPortStopBits(self):
+    def SerialPortStopBits(self) -> SpinEnumDefNode:
         """This feature controls the number of stop bits used by the selected
         serial port.
 
@@ -3947,7 +3947,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SerialReceiveQueueClear(self):
+    def SerialReceiveQueueClear(self) -> SpinCommandNode:
         """This is a command that clears the device serial port receive queue.
 
         :Property type: :class:`~rotpy.node.SpinCommandNode`.
@@ -3963,7 +3963,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SerialReceiveFramingErrorCount(self):
+    def SerialReceiveFramingErrorCount(self) -> SpinIntNode:
         """Returns the number of framing errors that have occurred on the
         serial port.
 
@@ -3980,7 +3980,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SerialTransmitQueueCurrentCharacterCount(self):
+    def SerialTransmitQueueCurrentCharacterCount(self) -> SpinIntNode:
         """Returns the number of characters currently in the serial port
         transmit queue.
 
@@ -3997,7 +3997,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SerialReceiveParityErrorCount(self):
+    def SerialReceiveParityErrorCount(self) -> SpinIntNode:
         """Returns the number of parity errors that have occurred on the serial
         port.
 
@@ -4014,7 +4014,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SerialPortSource(self):
+    def SerialPortSource(self) -> SpinEnumDefNode:
         """Specifies the physical input Line on which to receive serial data.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -4033,7 +4033,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SerialReceiveQueueMaxCharacterCount(self):
+    def SerialReceiveQueueMaxCharacterCount(self) -> SpinIntNode:
         """>Returns the maximum number of characters in the serial port receive
         queue.
 
@@ -4050,7 +4050,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SequencerSetStart(self):
+    def SequencerSetStart(self) -> SpinIntNode:
         """Sets the first sequencer set to be used.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -4066,7 +4066,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SequencerMode(self):
+    def SequencerMode(self) -> SpinEnumDefNode:
         """Controls whether or not a sequencer is active.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -4085,7 +4085,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SequencerConfigurationValid(self):
+    def SequencerConfigurationValid(self) -> SpinEnumDefNode:
         """Display whether the current sequencer configuration is valid to run.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -4104,7 +4104,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SequencerSetValid(self):
+    def SequencerSetValid(self) -> SpinEnumDefNode:
         """Displays whether the currently selected sequencer set's register
         contents are valid to use.
 
@@ -4124,7 +4124,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SequencerSetSelector(self):
+    def SequencerSetSelector(self) -> SpinIntNode:
         """Selects the sequencer set to which subsequent settings apply.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -4140,7 +4140,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SequencerTriggerActivation(self):
+    def SequencerTriggerActivation(self) -> SpinEnumDefNode:
         """Specifies the activation mode of the sequencer trigger.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -4159,7 +4159,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SequencerConfigurationMode(self):
+    def SequencerConfigurationMode(self) -> SpinEnumDefNode:
         """Controls whether or not a sequencer is in configuration mode.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -4178,7 +4178,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SequencerSetSave(self):
+    def SequencerSetSave(self) -> SpinCommandNode:
         """Saves the current device configuration to the currently selected
         sequencer set.
 
@@ -4195,7 +4195,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SequencerTriggerSource(self):
+    def SequencerTriggerSource(self) -> SpinEnumDefNode:
         """Specifies the internal signal or physical input line to use as the
         sequencer trigger source.
 
@@ -4215,7 +4215,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SequencerSetActive(self):
+    def SequencerSetActive(self) -> SpinIntNode:
         """Displays the currently active sequencer set.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -4231,7 +4231,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SequencerSetNext(self):
+    def SequencerSetNext(self) -> SpinIntNode:
         """Specifies the next sequencer set.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -4247,7 +4247,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SequencerSetLoad(self):
+    def SequencerSetLoad(self) -> SpinCommandNode:
         """Loads currently selected sequencer to the current device
         configuration.
 
@@ -4264,7 +4264,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SequencerPathSelector(self):
+    def SequencerPathSelector(self) -> SpinIntNode:
         """Selects branching path to be used for subsequent settings.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -4280,7 +4280,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SequencerFeatureEnable(self):
+    def SequencerFeatureEnable(self) -> SpinBoolNode:
         """Enables the selected feature and makes it active in all sequencer
         sets.
 
@@ -4297,7 +4297,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TransferBlockCount(self):
+    def TransferBlockCount(self) -> SpinIntNode:
         """Specifies the number of data blocks (images) that the device should
         stream before stopping. This feature is only active if the Transfer
         Operation Mode is set to Multi Block.
@@ -4315,7 +4315,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TransferStart(self):
+    def TransferStart(self) -> SpinCommandNode:
         """Starts the streaming of data blocks (images) out of the device. This
         feature is available when the Transfer Control Mode is set to User
         Controlled.
@@ -4333,7 +4333,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TransferQueueMaxBlockCount(self):
+    def TransferQueueMaxBlockCount(self) -> SpinIntNode:
         """Returns the maximum number of data blocks (images) in the transfer
         queue
 
@@ -4350,7 +4350,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TransferQueueCurrentBlockCount(self):
+    def TransferQueueCurrentBlockCount(self) -> SpinIntNode:
         """Returns number of data blocks (images) currently in the transfer
         queue.
 
@@ -4367,7 +4367,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TransferQueueMode(self):
+    def TransferQueueMode(self) -> SpinEnumDefNode:
         """Specifies the operation mode of the transfer queue.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -4386,7 +4386,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TransferOperationMode(self):
+    def TransferOperationMode(self) -> SpinEnumDefNode:
         """Selects the operation mode of the transfer. Continuous is similar to
         Basic/Automatic but you can start/stop the transfer while
         acquisition runs independently. Multi Block transmits a specified
@@ -4408,7 +4408,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TransferStop(self):
+    def TransferStop(self) -> SpinCommandNode:
         """Stops the streaming of data block (images). The current block
         transmission is completed. This feature is available when the
         Transfer Control Mode is set to User Controlled.
@@ -4426,7 +4426,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TransferQueueOverflowCount(self):
+    def TransferQueueOverflowCount(self) -> SpinIntNode:
         """Returns number of images that have been lost before being
         transmitted because the transmit queue hasn't been cleared fast
         enough.
@@ -4444,7 +4444,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TransferControlMode(self):
+    def TransferControlMode(self) -> SpinEnumDefNode:
         """Selects the control method for the transfers. Basic and Automatic
         start transmitting data as soon as there is enough data to fill a
         link layer packet. User Controlled allows you to directly control
@@ -4466,7 +4466,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkBlackLevel(self):
+    def ChunkBlackLevel(self) -> SpinFloatNode:
         """Returns the black level used to capture the image.
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -4482,7 +4482,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkFrameID(self):
+    def ChunkFrameID(self) -> SpinIntNode:
         """Returns the image frame ID.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -4498,7 +4498,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkSerialData(self):
+    def ChunkSerialData(self) -> SpinStrNode:
         """Returns the serial data that was received.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -4514,7 +4514,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkExposureTime(self):
+    def ChunkExposureTime(self) -> SpinFloatNode:
         """Returns the exposure time used to capture the image.
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -4530,7 +4530,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkCompressionMode(self):
+    def ChunkCompressionMode(self) -> SpinIntNode:
         """Returns the compression mode of the last image payload.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -4546,7 +4546,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkCompressionRatio(self):
+    def ChunkCompressionRatio(self) -> SpinFloatNode:
         """Returns the compression ratio of the last image payload.
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -4562,7 +4562,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkSerialReceiveOverflow(self):
+    def ChunkSerialReceiveOverflow(self) -> SpinBoolNode:
         """Returns the status of the chunk serial receive overflow.
 
         :Property type: :class:`~rotpy.node.SpinBoolNode`.
@@ -4578,7 +4578,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkTimestamp(self):
+    def ChunkTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the image.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -4594,7 +4594,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkModeActive(self):
+    def ChunkModeActive(self) -> SpinBoolNode:
         """Activates the inclusion of Chunk data in the payload of the image.
 
         :Property type: :class:`~rotpy.node.SpinBoolNode`.
@@ -4610,7 +4610,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkExposureEndLineStatusAll(self):
+    def ChunkExposureEndLineStatusAll(self) -> SpinIntNode:
         """Returns the status of all the I/O lines at the end of exposure
         event.
 
@@ -4627,7 +4627,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkGainSelector(self):
+    def ChunkGainSelector(self) -> SpinEnumDefNode:
         """Selects which gain to retrieve
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -4646,7 +4646,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkSelector(self):
+    def ChunkSelector(self) -> SpinEnumDefNode:
         """Selects which chunk data to enable or disable.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -4665,7 +4665,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkBlackLevelSelector(self):
+    def ChunkBlackLevelSelector(self) -> SpinEnumDefNode:
         """Selects which black level to retrieve
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -4684,7 +4684,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkWidth(self):
+    def ChunkWidth(self) -> SpinIntNode:
         """Returns the width of the image included in the payload.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -4700,7 +4700,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkImage(self):
+    def ChunkImage(self) -> SpinIntNode:
         """Returns the image payload.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -4716,7 +4716,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkHeight(self):
+    def ChunkHeight(self) -> SpinIntNode:
         """Returns the height of the image included in the payload.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -4732,7 +4732,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkPixelFormat(self):
+    def ChunkPixelFormat(self) -> SpinEnumDefNode:
         """Format of the pixel provided by the camera
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -4751,7 +4751,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkGain(self):
+    def ChunkGain(self) -> SpinFloatNode:
         """Returns the gain used to capture the image.
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -4767,7 +4767,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkSequencerSetActive(self):
+    def ChunkSequencerSetActive(self) -> SpinIntNode:
         """Returns the index of the active set of the running sequencer
         included in the payload.
 
@@ -4784,7 +4784,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkCRC(self):
+    def ChunkCRC(self) -> SpinIntNode:
         """Returns the CRC of the image payload.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -4800,7 +4800,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkOffsetX(self):
+    def ChunkOffsetX(self) -> SpinIntNode:
         """Returns the Offset X of the image included in the payload.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -4816,7 +4816,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkOffsetY(self):
+    def ChunkOffsetY(self) -> SpinIntNode:
         """Returns the Offset Y of the image included in the payload.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -4832,7 +4832,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkEnable(self):
+    def ChunkEnable(self) -> SpinBoolNode:
         """Enables the inclusion of the selected Chunk data in the payload of
         the image.
 
@@ -4849,7 +4849,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkSerialDataLength(self):
+    def ChunkSerialDataLength(self) -> SpinIntNode:
         """Returns the length of the received serial data that was included in
         the payload.
 
@@ -4866,7 +4866,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def FileAccessOffset(self):
+    def FileAccessOffset(self) -> SpinIntNode:
         """Controls the Offset of the mapping between the device file storage
         and the FileAccessBuffer.
 
@@ -4883,7 +4883,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def FileAccessLength(self):
+    def FileAccessLength(self) -> SpinIntNode:
         """Controls the Length of the mapping between the device file storage
         and the FileAccessBuffer.
 
@@ -4900,7 +4900,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def FileOperationStatus(self):
+    def FileOperationStatus(self) -> SpinEnumDefNode:
         """Represents the file operation execution status.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -4919,7 +4919,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def FileOperationExecute(self):
+    def FileOperationExecute(self) -> SpinCommandNode:
         """This is a command that executes the selected file operation on the
         selected file.
 
@@ -4936,7 +4936,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def FileOpenMode(self):
+    def FileOpenMode(self) -> SpinEnumDefNode:
         """The mode of the file when it is opened. The file can be opened for
         reading, writting or both. This must be set before opening the file.
 
@@ -4956,7 +4956,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def FileOperationResult(self):
+    def FileOperationResult(self) -> SpinIntNode:
         """Represents the file operation result. For Read or Write operations,
         the number of successfully read/written bytes is returned.
 
@@ -4973,7 +4973,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def FileOperationSelector(self):
+    def FileOperationSelector(self) -> SpinEnumDefNode:
         """Sets operation to execute on the selected file when the execute
         command is given.
 
@@ -4993,7 +4993,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def FileSelector(self):
+    def FileSelector(self) -> SpinEnumDefNode:
         """Selects which file is being operated on. This must be set before
         performing any file operations.
 
@@ -5013,7 +5013,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def FileSize(self):
+    def FileSize(self) -> SpinIntNode:
         """Represents the size of the selected file in bytes.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -5029,7 +5029,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def BinningSelector(self):
+    def BinningSelector(self) -> SpinEnumDefNode:
         """Selects which binning engine is controlled by the BinningHorizontal
         and BinningVertical features.
 
@@ -5049,7 +5049,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def PixelDynamicRangeMin(self):
+    def PixelDynamicRangeMin(self) -> SpinIntNode:
         """    Minimum value that can be returned during the digitization
         process. This corresponds to the darkest value of the camera. For
         color cameras, this returns the smallest value that each color
@@ -5068,7 +5068,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def PixelDynamicRangeMax(self):
+    def PixelDynamicRangeMax(self) -> SpinIntNode:
         """    Maximum value that can be returned during the digitization
         process. This corresponds to the brightest value of the camera. For
         color cameras, this returns the biggest value that each color
@@ -5087,7 +5087,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def OffsetY(self):
+    def OffsetY(self) -> SpinIntNode:
         """Vertical offset from the origin to the ROI (in pixels).
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -5103,7 +5103,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def BinningHorizontal(self):
+    def BinningHorizontal(self) -> SpinIntNode:
         """Number of horizontal photo-sensitive cells to combine together. This
         reduces the horizontal resolution (width) of the image. A value of 1
         indicates that no horizontal binning is performed by the camera.
@@ -5122,7 +5122,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def Width(self):
+    def Width(self) -> SpinIntNode:
         """Width of the image provided by the device (in pixels).
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -5138,7 +5138,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TestPatternGeneratorSelector(self):
+    def TestPatternGeneratorSelector(self) -> SpinEnumDefNode:
         """Selects which test pattern generator is controlled by the
         TestPattern feature.
 
@@ -5158,7 +5158,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def CompressionRatio(self):
+    def CompressionRatio(self) -> SpinFloatNode:
         """Reports the ratio between the uncompressed image size and compressed
         image size.
 
@@ -5175,7 +5175,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def CompressionSaturationPriority(self):
+    def CompressionSaturationPriority(self) -> SpinEnumDefNode:
         """When FrameRate is enabled, camera drops frames if datarate is
         saturated. If FrameRate is disabled, camera adjusts the framerate to
         match the maximum achievable datarate.
@@ -5196,7 +5196,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ReverseX(self):
+    def ReverseX(self) -> SpinBoolNode:
         """    Horizontally flips the image sent by the device. The region of
         interest is applied after flipping. For color cameras the bayer
         pixel format is affected. For example, BayerRG16 changes to
@@ -5215,7 +5215,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ReverseY(self):
+    def ReverseY(self) -> SpinBoolNode:
         """    Vertically flips the image sent by the device. The region of
         interest is applied after flipping. For color cameras the bayer
         pixel format is affected. For example, BayerRG16 changes to
@@ -5234,7 +5234,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TestPattern(self):
+    def TestPattern(self) -> SpinEnumDefNode:
         """Selects the type of test pattern that is generated by the device as
         image source.
 
@@ -5254,7 +5254,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def PixelColorFilter(self):
+    def PixelColorFilter(self) -> SpinEnumDefNode:
         """    Type of color filter that is applied to the image. Only applies
         to Bayer pixel formats. All others have no color filter.
 
@@ -5274,7 +5274,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def WidthMax(self):
+    def WidthMax(self) -> SpinIntNode:
         """Maximum width of the image (in pixels). The dimension is calculated
         after horizontal binning. WidthMax does not take into account the
         current Region of interest (Width or OffsetX).
@@ -5292,7 +5292,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AdcBitDepth(self):
+    def AdcBitDepth(self) -> SpinEnumDefNode:
         """Selects which ADC bit depth to use. A higher ADC bit depth results
         in better image quality but slower maximum frame rate.
 
@@ -5312,7 +5312,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def BinningVertical(self):
+    def BinningVertical(self) -> SpinIntNode:
         """Number of vertical photo-sensitive cells to combine together. This
         reduces the vertical resolution (height) of the image. A value of 1
         indicates that no vertical binning is performed by the camera. This
@@ -5331,7 +5331,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DecimationHorizontalMode(self):
+    def DecimationHorizontalMode(self) -> SpinEnumDefNode:
         """The mode used to reduce the horizontal resolution when
         DecimationHorizontal is used. The current implementation only
         supports a single decimation mode: Discard.  Average should be
@@ -5353,7 +5353,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def BinningVerticalMode(self):
+    def BinningVerticalMode(self) -> SpinEnumDefNode:
         """
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -5372,7 +5372,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def OffsetX(self):
+    def OffsetX(self) -> SpinIntNode:
         """Horizontal offset from the origin to the ROI (in pixels).
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -5388,7 +5388,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def HeightMax(self):
+    def HeightMax(self) -> SpinIntNode:
         """Maximum height of the image (in pixels). This dimension is
         calculated after vertical binning. HeightMax does not take into
         account the current Region of interest (Height or OffsetY).
@@ -5406,7 +5406,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DecimationHorizontal(self):
+    def DecimationHorizontal(self) -> SpinIntNode:
         """Horizontal decimation of the image.  This reduces the horizontal
         resolution (width) of the image by only retaining a single pixel
         within a window whose size is the decimation factor specified here.
@@ -5426,7 +5426,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def PixelSize(self):
+    def PixelSize(self) -> SpinEnumDefNode:
         """    Total size in bits of a pixel of the image.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -5445,7 +5445,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SensorHeight(self):
+    def SensorHeight(self) -> SpinIntNode:
         """Effective height of the sensor in pixels.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -5461,7 +5461,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DecimationSelector(self):
+    def DecimationSelector(self) -> SpinEnumDefNode:
         """Selects which decimation layer is controlled by the
         DecimationHorizontal and DecimationVertical features.
 
@@ -5481,7 +5481,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def IspEnable(self):
+    def IspEnable(self) -> SpinBoolNode:
         """Controls whether the image processing core is used for optional
         pixel format mode (i.e. mono).
 
@@ -5498,7 +5498,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AdaptiveCompressionEnable(self):
+    def AdaptiveCompressionEnable(self) -> SpinBoolNode:
         """Controls whether lossless compression adapts to the image content.
         If disabled, a fixed encoding table is used.
 
@@ -5515,7 +5515,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ImageCompressionMode(self):
+    def ImageCompressionMode(self) -> SpinEnumDefNode:
         """
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -5534,7 +5534,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DecimationVertical(self):
+    def DecimationVertical(self) -> SpinIntNode:
         """Vertical decimation of the image.  This reduces the vertical
         resolution (height) of the image by only retaining a single pixel
         within a window whose size is the decimation factor specified here.
@@ -5554,7 +5554,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def Height(self):
+    def Height(self) -> SpinIntNode:
         """Height of the image provided by the device (in pixels).
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -5570,7 +5570,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def BinningHorizontalMode(self):
+    def BinningHorizontalMode(self) -> SpinEnumDefNode:
         """
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -5589,7 +5589,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def PixelFormat(self):
+    def PixelFormat(self) -> SpinEnumDefNode:
         """    Format of the pixel provided by the camera.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -5608,7 +5608,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SensorWidth(self):
+    def SensorWidth(self) -> SpinIntNode:
         """Effective width of the sensor in pixels.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -5624,7 +5624,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DecimationVerticalMode(self):
+    def DecimationVerticalMode(self) -> SpinEnumDefNode:
         """The mode used to reduce the vertical resolution when
         DecimationVertical is used. The current implementation only supports
         a single decimation mode: Discard.  Average should be achieved via
@@ -5646,7 +5646,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TestEventGenerate(self):
+    def TestEventGenerate(self) -> SpinCommandNode:
         """This command generates a test event and sends it to the host.
 
         :Property type: :class:`~rotpy.node.SpinCommandNode`.
@@ -5662,7 +5662,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TriggerEventTest(self):
+    def TriggerEventTest(self) -> SpinCommandNode:
         """This command generates a test event and sends it to the host.
 
         :Property type: :class:`~rotpy.node.SpinCommandNode`.
@@ -5678,7 +5678,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GuiXmlManifestAddress(self):
+    def GuiXmlManifestAddress(self) -> SpinIntNode:
         """Location of the GUI XML manifest table.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -5694,7 +5694,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def Test0001(self):
+    def Test0001(self) -> SpinIntNode:
         """For testing only.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -5710,7 +5710,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def V3_3Enable(self):
+    def V3_3Enable(self) -> SpinBoolNode:
         """Internally generated 3.3V rail. Enable to supply external circuits
         with power. This is different than standard logic outputs in that it
         is comparatively slow to switch but can supply a more significant
@@ -5729,7 +5729,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def LineMode(self):
+    def LineMode(self) -> SpinEnumDefNode:
         """Controls if the physical Line is used to Input or Output a signal.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -5748,7 +5748,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def LineSource(self):
+    def LineSource(self) -> SpinEnumDefNode:
         """Selects which internal acquisition or I/O source signal to output on
         the selected line. LineMode must be Output.
 
@@ -5768,7 +5768,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def LineInputFilterSelector(self):
+    def LineInputFilterSelector(self) -> SpinEnumDefNode:
         """Selects the kind of input filter to configure: Deglitch or Debounce.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -5787,7 +5787,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def UserOutputValue(self):
+    def UserOutputValue(self) -> SpinBoolNode:
         """Value of the selected user output, either logic high (enabled) or
         logic low (disabled).
 
@@ -5804,7 +5804,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def UserOutputValueAll(self):
+    def UserOutputValueAll(self) -> SpinIntNode:
         """Returns the current status of all the user output status bits in a
         hexadecimal representation (UserOutput 0 status corresponds to bit
         0, UserOutput 1 status with bit 1, etc). This allows simultaneous
@@ -5823,7 +5823,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def UserOutputSelector(self):
+    def UserOutputSelector(self) -> SpinEnumDefNode:
         """Selects which bit of the User Output register is set by
         UserOutputValue.
 
@@ -5843,7 +5843,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def LineStatus(self):
+    def LineStatus(self) -> SpinBoolNode:
         """Returns the current status of the selected input or output Line
 
         :Property type: :class:`~rotpy.node.SpinBoolNode`.
@@ -5859,7 +5859,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def LineFormat(self):
+    def LineFormat(self) -> SpinEnumDefNode:
         """Displays the current electrical format of the selected physical
         input or output Line.
 
@@ -5879,7 +5879,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def LineStatusAll(self):
+    def LineStatusAll(self) -> SpinIntNode:
         """Returns the current status of all the line status bits in a
         hexadecimal representation (Line 0 status corresponds to bit 0, Line
         1 status with bit 1, etc). This allows simultaneous reading of all
@@ -5898,7 +5898,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def LineSelector(self):
+    def LineSelector(self) -> SpinEnumDefNode:
         """Selects the physical line (or pin) of the external device connector
         to configure
 
@@ -5918,7 +5918,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ExposureActiveMode(self):
+    def ExposureActiveMode(self) -> SpinEnumDefNode:
         """Control sensor active exposure mode.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -5937,7 +5937,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def LineInverter(self):
+    def LineInverter(self) -> SpinBoolNode:
         """Controls the inversion of the signal of the selected input or output
         line.
 
@@ -5954,7 +5954,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def LineFilterWidth(self):
+    def LineFilterWidth(self) -> SpinFloatNode:
         """Filter width in microseconds for the selected line and filter
         combination
 
@@ -5971,7 +5971,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def CounterTriggerActivation(self):
+    def CounterTriggerActivation(self) -> SpinEnumDefNode:
         """Selects the activation mode of the trigger to start the counter.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -5990,7 +5990,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def CounterValue(self):
+    def CounterValue(self) -> SpinIntNode:
         """Current counter value
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -6006,7 +6006,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def CounterSelector(self):
+    def CounterSelector(self) -> SpinEnumDefNode:
         """Selects which counter to configure
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -6025,7 +6025,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def CounterValueAtReset(self):
+    def CounterValueAtReset(self) -> SpinIntNode:
         """Value of the selected Counter when it was reset by a trigger.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -6041,7 +6041,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def CounterStatus(self):
+    def CounterStatus(self) -> SpinEnumDefNode:
         """Returns the current status of the counter.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -6060,7 +6060,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def CounterTriggerSource(self):
+    def CounterTriggerSource(self) -> SpinEnumDefNode:
         """Selects the source of the trigger to start the counter
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -6079,7 +6079,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def CounterDelay(self):
+    def CounterDelay(self) -> SpinIntNode:
         """Sets the delay (or number of events) before the CounterStart event
         is generated.
 
@@ -6096,7 +6096,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def CounterResetSource(self):
+    def CounterResetSource(self) -> SpinEnumDefNode:
         """Selects the signal that will be the source to reset the counter.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -6115,7 +6115,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def CounterEventSource(self):
+    def CounterEventSource(self) -> SpinEnumDefNode:
         """Selects the event that will increment the counter
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -6134,7 +6134,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def CounterEventActivation(self):
+    def CounterEventActivation(self) -> SpinEnumDefNode:
         """Selects the activation mode of the event to increment the Counter.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -6153,7 +6153,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def CounterDuration(self):
+    def CounterDuration(self) -> SpinIntNode:
         """Sets the duration (or number of events) before the CounterEnd event
         is generated.
 
@@ -6170,7 +6170,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def CounterResetActivation(self):
+    def CounterResetActivation(self) -> SpinEnumDefNode:
         """Selects the Activation mode of the Counter Reset Source signal.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -6189,7 +6189,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceType(self):
+    def DeviceType(self) -> SpinEnumDefNode:
         """Returns the device type.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -6208,7 +6208,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceFamilyName(self):
+    def DeviceFamilyName(self) -> SpinStrNode:
         """Identifier of the product family of the device.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -6224,7 +6224,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceSFNCVersionMajor(self):
+    def DeviceSFNCVersionMajor(self) -> SpinIntNode:
         """Major version of the Standard Features Naming Convention that was
         used to create the device's GenICam XML.
 
@@ -6241,7 +6241,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceSFNCVersionMinor(self):
+    def DeviceSFNCVersionMinor(self) -> SpinIntNode:
         """Minor version of the Standard Features Naming Convention that was
         used to create the device's GenICam XML.
 
@@ -6258,7 +6258,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceSFNCVersionSubMinor(self):
+    def DeviceSFNCVersionSubMinor(self) -> SpinIntNode:
         """Sub minor version of Standard Features Naming Convention that was
         used to create the device's GenICam XML.
 
@@ -6275,7 +6275,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceManifestEntrySelector(self):
+    def DeviceManifestEntrySelector(self) -> SpinIntNode:
         """Selects the manifest entry to reference.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -6291,7 +6291,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceManifestXMLMajorVersion(self):
+    def DeviceManifestXMLMajorVersion(self) -> SpinIntNode:
         """Indicates the major version number of the GenICam XML file of the
         selected manifest entry.
 
@@ -6308,7 +6308,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceManifestXMLMinorVersion(self):
+    def DeviceManifestXMLMinorVersion(self) -> SpinIntNode:
         """Indicates the minor version number of the GenICam XML file of the
         selected manifest entry.
 
@@ -6325,7 +6325,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceManifestXMLSubMinorVersion(self):
+    def DeviceManifestXMLSubMinorVersion(self) -> SpinIntNode:
         """Indicates the subminor version number of the GenICam XML file of the
         selected manifest entry.
 
@@ -6342,7 +6342,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceManifestSchemaMajorVersion(self):
+    def DeviceManifestSchemaMajorVersion(self) -> SpinIntNode:
         """Indicates the major version number of the schema file of the
         selected manifest entry.
 
@@ -6359,7 +6359,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceManifestSchemaMinorVersion(self):
+    def DeviceManifestSchemaMinorVersion(self) -> SpinIntNode:
         """Indicates the minor version number of the schema file of the
         selected manifest entry.
 
@@ -6376,7 +6376,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceManifestPrimaryURL(self):
+    def DeviceManifestPrimaryURL(self) -> SpinStrNode:
         """Indicates the first URL to the GenICam XML device description file
         of the selected manifest entry.
 
@@ -6393,7 +6393,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceManifestSecondaryURL(self):
+    def DeviceManifestSecondaryURL(self) -> SpinStrNode:
         """Indicates the second URL to the GenICam XML device description file
         of the selected manifest entry.
 
@@ -6410,7 +6410,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceTLVersionSubMinor(self):
+    def DeviceTLVersionSubMinor(self) -> SpinIntNode:
         """Sub minor version of the Transport Layer of the device.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -6426,7 +6426,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceGenCPVersionMajor(self):
+    def DeviceGenCPVersionMajor(self) -> SpinIntNode:
         """Major version of the GenCP protocol supported by the device.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -6442,7 +6442,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceGenCPVersionMinor(self):
+    def DeviceGenCPVersionMinor(self) -> SpinIntNode:
         """Minor version of the GenCP protocol supported by the device.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -6458,7 +6458,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceConnectionSelector(self):
+    def DeviceConnectionSelector(self) -> SpinIntNode:
         """Selects which Connection of the device to control.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -6474,7 +6474,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceConnectionSpeed(self):
+    def DeviceConnectionSpeed(self) -> SpinIntNode:
         """Indicates the speed of transmission of the specified Connection
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -6490,7 +6490,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceConnectionStatus(self):
+    def DeviceConnectionStatus(self) -> SpinEnumDefNode:
         """Indicates the status of the specified Connection.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -6509,7 +6509,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceLinkSelector(self):
+    def DeviceLinkSelector(self) -> SpinIntNode:
         """Selects which Link of the device to control.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -6525,7 +6525,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceLinkThroughputLimitMode(self):
+    def DeviceLinkThroughputLimitMode(self) -> SpinEnumDefNode:
         """Controls if the DeviceLinkThroughputLimit is active. When disabled,
         lower level TL specific features are expected to control the
         throughput. When enabled, DeviceLinkThroughputLimit controls the
@@ -6547,7 +6547,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceLinkConnectionCount(self):
+    def DeviceLinkConnectionCount(self) -> SpinIntNode:
         """Returns the number of physical connection of the device used by a
         particular Link.
 
@@ -6564,7 +6564,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceLinkHeartbeatMode(self):
+    def DeviceLinkHeartbeatMode(self) -> SpinEnumDefNode:
         """Activate or deactivate the Link's heartbeat.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -6583,7 +6583,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceLinkHeartbeatTimeout(self):
+    def DeviceLinkHeartbeatTimeout(self) -> SpinFloatNode:
         """Controls the current heartbeat timeout of the specific Link.
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -6599,7 +6599,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceLinkCommandTimeout(self):
+    def DeviceLinkCommandTimeout(self) -> SpinFloatNode:
         """Indicates the command timeout of the specified Link. This
         corresponds to the maximum response time of the device for a command
         sent on that link.
@@ -6617,7 +6617,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceStreamChannelSelector(self):
+    def DeviceStreamChannelSelector(self) -> SpinIntNode:
         """Selects the stream channel to control.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -6633,7 +6633,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceStreamChannelType(self):
+    def DeviceStreamChannelType(self) -> SpinEnumDefNode:
         """Reports the type of the stream channel.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -6652,7 +6652,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceStreamChannelLink(self):
+    def DeviceStreamChannelLink(self) -> SpinIntNode:
         """Index of device's Link to use for streaming the specifed stream
         channel.
 
@@ -6669,7 +6669,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceStreamChannelEndianness(self):
+    def DeviceStreamChannelEndianness(self) -> SpinEnumDefNode:
         """Endianness of multi-byte pixel data for this stream.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -6688,7 +6688,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceStreamChannelPacketSize(self):
+    def DeviceStreamChannelPacketSize(self) -> SpinIntNode:
         """Specifies the stream packet size, in bytes, to send on the selected
         channel for a Transmitter or specifies the maximum packet size
         supported by a receiver.
@@ -6706,7 +6706,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceFeaturePersistenceStart(self):
+    def DeviceFeaturePersistenceStart(self) -> SpinCommandNode:
         """Indicate to the device and GenICam XML to get ready for persisting
         of all streamable features.
 
@@ -6723,7 +6723,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceFeaturePersistenceEnd(self):
+    def DeviceFeaturePersistenceEnd(self) -> SpinCommandNode:
         """Indicate to the device the end of feature persistence.
 
         :Property type: :class:`~rotpy.node.SpinCommandNode`.
@@ -6739,7 +6739,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceRegistersStreamingStart(self):
+    def DeviceRegistersStreamingStart(self) -> SpinCommandNode:
         """Prepare the device for registers streaming without checking for
         consistency.
 
@@ -6756,7 +6756,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceRegistersStreamingEnd(self):
+    def DeviceRegistersStreamingEnd(self) -> SpinCommandNode:
         """Announce the end of registers streaming. This will do a register set
         validation for consistency and activate it. This will also update
         the DeviceRegistersValid flag.
@@ -6774,7 +6774,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceRegistersCheck(self):
+    def DeviceRegistersCheck(self) -> SpinCommandNode:
         """Perform the validation of the current register set for consistency.
         This will update the DeviceRegistersValid flag.
 
@@ -6791,7 +6791,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceRegistersValid(self):
+    def DeviceRegistersValid(self) -> SpinBoolNode:
         """Returns if the current register set is valid and consistent.
 
         :Property type: :class:`~rotpy.node.SpinBoolNode`.
@@ -6807,7 +6807,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceClockSelector(self):
+    def DeviceClockSelector(self) -> SpinEnumDefNode:
         """Selects the clock frequency to access from the device.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -6826,7 +6826,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceClockFrequency(self):
+    def DeviceClockFrequency(self) -> SpinFloatNode:
         """Returns the frequency of the selected Clock.
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -6842,7 +6842,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceSerialPortSelector(self):
+    def DeviceSerialPortSelector(self) -> SpinEnumDefNode:
         """Selects which serial port of the device to control.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -6861,7 +6861,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceSerialPortBaudRate(self):
+    def DeviceSerialPortBaudRate(self) -> SpinEnumDefNode:
         """This feature controls the baud rate used by the selected serial
         port.
 
@@ -6881,7 +6881,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def Timestamp(self):
+    def Timestamp(self) -> SpinIntNode:
         """Reports the current value of the device timestamp counter.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -6897,7 +6897,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SensorTaps(self):
+    def SensorTaps(self) -> SpinEnumDefNode:
         """Number of taps of the camera sensor.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -6916,7 +6916,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SensorDigitizationTaps(self):
+    def SensorDigitizationTaps(self) -> SpinEnumDefNode:
         """Number of digitized samples outputted simultaneously by the camera
         A/D conversion stage.
 
@@ -6936,7 +6936,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def RegionSelector(self):
+    def RegionSelector(self) -> SpinEnumDefNode:
         """Selects the Region of interest to control. The RegionSelector
         feature allows devices that are able to extract multiple regions out
         of an image, to configure the features of those individual regions
@@ -6958,7 +6958,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def RegionMode(self):
+    def RegionMode(self) -> SpinEnumDefNode:
         """Controls if the selected Region of interest is active and streaming.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -6977,7 +6977,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def RegionDestination(self):
+    def RegionDestination(self) -> SpinEnumDefNode:
         """Control the destination of the selected region.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -6996,7 +6996,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ImageComponentSelector(self):
+    def ImageComponentSelector(self) -> SpinEnumDefNode:
         """Selects a component to activate data streaming from.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -7015,7 +7015,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ImageComponentEnable(self):
+    def ImageComponentEnable(self) -> SpinBoolNode:
         """Controls if the selected component streaming is active.
 
         :Property type: :class:`~rotpy.node.SpinBoolNode`.
@@ -7031,7 +7031,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def LinePitch(self):
+    def LinePitch(self) -> SpinIntNode:
         """Total number of bytes between 2 successive lines. This feature is
         used to facilitate alignment of image data.
 
@@ -7048,7 +7048,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def PixelFormatInfoSelector(self):
+    def PixelFormatInfoSelector(self) -> SpinEnumDefNode:
         """Select the pixel format for which the information will be returned.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -7067,7 +7067,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def PixelFormatInfoID(self):
+    def PixelFormatInfoID(self) -> SpinIntNode:
         """Returns the value used by the streaming channels to identify the
         selected pixel format.
 
@@ -7084,7 +7084,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def Deinterlacing(self):
+    def Deinterlacing(self) -> SpinEnumDefNode:
         """Controls how the device performs de-interlacing.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -7103,7 +7103,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ImageCompressionRateOption(self):
+    def ImageCompressionRateOption(self) -> SpinEnumDefNode:
         """Two rate controlling options are offered: fixed bit rate or fixed
         quality. The exact implementation to achieve one or the other is
         vendor-specific.
@@ -7124,7 +7124,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ImageCompressionQuality(self):
+    def ImageCompressionQuality(self) -> SpinIntNode:
         """Control the quality of the produced compressed stream.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -7140,7 +7140,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ImageCompressionBitrate(self):
+    def ImageCompressionBitrate(self) -> SpinFloatNode:
         """Control the rate of the produced compressed stream.
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -7156,7 +7156,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ImageCompressionJPEGFormatOption(self):
+    def ImageCompressionJPEGFormatOption(self) -> SpinEnumDefNode:
         """When JPEG is selected as the compression format, a device might
         optionally offer better control over JPEG-specific options through
         this feature.
@@ -7177,7 +7177,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AcquisitionAbort(self):
+    def AcquisitionAbort(self) -> SpinCommandNode:
         """Aborts the Acquisition immediately. This will end the capture
         without completing the current Frame or waiting on a trigger. If no
         Acquisition is in progress, the command is ignored.
@@ -7195,7 +7195,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AcquisitionArm(self):
+    def AcquisitionArm(self) -> SpinCommandNode:
         """Arms the device before an AcquisitionStart command. This optional
         command validates all the current features for consistency and
         prepares the device for a fast start of the Acquisition.
@@ -7213,7 +7213,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AcquisitionStatusSelector(self):
+    def AcquisitionStatusSelector(self) -> SpinEnumDefNode:
         """Selects the internal acquisition signal to read using
         AcquisitionStatus.
 
@@ -7233,7 +7233,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def AcquisitionStatus(self):
+    def AcquisitionStatus(self) -> SpinBoolNode:
         """Reads the state of the internal acquisition signal selected using
         AcquisitionStatusSelector.
 
@@ -7250,7 +7250,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TriggerDivider(self):
+    def TriggerDivider(self) -> SpinIntNode:
         """Specifies a division factor for the incoming trigger pulses.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -7266,7 +7266,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TriggerMultiplier(self):
+    def TriggerMultiplier(self) -> SpinIntNode:
         """Specifies a multiplication factor for the incoming trigger pulses.
         It is used generally used in conjunction with TriggerDivider to
         control the ratio of triggers that are accepted.
@@ -7284,7 +7284,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ExposureTimeMode(self):
+    def ExposureTimeMode(self) -> SpinEnumDefNode:
         """Sets the configuration mode of the ExposureTime feature.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -7303,7 +7303,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ExposureTimeSelector(self):
+    def ExposureTimeSelector(self) -> SpinEnumDefNode:
         """Selects which exposure time is controlled by the ExposureTime
         feature. This allows for independent control over the exposure
         components.
@@ -7324,7 +7324,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GainAutoBalance(self):
+    def GainAutoBalance(self) -> SpinEnumDefNode:
         """Sets the mode for automatic gain balancing between the sensor color
         channels or taps. The gain coefficients of each channel or tap are
         adjusted so they are matched.
@@ -7345,7 +7345,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def BlackLevelAuto(self):
+    def BlackLevelAuto(self) -> SpinEnumDefNode:
         """Controls the mode for automatic black level adjustment. The exact
         algorithm used to implement this adjustment is device-specific.
 
@@ -7365,7 +7365,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def BlackLevelAutoBalance(self):
+    def BlackLevelAutoBalance(self) -> SpinEnumDefNode:
         """Controls the mode for automatic black level balancing between the
         sensor color channels or taps. The black level coefficients of each
         channel are adjusted so they are matched.
@@ -7386,7 +7386,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def WhiteClipSelector(self):
+    def WhiteClipSelector(self) -> SpinEnumDefNode:
         """Selects which White Clip to control.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -7405,7 +7405,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def WhiteClip(self):
+    def WhiteClip(self) -> SpinFloatNode:
         """Controls the maximal intensity taken by the video signal before
         being clipped as an absolute physical value. The video signal will
         never exceed the white clipping point: it will saturate at that
@@ -7424,7 +7424,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def LUTValueAll(self):
+    def LUTValueAll(self) -> SpinRegisterNode:
         """Accesses all the LUT coefficients in a single access without using
         individual LUTIndex.
 
@@ -7441,7 +7441,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def UserOutputValueAllMask(self):
+    def UserOutputValueAllMask(self) -> SpinIntNode:
         """Sets the write mask to apply to the value specified by
         UserOutputValueAll before writing it in the User Output register. If
         the UserOutputValueAllMask feature is present, setting the user
@@ -7461,7 +7461,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def CounterReset(self):
+    def CounterReset(self) -> SpinCommandNode:
         """Does a software reset of the selected Counter and starts it. The
         counter starts counting events immediately after the reset unless a
         Counter trigger is active. CounterReset can be used to reset the
@@ -7481,7 +7481,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TimerSelector(self):
+    def TimerSelector(self) -> SpinEnumDefNode:
         """Selects which Timer to configure.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -7500,7 +7500,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TimerDuration(self):
+    def TimerDuration(self) -> SpinFloatNode:
         """Sets the duration (in microseconds) of the Timer pulse.
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -7516,7 +7516,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TimerDelay(self):
+    def TimerDelay(self) -> SpinFloatNode:
         """Sets the duration (in microseconds) of the delay to apply at the
         reception of a trigger before starting the Timer.
 
@@ -7533,7 +7533,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TimerReset(self):
+    def TimerReset(self) -> SpinCommandNode:
         """Does a software reset of the selected timer and starts it. The timer
         starts immediately after the reset unless a timer trigger is active.
 
@@ -7550,7 +7550,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TimerValue(self):
+    def TimerValue(self) -> SpinFloatNode:
         """Reads or writes the current value (in microseconds) of the selected
         Timer.
 
@@ -7567,7 +7567,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TimerStatus(self):
+    def TimerStatus(self) -> SpinEnumDefNode:
         """Returns the current status of the Timer.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -7586,7 +7586,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TimerTriggerSource(self):
+    def TimerTriggerSource(self) -> SpinEnumDefNode:
         """Selects the source of the trigger to start the Timer.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -7605,7 +7605,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TimerTriggerActivation(self):
+    def TimerTriggerActivation(self) -> SpinEnumDefNode:
         """Selects the activation mode of the trigger to start the Timer.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -7624,7 +7624,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EncoderSelector(self):
+    def EncoderSelector(self) -> SpinEnumDefNode:
         """Selects which Encoder to configure.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -7643,7 +7643,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EncoderSourceA(self):
+    def EncoderSourceA(self) -> SpinEnumDefNode:
         """Selects the signal which will be the source of the A input of the
         Encoder.
 
@@ -7663,7 +7663,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EncoderSourceB(self):
+    def EncoderSourceB(self) -> SpinEnumDefNode:
         """Selects the signal which will be the source of the B input of the
         Encoder.
 
@@ -7683,7 +7683,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EncoderMode(self):
+    def EncoderMode(self) -> SpinEnumDefNode:
         """Selects if the count of encoder uses FourPhase mode with jitter
         filtering or the HighResolution mode without jitter filtering.
 
@@ -7703,7 +7703,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EncoderDivider(self):
+    def EncoderDivider(self) -> SpinIntNode:
         """Sets how many Encoder increment/decrements that are needed generate
         an Encoder output pulse signal.
 
@@ -7720,7 +7720,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EncoderOutputMode(self):
+    def EncoderOutputMode(self) -> SpinEnumDefNode:
         """Selects the conditions for the Encoder interface to generate a valid
         Encoder output signal.
 
@@ -7740,7 +7740,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EncoderStatus(self):
+    def EncoderStatus(self) -> SpinEnumDefNode:
         """Returns the motion status of the encoder.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -7759,7 +7759,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EncoderTimeout(self):
+    def EncoderTimeout(self) -> SpinFloatNode:
         """Sets the maximum time interval between encoder counter increments
         before the status turns to static.
 
@@ -7776,7 +7776,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EncoderResetSource(self):
+    def EncoderResetSource(self) -> SpinEnumDefNode:
         """Selects the signals that will be the source to reset the Encoder.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -7795,7 +7795,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EncoderResetActivation(self):
+    def EncoderResetActivation(self) -> SpinEnumDefNode:
         """Selects the Activation mode of the Encoder Reset Source signal.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -7814,7 +7814,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EncoderReset(self):
+    def EncoderReset(self) -> SpinCommandNode:
         """Does a software reset of the selected Encoder and starts it. The
         Encoder starts counting events immediately after the reset.
         EncoderReset can be used to reset the Encoder independently from the
@@ -7833,7 +7833,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EncoderValue(self):
+    def EncoderValue(self) -> SpinIntNode:
         """Reads or writes the current value of the position counter of the
         selected Encoder.
 
@@ -7850,7 +7850,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EncoderValueAtReset(self):
+    def EncoderValueAtReset(self) -> SpinIntNode:
         """Reads the value of the of the position counter of the selected
         Encoder when it was reset by a signal or by an explicit EncoderReset
         command.
@@ -7868,7 +7868,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SoftwareSignalSelector(self):
+    def SoftwareSignalSelector(self) -> SpinEnumDefNode:
         """Selects which Software Signal features to control.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -7887,7 +7887,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SoftwareSignalPulse(self):
+    def SoftwareSignalPulse(self) -> SpinCommandNode:
         """Generates a pulse signal that can be used as a software trigger.
         This command can be used to trigger other modules that accept a
         SoftwareSignal as trigger source.
@@ -7905,7 +7905,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ActionUnconditionalMode(self):
+    def ActionUnconditionalMode(self) -> SpinEnumDefNode:
         """Enables the unconditional action command mode where action commands
         are processed even when the primary control channel is closed.
 
@@ -7925,7 +7925,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ActionDeviceKey(self):
+    def ActionDeviceKey(self) -> SpinIntNode:
         """Provides the device key that allows the device to check the validity
         of action commands. The device internal assertion of an action
         signal is only authorized if the ActionDeviceKey and the action
@@ -7944,7 +7944,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ActionQueueSize(self):
+    def ActionQueueSize(self) -> SpinIntNode:
         """Indicates the size of the scheduled action commands queue. This
         number represents the maximum number of scheduled action commands
         that can be pending at a given point in time.
@@ -7962,7 +7962,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ActionSelector(self):
+    def ActionSelector(self) -> SpinIntNode:
         """Selects to which Action Signal further Action settings apply.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -7978,7 +7978,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ActionGroupMask(self):
+    def ActionGroupMask(self) -> SpinIntNode:
         """Provides the mask that the device will use to validate the action on
         reception of the action protocol message.
 
@@ -7995,7 +7995,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ActionGroupKey(self):
+    def ActionGroupKey(self) -> SpinIntNode:
         """Provides the key that the device will use to validate the action on
         reception of the action protocol message.
 
@@ -8012,7 +8012,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventAcquisitionTrigger(self):
+    def EventAcquisitionTrigger(self) -> SpinIntNode:
         """Returns the unique Identifier of the Acquisition Trigger type of
         Event.
 
@@ -8029,7 +8029,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventAcquisitionTriggerTimestamp(self):
+    def EventAcquisitionTriggerTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Acquisition Trigger Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -8045,7 +8045,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventAcquisitionTriggerFrameID(self):
+    def EventAcquisitionTriggerFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Acquisition Trigger Event.
 
@@ -8062,7 +8062,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventAcquisitionStart(self):
+    def EventAcquisitionStart(self) -> SpinIntNode:
         """Returns the unique Identifier of the Acquisition Start type of
         Event.
 
@@ -8079,7 +8079,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventAcquisitionStartTimestamp(self):
+    def EventAcquisitionStartTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Acquisition Start Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -8095,7 +8095,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventAcquisitionStartFrameID(self):
+    def EventAcquisitionStartFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Acquisition Start Event.
 
@@ -8112,7 +8112,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventAcquisitionEnd(self):
+    def EventAcquisitionEnd(self) -> SpinIntNode:
         """Returns the unique Identifier of the Acquisition End type of Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -8128,7 +8128,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventAcquisitionEndTimestamp(self):
+    def EventAcquisitionEndTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Acquisition End Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -8144,7 +8144,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventAcquisitionEndFrameID(self):
+    def EventAcquisitionEndFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Acquisition End Event.
 
@@ -8161,7 +8161,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventAcquisitionTransferStart(self):
+    def EventAcquisitionTransferStart(self) -> SpinIntNode:
         """Returns the unique Identifier of the Acquisition Transfer Start type
         of Event.
 
@@ -8178,7 +8178,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventAcquisitionTransferStartTimestamp(self):
+    def EventAcquisitionTransferStartTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Acquisition Transfer Start Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -8194,7 +8194,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventAcquisitionTransferStartFrameID(self):
+    def EventAcquisitionTransferStartFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Acquisition Transfer Start Event.
 
@@ -8211,7 +8211,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventAcquisitionTransferEnd(self):
+    def EventAcquisitionTransferEnd(self) -> SpinIntNode:
         """Returns the unique Identifier of the Acquisition Transfer End type
         of Event.
 
@@ -8228,7 +8228,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventAcquisitionTransferEndTimestamp(self):
+    def EventAcquisitionTransferEndTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Acquisition Transfer End Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -8244,7 +8244,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventAcquisitionTransferEndFrameID(self):
+    def EventAcquisitionTransferEndFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Acquisition Transfer End Event.
 
@@ -8261,7 +8261,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventAcquisitionError(self):
+    def EventAcquisitionError(self) -> SpinIntNode:
         """Returns the unique Identifier of the Acquisition Error type of
         Event.
 
@@ -8278,7 +8278,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventAcquisitionErrorTimestamp(self):
+    def EventAcquisitionErrorTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Acquisition Error Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -8294,7 +8294,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventAcquisitionErrorFrameID(self):
+    def EventAcquisitionErrorFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Acquisition Error Event.
 
@@ -8311,7 +8311,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventFrameTrigger(self):
+    def EventFrameTrigger(self) -> SpinIntNode:
         """Returns the unique Identifier of the FrameTrigger type of Event. It
         can be used to register a callback function to be notified of the
         event occurrence. Its value uniquely identifies the type event
@@ -8330,7 +8330,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventFrameTriggerTimestamp(self):
+    def EventFrameTriggerTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the FrameTrigger Event. It can be used to
         determine precisely when the event occurred.
 
@@ -8347,7 +8347,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventFrameTriggerFrameID(self):
+    def EventFrameTriggerFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the FrameTrigger Event.
 
@@ -8364,7 +8364,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventFrameStart(self):
+    def EventFrameStart(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame Start type of Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -8380,7 +8380,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventFrameStartTimestamp(self):
+    def EventFrameStartTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Frame Start Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -8396,7 +8396,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventFrameStartFrameID(self):
+    def EventFrameStartFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Frame Start Event.
 
@@ -8413,7 +8413,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventFrameEnd(self):
+    def EventFrameEnd(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame End type of Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -8429,7 +8429,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventFrameEndTimestamp(self):
+    def EventFrameEndTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Frame End Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -8445,7 +8445,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventFrameEndFrameID(self):
+    def EventFrameEndFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Frame End Event.
 
@@ -8462,7 +8462,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventFrameBurstStart(self):
+    def EventFrameBurstStart(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame Burst Start type of
         Event.
 
@@ -8479,7 +8479,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventFrameBurstStartTimestamp(self):
+    def EventFrameBurstStartTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Frame Burst Start Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -8495,7 +8495,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventFrameBurstStartFrameID(self):
+    def EventFrameBurstStartFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Frame Burst Start Event.
 
@@ -8512,7 +8512,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventFrameBurstEnd(self):
+    def EventFrameBurstEnd(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame Burst End type of Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -8528,7 +8528,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventFrameBurstEndTimestamp(self):
+    def EventFrameBurstEndTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Frame Burst End Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -8544,7 +8544,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventFrameBurstEndFrameID(self):
+    def EventFrameBurstEndFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Frame Burst End Event.
 
@@ -8561,7 +8561,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventFrameTransferStart(self):
+    def EventFrameTransferStart(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame Transfer Start type of
         Event.
 
@@ -8578,7 +8578,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventFrameTransferStartTimestamp(self):
+    def EventFrameTransferStartTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Frame Transfer Start Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -8594,7 +8594,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventFrameTransferStartFrameID(self):
+    def EventFrameTransferStartFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Frame Transfer Start Event.
 
@@ -8611,7 +8611,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventFrameTransferEnd(self):
+    def EventFrameTransferEnd(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame Transfer End type of
         Event.
 
@@ -8628,7 +8628,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventFrameTransferEndTimestamp(self):
+    def EventFrameTransferEndTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Frame Transfer End Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -8644,7 +8644,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventFrameTransferEndFrameID(self):
+    def EventFrameTransferEndFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Frame Transfer End Event.
 
@@ -8661,7 +8661,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventExposureStart(self):
+    def EventExposureStart(self) -> SpinIntNode:
         """Returns the unique Identifier of the Exposure Start type of Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -8677,7 +8677,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventExposureStartTimestamp(self):
+    def EventExposureStartTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Exposure Start Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -8693,7 +8693,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventExposureStartFrameID(self):
+    def EventExposureStartFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Exposure Start Event.
 
@@ -8710,7 +8710,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferStart(self):
+    def EventStream0TransferStart(self) -> SpinIntNode:
         """Returns the unique Identifier of the Stream 0 Transfer Start type of
         Event.
 
@@ -8727,7 +8727,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferStartTimestamp(self):
+    def EventStream0TransferStartTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Stream 0 Transfer Start Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -8743,7 +8743,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferStartFrameID(self):
+    def EventStream0TransferStartFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer Start Event.
 
@@ -8760,7 +8760,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferEnd(self):
+    def EventStream0TransferEnd(self) -> SpinIntNode:
         """Returns the unique Identifier of the Stream 0 Transfer End type of
         Event.
 
@@ -8777,7 +8777,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferEndTimestamp(self):
+    def EventStream0TransferEndTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Stream 0 Transfer End Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -8793,7 +8793,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferEndFrameID(self):
+    def EventStream0TransferEndFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer End Event.
 
@@ -8810,7 +8810,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferPause(self):
+    def EventStream0TransferPause(self) -> SpinIntNode:
         """Returns the unique Identifier of the Stream 0 Transfer Pause type of
         Event.
 
@@ -8827,7 +8827,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferPauseTimestamp(self):
+    def EventStream0TransferPauseTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Stream 0 Transfer Pause Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -8843,7 +8843,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferPauseFrameID(self):
+    def EventStream0TransferPauseFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer Pause Event.
 
@@ -8860,7 +8860,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferResume(self):
+    def EventStream0TransferResume(self) -> SpinIntNode:
         """Returns the unique Identifier of the Stream 0 Transfer Resume type
         of Event.
 
@@ -8877,7 +8877,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferResumeTimestamp(self):
+    def EventStream0TransferResumeTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Stream 0 Transfer Resume Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -8893,7 +8893,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferResumeFrameID(self):
+    def EventStream0TransferResumeFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer Resume Event.
 
@@ -8910,7 +8910,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferBlockStart(self):
+    def EventStream0TransferBlockStart(self) -> SpinIntNode:
         """Returns the unique Identifier of the Stream 0 Transfer Block Start
         type of Event.
 
@@ -8927,7 +8927,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferBlockStartTimestamp(self):
+    def EventStream0TransferBlockStartTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Stream 0 Transfer Block Start Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -8943,7 +8943,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferBlockStartFrameID(self):
+    def EventStream0TransferBlockStartFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer Block Start Event.
 
@@ -8960,7 +8960,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferBlockEnd(self):
+    def EventStream0TransferBlockEnd(self) -> SpinIntNode:
         """Returns the unique Identifier of the Stream 0 Transfer Block End
         type of Event.
 
@@ -8977,7 +8977,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferBlockEndTimestamp(self):
+    def EventStream0TransferBlockEndTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Stream 0 Transfer Block End Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -8993,7 +8993,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferBlockEndFrameID(self):
+    def EventStream0TransferBlockEndFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer Block End Event.
 
@@ -9010,7 +9010,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferBlockTrigger(self):
+    def EventStream0TransferBlockTrigger(self) -> SpinIntNode:
         """Returns the unique Identifier of the Stream 0 Transfer Block Trigger
         type of Event.
 
@@ -9027,7 +9027,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferBlockTriggerTimestamp(self):
+    def EventStream0TransferBlockTriggerTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Stream 0 Transfer Block Trigger Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9043,7 +9043,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferBlockTriggerFrameID(self):
+    def EventStream0TransferBlockTriggerFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer Block Trigger Event.
 
@@ -9060,7 +9060,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferBurstStart(self):
+    def EventStream0TransferBurstStart(self) -> SpinIntNode:
         """Returns the unique Identifier of the Stream 0 Transfer Burst Start
         type of Event.
 
@@ -9077,7 +9077,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferBurstStartTimestamp(self):
+    def EventStream0TransferBurstStartTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Stream 0 Transfer Burst Start Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9093,7 +9093,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferBurstStartFrameID(self):
+    def EventStream0TransferBurstStartFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer Burst Start Event.
 
@@ -9110,7 +9110,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferBurstEnd(self):
+    def EventStream0TransferBurstEnd(self) -> SpinIntNode:
         """Returns the unique Identifier of the Stream 0 Transfer Burst End
         type of Event.
 
@@ -9127,7 +9127,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferBurstEndTimestamp(self):
+    def EventStream0TransferBurstEndTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Stream 0 Transfer Burst End Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9143,7 +9143,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferBurstEndFrameID(self):
+    def EventStream0TransferBurstEndFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer Burst End Event.
 
@@ -9160,7 +9160,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferOverflow(self):
+    def EventStream0TransferOverflow(self) -> SpinIntNode:
         """Returns the unique Identifier of the Stream 0 Transfer Overflow type
         of Event.
 
@@ -9177,7 +9177,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferOverflowTimestamp(self):
+    def EventStream0TransferOverflowTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Stream 0 Transfer Overflow Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9193,7 +9193,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventStream0TransferOverflowFrameID(self):
+    def EventStream0TransferOverflowFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Stream 0 Transfer Overflow Event.
 
@@ -9210,7 +9210,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventSequencerSetChange(self):
+    def EventSequencerSetChange(self) -> SpinIntNode:
         """Returns the unique Identifier of the Sequencer Set Change type of
         Event.
 
@@ -9227,7 +9227,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventSequencerSetChangeTimestamp(self):
+    def EventSequencerSetChangeTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Sequencer Set Change Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9243,7 +9243,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventSequencerSetChangeFrameID(self):
+    def EventSequencerSetChangeFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Sequencer Set Change Event.
 
@@ -9260,7 +9260,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventCounter0Start(self):
+    def EventCounter0Start(self) -> SpinIntNode:
         """Returns the unique Identifier of the Counter 0 Start type of Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9276,7 +9276,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventCounter0StartTimestamp(self):
+    def EventCounter0StartTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Counter 0 Start Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9292,7 +9292,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventCounter0StartFrameID(self):
+    def EventCounter0StartFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Counter 0 Start Event.
 
@@ -9309,7 +9309,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventCounter1Start(self):
+    def EventCounter1Start(self) -> SpinIntNode:
         """Returns the unique Identifier of the Counter 1 Start type of Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9325,7 +9325,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventCounter1StartTimestamp(self):
+    def EventCounter1StartTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Counter 1 Start Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9341,7 +9341,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventCounter1StartFrameID(self):
+    def EventCounter1StartFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Counter 1 Start Event.
 
@@ -9358,7 +9358,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventCounter0End(self):
+    def EventCounter0End(self) -> SpinIntNode:
         """Returns the unique Identifier of the Counter 0 End type of Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9374,7 +9374,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventCounter0EndTimestamp(self):
+    def EventCounter0EndTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Counter 0 End Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9390,7 +9390,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventCounter0EndFrameID(self):
+    def EventCounter0EndFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Counter 0 End Event.
 
@@ -9407,7 +9407,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventCounter1End(self):
+    def EventCounter1End(self) -> SpinIntNode:
         """Returns the unique Identifier of the Counter 1 End type of Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9423,7 +9423,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventCounter1EndTimestamp(self):
+    def EventCounter1EndTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Counter 1 End Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9439,7 +9439,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventCounter1EndFrameID(self):
+    def EventCounter1EndFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Counter 1 End Event.
 
@@ -9456,7 +9456,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventTimer0Start(self):
+    def EventTimer0Start(self) -> SpinIntNode:
         """Returns the unique Identifier of the Timer 0 Start type of Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9472,7 +9472,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventTimer0StartTimestamp(self):
+    def EventTimer0StartTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Timer 0 Start Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9488,7 +9488,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventTimer0StartFrameID(self):
+    def EventTimer0StartFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Timer 0 Start Event.
 
@@ -9505,7 +9505,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventTimer1Start(self):
+    def EventTimer1Start(self) -> SpinIntNode:
         """Returns the unique Identifier of the Timer 1 Start type of Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9521,7 +9521,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventTimer1StartTimestamp(self):
+    def EventTimer1StartTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Timer 1 Start Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9537,7 +9537,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventTimer1StartFrameID(self):
+    def EventTimer1StartFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Timer 1 Start Event.
 
@@ -9554,7 +9554,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventTimer0End(self):
+    def EventTimer0End(self) -> SpinIntNode:
         """Returns the unique Identifier of the Timer 0 End type of Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9570,7 +9570,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventTimer0EndTimestamp(self):
+    def EventTimer0EndTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Timer 0 End Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9586,7 +9586,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventTimer0EndFrameID(self):
+    def EventTimer0EndFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Timer 0 End Event.
 
@@ -9603,7 +9603,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventTimer1End(self):
+    def EventTimer1End(self) -> SpinIntNode:
         """Returns the unique Identifier of the Timer 1 End type of Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9619,7 +9619,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventTimer1EndTimestamp(self):
+    def EventTimer1EndTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Timer 1 End Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9635,7 +9635,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventTimer1EndFrameID(self):
+    def EventTimer1EndFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Timer 1 End Event.
 
@@ -9652,7 +9652,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventEncoder0Stopped(self):
+    def EventEncoder0Stopped(self) -> SpinIntNode:
         """Returns the unique Identifier of the Encoder 0 Stopped type of
         Event.
 
@@ -9669,7 +9669,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventEncoder0StoppedTimestamp(self):
+    def EventEncoder0StoppedTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Encoder 0 Stopped Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9685,7 +9685,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventEncoder0StoppedFrameID(self):
+    def EventEncoder0StoppedFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Encoder 0 Stopped Event.
 
@@ -9702,7 +9702,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventEncoder1Stopped(self):
+    def EventEncoder1Stopped(self) -> SpinIntNode:
         """Returns the unique Identifier of the Encoder 1 Stopped type of
         Event.
 
@@ -9719,7 +9719,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventEncoder1StoppedTimestamp(self):
+    def EventEncoder1StoppedTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Encoder 1 Stopped Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9735,7 +9735,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventEncoder1StoppedFrameID(self):
+    def EventEncoder1StoppedFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Encoder 1 Stopped Event.
 
@@ -9752,7 +9752,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventEncoder0Restarted(self):
+    def EventEncoder0Restarted(self) -> SpinIntNode:
         """Returns the unique Identifier of the Encoder 0 Restarted type of
         Event.
 
@@ -9769,7 +9769,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventEncoder0RestartedTimestamp(self):
+    def EventEncoder0RestartedTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Encoder 0 Restarted Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9785,7 +9785,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventEncoder0RestartedFrameID(self):
+    def EventEncoder0RestartedFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Encoder 0 Restarted Event.
 
@@ -9802,7 +9802,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventEncoder1Restarted(self):
+    def EventEncoder1Restarted(self) -> SpinIntNode:
         """Returns the unique Identifier of the Encoder 1 Restarted type of
         Event.
 
@@ -9819,7 +9819,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventEncoder1RestartedTimestamp(self):
+    def EventEncoder1RestartedTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Encoder 1 Restarted Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9835,7 +9835,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventEncoder1RestartedFrameID(self):
+    def EventEncoder1RestartedFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Encoder 1 Restarted Event.
 
@@ -9852,7 +9852,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventLine0RisingEdge(self):
+    def EventLine0RisingEdge(self) -> SpinIntNode:
         """Returns the unique Identifier of the Line 0 Rising Edge type of
         Event.
 
@@ -9869,7 +9869,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventLine0RisingEdgeTimestamp(self):
+    def EventLine0RisingEdgeTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Line 0 Rising Edge Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9885,7 +9885,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventLine0RisingEdgeFrameID(self):
+    def EventLine0RisingEdgeFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Line 0 Rising Edge Event.
 
@@ -9902,7 +9902,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventLine1RisingEdge(self):
+    def EventLine1RisingEdge(self) -> SpinIntNode:
         """Returns the unique Identifier of the Line 1 Rising Edge type of
         Event.
 
@@ -9919,7 +9919,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventLine1RisingEdgeTimestamp(self):
+    def EventLine1RisingEdgeTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Line 1 Rising Edge Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9935,7 +9935,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventLine1RisingEdgeFrameID(self):
+    def EventLine1RisingEdgeFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Line 1 Rising Edge Event.
 
@@ -9952,7 +9952,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventLine0FallingEdge(self):
+    def EventLine0FallingEdge(self) -> SpinIntNode:
         """Returns the unique Identifier of the Line 0 Falling Edge type of
         Event.
 
@@ -9969,7 +9969,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventLine0FallingEdgeTimestamp(self):
+    def EventLine0FallingEdgeTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Line 0 Falling Edge Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -9985,7 +9985,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventLine0FallingEdgeFrameID(self):
+    def EventLine0FallingEdgeFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Line 0 Falling Edge Event.
 
@@ -10002,7 +10002,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventLine1FallingEdge(self):
+    def EventLine1FallingEdge(self) -> SpinIntNode:
         """Returns the unique Identifier of the Line 1 Falling Edge type of
         Event.
 
@@ -10019,7 +10019,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventLine1FallingEdgeTimestamp(self):
+    def EventLine1FallingEdgeTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Line 1 Falling Edge Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -10035,7 +10035,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventLine1FallingEdgeFrameID(self):
+    def EventLine1FallingEdgeFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Line 1 Falling Edge Event.
 
@@ -10052,7 +10052,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventLine0AnyEdge(self):
+    def EventLine0AnyEdge(self) -> SpinIntNode:
         """Returns the unique Identifier of the Line 0 Any Edge type of Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -10068,7 +10068,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventLine0AnyEdgeTimestamp(self):
+    def EventLine0AnyEdgeTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Line 0 Any Edge Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -10084,7 +10084,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventLine0AnyEdgeFrameID(self):
+    def EventLine0AnyEdgeFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Line 0 Any Edge Event.
 
@@ -10101,7 +10101,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventLine1AnyEdge(self):
+    def EventLine1AnyEdge(self) -> SpinIntNode:
         """Returns the unique Identifier of the Line 1 Any Edge type of Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -10117,7 +10117,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventLine1AnyEdgeTimestamp(self):
+    def EventLine1AnyEdgeTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Line 1 Any Edge Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -10133,7 +10133,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventLine1AnyEdgeFrameID(self):
+    def EventLine1AnyEdgeFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Line 1 Any Edge Event.
 
@@ -10150,7 +10150,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventLinkTrigger0(self):
+    def EventLinkTrigger0(self) -> SpinIntNode:
         """Returns the unique Identifier of the Link Trigger 0 type of Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -10166,7 +10166,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventLinkTrigger0Timestamp(self):
+    def EventLinkTrigger0Timestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Link Trigger 0 Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -10182,7 +10182,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventLinkTrigger0FrameID(self):
+    def EventLinkTrigger0FrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Link Trigger 0 Event.
 
@@ -10199,7 +10199,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventLinkTrigger1(self):
+    def EventLinkTrigger1(self) -> SpinIntNode:
         """Returns the unique Identifier of the Link Trigger 1 type of Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -10215,7 +10215,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventLinkTrigger1Timestamp(self):
+    def EventLinkTrigger1Timestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Link Trigger 1 Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -10231,7 +10231,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventLinkTrigger1FrameID(self):
+    def EventLinkTrigger1FrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Link Trigger 1 Event.
 
@@ -10248,7 +10248,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventActionLate(self):
+    def EventActionLate(self) -> SpinIntNode:
         """Returns the unique Identifier of the Action Late type of Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -10264,7 +10264,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventActionLateTimestamp(self):
+    def EventActionLateTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Action Late Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -10280,7 +10280,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventActionLateFrameID(self):
+    def EventActionLateFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Action Late Event.
 
@@ -10297,7 +10297,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventLinkSpeedChange(self):
+    def EventLinkSpeedChange(self) -> SpinIntNode:
         """Returns the unique Identifier of the Link Speed Change type of
         Event.
 
@@ -10314,7 +10314,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventLinkSpeedChangeTimestamp(self):
+    def EventLinkSpeedChangeTimestamp(self) -> SpinIntNode:
         """Returns the Timestamp of the Link Speed Change Event.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -10330,7 +10330,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def EventLinkSpeedChangeFrameID(self):
+    def EventLinkSpeedChangeFrameID(self) -> SpinIntNode:
         """Returns the unique Identifier of the Frame (or image) that generated
         the Link Speed Change Event.
 
@@ -10347,7 +10347,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def FileAccessBuffer(self):
+    def FileAccessBuffer(self) -> SpinRegisterNode:
         """Defines the intermediate access buffer that allows the exchange of
         data between the device file storage and the application.
 
@@ -10364,7 +10364,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SourceCount(self):
+    def SourceCount(self) -> SpinIntNode:
         """Controls or returns the number of sources supported by the device.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -10380,7 +10380,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def SourceSelector(self):
+    def SourceSelector(self) -> SpinEnumDefNode:
         """Selects the source to control.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -10399,7 +10399,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TransferSelector(self):
+    def TransferSelector(self) -> SpinEnumDefNode:
         """Selects which stream transfers are currently controlled by the
         selected Transfer features.
 
@@ -10419,7 +10419,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TransferBurstCount(self):
+    def TransferBurstCount(self) -> SpinIntNode:
         """Number of Block(s) to transfer for each TransferBurstStart trigger.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -10435,7 +10435,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TransferAbort(self):
+    def TransferAbort(self) -> SpinCommandNode:
         """Aborts immediately the streaming of data block(s). Aborting the
         transfer will result in the lost of the data that is present or
         currently entering in the block queue. However, the next new block
@@ -10457,7 +10457,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TransferPause(self):
+    def TransferPause(self) -> SpinCommandNode:
         """Pauses the streaming of data Block(s). Pausing the streaming will
         immediately suspend the ongoing data transfer even if a block is
         partially transfered. The device will resume its transmission at the
@@ -10476,7 +10476,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TransferResume(self):
+    def TransferResume(self) -> SpinCommandNode:
         """Resumes a data Blocks streaming that was previously paused by a
         TransferPause command.
 
@@ -10493,7 +10493,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TransferTriggerSelector(self):
+    def TransferTriggerSelector(self) -> SpinEnumDefNode:
         """Selects the type of transfer trigger to configure.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -10512,7 +10512,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TransferTriggerMode(self):
+    def TransferTriggerMode(self) -> SpinEnumDefNode:
         """Controls if the selected trigger is active.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -10531,7 +10531,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TransferTriggerSource(self):
+    def TransferTriggerSource(self) -> SpinEnumDefNode:
         """Specifies the signal to use as the trigger source for transfers.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -10550,7 +10550,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TransferTriggerActivation(self):
+    def TransferTriggerActivation(self) -> SpinEnumDefNode:
         """Specifies the activation mode of the transfer control trigger.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -10569,7 +10569,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TransferStatusSelector(self):
+    def TransferStatusSelector(self) -> SpinEnumDefNode:
         """Selects which status of the transfer module to read.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -10588,7 +10588,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TransferStatus(self):
+    def TransferStatus(self) -> SpinBoolNode:
         """Reads the status of the Transfer module signal selected by
         TransferStatusSelector.
 
@@ -10605,7 +10605,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TransferComponentSelector(self):
+    def TransferComponentSelector(self) -> SpinEnumDefNode:
         """Selects the color component for the control of the
         TransferStreamChannel feature.
 
@@ -10625,7 +10625,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TransferStreamChannel(self):
+    def TransferStreamChannel(self) -> SpinIntNode:
         """Selects the streaming channel that will be used to transfer the
         selected stream of data. In general, this feature can be omitted and
         the default streaming channel will be used.
@@ -10643,7 +10643,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def Scan3dDistanceUnit(self):
+    def Scan3dDistanceUnit(self) -> SpinEnumDefNode:
         """Specifies the unit used when delivering calibrated distance data.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -10662,7 +10662,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def Scan3dCoordinateSystem(self):
+    def Scan3dCoordinateSystem(self) -> SpinEnumDefNode:
         """Specifies the Coordinate system to use for the device.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -10681,7 +10681,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def Scan3dOutputMode(self):
+    def Scan3dOutputMode(self) -> SpinEnumDefNode:
         """Controls the Calibration and data organization of the device, naming
         the coordinates transmitted.
 
@@ -10701,7 +10701,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def Scan3dCoordinateSystemReference(self):
+    def Scan3dCoordinateSystemReference(self) -> SpinEnumDefNode:
         """Defines coordinate system reference location.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -10720,7 +10720,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def Scan3dCoordinateSelector(self):
+    def Scan3dCoordinateSelector(self) -> SpinEnumDefNode:
         """Selects the individual coordinates in the vectors for 3D
         information/transformation.
 
@@ -10740,7 +10740,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def Scan3dCoordinateScale(self):
+    def Scan3dCoordinateScale(self) -> SpinFloatNode:
         """Scale factor when transforming a pixel from relative coordinates to
         world coordinates.
 
@@ -10757,7 +10757,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def Scan3dCoordinateOffset(self):
+    def Scan3dCoordinateOffset(self) -> SpinFloatNode:
         """Offset when transforming a pixel from relative coordinates to world
         coordinates.
 
@@ -10774,7 +10774,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def Scan3dInvalidDataFlag(self):
+    def Scan3dInvalidDataFlag(self) -> SpinBoolNode:
         """Enables the definition of a non-valid flag value in the data stream.
         Note that the confidence output is an alternate recommended way to
         identify non-valid pixels. Using an Scan3dInvalidDataValue may give
@@ -10793,7 +10793,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def Scan3dInvalidDataValue(self):
+    def Scan3dInvalidDataValue(self) -> SpinFloatNode:
         """Value which identifies a non-valid pixel if Scan3dInvalidDataFlag is
         enabled.
 
@@ -10810,7 +10810,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def Scan3dAxisMin(self):
+    def Scan3dAxisMin(self) -> SpinFloatNode:
         """Minimum valid transmitted coordinate value of the selected Axis.
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -10826,7 +10826,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def Scan3dAxisMax(self):
+    def Scan3dAxisMax(self) -> SpinFloatNode:
         """Maximum valid transmitted coordinate value of the selected Axis.
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -10842,7 +10842,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def Scan3dCoordinateTransformSelector(self):
+    def Scan3dCoordinateTransformSelector(self) -> SpinEnumDefNode:
         """Sets the index to read/write a coordinate transform value.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -10861,7 +10861,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def Scan3dTransformValue(self):
+    def Scan3dTransformValue(self) -> SpinFloatNode:
         """Specifies the transform value selected. For translations
         (Scan3dCoordinateTransformSelector = TranslationX/Y/Z) it is
         expressed in the distance unit of the system, for rotations
@@ -10880,7 +10880,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def Scan3dCoordinateReferenceSelector(self):
+    def Scan3dCoordinateReferenceSelector(self) -> SpinEnumDefNode:
         """Sets the index to read a coordinate system reference value defining
         the transform of a point from the current (Anchor or Transformed)
         system to the reference system.
@@ -10901,7 +10901,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def Scan3dCoordinateReferenceValue(self):
+    def Scan3dCoordinateReferenceValue(self) -> SpinFloatNode:
         """Returns the reference value selected. Reads the value of a rotation
         or translation value for the current (Anchor or Transformed)
         coordinate system transformation to the Reference system.
@@ -10919,7 +10919,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkPartSelector(self):
+    def ChunkPartSelector(self) -> SpinIntNode:
         """Selects the part to access in chunk data in a multipart
         transmission.
 
@@ -10936,7 +10936,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkImageComponent(self):
+    def ChunkImageComponent(self) -> SpinEnumDefNode:
         """Returns the component of the payload image. This can be used to
         identify the image component of a generic part in a multipart
         transfer.
@@ -10957,7 +10957,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkPixelDynamicRangeMin(self):
+    def ChunkPixelDynamicRangeMin(self) -> SpinIntNode:
         """Returns the minimum value of dynamic range of the image included in
         the payload.
 
@@ -10974,7 +10974,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkPixelDynamicRangeMax(self):
+    def ChunkPixelDynamicRangeMax(self) -> SpinIntNode:
         """Returns the maximum value of dynamic range of the image included in
         the payload.
 
@@ -10991,7 +10991,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkTimestampLatchValue(self):
+    def ChunkTimestampLatchValue(self) -> SpinIntNode:
         """Returns the last Timestamp latched with the TimestampLatch command.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -11007,7 +11007,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkLineStatusAll(self):
+    def ChunkLineStatusAll(self) -> SpinIntNode:
         """Returns the status of all the I/O lines at the time of the
         FrameStart internal event.
 
@@ -11024,7 +11024,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkCounterSelector(self):
+    def ChunkCounterSelector(self) -> SpinEnumDefNode:
         """Selects which counter to retrieve data from.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -11043,7 +11043,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkCounterValue(self):
+    def ChunkCounterValue(self) -> SpinIntNode:
         """Returns the value of the selected Chunk counter at the time of the
         FrameStart event.
 
@@ -11060,7 +11060,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkTimerSelector(self):
+    def ChunkTimerSelector(self) -> SpinEnumDefNode:
         """Selects which Timer to retrieve data from.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -11079,7 +11079,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkTimerValue(self):
+    def ChunkTimerValue(self) -> SpinFloatNode:
         """Returns the value of the selected Timer at the time of the
         FrameStart internal event.
 
@@ -11096,7 +11096,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkEncoderSelector(self):
+    def ChunkEncoderSelector(self) -> SpinEnumDefNode:
         """Selects which Encoder to retrieve data from.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -11115,7 +11115,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkScanLineSelector(self):
+    def ChunkScanLineSelector(self) -> SpinIntNode:
         """Index for vector representation of one chunk value per line in an
         image.
 
@@ -11132,7 +11132,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkEncoderValue(self):
+    def ChunkEncoderValue(self) -> SpinIntNode:
         """Returns the counter's value of the selected Encoder at the time of
         the FrameStart in area scan mode or the counter's value at the time
         of the LineStart selected by ChunkScanLineSelector in LineScan mode.
@@ -11150,7 +11150,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkEncoderStatus(self):
+    def ChunkEncoderStatus(self) -> SpinEnumDefNode:
         """Returns the motion status of the selected encoder.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -11169,7 +11169,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkExposureTimeSelector(self):
+    def ChunkExposureTimeSelector(self) -> SpinEnumDefNode:
         """Selects which exposure time is read by the ChunkExposureTime
         feature.
 
@@ -11189,7 +11189,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkLinePitch(self):
+    def ChunkLinePitch(self) -> SpinIntNode:
         """Returns the LinePitch of the image included in the payload.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -11205,7 +11205,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkSourceID(self):
+    def ChunkSourceID(self) -> SpinEnumDefNode:
         """Returns the identifier of Source that the image comes from.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -11224,7 +11224,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkRegionID(self):
+    def ChunkRegionID(self) -> SpinEnumDefNode:
         """Returns the identifier of Region that the image comes from.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -11243,7 +11243,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkTransferBlockID(self):
+    def ChunkTransferBlockID(self) -> SpinIntNode:
         """Returns the unique identifier of the transfer block used to
         transport the payload.
 
@@ -11260,7 +11260,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkTransferStreamID(self):
+    def ChunkTransferStreamID(self) -> SpinEnumDefNode:
         """Returns identifier of the stream that generated this block.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -11279,7 +11279,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkTransferQueueCurrentBlockCount(self):
+    def ChunkTransferQueueCurrentBlockCount(self) -> SpinIntNode:
         """Returns the current number of blocks in the transfer queue.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -11295,7 +11295,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkStreamChannelID(self):
+    def ChunkStreamChannelID(self) -> SpinIntNode:
         """Returns identifier of the stream channel used to carry the block.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -11311,7 +11311,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkScan3dDistanceUnit(self):
+    def ChunkScan3dDistanceUnit(self) -> SpinEnumDefNode:
         """Returns the Distance Unit of the payload image.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -11330,7 +11330,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkScan3dOutputMode(self):
+    def ChunkScan3dOutputMode(self) -> SpinEnumDefNode:
         """Returns the Calibrated Mode of the payload image.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -11349,7 +11349,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkScan3dCoordinateSystem(self):
+    def ChunkScan3dCoordinateSystem(self) -> SpinEnumDefNode:
         """Returns the Coordinate System of the image included in the payload.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -11368,7 +11368,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkScan3dCoordinateSystemReference(self):
+    def ChunkScan3dCoordinateSystemReference(self) -> SpinEnumDefNode:
         """Returns the Coordinate System Position of the image included in the
         payload.
 
@@ -11388,7 +11388,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkScan3dCoordinateSelector(self):
+    def ChunkScan3dCoordinateSelector(self) -> SpinEnumDefNode:
         """Selects which Coordinate to retrieve data from.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -11407,7 +11407,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkScan3dCoordinateScale(self):
+    def ChunkScan3dCoordinateScale(self) -> SpinFloatNode:
         """Returns the Scale for the selected coordinate axis of the image
         included in the payload.
 
@@ -11424,7 +11424,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkScan3dCoordinateOffset(self):
+    def ChunkScan3dCoordinateOffset(self) -> SpinFloatNode:
         """Returns the Offset for the selected coordinate axis of the image
         included in the payload.
 
@@ -11441,7 +11441,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkScan3dInvalidDataFlag(self):
+    def ChunkScan3dInvalidDataFlag(self) -> SpinBoolNode:
         """Returns if a specific non-valid data flag is used in the data
         stream.
 
@@ -11458,7 +11458,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkScan3dInvalidDataValue(self):
+    def ChunkScan3dInvalidDataValue(self) -> SpinFloatNode:
         """Returns the Invalid Data Value used for the image included in the
         payload.
 
@@ -11475,7 +11475,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkScan3dAxisMin(self):
+    def ChunkScan3dAxisMin(self) -> SpinFloatNode:
         """Returns the Minimum Axis value for the selected coordinate axis of
         the image included in the payload.
 
@@ -11492,7 +11492,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkScan3dAxisMax(self):
+    def ChunkScan3dAxisMax(self) -> SpinFloatNode:
         """Returns the Maximum Axis value for the selected coordinate axis of
         the image included in the payload.
 
@@ -11509,7 +11509,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkScan3dCoordinateTransformSelector(self):
+    def ChunkScan3dCoordinateTransformSelector(self) -> SpinEnumDefNode:
         """Selector for transform values.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -11528,7 +11528,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkScan3dTransformValue(self):
+    def ChunkScan3dTransformValue(self) -> SpinFloatNode:
         """Returns the transform value.
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -11544,7 +11544,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkScan3dCoordinateReferenceSelector(self):
+    def ChunkScan3dCoordinateReferenceSelector(self) -> SpinEnumDefNode:
         """Selector to read a coordinate system reference value defining the
         transform of a point from one system to the other.
 
@@ -11564,7 +11564,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkScan3dCoordinateReferenceValue(self):
+    def ChunkScan3dCoordinateReferenceValue(self) -> SpinFloatNode:
         """Reads the value of a position or pose coordinate for the anchor or
         transformed coordinate systems relative to the reference point.
 
@@ -11581,7 +11581,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def TestPendingAck(self):
+    def TestPendingAck(self) -> SpinIntNode:
         """Tests the device's pending acknowledge feature. When this feature is
         written, the device waits a time period corresponding to the value
         of TestPendingAck before acknowledging the write.
@@ -11599,7 +11599,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def DeviceTapGeometry(self):
+    def DeviceTapGeometry(self) -> SpinEnumDefNode:
         """This device tap geometry feature describes the geometrical
         properties characterizing the taps of a camera as presented at the
         output of the device.
@@ -11620,7 +11620,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevPhysicalLinkConfiguration(self):
+    def GevPhysicalLinkConfiguration(self) -> SpinEnumDefNode:
         """Controls the principal physical link configuration to use on next
         restart/power-up of the device.
 
@@ -11640,7 +11640,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevCurrentPhysicalLinkConfiguration(self):
+    def GevCurrentPhysicalLinkConfiguration(self) -> SpinEnumDefNode:
         """Indicates the current physical link configuration of the device.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -11659,7 +11659,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevActiveLinkCount(self):
+    def GevActiveLinkCount(self) -> SpinIntNode:
         """Indicates the current number of active logical links.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -11675,7 +11675,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevPAUSEFrameReception(self):
+    def GevPAUSEFrameReception(self) -> SpinBoolNode:
         """Controls whether incoming PAUSE Frames are handled on the given
         logical link.
 
@@ -11692,7 +11692,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevPAUSEFrameTransmission(self):
+    def GevPAUSEFrameTransmission(self) -> SpinBoolNode:
         """Controls whether PAUSE Frames can be generated on the given logical
         link.
 
@@ -11709,7 +11709,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevIPConfigurationStatus(self):
+    def GevIPConfigurationStatus(self) -> SpinEnumDefNode:
         """Reports the current IP configuration status.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -11728,7 +11728,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevDiscoveryAckDelay(self):
+    def GevDiscoveryAckDelay(self) -> SpinIntNode:
         """Indicates the maximum randomized delay the device will wait to
         acknowledge a discovery command.
 
@@ -11745,7 +11745,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevGVCPExtendedStatusCodesSelector(self):
+    def GevGVCPExtendedStatusCodesSelector(self) -> SpinEnumDefNode:
         """Selects the GigE Vision version to control extended status codes
         for.
 
@@ -11765,7 +11765,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevGVCPExtendedStatusCodes(self):
+    def GevGVCPExtendedStatusCodes(self) -> SpinBoolNode:
         """Enables the generation of extended status codes.
 
         :Property type: :class:`~rotpy.node.SpinBoolNode`.
@@ -11781,7 +11781,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevPrimaryApplicationSwitchoverKey(self):
+    def GevPrimaryApplicationSwitchoverKey(self) -> SpinIntNode:
         """Controls the key to use to authenticate primary application
         switchover requests.
 
@@ -11798,7 +11798,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevGVSPExtendedIDMode(self):
+    def GevGVSPExtendedIDMode(self) -> SpinEnumDefNode:
         """Enables the extended IDs mode.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -11817,7 +11817,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevPrimaryApplicationSocket(self):
+    def GevPrimaryApplicationSocket(self) -> SpinIntNode:
         """Returns the UDP source port of the primary application.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -11833,7 +11833,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevPrimaryApplicationIPAddress(self):
+    def GevPrimaryApplicationIPAddress(self) -> SpinIntNode:
         """Returns the address of the primary application.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -11849,7 +11849,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevSCCFGPacketResendDestination(self):
+    def GevSCCFGPacketResendDestination(self) -> SpinBoolNode:
         """Enables the alternate IP destination for stream packets resent due
         to a packet resend request. When True, the source IP address
         provided in the packet resend command packet is used. When False,
@@ -11869,7 +11869,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevSCCFGAllInTransmission(self):
+    def GevSCCFGAllInTransmission(self) -> SpinBoolNode:
         """Enables the selected GVSP transmitter to use the single packet per
         data block All-in Transmission mode.
 
@@ -11886,7 +11886,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevSCZoneCount(self):
+    def GevSCZoneCount(self) -> SpinIntNode:
         """Reports the number of zones per block transmitted on the selected
         stream channel.
 
@@ -11903,7 +11903,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevSCZoneDirectionAll(self):
+    def GevSCZoneDirectionAll(self) -> SpinIntNode:
         """Reports the transmission direction of each zone transmitted on the
         selected stream channel.
 
@@ -11920,7 +11920,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def GevSCZoneConfigurationLock(self):
+    def GevSCZoneConfigurationLock(self) -> SpinBoolNode:
         """Controls whether the selected stream channel multi-zone
         configuration is locked. When locked, the GVSP transmitter is not
         allowed to change the number of zones and their direction during
@@ -11939,7 +11939,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def aPAUSEMACCtrlFramesTransmitted(self):
+    def aPAUSEMACCtrlFramesTransmitted(self) -> SpinIntNode:
         """Reports the number of transmitted PAUSE frames.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -11955,7 +11955,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def aPAUSEMACCtrlFramesReceived(self):
+    def aPAUSEMACCtrlFramesReceived(self) -> SpinIntNode:
         """Reports the number of received PAUSE frames.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -11971,7 +11971,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ClConfiguration(self):
+    def ClConfiguration(self) -> SpinEnumDefNode:
         """This Camera Link specific feature describes the configuration used
         by the camera. It helps especially when a camera is capable of
         operation in a non-standard configuration, and when the features
@@ -11995,7 +11995,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ClTimeSlotsCount(self):
+    def ClTimeSlotsCount(self) -> SpinEnumDefNode:
         """This Camera Link specific feature describes the time multiplexing of
         the camera link connection to transfer more than the configuration
         allows, in one single clock.
@@ -12016,7 +12016,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def CxpLinkConfigurationStatus(self):
+    def CxpLinkConfigurationStatus(self) -> SpinEnumDefNode:
         """This feature indicates the current and active Link configuration
         used by the Device.
 
@@ -12036,7 +12036,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def CxpLinkConfigurationPreferred(self):
+    def CxpLinkConfigurationPreferred(self) -> SpinEnumDefNode:
         """Provides the Link configuration that allows the Transmitter Device
         to operate in its default mode.
 
@@ -12056,7 +12056,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def CxpLinkConfiguration(self):
+    def CxpLinkConfiguration(self) -> SpinEnumDefNode:
         """This feature allows specifying the Link configuration for the
         communication between the Receiver and Transmitter Device. In most
         cases this feature does not need to be written because automatic
@@ -12081,7 +12081,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def CxpConnectionSelector(self):
+    def CxpConnectionSelector(self) -> SpinIntNode:
         """Selects the CoaXPress physical connection to control.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -12097,7 +12097,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def CxpConnectionTestMode(self):
+    def CxpConnectionTestMode(self) -> SpinEnumDefNode:
         """Enables the test mode for an individual physical connection of the
         Device.
 
@@ -12117,7 +12117,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def CxpConnectionTestErrorCount(self):
+    def CxpConnectionTestErrorCount(self) -> SpinIntNode:
         """Reports the current connection error count for test packets recieved
         by the device on the connection selected by CxpConnectionSelector.
 
@@ -12134,7 +12134,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def CxpConnectionTestPacketCount(self):
+    def CxpConnectionTestPacketCount(self) -> SpinIntNode:
         """Reports the current count for test packets recieved by the device on
         the connection selected by CxpConnectionSelector.
 
@@ -12151,7 +12151,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def CxpPoCxpAuto(self):
+    def CxpPoCxpAuto(self) -> SpinCommandNode:
         """Activate automatic control of the Power over CoaXPress (PoCXP) for
         the Link.
 
@@ -12168,7 +12168,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def CxpPoCxpTurnOff(self):
+    def CxpPoCxpTurnOff(self) -> SpinCommandNode:
         """Disable Power over CoaXPress (PoCXP) for the Link.
 
         :Property type: :class:`~rotpy.node.SpinCommandNode`.
@@ -12184,7 +12184,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def CxpPoCxpTripReset(self):
+    def CxpPoCxpTripReset(self) -> SpinCommandNode:
         """Reset the Power over CoaXPress (PoCXP) Link after an over-current
         trip on the Device connection(s).
 
@@ -12201,7 +12201,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def CxpPoCxpStatus(self):
+    def CxpPoCxpStatus(self) -> SpinEnumDefNode:
         """Returns the Power over CoaXPress (PoCXP) status of the Device.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -12220,7 +12220,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkInferenceFrameId(self):
+    def ChunkInferenceFrameId(self) -> SpinIntNode:
         """Returns the frame ID associated with the most recent inference
         result.
 
@@ -12237,7 +12237,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkInferenceResult(self):
+    def ChunkInferenceResult(self) -> SpinIntNode:
         """Returns the chunk data inference result.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -12253,7 +12253,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkInferenceConfidence(self):
+    def ChunkInferenceConfidence(self) -> SpinFloatNode:
         """Returns the chunk data inference confidence percentage.
 
         :Property type: :class:`~rotpy.node.SpinFloatNode`.
@@ -12269,7 +12269,7 @@ cdef class CameraNodes:
         return node
 
     @property
-    def ChunkInferenceBoundingBoxResult(self):
+    def ChunkInferenceBoundingBoxResult(self) -> SpinRegisterNode:
         """Returns the chunk inference bounding box result data.
 
         :Property type: :class:`~rotpy.node.SpinRegisterNode`.
@@ -12320,7 +12320,7 @@ cdef class TLDevNodes:
         pass
 
     @property
-    def DeviceID(self):
+    def DeviceID(self) -> SpinStrNode:
         """Interface-wide unique identifier of this device.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -12336,7 +12336,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def DeviceSerialNumber(self):
+    def DeviceSerialNumber(self) -> SpinStrNode:
         """Serial number of the remote device.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -12352,7 +12352,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def DeviceVendorName(self):
+    def DeviceVendorName(self) -> SpinStrNode:
         """Name of the remote device vendor.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -12368,7 +12368,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def DeviceModelName(self):
+    def DeviceModelName(self) -> SpinStrNode:
         """Name of the remote device model.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -12384,7 +12384,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def DeviceType(self):
+    def DeviceType(self) -> SpinEnumDefNode:
         """Transport layer type of the device.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -12403,7 +12403,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def DeviceDisplayName(self):
+    def DeviceDisplayName(self) -> SpinStrNode:
         """User readable name of the device. If this is not defined in the
         device this should be "VENDOR MODEL (ID)".
 
@@ -12420,7 +12420,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def DeviceAccessStatus(self):
+    def DeviceAccessStatus(self) -> SpinEnumDefNode:
         """Gets the access status the transport layer Producer has on the
         device.
 
@@ -12440,7 +12440,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def DeviceVersion(self):
+    def DeviceVersion(self) -> SpinStrNode:
         """Version of the device.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -12456,7 +12456,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def DeviceUserID(self):
+    def DeviceUserID(self) -> SpinStrNode:
         """User Defined Name.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -12472,7 +12472,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def DeviceDriverVersion(self):
+    def DeviceDriverVersion(self) -> SpinStrNode:
         """Version of the device driver.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -12488,7 +12488,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def DeviceIsUpdater(self):
+    def DeviceIsUpdater(self) -> SpinBoolNode:
         """Indicates whether the device is in updater mode.
 
         :Property type: :class:`~rotpy.node.SpinBoolNode`.
@@ -12504,7 +12504,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def GevCCP(self):
+    def GevCCP(self) -> SpinEnumDefNode:
         """Controls the device access privilege of an application.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -12523,7 +12523,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def GUIXMLLocation(self):
+    def GUIXMLLocation(self) -> SpinEnumDefNode:
         """Sets the location to load GUI XML.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -12542,7 +12542,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def GUIXMLPath(self):
+    def GUIXMLPath(self) -> SpinStrNode:
         """GUI XML Path.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -12558,7 +12558,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def GenICamXMLLocation(self):
+    def GenICamXMLLocation(self) -> SpinEnumDefNode:
         """Sets the location to load GenICam XML.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -12577,7 +12577,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def GenICamXMLPath(self):
+    def GenICamXMLPath(self) -> SpinStrNode:
         """GenICam XML Path.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -12593,7 +12593,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def GevDeviceIPAddress(self):
+    def GevDeviceIPAddress(self) -> SpinIntNode:
         """Current IP address of the GVCP interface of the selected remote
         device.
 
@@ -12610,7 +12610,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def GevDeviceSubnetMask(self):
+    def GevDeviceSubnetMask(self) -> SpinIntNode:
         """Current subnet mask of the GVCP interface of the selected remote
         device.
 
@@ -12627,7 +12627,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def GevDeviceMACAddress(self):
+    def GevDeviceMACAddress(self) -> SpinIntNode:
         """48-bit MAC address of the GVCP interface of the selected remote
         device.
 
@@ -12644,7 +12644,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def GevDeviceGateway(self):
+    def GevDeviceGateway(self) -> SpinIntNode:
         """Current gateway IP address of the GVCP interface of the remote
         device.
 
@@ -12661,7 +12661,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def DeviceLinkSpeed(self):
+    def DeviceLinkSpeed(self) -> SpinIntNode:
         """Indicates the speed of transmission negotiated by the given network
         interface in Mbps.
 
@@ -12678,7 +12678,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def GevVersionMajor(self):
+    def GevVersionMajor(self) -> SpinIntNode:
         """Major version of the specification.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -12694,7 +12694,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def GevVersionMinor(self):
+    def GevVersionMinor(self) -> SpinIntNode:
         """Minor version of the specification.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -12710,7 +12710,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def GevDeviceModeIsBigEndian(self):
+    def GevDeviceModeIsBigEndian(self) -> SpinBoolNode:
         """This represents the endianness of all device's registers (bootstrap
         registers and manufacturer-specific registers).
 
@@ -12727,7 +12727,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def GevDeviceReadAndWriteTimeout(self):
+    def GevDeviceReadAndWriteTimeout(self) -> SpinIntNode:
         """The timeout in us for read/write operations to the camera.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -12743,7 +12743,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def GevDeviceMaximumRetryCount(self):
+    def GevDeviceMaximumRetryCount(self) -> SpinIntNode:
         """Maximum number of times to retry a read/write operation.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -12759,7 +12759,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def GevDevicePort(self):
+    def GevDevicePort(self) -> SpinIntNode:
         """Current IP port of the GVCP interface of the selected remote device.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -12775,7 +12775,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def GevDeviceDiscoverMaximumPacketSize(self):
+    def GevDeviceDiscoverMaximumPacketSize(self) -> SpinCommandNode:
         """Discovers and updates the maximum packet size that can be safely
         used by the device on the current interface.
 
@@ -12792,7 +12792,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def GevDeviceMaximumPacketSize(self):
+    def GevDeviceMaximumPacketSize(self) -> SpinIntNode:
         """The maximum packet size that can be safely used by the device on the
         current interface.
 
@@ -12809,7 +12809,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def GevDeviceIsWrongSubnet(self):
+    def GevDeviceIsWrongSubnet(self) -> SpinBoolNode:
         """Indicates whether the device is on the wrong subnet.
 
         :Property type: :class:`~rotpy.node.SpinBoolNode`.
@@ -12825,7 +12825,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def GevDeviceAutoForceIP(self):
+    def GevDeviceAutoForceIP(self) -> SpinCommandNode:
         """Forces the camera to be on the same subnet as its corresponding
         interface.
 
@@ -12842,7 +12842,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def GevDeviceForceIP(self):
+    def GevDeviceForceIP(self) -> SpinCommandNode:
         """Apply the force IP settings (GevDeviceForceIPAddress,
         GevDeviceForceSubnetMask and GevDeviceForceGateway) in the Device
         using ForceIP command.
@@ -12860,7 +12860,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def GevDeviceForceIPAddress(self):
+    def GevDeviceForceIPAddress(self) -> SpinIntNode:
         """Static IP address to set for the GVCP interface of the remote
         device.
 
@@ -12877,7 +12877,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def GevDeviceForceSubnetMask(self):
+    def GevDeviceForceSubnetMask(self) -> SpinIntNode:
         """Static subnet mask to set for GVCP interface of the remote device.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -12893,7 +12893,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def GevDeviceForceGateway(self):
+    def GevDeviceForceGateway(self) -> SpinIntNode:
         """Static gateway IP address to set for the GVCP interface of the
         remote device.
 
@@ -12910,7 +12910,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def DeviceMulticastMonitorMode(self):
+    def DeviceMulticastMonitorMode(self) -> SpinBoolNode:
         """Controls and indicates if the device is operating in as a Multicast
         Monitor.
 
@@ -12927,7 +12927,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def DeviceEndianessMechanism(self):
+    def DeviceEndianessMechanism(self) -> SpinEnumDefNode:
         """Identifies the endianness handling mode.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -12946,7 +12946,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def DeviceInstanceId(self):
+    def DeviceInstanceId(self) -> SpinStrNode:
         """
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -12962,7 +12962,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def DeviceLocation(self):
+    def DeviceLocation(self) -> SpinStrNode:
         """Device Location.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -12978,7 +12978,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def DeviceCurrentSpeed(self):
+    def DeviceCurrentSpeed(self) -> SpinEnumDefNode:
         """The USB Speed that the device is currently operating at.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -12997,7 +12997,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def DeviceU3VProtocol(self):
+    def DeviceU3VProtocol(self) -> SpinBoolNode:
         """Indicates whether the device is communicating in U3V Protocol.
 
         :Property type: :class:`~rotpy.node.SpinBoolNode`.
@@ -13013,7 +13013,7 @@ cdef class TLDevNodes:
         return node
 
     @property
-    def DevicePortId(self):
+    def DevicePortId(self) -> SpinStrNode:
         """Device Port ID.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -13071,7 +13071,7 @@ cdef class TLStreamNodes:
         pass
 
     @property
-    def StreamID(self):
+    def StreamID(self) -> SpinStrNode:
         """Device unique ID for the data stream, e.g. a GUID.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -13087,7 +13087,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamType(self):
+    def StreamType(self) -> SpinEnumDefNode:
         """Stream type of the device.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -13106,7 +13106,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamMode(self):
+    def StreamMode(self) -> SpinEnumDefNode:
         """Stream mode of the device.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -13125,7 +13125,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamBufferCountManual(self):
+    def StreamBufferCountManual(self) -> SpinIntNode:
         """Controls the number of buffers to be used on this stream upon
         acquisition start when in manual mode.
 
@@ -13142,7 +13142,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamBufferCountResult(self):
+    def StreamBufferCountResult(self) -> SpinIntNode:
         """Displays the number of buffers to be used on this stream upon
         acquisition start. Recalculated on acquisition start if in auto
         mode.
@@ -13160,7 +13160,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamBufferCountMax(self):
+    def StreamBufferCountMax(self) -> SpinIntNode:
         """Controls the maximum number of buffers that should be used on this
         stream. This value is calculated based on the available system
         memory.
@@ -13178,7 +13178,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamBufferCountMode(self):
+    def StreamBufferCountMode(self) -> SpinEnumDefNode:
         """Controls access to setting the number of buffers used for the
         stream.
 
@@ -13198,7 +13198,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamBufferHandlingMode(self):
+    def StreamBufferHandlingMode(self) -> SpinEnumDefNode:
         """Available buffer handling modes of this data stream:
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -13217,7 +13217,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamAnnounceBufferMinimum(self):
+    def StreamAnnounceBufferMinimum(self) -> SpinIntNode:
         """Minimal number of buffers to announce to enable selected buffer
         handling mode.
 
@@ -13234,7 +13234,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamAnnouncedBufferCount(self):
+    def StreamAnnouncedBufferCount(self) -> SpinIntNode:
         """Number of announced (known) buffers on this stream. This value is
         volatile. It may change if additional buffers are announced and/or
         buffers are revoked by the GenTL Consumer.
@@ -13252,7 +13252,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamStartedFrameCount(self):
+    def StreamStartedFrameCount(self) -> SpinIntNode:
         """Number of frames started in the acquisition engine. This number is
         incremented every time in case of a new buffer is started and then
         to be filled (data written to) regardless even if the buffer is
@@ -13273,7 +13273,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamDeliveredFrameCount(self):
+    def StreamDeliveredFrameCount(self) -> SpinIntNode:
         """Number of delivered frames since last acquisition start. It is not
         reset until the stream is closed.
 
@@ -13290,7 +13290,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamReceivedFrameCount(self):
+    def StreamReceivedFrameCount(self) -> SpinIntNode:
         """Number of successful GVSP data blocks received. Only valid while
         stream is active.
 
@@ -13307,7 +13307,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamIncompleteFrameCount(self):
+    def StreamIncompleteFrameCount(self) -> SpinIntNode:
         """Displays number of images with missing packet.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -13323,7 +13323,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamLostFrameCount(self):
+    def StreamLostFrameCount(self) -> SpinIntNode:
         """Number of lost frames due to queue underrun. This number is
         initialized with zero at the time the stream is opened and
         incremented every time the data could not be acquired because there
@@ -13343,7 +13343,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamDroppedFrameCount(self):
+    def StreamDroppedFrameCount(self) -> SpinIntNode:
         """Number of dropped frames due to queue overrun. This number is
         initialized with zero at the time the stream is opened and
         incremented every time old data is dropped from the output list for
@@ -13362,7 +13362,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamInputBufferCount(self):
+    def StreamInputBufferCount(self) -> SpinIntNode:
         """Number of buffers in the input buffer pool plus the buffers(s)
         currently being filled.
 
@@ -13379,7 +13379,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamOutputBufferCount(self):
+    def StreamOutputBufferCount(self) -> SpinIntNode:
         """Number of buffers in the output buffer queue.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -13395,7 +13395,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamIsGrabbing(self):
+    def StreamIsGrabbing(self) -> SpinBoolNode:
         """Flag indicating whether the acquisition engine is started or not.
 
         :Property type: :class:`~rotpy.node.SpinBoolNode`.
@@ -13411,7 +13411,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamChunkCountMaximum(self):
+    def StreamChunkCountMaximum(self) -> SpinIntNode:
         """Maximum number of chunks to be expected in a buffer.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -13427,7 +13427,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamBufferAlignment(self):
+    def StreamBufferAlignment(self) -> SpinIntNode:
         """Alignment size in bytes of the buffer passed to DSAnnounceBuffer.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -13443,7 +13443,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamCRCCheckEnable(self):
+    def StreamCRCCheckEnable(self) -> SpinBoolNode:
         """Enables or disables CRC checks on received images.
 
         :Property type: :class:`~rotpy.node.SpinBoolNode`.
@@ -13459,7 +13459,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamReceivedPacketCount(self):
+    def StreamReceivedPacketCount(self) -> SpinIntNode:
         """Displays number of packets received on this stream.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -13475,7 +13475,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamMissedPacketCount(self):
+    def StreamMissedPacketCount(self) -> SpinIntNode:
         """Displays number of packets missed by this stream. Successful resent
         packets are not counted as a missed packet.
 
@@ -13492,7 +13492,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamPacketResendEnable(self):
+    def StreamPacketResendEnable(self) -> SpinBoolNode:
         """Enables or disables the packet resend mechanism.
 
         :Property type: :class:`~rotpy.node.SpinBoolNode`.
@@ -13508,7 +13508,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamPacketResendTimeout(self):
+    def StreamPacketResendTimeout(self) -> SpinIntNode:
         """Time in milliseconds to wait after the image trailer is received and
         before the image is completed by the driver.
 
@@ -13525,7 +13525,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamPacketResendMaxRequests(self):
+    def StreamPacketResendMaxRequests(self) -> SpinIntNode:
         """Maximum number of resend requests per image. Each resend request
         consists of a span of consecutive packet IDs.
 
@@ -13542,7 +13542,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamPacketResendRequestCount(self):
+    def StreamPacketResendRequestCount(self) -> SpinIntNode:
         """Displays number of packet resend requests transmitted to the camera.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -13558,7 +13558,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamPacketResendRequestSuccessCount(self):
+    def StreamPacketResendRequestSuccessCount(self) -> SpinIntNode:
         """Displays number of packet resend requests successfully transmitted
         to the camera.
 
@@ -13575,7 +13575,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamPacketResendRequestedPacketCount(self):
+    def StreamPacketResendRequestedPacketCount(self) -> SpinIntNode:
         """Displays number of packets requested to be retransmitted on this
         stream.
 
@@ -13592,7 +13592,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamPacketResendReceivedPacketCount(self):
+    def StreamPacketResendReceivedPacketCount(self) -> SpinIntNode:
         """Displays number of retransmitted packets received on this stream.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -13608,7 +13608,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def GevPacketResendMode(self):
+    def GevPacketResendMode(self) -> SpinBoolNode:
         """DEPRECATED; Replaced by StreamPacketResendEnable. Enables or
         disables the packet resend mechanism.
 
@@ -13625,7 +13625,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def GevMaximumNumberResendRequests(self):
+    def GevMaximumNumberResendRequests(self) -> SpinIntNode:
         """DEPRECATED; Replaced by StreamPacketResendMaxRequests. Maximum
         number of resend requests per image. Each resend request consists of
         a span of consecutive packet IDs.
@@ -13643,7 +13643,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def GevPacketResendTimeout(self):
+    def GevPacketResendTimeout(self) -> SpinIntNode:
         """DEPRECATED; Replaced by StreamPacketResendTimeout. Time in
         milliseconds to wait after the image trailer is received and before
         the image is completed by the driver.
@@ -13661,7 +13661,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def GevTotalPacketCount(self):
+    def GevTotalPacketCount(self) -> SpinIntNode:
         """DEPRECATED; Replaced by StreamReceivedPacketCount. Displays number
         of packets received on this stream.
 
@@ -13678,7 +13678,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def GevFailedPacketCount(self):
+    def GevFailedPacketCount(self) -> SpinIntNode:
         """DEPRECATED; Replaced by StreamMissedPacketCount. Displays number of
         packets missed by this stream. Successful resent packets are not
         counted as a missed packet.
@@ -13696,7 +13696,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def GevResendPacketCount(self):
+    def GevResendPacketCount(self) -> SpinIntNode:
         """DEPRECATED; Replaced by StreamPacketResendReceivedPacketCount.
         Displays number of packets received after retransmit request on this
         stream.
@@ -13714,7 +13714,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamFailedBufferCount(self):
+    def StreamFailedBufferCount(self) -> SpinIntNode:
         """DEPRECATED; Replaced by StreamIncompleteFrameCount. Displays number
         of images with missing packet.
 
@@ -13731,7 +13731,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def GevResendRequestCount(self):
+    def GevResendRequestCount(self) -> SpinIntNode:
         """DEPRECATED; Replaced by StreamPacketResendRequestedPacketCount.
         Displays number of packets requested to be retransmitted on this
         stream.
@@ -13749,7 +13749,7 @@ cdef class TLStreamNodes:
         return node
 
     @property
-    def StreamBlockTransferSize(self):
+    def StreamBlockTransferSize(self) -> SpinIntNode:
         """Controls the image breakup size that should be used on this stream.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.

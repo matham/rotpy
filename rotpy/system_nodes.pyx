@@ -43,7 +43,7 @@ cdef class SystemNodes:
         pass
 
     @property
-    def TLID(self):
+    def TLID(self) -> SpinStrNode:
         """Unique identifier of the GenTL Producer like a GUID.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -59,7 +59,7 @@ cdef class SystemNodes:
         return node
 
     @property
-    def TLVendorName(self):
+    def TLVendorName(self) -> SpinStrNode:
         """Name of the GenTL Producer vendor.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -75,7 +75,7 @@ cdef class SystemNodes:
         return node
 
     @property
-    def TLModelName(self):
+    def TLModelName(self) -> SpinStrNode:
         """Name of the GenTL Producer to distinguish different kinds of GenTL
         Producer implementations from one vendor.
 
@@ -92,7 +92,7 @@ cdef class SystemNodes:
         return node
 
     @property
-    def TLVersion(self):
+    def TLVersion(self) -> SpinStrNode:
         """Vendor specific version string.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -108,7 +108,7 @@ cdef class SystemNodes:
         return node
 
     @property
-    def TLFileName(self):
+    def TLFileName(self) -> SpinStrNode:
         """Filename including extension of the GenTL Producer.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -124,7 +124,7 @@ cdef class SystemNodes:
         return node
 
     @property
-    def TLDisplayName(self):
+    def TLDisplayName(self) -> SpinStrNode:
         """User readable name of the GenTL Producer.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -140,7 +140,7 @@ cdef class SystemNodes:
         return node
 
     @property
-    def TLPath(self):
+    def TLPath(self) -> SpinStrNode:
         """Full path to the GenTL Producer including filename and extension.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -156,7 +156,7 @@ cdef class SystemNodes:
         return node
 
     @property
-    def TLType(self):
+    def TLType(self) -> SpinEnumDefNode:
         """Transport layer type of the GenTL Producer implementation.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -175,7 +175,7 @@ cdef class SystemNodes:
         return node
 
     @property
-    def GenTLVersionMajor(self):
+    def GenTLVersionMajor(self) -> SpinIntNode:
         """Major version number of the GenTL specification the GenTL Producer
         implementation complies with.
 
@@ -192,7 +192,7 @@ cdef class SystemNodes:
         return node
 
     @property
-    def GenTLVersionMinor(self):
+    def GenTLVersionMinor(self) -> SpinIntNode:
         """Minor version number of the GenTL specification the GenTL Producer
         implementation complies with.
 
@@ -209,7 +209,7 @@ cdef class SystemNodes:
         return node
 
     @property
-    def GenTLSFNCVersionMajor(self):
+    def GenTLSFNCVersionMajor(self) -> SpinIntNode:
         """Major version number of the GenTL Standard Features Naming
         Convention that was used to create the GenTL Producer`s XML.
 
@@ -226,7 +226,7 @@ cdef class SystemNodes:
         return node
 
     @property
-    def GenTLSFNCVersionMinor(self):
+    def GenTLSFNCVersionMinor(self) -> SpinIntNode:
         """Minor version number of the GenTL Standard Features Naming
         Convention that was used to create the GenTL Producer`s XML.
 
@@ -243,7 +243,7 @@ cdef class SystemNodes:
         return node
 
     @property
-    def GenTLSFNCVersionSubMinor(self):
+    def GenTLSFNCVersionSubMinor(self) -> SpinIntNode:
         """Sub minor version number of the GenTL Standard Features Naming
         Convention that was used to create the GenTL Producer`s XML.
 
@@ -260,7 +260,7 @@ cdef class SystemNodes:
         return node
 
     @property
-    def GevVersionMajor(self):
+    def GevVersionMajor(self) -> SpinIntNode:
         """Major version number of the GigE Vision specification the GenTL
         Producer implementation complies to.
 
@@ -277,7 +277,7 @@ cdef class SystemNodes:
         return node
 
     @property
-    def GevVersionMinor(self):
+    def GevVersionMinor(self) -> SpinIntNode:
         """Minor version number of the GigE Vision specification the GenTL
         Producer implementation complies to.
 
@@ -294,7 +294,7 @@ cdef class SystemNodes:
         return node
 
     @property
-    def InterfaceUpdateList(self):
+    def InterfaceUpdateList(self) -> SpinCommandNode:
         """Updates the internal list of the interfaces. This feature is
         readable even if the execution cannot be performed immediately. The
         command then returns and the status can be polled. This function
@@ -315,7 +315,7 @@ cdef class SystemNodes:
         return node
 
     @property
-    def InterfaceSelector(self):
+    def InterfaceSelector(self) -> SpinIntNode:
         """Selector for the different GenTL Producer interfaces. This interface
         list only changes on execution of "InterfaceUpdateList". The
         selector is 0-based in order to match the index of the C interface.
@@ -333,7 +333,7 @@ cdef class SystemNodes:
         return node
 
     @property
-    def InterfaceID(self):
+    def InterfaceID(self) -> SpinStrNode:
         """GenTL Producer wide unique identifier of the selected interface.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -349,7 +349,7 @@ cdef class SystemNodes:
         return node
 
     @property
-    def InterfaceDisplayName(self):
+    def InterfaceDisplayName(self) -> SpinStrNode:
         """A user-friendly name of the selected Interface.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -365,7 +365,7 @@ cdef class SystemNodes:
         return node
 
     @property
-    def GevInterfaceMACAddress(self):
+    def GevInterfaceMACAddress(self) -> SpinIntNode:
         """48-bit MAC address of the selected interface. Note that for a GenTL
         Producer implementation supporting GigE Vision this feature is
         mandatory.
@@ -383,7 +383,7 @@ cdef class SystemNodes:
         return node
 
     @property
-    def GevInterfaceDefaultIPAddress(self):
+    def GevInterfaceDefaultIPAddress(self) -> SpinIntNode:
         """IP address of the first subnet of the selected interface. Note that
         for a GenTL Producer implementation supporting GigE Vision this
         feature is mandatory.
@@ -401,7 +401,7 @@ cdef class SystemNodes:
         return node
 
     @property
-    def GevInterfaceDefaultSubnetMask(self):
+    def GevInterfaceDefaultSubnetMask(self) -> SpinIntNode:
         """Subnet mask of the first subnet of the selected interface. Note that
         for a GenTL Producer implementation supporting GigE Vision this
         feature is mandatory.
@@ -419,7 +419,7 @@ cdef class SystemNodes:
         return node
 
     @property
-    def GevInterfaceDefaultGateway(self):
+    def GevInterfaceDefaultGateway(self) -> SpinIntNode:
         """Gateway of the selected interface.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -435,7 +435,7 @@ cdef class SystemNodes:
         return node
 
     @property
-    def EnumerateGEVInterfaces(self):
+    def EnumerateGEVInterfaces(self) -> SpinBoolNode:
         """Enables or disables enumeration of GEV Interfaces.
 
         :Property type: :class:`~rotpy.node.SpinBoolNode`.
@@ -451,7 +451,7 @@ cdef class SystemNodes:
         return node
 
     @property
-    def EnumerateUSBInterfaces(self):
+    def EnumerateUSBInterfaces(self) -> SpinBoolNode:
         """Enables or disables enumeration of USB Interfaces.
 
         :Property type: :class:`~rotpy.node.SpinBoolNode`.
@@ -467,7 +467,7 @@ cdef class SystemNodes:
         return node
 
     @property
-    def EnumerateGen2Cameras(self):
+    def EnumerateGen2Cameras(self) -> SpinBoolNode:
         """Enables or disables the enumeration of USB3 and GigE based
         Generation 2 cameras. This includes the CM3, FL3, GS3, and BFLY
         families.
@@ -529,7 +529,7 @@ cdef class InterfaceNodes:
         pass
 
     @property
-    def InterfaceID(self):
+    def InterfaceID(self) -> SpinStrNode:
         """Transport layer Producer wide unique identifier of the selected
         interface.
 
@@ -546,7 +546,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def InterfaceDisplayName(self):
+    def InterfaceDisplayName(self) -> SpinStrNode:
         """User readable name of the selected interface.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -562,7 +562,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def InterfaceType(self):
+    def InterfaceType(self) -> SpinEnumDefNode:
         """Transport layer type of the interface.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -581,7 +581,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def GevInterfaceGatewaySelector(self):
+    def GevInterfaceGatewaySelector(self) -> SpinIntNode:
         """Selector for the different gateway entries for this interface.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -597,7 +597,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def GevInterfaceGateway(self):
+    def GevInterfaceGateway(self) -> SpinIntNode:
         """IP address of the selected gateway entry of this interface.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -613,7 +613,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def GevInterfaceMACAddress(self):
+    def GevInterfaceMACAddress(self) -> SpinIntNode:
         """48-bit MAC address of this interface.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -629,7 +629,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def GevInterfaceSubnetSelector(self):
+    def GevInterfaceSubnetSelector(self) -> SpinIntNode:
         """Selector for the subnet of this interface.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -645,7 +645,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def GevInterfaceSubnetIPAddress(self):
+    def GevInterfaceSubnetIPAddress(self) -> SpinIntNode:
         """IP address of the selected subnet of this interface.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -661,7 +661,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def GevInterfaceSubnetMask(self):
+    def GevInterfaceSubnetMask(self) -> SpinIntNode:
         """Subnet mask of the selected subnet of this interface.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -677,7 +677,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def GevInterfaceTransmitLinkSpeed(self):
+    def GevInterfaceTransmitLinkSpeed(self) -> SpinIntNode:
         """Transmit link speed of this interface in bits per second.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -693,7 +693,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def GevInterfaceReceiveLinkSpeed(self):
+    def GevInterfaceReceiveLinkSpeed(self) -> SpinIntNode:
         """Receive link speed of this interface in bits per second.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -709,7 +709,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def GevInterfaceMTU(self):
+    def GevInterfaceMTU(self) -> SpinIntNode:
         """Maximum transmission unit of this interface.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -725,7 +725,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def POEStatus(self):
+    def POEStatus(self) -> SpinEnumDefNode:
         """Reports and controls the interface's power over Ethernet status.
 
         :Property type: :class:`~rotpy.node.SpinEnumDefNode`.
@@ -744,7 +744,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def FilterDriverStatus(self):
+    def FilterDriverStatus(self) -> SpinEnumDefNode:
         """Reports whether FLIR Light Weight Filter Driver is enabled,
         disabled, or not installed.
 
@@ -764,7 +764,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def GevActionDeviceKey(self):
+    def GevActionDeviceKey(self) -> SpinIntNode:
         """Key to authorize the action for the device.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -780,7 +780,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def GevActionGroupKey(self):
+    def GevActionGroupKey(self) -> SpinIntNode:
         """Provides the key that the device will use to validate the action on
         reception of the action protocol message.
 
@@ -797,7 +797,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def GevActionGroupMask(self):
+    def GevActionGroupMask(self) -> SpinIntNode:
         """Provides the mask that the device will use to validate the action on
         reception of the action protocol message.
 
@@ -814,7 +814,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def GevActionTime(self):
+    def GevActionTime(self) -> SpinIntNode:
         """Provides the time in nanoseconds when the action is to be executed.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -830,7 +830,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def ActionCommand(self):
+    def ActionCommand(self) -> SpinCommandNode:
         """Issues an Action Command to attached GEV devices on interface.
 
         :Property type: :class:`~rotpy.node.SpinCommandNode`.
@@ -846,7 +846,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def DeviceUnlock(self):
+    def DeviceUnlock(self) -> SpinStrNode:
         """Unlocks devices for internal use.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -862,7 +862,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def DeviceUpdateList(self):
+    def DeviceUpdateList(self) -> SpinCommandNode:
         """Updates the internal device list.
 
         :Property type: :class:`~rotpy.node.SpinCommandNode`.
@@ -878,7 +878,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def DeviceCount(self):
+    def DeviceCount(self) -> SpinIntNode:
         """Number of compatible devices detected on current interface.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -894,7 +894,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def DeviceSelector(self):
+    def DeviceSelector(self) -> SpinIntNode:
         """Selector for the different devices on this interface. This value
         only changes on execution of "DeviceUpdateList". The selector is
         0-based in order to match the index of the C interface.
@@ -912,7 +912,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def DeviceID(self):
+    def DeviceID(self) -> SpinStrNode:
         """Interface wide unique identifier of the selected device. This value
         only changes on execution of "DeviceUpdateList".
 
@@ -929,7 +929,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def DeviceVendorName(self):
+    def DeviceVendorName(self) -> SpinStrNode:
         """Name of the device vendor. This value only changes on execution of
         "DeviceUpdateList".
 
@@ -946,7 +946,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def DeviceModelName(self):
+    def DeviceModelName(self) -> SpinStrNode:
         """Name of the device model. This value only changes on execution of
         "DeviceUpdateList".
 
@@ -963,7 +963,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def DeviceSerialNumber(self):
+    def DeviceSerialNumber(self) -> SpinStrNode:
         """Serial number of the selected remote device.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -979,7 +979,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def DeviceAccessStatus(self):
+    def DeviceAccessStatus(self) -> SpinEnumDefNode:
         """Gives the device's access status at the moment of the last execution
         of "DeviceUpdateList". This value only changes on execution of
         "DeviceUpdateList".
@@ -1000,7 +1000,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def GevDeviceIPAddress(self):
+    def GevDeviceIPAddress(self) -> SpinIntNode:
         """Current IP address of the GVCP interface of the selected remote
         device.
 
@@ -1017,7 +1017,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def GevDeviceSubnetMask(self):
+    def GevDeviceSubnetMask(self) -> SpinIntNode:
         """Current subnet mask of the GVCP interface of the selected remote
         device.
 
@@ -1034,7 +1034,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def GevDeviceGateway(self):
+    def GevDeviceGateway(self) -> SpinIntNode:
         """Current gateway IP address of the GVCP interface of the selected
         remote device.
 
@@ -1051,7 +1051,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def GevDeviceMACAddress(self):
+    def GevDeviceMACAddress(self) -> SpinIntNode:
         """48-bit MAC address of the GVCP interface of the selected remote
         device.
 
@@ -1068,7 +1068,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def IncompatibleDeviceCount(self):
+    def IncompatibleDeviceCount(self) -> SpinIntNode:
         """Number of incompatible devices detected on current interface.
 
         :Property type: :class:`~rotpy.node.SpinIntNode`.
@@ -1084,7 +1084,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def IncompatibleDeviceSelector(self):
+    def IncompatibleDeviceSelector(self) -> SpinIntNode:
         """Selector for the devices that are not compatible with Spinnaker on
         this interface. This value only changes on execution of
         "DeviceUpdateList". The selector is 0-based in order to match the
@@ -1103,7 +1103,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def IncompatibleDeviceID(self):
+    def IncompatibleDeviceID(self) -> SpinStrNode:
         """Interface wide unique identifier of the selected incompatible
         device. This value only changes on execution of "DeviceUpdateList".
 
@@ -1120,7 +1120,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def IncompatibleDeviceVendorName(self):
+    def IncompatibleDeviceVendorName(self) -> SpinStrNode:
         """Name of the incompatible device vendor. This value only changes on
         execution of "DeviceUpdateList".
 
@@ -1137,7 +1137,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def IncompatibleDeviceModelName(self):
+    def IncompatibleDeviceModelName(self) -> SpinStrNode:
         """Name of the incompatible device model. This value only changes on
         execution of "DeviceUpdateList".
 
@@ -1154,7 +1154,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def IncompatibleGevDeviceIPAddress(self):
+    def IncompatibleGevDeviceIPAddress(self) -> SpinIntNode:
         """Current IP address of the GVCP interface of the selected remote
         incompatible device.
 
@@ -1171,7 +1171,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def IncompatibleGevDeviceSubnetMask(self):
+    def IncompatibleGevDeviceSubnetMask(self) -> SpinIntNode:
         """Current subnet mask of the GVCP interface of the selected remote
         incompatible device.
 
@@ -1188,7 +1188,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def IncompatibleGevDeviceMACAddress(self):
+    def IncompatibleGevDeviceMACAddress(self) -> SpinIntNode:
         """48-bit MAC address of the GVCP interface of the selected remote
         incompatible device.
 
@@ -1205,7 +1205,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def GevDeviceForceIP(self):
+    def GevDeviceForceIP(self) -> SpinCommandNode:
         """Apply the force IP settings (GevDeviceForceIPAddress,
         GevDeviceForceSubnetMask and GevDeviceForceGateway) in the selected
         remote device using ForceIP command.
@@ -1223,7 +1223,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def GevDeviceForceIPAddress(self):
+    def GevDeviceForceIPAddress(self) -> SpinIntNode:
         """Static IP address to set for the GVCP interface of the selected
         remote device.
 
@@ -1240,7 +1240,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def GevDeviceForceSubnetMask(self):
+    def GevDeviceForceSubnetMask(self) -> SpinIntNode:
         """Static subnet mask to set for GVCP interface of the selected remote
         device.
 
@@ -1257,7 +1257,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def GevDeviceForceGateway(self):
+    def GevDeviceForceGateway(self) -> SpinIntNode:
         """Static gateway IP address to set for the GVCP interface of the
         selected remote device.
 
@@ -1274,7 +1274,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def GevDeviceAutoForceIP(self):
+    def GevDeviceAutoForceIP(self) -> SpinCommandNode:
         """Automatically forces the selected remote device to an IP Address on
         the same subnet as the GVCP interface.
 
@@ -1291,7 +1291,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def HostAdapterName(self):
+    def HostAdapterName(self) -> SpinStrNode:
         """User readable name of the interface's host adapter.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -1307,7 +1307,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def HostAdapterVendor(self):
+    def HostAdapterVendor(self) -> SpinStrNode:
         """User readable name of the host adapter's vendor.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
@@ -1323,7 +1323,7 @@ cdef class InterfaceNodes:
         return node
 
     @property
-    def HostAdapterDriverVersion(self):
+    def HostAdapterDriverVersion(self) -> SpinStrNode:
         """Driver version of the interface's host adapter.
 
         :Property type: :class:`~rotpy.node.SpinStrNode`.
