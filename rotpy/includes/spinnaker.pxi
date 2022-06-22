@@ -10,26 +10,26 @@ cdef extern from "SpinGenApi/GCTypes.h" nogil:
 
 cdef extern from "SpinGenApi/GCString.h" namespace "Spinnaker::GenICam" nogil:
     cdef cppclass gcstring:
-        gcstring() except +
-        const char * c_str() except +
-        gcstring& assign(const char * pc, size_t n) except +
-        cbool operator ==(const char * pc) except +
+        gcstring() except +raise_spin_exc
+        const char * c_str() except +raise_spin_exc
+        gcstring& assign(const char * pc, size_t n) except +raise_spin_exc
+        cbool operator ==(const char * pc) except +raise_spin_exc
 
 
 cdef extern from "SpinGenApi/GCStringVector.h" namespace "Spinnaker::GenICam" nogil:
     cdef cppclass gcstring_vector:
-        gcstring& at(size_t uiIndex) except +
-        size_t size() except +
+        gcstring& at(size_t uiIndex) except +raise_spin_exc
+        size_t size() except +raise_spin_exc
 
 
 cdef extern from "SpinGenApi/Autovector.h" namespace "Spinnaker::GenApi" nogil:
     cdef cppclass int64_autovector_t:
-        int64_t& operator[](size_t uiIndex) except +
-        size_t size() except +
+        int64_t& operator[](size_t uiIndex) except +raise_spin_exc
+        size_t size() except +raise_spin_exc
 
     cdef cppclass double_autovector_t:
-        double& operator[](size_t uiIndex) except +
-        size_t size() except +
+        double& operator[](size_t uiIndex) except +raise_spin_exc
+        size_t size() except +raise_spin_exc
 
 
 cdef extern from "SpinGenApi/INode.h" namespace "Spinnaker::GenApi" nogil:
@@ -42,132 +42,132 @@ cdef extern from "SpinGenApi/Container.h" namespace "Spinnaker::GenApi" nogil:
 
 cdef extern from "SpinGenApi/Reference.h" namespace "Spinnaker::GenApi" nogil:
     cdef cppclass IReference:
-        void SetReference(INode * pBase) except +
+        void SetReference(INode * pBase) except +raise_spin_exc
 
     cdef cppclass IEnumReference:
-        void SetEnumReference(int Index, gcstring Name) except +
-        void SetNumEnums(int NumEnums) except +
+        void SetEnumReference(int Index, gcstring Name) except +raise_spin_exc
+        void SetNumEnums(int NumEnums) except +raise_spin_exc
 
 
 cdef extern from "SpinGenApi/Base.h" namespace "Spinnaker::GenApi" nogil:
     cdef cppclass IBase:
-        EAccessMode GetAccessMode() except +
+        EAccessMode GetAccessMode() except +raise_spin_exc
 
 
 cdef extern from "SpinGenApi/ISelector.h" namespace "Spinnaker::GenApi" nogil:
     cdef cppclass ISelector(IBase):
-        cbool IsSelector() except +
-        void GetSelectedFeatures(FeatureList_t&) except +
-        void GetSelectingFeatures(FeatureList_t&) except +
+        cbool IsSelector() except +raise_spin_exc
+        void GetSelectedFeatures(FeatureList_t&) except +raise_spin_exc
+        void GetSelectingFeatures(FeatureList_t&) except +raise_spin_exc
 
 
 cdef extern from "SpinGenApi/INode.h" namespace "Spinnaker::GenApi" nogil:
     cdef cppclass INode(ISelector, IReference):
-        gcstring GetName(cbool FullQualified) except +
-        EInterfaceType GetPrincipalInterfaceType() except +
-        ENameSpace GetNameSpace() except +
-        EVisibility GetVisibility() except +
-        void InvalidateNode() except +
-        ECachingMode GetCachingMode() except +
-        gcstring GetToolTip() except +
-        gcstring GetDescription() except +
-        gcstring GetDisplayName() except +
-        gcstring GetDeviceName() except +
-        gcstring GetDocuURL() except +
-        cbool IsDeprecated() except +
-        cbool IsFeature() except +
-        INode * GetCastAlias() except +
-        INode * GetAlias() except +
-        void ImposeVisibility(EVisibility ImposedVisibility) except +
-        void ImposeAccessMode(EAccessMode ImposedAccessMode) except +
-        cbool IsStreamable() except +
-        gcstring GetEventID() except +
-        INodeMap * GetNodeMap() except +
-        int64_t GetPollingTime() except +
-        EYesNo IsAccessModeCacheable() except +
-        cbool IsCachable() except +
-        void GetPropertyNames(gcstring_vector& PropertyNames) except +
-        cbool GetProperty(const gcstring& PropertyName, gcstring& ValueStr, gcstring& AttributeStr) except +
+        gcstring GetName(cbool FullQualified) except +raise_spin_exc
+        EInterfaceType GetPrincipalInterfaceType() except +raise_spin_exc
+        ENameSpace GetNameSpace() except +raise_spin_exc
+        EVisibility GetVisibility() except +raise_spin_exc
+        void InvalidateNode() except +raise_spin_exc
+        ECachingMode GetCachingMode() except +raise_spin_exc
+        gcstring GetToolTip() except +raise_spin_exc
+        gcstring GetDescription() except +raise_spin_exc
+        gcstring GetDisplayName() except +raise_spin_exc
+        gcstring GetDeviceName() except +raise_spin_exc
+        gcstring GetDocuURL() except +raise_spin_exc
+        cbool IsDeprecated() except +raise_spin_exc
+        cbool IsFeature() except +raise_spin_exc
+        INode * GetCastAlias() except +raise_spin_exc
+        INode * GetAlias() except +raise_spin_exc
+        void ImposeVisibility(EVisibility ImposedVisibility) except +raise_spin_exc
+        void ImposeAccessMode(EAccessMode ImposedAccessMode) except +raise_spin_exc
+        cbool IsStreamable() except +raise_spin_exc
+        gcstring GetEventID() except +raise_spin_exc
+        INodeMap * GetNodeMap() except +raise_spin_exc
+        int64_t GetPollingTime() except +raise_spin_exc
+        EYesNo IsAccessModeCacheable() except +raise_spin_exc
+        cbool IsCachable() except +raise_spin_exc
+        void GetPropertyNames(gcstring_vector& PropertyNames) except +raise_spin_exc
+        cbool GetProperty(const gcstring& PropertyName, gcstring& ValueStr, gcstring& AttributeStr) except +raise_spin_exc
 
     ctypedef node_vector NodeList_t
 
 
 cdef extern from "SpinGenApi/IValue.h" namespace "Spinnaker::GenApi" nogil:
     cdef cppclass IValue(INode):
-        INode* GetNode() except +
-        gcstring ToString(cbool Verify, cbool IgnoreCache) except +
-        void FromString(const gcstring& ValueStr, cbool Verify) except +
-        cbool IsValueCacheValid() except +
+        INode* GetNode() except +raise_spin_exc
+        gcstring ToString(cbool Verify, cbool IgnoreCache) except +raise_spin_exc
+        void FromString(const gcstring& ValueStr, cbool Verify) except +raise_spin_exc
+        cbool IsValueCacheValid() except +raise_spin_exc
 
 
 cdef extern from "SpinGenApi/IInteger.h" namespace "Spinnaker::GenApi" nogil:
     cdef cppclass IInteger(IValue):
-        void SetValue(int64_t Value, cbool Verify) except +
-        int64_t GetValue(cbool Verify, cbool IgnoreCache) except +
-        int64_t GetMin() except +
-        int64_t GetMax() except +
-        EIncMode GetIncMode() except +
-        int64_t GetInc() except +
-        int64_autovector_t GetListOfValidValues(cbool bounded) except +
-        ERepresentation GetRepresentation() except +
-        gcstring GetUnit() except +
-        void ImposeMin(int64_t Value) except +
-        void ImposeMax(int64_t Value) except +
+        void SetValue(int64_t Value, cbool Verify) except +raise_spin_exc
+        int64_t GetValue(cbool Verify, cbool IgnoreCache) except +raise_spin_exc
+        int64_t GetMin() except +raise_spin_exc
+        int64_t GetMax() except +raise_spin_exc
+        EIncMode GetIncMode() except +raise_spin_exc
+        int64_t GetInc() except +raise_spin_exc
+        int64_autovector_t GetListOfValidValues(cbool bounded) except +raise_spin_exc
+        ERepresentation GetRepresentation() except +raise_spin_exc
+        gcstring GetUnit() except +raise_spin_exc
+        void ImposeMin(int64_t Value) except +raise_spin_exc
+        void ImposeMax(int64_t Value) except +raise_spin_exc
 
 
 cdef extern from "SpinGenApi/IFloat.h" namespace "Spinnaker::GenApi" nogil:
     cdef cppclass IFloat(IValue):
-        void SetValue(double Value, cbool Verify) except +
-        double GetValue(cbool Verify, cbool IgnoreCache) except +
-        double GetMin() except +
-        double GetMax() except +
-        cbool HasInc() except +
-        EIncMode GetIncMode() except +
-        double GetInc() except +
-        double_autovector_t GetListOfValidValues(cbool bounded) except +
-        ERepresentation GetRepresentation() except +
-        gcstring GetUnit() except +
-        void ImposeMin(double Value) except +
-        void ImposeMax(double Value) except +
-        EDisplayNotation GetDisplayNotation() except +
-        int64_t GetDisplayPrecision() except +
+        void SetValue(double Value, cbool Verify) except +raise_spin_exc
+        double GetValue(cbool Verify, cbool IgnoreCache) except +raise_spin_exc
+        double GetMin() except +raise_spin_exc
+        double GetMax() except +raise_spin_exc
+        cbool HasInc() except +raise_spin_exc
+        EIncMode GetIncMode() except +raise_spin_exc
+        double GetInc() except +raise_spin_exc
+        double_autovector_t GetListOfValidValues(cbool bounded) except +raise_spin_exc
+        ERepresentation GetRepresentation() except +raise_spin_exc
+        gcstring GetUnit() except +raise_spin_exc
+        void ImposeMin(double Value) except +raise_spin_exc
+        void ImposeMax(double Value) except +raise_spin_exc
+        EDisplayNotation GetDisplayNotation() except +raise_spin_exc
+        int64_t GetDisplayPrecision() except +raise_spin_exc
 
 
 cdef extern from "SpinGenApi/IBoolean.h" namespace "Spinnaker::GenApi" nogil:
     cdef cppclass IBoolean(IValue):
-        void SetValue(cbool Value, cbool Verify) except +
-        cbool GetValue(cbool Verify, cbool IgnoreCache) except +
+        void SetValue(cbool Value, cbool Verify) except +raise_spin_exc
+        cbool GetValue(cbool Verify, cbool IgnoreCache) except +raise_spin_exc
 
 
 cdef extern from "SpinGenApi/IString.h" namespace "Spinnaker::GenApi" nogil:
     cdef cppclass IString(IValue):
-        void SetValue(const gcstring& Value, cbool Verify) except +
-        gcstring GetValue(cbool Verify, cbool IgnoreCache) except +
-        int64_t GetMaxLength() except +
+        void SetValue(const gcstring& Value, cbool Verify) except +raise_spin_exc
+        gcstring GetValue(cbool Verify, cbool IgnoreCache) except +raise_spin_exc
+        int64_t GetMaxLength() except +raise_spin_exc
 
 
 cdef extern from "SpinGenApi/ICommand.h" namespace "Spinnaker::GenApi" nogil:
     cdef cppclass ICommand(IValue):
-        void Execute(cbool Verify) except +
-        cbool IsDone(cbool Verify) except +
+        void Execute(cbool Verify) except +raise_spin_exc
+        cbool IsDone(cbool Verify) except +raise_spin_exc
 
 
 cdef extern from "SpinGenApi/IRegister.h" namespace "Spinnaker::GenApi" nogil:
     cdef cppclass IRegister(IValue):
-        void Set(const uint8_t* pBuffer, int64_t Length, cbool Verify) except +
-        void Get(uint8_t * pBuffer, int64_t Length, cbool Verify, cbool IgnoreCache) except +
-        int64_t GetLength() except +
-        int64_t GetAddress() except +
+        void Set(const uint8_t* pBuffer, int64_t Length, cbool Verify) except +raise_spin_exc
+        void Get(uint8_t * pBuffer, int64_t Length, cbool Verify, cbool IgnoreCache) except +raise_spin_exc
+        int64_t GetLength() except +raise_spin_exc
+        int64_t GetAddress() except +raise_spin_exc
 
 
 cdef extern from "SpinGenApi/Container.h" namespace "Spinnaker::GenApi" nogil:
     cdef cppclass node_vector:
-        INode*& at(size_t uiIndex) except +
-        size_t size() except +
+        INode*& at(size_t uiIndex) except +raise_spin_exc
+        size_t size() except +raise_spin_exc
 
     cdef cppclass value_vector:
-        IValue*& at(size_t uiIndex) except +
-        size_t size() except +
+        IValue*& at(size_t uiIndex) except +raise_spin_exc
+        size_t size() except +raise_spin_exc
 
 
 cdef extern from "SpinGenApi/Types.h" namespace "Spinnaker::GenApi" nogil:
@@ -176,67 +176,67 @@ cdef extern from "SpinGenApi/Types.h" namespace "Spinnaker::GenApi" nogil:
 
 cdef extern from "SpinGenApi/IEnumeration.h" namespace "Spinnaker::GenApi" nogil:
     cdef cppclass IEnumeration(IValue):
-        void GetSymbolics(StringList_t& Symbolics) except +
-        void GetEntries(NodeList_t& Entries) except +
-        void SetIntValue(int64_t Value, cbool Verify) except +
-        int64_t GetIntValue(cbool Verify, cbool IgnoreCache) except +
-        IEnumEntry* GetEntryByName(const gcstring& Symbolic) except +
-        IEnumEntry* GetEntry(const int64_t IntValue) except +
-        IEnumEntry* GetCurrentEntry(cbool Verify, cbool IgnoreCache) except +
+        void GetSymbolics(StringList_t& Symbolics) except +raise_spin_exc
+        void GetEntries(NodeList_t& Entries) except +raise_spin_exc
+        void SetIntValue(int64_t Value, cbool Verify) except +raise_spin_exc
+        int64_t GetIntValue(cbool Verify, cbool IgnoreCache) except +raise_spin_exc
+        IEnumEntry* GetEntryByName(const gcstring& Symbolic) except +raise_spin_exc
+        IEnumEntry* GetEntry(const int64_t IntValue) except +raise_spin_exc
+        IEnumEntry* GetCurrentEntry(cbool Verify, cbool IgnoreCache) except +raise_spin_exc
 
 
 cdef extern from "SpinGenApi/IEnumerationT.h" namespace "Spinnaker::GenApi" nogil:
     cdef cppclass IEnumerationT[EnumT](IEnumeration, IEnumReference):
-        void SetValue(EnumT Value, cbool Verify) except +
-        EnumT GetValue(cbool Verify, cbool IgnoreCache) except +
-        IEnumeration* operator=(const gcstring& ValueStr) except +
-        IEnumEntry* GetEntry(const int64_t IntValue) except +
-        IEnumEntry* GetEntry(const EnumT Value) except +
-        IEnumEntry* GetCurrentEntry(cbool Verify, cbool IgnoreCache) except +
+        void SetValue(EnumT Value, cbool Verify) except +raise_spin_exc
+        EnumT GetValue(cbool Verify, cbool IgnoreCache) except +raise_spin_exc
+        IEnumeration* operator=(const gcstring& ValueStr) except +raise_spin_exc
+        IEnumEntry* GetEntry(const int64_t IntValue) except +raise_spin_exc
+        IEnumEntry* GetEntry(const EnumT Value) except +raise_spin_exc
+        IEnumEntry* GetCurrentEntry(cbool Verify, cbool IgnoreCache) except +raise_spin_exc
 
 
 cdef extern from "SpinGenApi/IEnumEntry.h" namespace "Spinnaker::GenApi" nogil:
     cdef cppclass IEnumEntry(IValue):
-        int64_t GetValue() except +
-        gcstring GetSymbolic() except +
-        double GetNumericValue() except +
-        cbool IsSelfClearing() except +
+        int64_t GetValue() except +raise_spin_exc
+        gcstring GetSymbolic() except +raise_spin_exc
+        double GetNumericValue() except +raise_spin_exc
+        cbool IsSelfClearing() except +raise_spin_exc
 
 
 cdef extern from "SpinGenApi/ICategory.h" namespace "Spinnaker::GenApi" nogil:
     cdef cppclass ICategory(IValue):
-        void GetFeatures(FeatureList_t& Features) except +
+        void GetFeatures(FeatureList_t& Features) except +raise_spin_exc
 
 
 cdef extern from "SpinGenApi/IPort.h" namespace "Spinnaker::GenApi" nogil:
     cdef cppclass IPort(IBase):
-        void Read(void * pBuffer, int64_t Address, int64_t Length) except +
-        void Write(const void * pBuffer, int64_t Address, int64_t Length) except +
+        void Read(void * pBuffer, int64_t Address, int64_t Length) except +raise_spin_exc
+        void Write(const void * pBuffer, int64_t Address, int64_t Length) except +raise_spin_exc
 
 
 cdef extern from "SpinGenApi/INodeMap.h" namespace "Spinnaker::GenApi" nogil:
     cdef cppclass INodeMap:
-        void GetNodes(NodeList_t& Nodes) except +
-        INode * GetNode(const gcstring& Name) except +
-        void InvalidateNodes() except +
-        cbool Connect(IPort * pPort, const gcstring& PortName) except +
-        cbool Connect(IPort * pPort) except +
-        gcstring GetDeviceName() except +
-        void Poll(int64_t ElapsedTime) except +
-        uint64_t GetNumNodes() except +
+        void GetNodes(NodeList_t& Nodes) except +raise_spin_exc
+        INode * GetNode(const gcstring& Name) except +raise_spin_exc
+        void InvalidateNodes() except +raise_spin_exc
+        cbool Connect(IPort * pPort, const gcstring& PortName) except +raise_spin_exc
+        cbool Connect(IPort * pPort) except +raise_spin_exc
+        gcstring GetDeviceName() except +raise_spin_exc
+        void Poll(int64_t ElapsedTime) except +raise_spin_exc
+        uint64_t GetNumNodes() except +raise_spin_exc
 
 
 cdef extern from "Exception.h" namespace "Spinnaker" nogil:
     cdef cppclass CException "Spinnaker::Exception":
-        Exception() except +
-        const char * GetFullErrorMessage() except +
-        const char * GetErrorMessage() except +
-        const char * GetFileName() except +
-        const char * GetFunctionName() except +
-        const char * GetBuildDate() except +
-        const char * GetBuildTime() except +
-        int GetLineNumber() except +
-        Error GetError() except +
+        Exception() except +raise_spin_exc
+        const char * GetFullErrorMessage() except +raise_spin_exc
+        const char * GetErrorMessage() except +raise_spin_exc
+        const char * GetFileName() except +raise_spin_exc
+        const char * GetFunctionName() except +raise_spin_exc
+        const char * GetBuildDate() except +raise_spin_exc
+        const char * GetBuildTime() except +raise_spin_exc
+        int GetLineNumber() except +raise_spin_exc
+        Error GetError() except +raise_spin_exc
 
 
 cdef extern from "ChunkDataInference.h" namespace "Spinnaker" nogil:
@@ -273,67 +273,67 @@ cdef extern from "ChunkDataInference.h" namespace "Spinnaker" nogil:
         InferenceBoxRotatedRect rotatedRect
 
     cdef cppclass InferenceBoundingBoxResult:
-        int8_t GetVersion() except +
-        int16_t GetBoxCount() except +
-        int8_t GetBoxSize() except +
-        InferenceBoundingBox GetBoxAt(const uint16_t index) except +
+        int8_t GetVersion() except +raise_spin_exc
+        int16_t GetBoxCount() except +raise_spin_exc
+        int8_t GetBoxSize() except +raise_spin_exc
+        InferenceBoundingBox GetBoxAt(const uint16_t index) except +raise_spin_exc
 
 
 cdef extern from "ChunkData.h" namespace "Spinnaker" nogil:
     cdef cppclass ChunkData:
-        float64_t GetBlackLevel() except +
-        int64_t GetFrameID() except +
-        float64_t GetExposureTime() except +
-        int64_t GetCompressionMode() except +
-        float64_t GetCompressionRatio() except +
-        int64_t GetTimestamp() except +
-        int64_t GetExposureEndLineStatusAll() except +
-        int64_t GetWidth() except +
-        int64_t GetImage() except +
-        int64_t GetHeight() except +
-        float64_t GetGain() except +
-        int64_t GetSequencerSetActive() except +
-        int64_t GetCRC() except +
-        int64_t GetOffsetX() except +
-        int64_t GetOffsetY() except +
-        int64_t GetSerialDataLength() except +
-        int64_t GetPartSelector() except +
-        int64_t GetPixelDynamicRangeMin() except +
-        int64_t GetPixelDynamicRangeMax() except +
-        int64_t GetTimestampLatchValue() except +
-        int64_t GetLineStatusAll() except +
-        int64_t GetCounterValue() except +
-        float64_t GetTimerValue() except +
-        int64_t GetScanLineSelector() except +
-        int64_t GetEncoderValue() except +
-        int64_t GetLinePitch() except +
-        int64_t GetTransferBlockID() except +
-        int64_t GetTransferQueueCurrentBlockCount() except +
-        int64_t GetStreamChannelID() except +
-        float64_t GetScan3dCoordinateScale() except +
-        float64_t GetScan3dCoordinateOffset() except +
-        float64_t GetScan3dInvalidDataValue() except +
-        float64_t GetScan3dAxisMin() except +
-        float64_t GetScan3dAxisMax() except +
-        float64_t GetScan3dTransformValue() except +
-        float64_t GetScan3dCoordinateReferenceValue() except +
-        int64_t GetInferenceFrameId() except +
-        int64_t GetInferenceResult() except +
-        float64_t GetInferenceConfidence() except +
-        InferenceBoundingBoxResult GetInferenceBoundingBoxResult() except +
+        float64_t GetBlackLevel() except +raise_spin_exc
+        int64_t GetFrameID() except +raise_spin_exc
+        float64_t GetExposureTime() except +raise_spin_exc
+        int64_t GetCompressionMode() except +raise_spin_exc
+        float64_t GetCompressionRatio() except +raise_spin_exc
+        int64_t GetTimestamp() except +raise_spin_exc
+        int64_t GetExposureEndLineStatusAll() except +raise_spin_exc
+        int64_t GetWidth() except +raise_spin_exc
+        int64_t GetImage() except +raise_spin_exc
+        int64_t GetHeight() except +raise_spin_exc
+        float64_t GetGain() except +raise_spin_exc
+        int64_t GetSequencerSetActive() except +raise_spin_exc
+        int64_t GetCRC() except +raise_spin_exc
+        int64_t GetOffsetX() except +raise_spin_exc
+        int64_t GetOffsetY() except +raise_spin_exc
+        int64_t GetSerialDataLength() except +raise_spin_exc
+        int64_t GetPartSelector() except +raise_spin_exc
+        int64_t GetPixelDynamicRangeMin() except +raise_spin_exc
+        int64_t GetPixelDynamicRangeMax() except +raise_spin_exc
+        int64_t GetTimestampLatchValue() except +raise_spin_exc
+        int64_t GetLineStatusAll() except +raise_spin_exc
+        int64_t GetCounterValue() except +raise_spin_exc
+        float64_t GetTimerValue() except +raise_spin_exc
+        int64_t GetScanLineSelector() except +raise_spin_exc
+        int64_t GetEncoderValue() except +raise_spin_exc
+        int64_t GetLinePitch() except +raise_spin_exc
+        int64_t GetTransferBlockID() except +raise_spin_exc
+        int64_t GetTransferQueueCurrentBlockCount() except +raise_spin_exc
+        int64_t GetStreamChannelID() except +raise_spin_exc
+        float64_t GetScan3dCoordinateScale() except +raise_spin_exc
+        float64_t GetScan3dCoordinateOffset() except +raise_spin_exc
+        float64_t GetScan3dInvalidDataValue() except +raise_spin_exc
+        float64_t GetScan3dAxisMin() except +raise_spin_exc
+        float64_t GetScan3dAxisMax() except +raise_spin_exc
+        float64_t GetScan3dTransformValue() except +raise_spin_exc
+        float64_t GetScan3dCoordinateReferenceValue() except +raise_spin_exc
+        int64_t GetInferenceFrameId() except +raise_spin_exc
+        int64_t GetInferenceResult() except +raise_spin_exc
+        float64_t GetInferenceConfidence() except +raise_spin_exc
+        InferenceBoundingBoxResult GetInferenceBoundingBoxResult() except +raise_spin_exc
 
 
 cdef extern from "Image.h" namespace "Spinnaker" nogil:
     cdef cppclass ImagePtr:
-        ImagePtr() except +
+        ImagePtr() except +raise_spin_exc
         CImage * get() const
-        cbool IsValid() except +
+        cbool IsValid() except +raise_spin_exc
 
     cdef cppclass CImage "Spinnaker::Image":
         @staticmethod
-        ImagePtr Create0 "Create"() except +
+        ImagePtr Create0 "Create"() except +raise_spin_exc
         @staticmethod
-        ImagePtr Create1 "Create"(const ImagePtr image) except +
+        ImagePtr Create1 "Create"(const ImagePtr image) except +raise_spin_exc
         @staticmethod
         ImagePtr Create6 "Create"(
             size_t width,
@@ -342,7 +342,7 @@ cdef extern from "Image.h" namespace "Spinnaker" nogil:
             size_t offsetY,
             PixelFormatEnums pixelFormat,
             void* pData
-        ) except +
+        ) except +raise_spin_exc
         @staticmethod
         ImagePtr Create8 "Create"(
             size_t width,
@@ -353,32 +353,32 @@ cdef extern from "Image.h" namespace "Spinnaker" nogil:
             void* pData,
             PayloadTypeInfoIDs dataPayloadType,
             size_t dataSize
-        ) except +
+        ) except +raise_spin_exc
         @staticmethod
-        void SetDefaultColorProcessing(ColorProcessingAlgorithm colorAlgorithm) except +
+        void SetDefaultColorProcessing(ColorProcessingAlgorithm colorAlgorithm) except +raise_spin_exc
         @staticmethod
-        ColorProcessingAlgorithm GetDefaultColorProcessing() except +
+        ColorProcessingAlgorithm GetDefaultColorProcessing() except +raise_spin_exc
         @staticmethod
-        void SetNumDecompressionThreads(unsigned int numThreads) except +
+        void SetNumDecompressionThreads(unsigned int numThreads) except +raise_spin_exc
         @staticmethod
-        unsigned int GetNumDecompressionThreads() except +
+        unsigned int GetNumDecompressionThreads() except +raise_spin_exc
         @staticmethod
-        const char * GetImageStatusDescription(ImageStatus status) except +
+        const char * GetImageStatusDescription(ImageStatus status) except +raise_spin_exc
 
-        ColorProcessingAlgorithm GetColorProcessing() except +
-        ImagePtr Convert(PixelFormatEnums format, ColorProcessingAlgorithm colorAlgorithm) except +
+        ColorProcessingAlgorithm GetColorProcessing() except +raise_spin_exc
+        ImagePtr Convert(PixelFormatEnums format, ColorProcessingAlgorithm colorAlgorithm) except +raise_spin_exc
         void Convert(
             ImagePtr destinationImage,
             PixelFormatEnums format,
             ColorProcessingAlgorithm colorAlgorithm
-        ) except +
+        ) except +raise_spin_exc
         void ResetImage(
             size_t width,
             size_t height,
             size_t offsetX,
             size_t offsetY,
             PixelFormatEnums pixelFormat
-        ) except +
+        ) except +raise_spin_exc
         void ResetImage(
             size_t width,
             size_t height,
@@ -386,7 +386,7 @@ cdef extern from "Image.h" namespace "Spinnaker" nogil:
             size_t offsetY,
             PixelFormatEnums pixelFormat,
             void* pData
-        ) except +
+        ) except +raise_spin_exc
         void ResetImage(
             size_t width,
             size_t height,
@@ -396,51 +396,51 @@ cdef extern from "Image.h" namespace "Spinnaker" nogil:
             void* pData,
             PayloadTypeInfoIDs dataPayloadType,
             size_t dataSize
-        ) except +
-        void Release() except +
-        uint64_t GetID() except +
-        void * GetData() except +
-        float GetDataAbsoluteMax() except +
-        float GetDataAbsoluteMin() except +
-        void * GetPrivateData() except +
-        size_t GetBufferSize() except +
-        void DeepCopy(const ImagePtr pSrcImage) except +
-        size_t GetWidth() except +
-        size_t GetHeight() except +
-        size_t GetStride() except +
-        size_t GetBitsPerPixel() except +
-        size_t GetNumChannels() except +
-        size_t GetXOffset() except +
-        size_t GetYOffset() except +
-        size_t GetXPadding() except +
-        size_t GetYPadding() except +
-        uint64_t GetFrameID() except +
-        size_t GetPayloadType() except +
-        PayloadTypeInfoIDs GetTLPayloadType() except +
-        uint64_t GetTLPixelFormat() except +
-        PixelFormatNamespaceID GetTLPixelFormatNamespace() except +
-        gcstring GetPixelFormatName() except +
-        PixelFormatEnums GetPixelFormat() except +
-        PixelFormatIntType GetPixelFormatIntType() except +
-        cbool IsIncomplete() except +
-        size_t GetValidPayloadSize() except +
-        uint64_t GetChunkLayoutId() except +
-        uint64_t GetTimeStamp() except +
-        cbool HasCRC() except +
-        cbool CheckCRC() except +
-        size_t GetImageSize() except +
-        cbool IsInUse() except +
-        ImageStatus GetImageStatus() except +
-        cbool IsCompressed() except +
-        void Save(const char * pFilename, ImageFileFormat format) except +
-        void Save(const char * pFilename, PNGOption& pOption) except +
-        void Save(const char * pFilename, PPMOption& pOption) except +
-        void Save(const char * pFilename, PGMOption& pOption) except +
-        void Save(const char * pFilename, TIFFOption& pOption) except +
-        void Save(const char * pFilename, JPEGOption& pOption) except +
-        void Save(const char * pFilename, JPG2Option& pOption) except +
-        void Save(const char * pFilename, BMPOption& pOption) except +
-        ChunkData& GetChunkData() except +
+        ) except +raise_spin_exc
+        void Release() except +raise_spin_exc
+        uint64_t GetID() except +raise_spin_exc
+        void * GetData() except +raise_spin_exc
+        float GetDataAbsoluteMax() except +raise_spin_exc
+        float GetDataAbsoluteMin() except +raise_spin_exc
+        void * GetPrivateData() except +raise_spin_exc
+        size_t GetBufferSize() except +raise_spin_exc
+        void DeepCopy(const ImagePtr pSrcImage) except +raise_spin_exc
+        size_t GetWidth() except +raise_spin_exc
+        size_t GetHeight() except +raise_spin_exc
+        size_t GetStride() except +raise_spin_exc
+        size_t GetBitsPerPixel() except +raise_spin_exc
+        size_t GetNumChannels() except +raise_spin_exc
+        size_t GetXOffset() except +raise_spin_exc
+        size_t GetYOffset() except +raise_spin_exc
+        size_t GetXPadding() except +raise_spin_exc
+        size_t GetYPadding() except +raise_spin_exc
+        uint64_t GetFrameID() except +raise_spin_exc
+        size_t GetPayloadType() except +raise_spin_exc
+        PayloadTypeInfoIDs GetTLPayloadType() except +raise_spin_exc
+        uint64_t GetTLPixelFormat() except +raise_spin_exc
+        PixelFormatNamespaceID GetTLPixelFormatNamespace() except +raise_spin_exc
+        gcstring GetPixelFormatName() except +raise_spin_exc
+        PixelFormatEnums GetPixelFormat() except +raise_spin_exc
+        PixelFormatIntType GetPixelFormatIntType() except +raise_spin_exc
+        cbool IsIncomplete() except +raise_spin_exc
+        size_t GetValidPayloadSize() except +raise_spin_exc
+        uint64_t GetChunkLayoutId() except +raise_spin_exc
+        uint64_t GetTimeStamp() except +raise_spin_exc
+        cbool HasCRC() except +raise_spin_exc
+        cbool CheckCRC() except +raise_spin_exc
+        size_t GetImageSize() except +raise_spin_exc
+        cbool IsInUse() except +raise_spin_exc
+        ImageStatus GetImageStatus() except +raise_spin_exc
+        cbool IsCompressed() except +raise_spin_exc
+        void Save(const char * pFilename, ImageFileFormat format) except +raise_spin_exc
+        void Save(const char * pFilename, PNGOption& pOption) except +raise_spin_exc
+        void Save(const char * pFilename, PPMOption& pOption) except +raise_spin_exc
+        void Save(const char * pFilename, PGMOption& pOption) except +raise_spin_exc
+        void Save(const char * pFilename, TIFFOption& pOption) except +raise_spin_exc
+        void Save(const char * pFilename, JPEGOption& pOption) except +raise_spin_exc
+        void Save(const char * pFilename, JPG2Option& pOption) except +raise_spin_exc
+        void Save(const char * pFilename, BMPOption& pOption) except +raise_spin_exc
+        ChunkData& GetChunkData() except +raise_spin_exc
 
 
 cdef extern from "TransportLayerDevice.h" namespace "Spinnaker" nogil:
@@ -539,41 +539,41 @@ cdef extern from "CameraPtr.h" namespace "Spinnaker" nogil:
 
 cdef extern from "Camera.h" namespace "Spinnaker" nogil:
     cdef cppclass CameraPtr:
-        CameraPtr() except +
+        CameraPtr() except +raise_spin_exc
         CCamera * get() const
-        cbool IsValid() except +
+        cbool IsValid() except +raise_spin_exc
 
     cdef cppclass CCamera "Spinnaker::Camera":
-        void Init() except +
-        void DeInit() except +
-        cbool IsInitialized() except +
-        cbool IsValid() except +
-        void ReadPort(uint64_t iAddress, void * pBuffer, size_t iSize) except +
-        void WritePort(uint64_t iAddress, const void * pBuffer, size_t iSize) except +
-        void BeginAcquisition() except +
-        void EndAcquisition() except +
-        unsigned int DiscoverMaxPacketSize() except +
-        void ForceIP() except +
-        EAccessMode GetAccessMode() except +
-        BufferOwnership GetBufferOwnership() except +
-        void SetBufferOwnership(const BufferOwnership mode) except +
-        uint64_t GetUserBufferCount() except +
-        uint64_t GetUserBufferSize() except +
-        uint64_t GetUserBufferTotalSize() except +
-        gcstring GetUniqueID() except +
-        cbool IsStreaming() except +
-        gcstring GetGuiXml() except +
-        unsigned int GetNumImagesInUse() except +
-        unsigned int GetNumDataStreams() except +
-        ImagePtr GetNextImage(uint64_t grabTimeout, uint64_t streamID) except +
-        INodeMap& GetNodeMap() except +
-        INodeMap& GetTLDeviceNodeMap() except +
-        INodeMap& GetTLStreamNodeMap() except +
-        void RegisterEventHandler(CEventHandler& evtHandlerToRegister) except +
-        void RegisterEventHandler(CEventHandler& evtHandlerToRegister, const gcstring &eventName) except +
-        void UnregisterEventHandler(CEventHandler& evtHandlerToUnregister) except +
-        void SetUserBuffers(void * pMemBuffers, uint64_t totalSize) except +
-        void SetUserBuffers(void** ppMemBuffers, const uint64_t bufferCount, const uint64_t bufferSize) except +
+        void Init() except +raise_spin_exc
+        void DeInit() except +raise_spin_exc
+        cbool IsInitialized() except +raise_spin_exc
+        cbool IsValid() except +raise_spin_exc
+        void ReadPort(uint64_t iAddress, void * pBuffer, size_t iSize) except +raise_spin_exc
+        void WritePort(uint64_t iAddress, const void * pBuffer, size_t iSize) except +raise_spin_exc
+        void BeginAcquisition() except +raise_spin_exc
+        void EndAcquisition() except +raise_spin_exc
+        unsigned int DiscoverMaxPacketSize() except +raise_spin_exc
+        void ForceIP() except +raise_spin_exc
+        EAccessMode GetAccessMode() except +raise_spin_exc
+        BufferOwnership GetBufferOwnership() except +raise_spin_exc
+        void SetBufferOwnership(const BufferOwnership mode) except +raise_spin_exc
+        uint64_t GetUserBufferCount() except +raise_spin_exc
+        uint64_t GetUserBufferSize() except +raise_spin_exc
+        uint64_t GetUserBufferTotalSize() except +raise_spin_exc
+        gcstring GetUniqueID() except +raise_spin_exc
+        cbool IsStreaming() except +raise_spin_exc
+        gcstring GetGuiXml() except +raise_spin_exc
+        unsigned int GetNumImagesInUse() except +raise_spin_exc
+        unsigned int GetNumDataStreams() except +raise_spin_exc
+        ImagePtr GetNextImage(uint64_t grabTimeout, uint64_t streamID) except +raise_spin_exc
+        INodeMap& GetNodeMap() except +raise_spin_exc
+        INodeMap& GetTLDeviceNodeMap() except +raise_spin_exc
+        INodeMap& GetTLStreamNodeMap() except +raise_spin_exc
+        void RegisterEventHandler(CEventHandler& evtHandlerToRegister) except +raise_spin_exc
+        void RegisterEventHandler(CEventHandler& evtHandlerToRegister, const gcstring &eventName) except +raise_spin_exc
+        void UnregisterEventHandler(CEventHandler& evtHandlerToUnregister) except +raise_spin_exc
+        void SetUserBuffers(void * pMemBuffers, uint64_t totalSize) except +raise_spin_exc
+        void SetUserBuffers(void** ppMemBuffers, const uint64_t bufferCount, const uint64_t bufferSize) except +raise_spin_exc
 
         TransportLayerDevice TLDevice
         TransportLayerStream TLStream
@@ -1256,16 +1256,16 @@ cdef extern from "Camera.h" namespace "Spinnaker" nogil:
 
 cdef extern from "CameraList.h" namespace "Spinnaker" nogil:
     cdef cppclass CCameraList "Spinnaker::CameraList":
-        CameraList() except +
-        unsigned int GetSize() except +
-        CameraPtr GetByIndex(unsigned int index) except +
-        CameraPtr GetBySerial(cstr serialNumber) except +
-        CameraPtr GetByDeviceID(cstr deviceID) except +
-        void Clear() except +
-        void RemoveByIndex(unsigned int index) except +
-        void RemoveBySerial(cstr serialNumber) except +
-        void RemoveByDeviceID(cstr deviceID) except +
-        void Append(const CCameraList& list) except +
+        CameraList() except +raise_spin_exc
+        unsigned int GetSize() except +raise_spin_exc
+        CameraPtr GetByIndex(unsigned int index) except +raise_spin_exc
+        CameraPtr GetBySerial(cstr serialNumber) except +raise_spin_exc
+        CameraPtr GetByDeviceID(cstr deviceID) except +raise_spin_exc
+        void Clear() except +raise_spin_exc
+        void RemoveByIndex(unsigned int index) except +raise_spin_exc
+        void RemoveBySerial(cstr serialNumber) except +raise_spin_exc
+        void RemoveByDeviceID(cstr deviceID) except +raise_spin_exc
+        void Append(const CCameraList& list) except +raise_spin_exc
 
 
 cdef extern from "TransportLayerInterface.h" namespace "Spinnaker" nogil:
@@ -1326,43 +1326,43 @@ cdef extern from "InterfacePtr.h" namespace "Spinnaker" nogil:
 
 cdef extern from "Interface.h" namespace "Spinnaker" nogil:
     cdef cppclass InterfacePtr:
-        InterfacePtr() except +
+        InterfacePtr() except +raise_spin_exc
         CInterface * get() const
-        cbool IsValid() except +
+        cbool IsValid() except +raise_spin_exc
 
     cdef cppclass CInterface "Spinnaker::Interface":
-        CCameraList GetCameras(cbool updateCameras) except +
-        cbool UpdateCameras() except +
-        void RegisterEventHandler(CEventHandler& evtHandlerToRegister) except +
-        void UnregisterEventHandler(CEventHandler& evtHandlerToUnregister) except +
-        cbool IsInUse() except +
-        INodeMap& GetTLNodeMap() except +
+        CCameraList GetCameras(cbool updateCameras) except +raise_spin_exc
+        cbool UpdateCameras() except +raise_spin_exc
+        void RegisterEventHandler(CEventHandler& evtHandlerToRegister) except +raise_spin_exc
+        void UnregisterEventHandler(CEventHandler& evtHandlerToUnregister) except +raise_spin_exc
+        cbool IsInUse() except +raise_spin_exc
+        INodeMap& GetTLNodeMap() except +raise_spin_exc
         void SendActionCommand(
                 unsigned int deviceKey,
                 unsigned int groupKey,
                 unsigned int groupMask,
                 unsigned long long actionTime,
                 unsigned int * pResultSize,
-                ActionCommandResult results[]) except +
-        cbool IsValid() except +
+                ActionCommandResult results[]) except +raise_spin_exc
+        cbool IsValid() except +raise_spin_exc
 
         TransportLayerInterface TLInterface
 
 
 cdef extern from "InterfaceList.h" namespace "Spinnaker" nogil:
     cdef cppclass CInterfaceList "Spinnaker::InterfaceList":
-        InterfaceList() except +
-        unsigned int GetSize() except +
-        InterfacePtr GetByIndex(unsigned int index) except +
-        void Clear() except +
-        void Append(const CInterfaceList * list) except +
+        InterfaceList() except +raise_spin_exc
+        unsigned int GetSize() except +raise_spin_exc
+        InterfacePtr GetByIndex(unsigned int index) except +raise_spin_exc
+        void Clear() except +raise_spin_exc
+        void Append(const CInterfaceList * list) except +raise_spin_exc
 
 
 cdef extern from "EventHandler.h" namespace "Spinnaker" nogil:
     cdef cppclass CEventHandler "Spinnaker::EventHandler":
-        EventType GetEventType() except +
-        const uint8_t * GetEventPayloadData() except +
-        const size_t GetEventPayloadDataSize() except +
+        EventType GetEventType() except +raise_spin_exc
+        const uint8_t * GetEventPayloadData() except +raise_spin_exc
+        const size_t GetEventPayloadDataSize() except +raise_spin_exc
 
 
 cdef extern from "Interface/ISystemEventHandler.h" namespace "Spinnaker" nogil:
@@ -1387,8 +1387,8 @@ cdef extern from "InterfaceEventHandler.h" namespace "Spinnaker" nogil:
 
 cdef extern from "Interface/IDeviceEventHandler.h" namespace "Spinnaker" nogil:
     cdef cppclass IDeviceEventHandler(CEventHandler):
-        uint64_t GetDeviceEventId() except +
-        gcstring GetDeviceEventName() except +
+        uint64_t GetDeviceEventId() except +raise_spin_exc
+        gcstring GetDeviceEventName() except +raise_spin_exc
 
 
 cdef extern from "DeviceEventHandler.h" namespace "Spinnaker" nogil:
@@ -1402,18 +1402,18 @@ cdef extern from "LoggingEventDataPtr.h" namespace "Spinnaker" nogil:
 
 cdef extern from "LoggingEventData.h" namespace "Spinnaker" nogil:
     cdef cppclass LoggingEventDataPtr:
-        LoggingEventDataPtr() except +
+        LoggingEventDataPtr() except +raise_spin_exc
         LoggingEventData * get() const
-        cbool IsValid() except +
+        cbool IsValid() except +raise_spin_exc
 
     cdef cppclass LoggingEventData:
-        const char * GetCategoryName() except +
-        const char * GetLogMessage() except +
-        const char * GetNDC() except +
-        const int GetPriority() except +
-        const char * GetThreadName() except +
-        const char * GetTimestamp() except +
-        const char * GetPriorityName() except +
+        const char * GetCategoryName() except +raise_spin_exc
+        const char * GetLogMessage() except +raise_spin_exc
+        const char * GetNDC() except +raise_spin_exc
+        const int GetPriority() except +raise_spin_exc
+        const char * GetThreadName() except +raise_spin_exc
+        const char * GetTimestamp() except +raise_spin_exc
+        const char * GetPriorityName() except +raise_spin_exc
 
 
 cdef extern from "Interface/ILoggingEventHandler.h" namespace "Spinnaker" nogil:
@@ -1472,37 +1472,37 @@ cdef extern from "SystemPtr.h" namespace "Spinnaker" nogil:
 
 cdef extern from "System.h" namespace "Spinnaker" nogil:
     cdef cppclass SystemPtr:
-        SystemPtr() except +
+        SystemPtr() except +raise_spin_exc
         CSystem * get() const
-        cbool IsValid() except +
+        cbool IsValid() except +raise_spin_exc
 
     cdef cppclass CSystem "Spinnaker::System":
         @staticmethod
-        SystemPtr GetInstance() except +
-        void ReleaseInstance() except +
-        cbool IsInUse() except +
-        void SetLoggingEventPriorityLevel(SpinnakerLogLevel level) except +
-        SpinnakerLogLevel GetLoggingEventPriorityLevel() except +
-        void UnregisterAllLoggingEventHandlers() except +
-        CInterfaceList GetInterfaces(cbool updateInterface) except +
-        void UpdateInterfaceList() except +
-        cbool UpdateCameras(cbool updateInterfaces) except +
-        CCameraList GetCameras(cbool updateInterfaces, cbool updateCameras) except +
-        const LibraryVersion GetLibraryVersion() except +
-        INodeMap& GetTLNodeMap() except +
-        void RegisterEventHandler(CEventHandler& evtHandlerToRegister) except +
-        void UnregisterEventHandler(CEventHandler& evtHandlerToUnregister) except +
-        void RegisterInterfaceEventHandler(CEventHandler& evtHandlerToRegister, cbool updateInterface) except +
-        void UnregisterInterfaceEventHandler(CEventHandler& evtHandlerToUnregister) except +
-        void RegisterLoggingEventHandler(CLoggingEventHandler& handler) except +
-        void UnregisterLoggingEventHandler(CLoggingEventHandler& handler) except +
+        SystemPtr GetInstance() except +raise_spin_exc
+        void ReleaseInstance() except +raise_spin_exc
+        cbool IsInUse() except +raise_spin_exc
+        void SetLoggingEventPriorityLevel(SpinnakerLogLevel level) except +raise_spin_exc
+        SpinnakerLogLevel GetLoggingEventPriorityLevel() except +raise_spin_exc
+        void UnregisterAllLoggingEventHandlers() except +raise_spin_exc
+        CInterfaceList GetInterfaces(cbool updateInterface) except +raise_spin_exc
+        void UpdateInterfaceList() except +raise_spin_exc
+        cbool UpdateCameras(cbool updateInterfaces) except +raise_spin_exc
+        CCameraList GetCameras(cbool updateInterfaces, cbool updateCameras) except +raise_spin_exc
+        const LibraryVersion GetLibraryVersion() except +raise_spin_exc
+        INodeMap& GetTLNodeMap() except +raise_spin_exc
+        void RegisterEventHandler(CEventHandler& evtHandlerToRegister) except +raise_spin_exc
+        void UnregisterEventHandler(CEventHandler& evtHandlerToUnregister) except +raise_spin_exc
+        void RegisterInterfaceEventHandler(CEventHandler& evtHandlerToRegister, cbool updateInterface) except +raise_spin_exc
+        void UnregisterInterfaceEventHandler(CEventHandler& evtHandlerToUnregister) except +raise_spin_exc
+        void RegisterLoggingEventHandler(CLoggingEventHandler& handler) except +raise_spin_exc
+        void UnregisterLoggingEventHandler(CLoggingEventHandler& handler) except +raise_spin_exc
         void SendActionCommand(
                 unsigned int deviceKey,
                 unsigned int groupKey,
                 unsigned int groupMask,
                 unsigned long long actionTime,
                 unsigned int * pResultSize,
-                ActionCommandResult results[]) except +
+                ActionCommandResult results[]) except +raise_spin_exc
 
         TransportLayerSystem TLSystem
 
@@ -1510,6 +1510,6 @@ cdef extern from "System.h" namespace "Spinnaker" nogil:
 cdef extern from "DeviceEventUtility.h" namespace "Spinnaker" nogil:
     cdef cppclass DeviceEventUtility:
         @staticmethod
-        void ParseDeviceEventInference(const uint8_t* payloadData, const size_t payloadSize, DeviceEventInferenceData& eventData) except +
+        void ParseDeviceEventInference(const uint8_t* payloadData, const size_t payloadSize, DeviceEventInferenceData& eventData) except +raise_spin_exc
         @staticmethod
-        void ParseDeviceEventExposureEnd(const uint8_t* payloadData, const size_t payloadSize, DeviceEventExposureEndData& eventData) except +
+        void ParseDeviceEventExposureEnd(const uint8_t* payloadData, const size_t payloadSize, DeviceEventExposureEndData& eventData) except +raise_spin_exc

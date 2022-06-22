@@ -10,41 +10,52 @@ from ._cam_defs._cam_defs3 cimport *
 from ._cam_defs._cam_defs4 cimport *
 from ._cam_defs._cam_defs5 cimport *
 
+
+cdef int raise_spin_exc() except*
+
+
 include "includes/Types.pxi"
 include "includes/SpinnakerDefs.pxi"
 include "includes/TransportLayerDefs.pxi"
 include "includes/spinnaker.pxi"
 
 
+cdef extern from "spinnaker_exception.h" nogil:
+    void get_spinnaker_exception(
+        cstr& what, cstr& full_msg, cstr& msg, cstr& file_name,
+        cstr& func_name, cstr& build_date, cstr& build_time,
+        int* line_num, int* err, cbool* is_spinnaker) except +
+
+
 cdef extern from "rotpy_event.h" nogil:
     cdef cppclass RotpyDeviceEventHandler(CDeviceEventHandler):
-        RotpyDeviceEventHandler() except +
+        RotpyDeviceEventHandler() except +raise_spin_exc
         void SetCallback(
             void * callback_data, void (*callback_f)(void *, const gcstring*),
                 gcstring &eventName
         ) except +
 
     cdef cppclass RotpyLoggingEventHandler(CLoggingEventHandler):
-        RotpyLoggingEventHandler() except +
+        RotpyLoggingEventHandler() except +raise_spin_exc
         void SetCallback(
             void * callback_data, void (*callback_f)(void *, const LoggingEventDataPtr)
         ) except +
 
     cdef cppclass RotpyImageEventHandler(CImageEventHandler):
-        RotpyImageEventHandler() except +
+        RotpyImageEventHandler() except +raise_spin_exc
         void SetCallback(
             void * callback_data, void (*callback_f)(void *, ImagePtr)
         ) except +
 
     cdef cppclass RotpyInterfaceEventHandler(CInterfaceEventHandler):
-        RotpyInterfaceEventHandler() except +
+        RotpyInterfaceEventHandler() except +raise_spin_exc
         void SetCallback(
             void * callback_data, void (*callback_f_arrival)(void *, uint64_t),
             void (*callback_f_removal)(void *, uint64_t)
         ) except +
 
     cdef cppclass RotpySystemEventHandler(CSystemEventHandler):
-        RotpySystemEventHandler() except +
+        RotpySystemEventHandler() except +raise_spin_exc
         void SetCallback(
             void * callback_data, void (*callback_f_arrival)(void *, cstr),
             void (*callback_f_removal)(void *, cstr)

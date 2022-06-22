@@ -1,13 +1,44 @@
-from .names.spin import log_level_names, log_level_values, cmd_status_values
+from .names.spin import log_level_names, log_level_values, cmd_status_values, \
+    error_code_values
 
 from cpython.ref cimport PyObject
 from libc.stdlib cimport malloc, free
 cimport rotpy.system_nodes
 
 __all__ = (
-    'EventHandlerBase', 'LoggingEventHandler', 'SystemEventHandler',
-    'InterfaceEventHandler', 'SpinSystem', 'InterfaceDeviceList',
-    'InterfaceDevice')
+    'SpinnakerAPIException', 'EventHandlerBase', 'LoggingEventHandler',
+    'SystemEventHandler', 'InterfaceEventHandler', 'SpinSystem',
+    'InterfaceDeviceList', 'InterfaceDevice')
+
+
+class SpinnakerAPIException(Exception):
+
+    spin_what = ''
+    spin_full_msg = ''
+    spin_msg = ''
+    spin_file_name = ''
+    spin_func_name = ''
+    spin_build_date = ''
+    spin_build_time = ''
+    spin_line_num = 0
+    spin_error_code = 0
+    spin_error_name = ''
+
+    def __init__(
+            self, *args, spin_what='', spin_full_msg='', spin_msg='',
+            spin_file_name='', spin_func_name='', spin_build_date='',
+            spin_build_time='', spin_line_num=0, spin_error_code=0):
+        super().__init__(*args)
+        self.spin_what = spin_what
+        self.spin_full_msg = spin_full_msg
+        self.spin_msg = spin_msg
+        self.spin_file_name = spin_file_name
+        self.spin_func_name = spin_func_name
+        self.spin_build_date = spin_build_date
+        self.spin_build_time = spin_build_time
+        self.spin_line_num = spin_line_num
+        self.spin_error_code = spin_error_code
+        self.spin_error_name = error_code_values[spin_error_code]
 
 
 cdef class EventHandlerBase:
