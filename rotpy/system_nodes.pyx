@@ -1,3 +1,7 @@
+"""System nodes
+===============
+
+"""
 from .node cimport SpinIntNode, SpinFloatNode, SpinBoolNode, SpinStrNode, \
     SpinCommandNode, SpinRegisterNode, SpinEnumDefNode
 
