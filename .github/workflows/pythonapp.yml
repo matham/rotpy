@@ -16,7 +16,7 @@ jobs:
       id: get-deps
       with:
         path: spinnaker/
-        key: spinnaker-docs-0
+        key: spinnaker-docs-2
 
     - name: Get dependencies
       if: steps.get-deps.outputs.cache-hit != 'true'
@@ -102,7 +102,7 @@ jobs:
         id: get-deps
         with:
           path: spinnaker/
-          key: spinnaker-linux-1
+          key: spinnaker-linux-2
 
       - name: Get dependencies
         if: steps.get-deps.outputs.cache-hit != 'true'
