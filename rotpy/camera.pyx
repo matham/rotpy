@@ -1,3 +1,9 @@
+"""Camera
+=========
+
+Provides access to the camera lists, the cameras, and camera related
+event handlers.
+"""
 from .names.spin import img_status_values, buffer_owner_values, \
     buffer_owner_names, event_values
 from .names.geni import AccessMode_values
@@ -16,6 +22,14 @@ __all__ = ('DeviceEventHandler', 'ImageEventHandler', 'CameraList', 'Camera')
 
 
 cdef class DeviceEventHandler(rotpy.system.EventHandlerBase):
+    """A camera event handler that is returned by
+    :meth:`~Camera.attach_device_event_handler` that handles callbacks for
+    camera events.
+
+    This represents a callback function that is called on each event with
+    3 positional arguments: this instance, the :class:`Camera` instance that
+    created this, and the event name string.
+    """
 
     cdef set_callback(self, Camera camera, callback, str event_name=''):
 
@@ -102,6 +116,18 @@ cdef class DeviceEventHandler(rotpy.system.EventHandlerBase):
 
 
 cdef class ImageEventHandler(rotpy.system.EventHandlerBase):
+    """A camera image handler that is returned by
+    :meth:`~Camera.attach_image_event_handler` that handles callbacks for
+    camera images arrival events.
+
+    This represents a callback function that is called every time a new image
+    becomes available with 3 positional arguments: this instance, the
+    :class:`Camera` instance that created this, and the
+    :class:`~rotpy.image.Image` instance representing the new image.
+
+    Remember to :meth:`~rotpy.image.Image.release` the image quickly so that
+    the buffers can be re-used by the camera.
+    """
 
     cdef set_callback(self, Camera camera, callback):
         self._callback = callback
@@ -124,8 +150,18 @@ cdef class ImageEventHandler(rotpy.system.EventHandlerBase):
 
 
 cdef class CameraList:
-    """Provides access to camera lists. This includes updating, size, and
-    camera retrieval.
+    """Provides access to cameras enumerated by the system or interfaces as a
+    list of cameras on the system or specific to that interface.
+
+    .. warning::
+
+        Do **not** create a :class:`CameraList` manually, rather get it from
+        :meth:`create_from_system` or :meth:`create_from_interface`.
+
+    Once a :class:`CameraList` is created from the system or interface,
+    updating the system or interface so it detects new cameras will **not**
+    be reflected in existing :class:`CameraList`. Instead, create a new one
+    to access those new cameras.
     """
 
     def __cinit__(self):
@@ -203,7 +239,8 @@ cdef class CameraList:
         return n
 
     cpdef create_camera_by_index(self, unsigned int index):
-        """Retrieves a camera from this camera list using an index.
+        """Retrieves a camera from this camera list using a zero-based index
+        that is less than :meth:`get_size`.
 
         :param index: The index of the camera.
         :return: A :class:`Camera`.
@@ -221,10 +258,15 @@ cdef class CameraList:
             self._cam_list.RemoveByIndex(index)
 
     cpdef create_camera_by_serial(self, str serial):
-        """Retrieves a camera from this camera list using its serial number.
+        """Retrieves a camera from this camera list using its serial number
+        string.
 
         :param serial: The serial number of the camera to retrieve.
         :return: A :class:`Camera`.
+
+        You can get a camera's serial number using the ``"DeviceSerialNumber"``
+        node once the camera is :meth:`~Camera.init_cam`. It's pre-listed
+        at :attr:`~rotpy.camera_nodes.CameraNodes.DeviceSerialNumber`.
         """
         cdef bytes buf = serial.encode()
         cdef Camera camera = Camera()
@@ -232,9 +274,14 @@ cdef class CameraList:
         return camera
 
     cpdef remove_camera_by_serial(self, str serial):
-        """Removes a camera from this camera list using its serial number.
+        """Removes a camera from this camera list using its serial number
+        string.
 
         :param serial: The serial number of the camera to remove.
+
+        You can get a camera's serial number using the ``"DeviceSerialNumber"``
+        node once the camera is :meth:`~Camera.init_cam`. It's pre-listed
+        at :attr:`~rotpy.camera_nodes.CameraNodes.DeviceSerialNumber`.
         """
         cdef bytes buf = serial.encode()
         cdef cstr c_string = buf
@@ -245,6 +292,7 @@ cdef class CameraList:
         """Retrieves a camera from this camera list using its device identifier.
 
         :param dev_id: The device identifier of the camera to retrieve.
+            This can be gotten from :meth:`~Camera.get_unique_id`.
         :return: A :class:`Camera`.
         """
         cdef bytes buf = dev_id.encode()
@@ -256,6 +304,7 @@ cdef class CameraList:
         """Removes a camera from this camera list using its device identifier.
 
         :param dev_id: The device identifier of the camera to remove.
+            This can be gotten from :meth:`~Camera.get_unique_id`.
         """
         cdef bytes buf = dev_id.encode()
         cdef cstr c_string = buf
@@ -273,6 +322,19 @@ cdef class CameraList:
 
 
 cdef class Camera:
+    """A Spinnaker based camera, such as GigE, USB2/3 etc.
+
+    .. warning::
+
+        Do **not** create a :class:`Camera` manually, rather get it from
+        :meth:`CameraList.create_camera_by_index`,
+        :meth:`CameraList.create_camera_by_serial`, or
+        :meth:`CameraList.create_camera_by_dev_id`.
+
+    Before the camera can be used and most nodes are accessible, you need to
+    initialize the camera using :meth:`init_cam`. When you're done, call
+    :meth:`deinit_cam`.
+    """
 
     def __cinit__(self):
         self._cam_set = 0
@@ -322,13 +384,18 @@ cdef class Camera:
         self._cam_set = 1
 
     cpdef init_cam(self):
-        """Initializes a camera, allowing for much more interaction.
+        """Initializes a camera, allowing for much more interaction, including
+        more properties.
+
+        This is required before images can be acquired.
         """
         with nogil:
             self._camera.get().Init()
 
     cpdef deinit_cam(self):
         """De-initializes a camera that was initialized with :meth:`init_cam`.
+
+        This should happen after you're done with the camera.
         """
         with nogil:
             self._camera.get().DeInit()
@@ -382,9 +449,9 @@ cdef class Camera:
             self._camera.get().WritePort(address, &data[0], size)
 
     cpdef begin_acquisition(self):
-        """Starts the image acquisition engine.
+        """Starts the image acquisition engine from the camera.
 
-        The camera must be initialized first.
+        The camera must be initialized first with :meth:`init_cam`.
         """
         with nogil:
             self._camera.get().BeginAcquisition()
@@ -396,8 +463,9 @@ cdef class Camera:
         :meth:`begin_acquisition` an error will be thrown.
 
         All Images that were acquired using :meth:`get_next_image` need to be
-        released first before calling this. All buffers in the input pool and
-        output queue will be discarded when this is called.
+        :meth:`~rotpy.image.Image.release` first before calling this. All
+        buffers in the input pool and output queue will be discarded when this
+        is called.
         """
         with nogil:
             self._camera.get().EndAcquisition()
@@ -634,8 +702,9 @@ cdef class Camera:
         free(items)
 
     cpdef get_unique_id(self):
-        """This returns a unique id string that identifies the camera. This is
-        the camera serial number
+        """This returns a unique id string that identifies the camera.
+
+        This e.g. could be the device hardware identifier on the interface etc.
         """
         cdef gcstring s
         with nogil:

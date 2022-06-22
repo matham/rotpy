@@ -1,7 +1,10 @@
+RotPy
+=====
+
 RotPy provides python bindings for the Spinnaker SDK
 to enable Pythonic control of Teledyne/FLIR/Point Grey USB and GigE cameras.
 
-See `here <https://matham.github.io/rotpy/index.html>`_ for complete docs.
+See `the website <https://matham.github.io/rotpy/index.html>`_ for the complete **documentation**.
 
 .. image:: https://github.com/matham/rotpy/workflows/Python%20application/badge.svg
     :target: https://github.com/matham/rotpy/actions
@@ -14,7 +17,7 @@ You can install RotPy using pre-compiled wheels on Windows, Linux, or Mac or by 
 the Spinnaker SDK and then installing RotPy from source.
 
 Either way, you'll likely need to install the **Spinnaker drivers** so that the cameras
-are recognized. Please download it from `here <https://www.flir.com/products/spinnaker-sdk/>`_
+are recognized. Please download it from `their website <https://www.flir.com/products/spinnaker-sdk/>`_
 and follow the instructions to install the drivers if the cameras are not found.
 
 Pre-compiled wheels
@@ -100,6 +103,9 @@ Getting an image from a GigE camera
         '77T45WD4A84C_86TA1684_GGGGGG14_64CW3987'
     >>> # init the camera and get one image
     >>> camera.init_cam()
+    >>> # get its serial number
+    >>> camera.camera_nodes.DeviceSerialNumber.get_node_value()
+    '36548975'
     >>> camera.begin_acquisition()
     >>> image_cam = camera.get_next_image(timeout=5)
     >>> # we copy the image so that we can release its camera buffer
@@ -293,7 +299,7 @@ We can also register logging event handlers to get any logging events on the sys
 
 .. code-block:: python
 
-    >>> from rotpy.system import SpinSystem, LoggingEventHandler
+    >>> from rotpy.system import SpinSystem
     >>> from rotpy.camera import CameraList
     >>> # create system and set logging level to debug
     >>> system = SpinSystem()
@@ -328,7 +334,7 @@ device, as opposed to polling for new images:
 
 .. code-block:: python
 
-    >>> from rotpy.camera import ImageEventHandler, CameraList
+    >>> from rotpy.camera import CameraList
     >>> from rotpy.system import SpinSystem
     >>> # create system and get a camera
     >>> system = SpinSystem()
@@ -357,7 +363,7 @@ We can also register a callback that is called on camera events. E.g.:
 
 .. code-block:: python
 
-    >>> from rotpy.camera import ImageEventHandler, CameraList
+    >>> from rotpy.camera import CameraList
     >>> from rotpy.system import SpinSystem
     >>> # create system and get a camera
     >>> system = SpinSystem()

@@ -2,7 +2,8 @@
 =============
 
 Provides access to all the enums defined in the Spinnaker headers as Python
-enums.
+dictionaries mapping the names to the values and the values to the names
+for easier usage.
 
 """
 from enum import Enum

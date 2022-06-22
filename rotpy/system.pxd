@@ -50,6 +50,19 @@ cdef class SpinSystem:
     cdef set _log_handlers
 
     cdef public rotpy.system_nodes.SystemNodes system_nodes
+    """The pre-listed system nodes from :class:`~rotpy.system_nodes.SystemNodes`.
+
+    Use this property to get a pre-instantiated
+    :class:`~rotpy.system_nodes.SystemNodes` because
+    :class:`~rotpy.system_nodes.SystemNodes` is not user instantiable.
+
+    .. note::
+
+        Remember to check whether each of the pre-listed nodes are
+        :meth:`~rotpy.node.SpinBaseNode.is_available`,
+        :meth:`~rotpy.node.SpinBaseNode.is_readable`,
+        :meth:`~rotpy.node.SpinBaseNode.is_writable` etc.
+    """
 
     cpdef set_logging_level(self, str level)
     cpdef get_logging_level(self)
@@ -93,6 +106,19 @@ cdef class InterfaceDevice:
     cdef set _event_handlers
 
     cdef public rotpy.system_nodes.InterfaceNodes interface_nodes
+    """The pre-listed interface nodes from :class:`~rotpy.system_nodes.InterfaceNodes`.
+
+    Use this property to get a pre-instantiated
+    :class:`~rotpy.system_nodes.InterfaceNodes` because
+    :class:`~rotpy.system_nodes.InterfaceNodes` is not user instantiable.
+
+    .. note::
+
+        Remember to check whether each of the pre-listed nodes are
+        :meth:`~rotpy.node.SpinBaseNode.is_available`,
+        :meth:`~rotpy.node.SpinBaseNode.is_readable`,
+        :meth:`~rotpy.node.SpinBaseNode.is_writable` etc.
+    """
 
     cdef object set_interface(self, InterfaceDeviceList dev_list, unsigned int index)
     cpdef attach_event_handler(self, callback_arrival=*, callback_removal=*)

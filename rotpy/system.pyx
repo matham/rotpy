@@ -1,3 +1,9 @@
+"""System
+================
+
+Provides access to the system in hardware interfaces that have access to
+cameras.
+"""
 from .names.spin import log_level_names, log_level_values, cmd_status_values, \
     error_code_values
 
@@ -12,17 +18,33 @@ __all__ = (
 
 
 class SpinnakerAPIException(Exception):
+    """An exception that represents an error raised from the Spinnaker API.
+    """
 
     spin_what = ''
+    """The basic error message including the code."""
     spin_full_msg = ''
+    """The full message, including line numbers, function names, etc."""
     spin_msg = ''
+    """The error message."""
     spin_file_name = ''
+    """The file name that generated the error."""
     spin_func_name = ''
+    """The function name that generated the error."""
     spin_build_date = ''
+    """The build date of the file."""
     spin_build_time = ''
+    """The build time of the file."""
     spin_line_num = 0
+    """The line number of the exception."""
     spin_error_code = 0
+    """The numerical error code as a value in
+    :attr:`~rotyp.names.spin.error_code_names`.
+    """
     spin_error_name = ''
+    """The string error type as a string in
+    :attr:`~rotyp.names.spin.error_code_names`.
+    """
 
     def __init__(
             self, *args, spin_what='', spin_full_msg='', spin_msg='',
@@ -48,7 +70,19 @@ cdef class EventHandlerBase:
 
 
 cdef class LoggingEventHandler(EventHandlerBase):
-    """NDC is Nested Diagnostic Context."""
+    """A system log event handler that is returned by
+    :meth:`~SpinSystem.attach_log_event_handler` that handles callbacks for
+    internal Spinnaker logging events.
+
+    This represents a callback function that is called on each log event with
+    3 positional arguments: this instance, the :class:`SpinSystem` instance that
+    created this, and a dict with the log data.
+
+    Some dict keys are the error ``category``, the error ``message``,
+    the ``ndc`` (Nested Diagnostic Context), the ``thread`` in which it
+    happened, the ``timestamp`` string, the ``priority`` name, and the
+    ``priority_num``.
+    """
 
     cdef set_callback(self, SpinSystem system, callback):
         self._callback = callback
@@ -80,6 +114,16 @@ cdef class LoggingEventHandler(EventHandlerBase):
 
 
 cdef class SystemEventHandler(EventHandlerBase):
+    """A system interface arrival/removal handler that is returned by
+    :meth:`~SpinSystem.attach_event_handler` that handles callbacks for
+    when a new hardware interface to which cameras may be attached (e.g. USB
+    port) is added or removed from the system.
+
+    This represents an arrival and removal callback function that is each called
+    respectively (if provided when it's created), on each arrival/removal event
+    with 3 positional arguments: this instance, the :class:`SpinSystem` instance
+    that created this, and a string representing the interface name.
+    """
 
     cdef set_callback(
             self, SpinSystem system, callback_arrival, callback_removal):
@@ -109,6 +153,17 @@ cdef class SystemEventHandler(EventHandlerBase):
 
 
 cdef class InterfaceEventHandler(EventHandlerBase):
+    """A system/interface camera arrival/removal handler that is returned by
+    :meth:`~SpinSystem.attach_interface_event_handler` and
+    :meth:`~InterfaceDevice.attach_event_handler` that handles callbacks for
+    when a camera is added or removed from the system or specific interface.
+
+    This represents an arrival and removal callback function that is each called
+    respectively (if provided when it's created), on each arrival/removal event
+    with 3 positional arguments: this instance, the :class:`SpinSystem`
+    or :class:`InterfaceDevice` instance that created this, and an integer
+    representing the camera serial number.
+    """
 
     cdef set_callback(
             self, object interface_or_sys, callback_arrival,
@@ -137,9 +192,8 @@ cdef class InterfaceEventHandler(EventHandlerBase):
 
 
 cdef class SpinSystem:
-    """Provides access to information, objects, and functionality of the system
-    object. This includes the system object, interface and camera lists, and
-    interface and logging events.
+    """A :class:`SpinSystem` provides access to interfaces and cameras
+    attached to these interfaces across the system.
     """
 
     def __cinit__(self):
@@ -402,7 +456,7 @@ cdef class SpinSystem:
         """Creates and returns a new :class:`InterfaceDeviceList` for accessing
         interfaces on the system.
 
-        This returns GigE and Usb2 and Usb3 interfaces. Note that on MacOS only
+        This returns GigE and USB2 and USB3 interfaces. Note that on MacOS only
         active GigE interfaces will be stored in the returned interface list.
 
         :param update_interfaces: Whether to update the internal interface list
@@ -418,7 +472,8 @@ cdef class SpinSystem:
         """Updates the internal list of interfaces on the system.
 
         If desired to get the new interfaces, call
-        :meth:`create_interface_list`.
+        :meth:`create_interface_list`, existing :class:`InterfaceDeviceList`
+        will not reflect the updates.
         """
         with nogil:
             self._system.get().UpdateInterfaceList()
@@ -434,7 +489,9 @@ cdef class SpinSystem:
 
         If desired to get the new interfaces or cameras, call
         :meth:`create_interface_list` or
-        :meth:`~rotpy.camera.CameraList.create_from_system`, respectively.
+        :meth:`~rotpy.camera.CameraList.create_from_system`, respectively
+        because existing :class:`~rotpy.camera.CameraList` will not reflect the
+        updates.
         """
         cdef cbool changed
         with nogil:
@@ -444,8 +501,23 @@ cdef class SpinSystem:
 
 cdef class InterfaceDeviceList:
     """Provides access to a list of the interface devices to which cameras
-    can be attached e.g. GigE and Usb2 and Usb3 interfaces. Note that on MacOS
-    only active GigE interfaces will be stored in the returned InterfaceList.
+    can be attached e.g. GigE and USB2 and USB3 interfaces.
+
+    .. warning::
+
+        Do **not** create a :class:`InterfaceDeviceList` manually, rather get it
+        from :meth:`~SpinSystem.create_interface_list`.
+
+    Once a :class:`InterfaceDeviceList` is created from the system,
+    updating the system so it detects new interface will **not**
+    be reflected in existing :class:`InterfaceDeviceList`. Instead, create
+    new one to access those new interfaces.
+
+
+    .. note::
+
+        On MacOS only active GigE interfaces will be stored in the returned
+        :class:`InterfaceDeviceList`.
     """
 
     def __cinit__(self):
@@ -467,8 +539,7 @@ cdef class InterfaceDeviceList:
         self._list_set = 1
 
     cpdef get_size(self):
-        """Retrieves the number of interface devices in the interface device
-        list.
+        """Retrieves the number of detected interface devices in the list.
         """
         cdef size_t n
         with nogil:
@@ -477,7 +548,7 @@ cdef class InterfaceDeviceList:
 
     cpdef create_interface(self, unsigned int index):
         """Retrieves an interface device from this interface device list using
-        an index.
+        using a zero-based index that is less than :meth:`get_size`.
 
         :param index: The index of the interface device.
         :return: A :class:`InterfaceDevice`.
@@ -497,6 +568,14 @@ cdef class InterfaceDeviceList:
 
 
 cdef class InterfaceDevice:
+    """A hardware interface to which cameras such as GigE, USB2/3 can be
+    attached.
+
+    .. warning::
+
+        Do **not** create a :class:`InterfaceDevice` manually, rather get it
+        from :meth:`InterfaceDeviceList.create_interface`.
+    """
 
     def __cinit__(self):
         self._interface_set = 0
@@ -520,7 +599,7 @@ cdef class InterfaceDevice:
 
     cpdef attach_event_handler(
             self, callback_arrival=None, callback_removal=None):
-        """Registers device arrival and removal events for the interface.
+        """Registers device arrival and removal events for this interface.
 
         :param callback_arrival: A function that will be called upon device
             arrival events. If it's ``None``, arrival events will be ignored.
@@ -568,7 +647,7 @@ cdef class InterfaceDevice:
         self._event_handlers.remove(handler)
 
     cpdef get_in_use(self):
-        """Returns whether the interface is in use by any camera objects.
+        """Returns whether this interface is in use by any camera objects.
         """
         cdef cbool n
         with nogil:
@@ -579,7 +658,7 @@ cdef class InterfaceDevice:
             self, unsigned int device_key, unsigned int group_key,
             unsigned int group_mask, unsigned long long action_time=0,
             unsigned int num_results=0):
-        """Broadcast an Action Command to all devices on the interface.
+        """Broadcast an Action Command to all devices on this interface.
 
         :param device_key: The action command's device key.
         :param group_key: The action command's group key.
@@ -620,7 +699,7 @@ cdef class InterfaceDevice:
         return out
 
     cpdef get_is_valid(self):
-        """Returns whether the interface is still valid for use.
+        """Returns whether this interface is still valid for use.
         """
         cdef cbool n
         with nogil:
@@ -628,14 +707,15 @@ cdef class InterfaceDevice:
         return bool(n)
 
     cpdef update_camera_list(self):
-        """Updates the internal list of cameras on the system, returning a bool
-        indicating whether there has been any changes and cameras have arrived
-        or been removed.
+        """Updates the internal list of cameras on this interface, returning a
+        bool indicating whether there has been any changes and cameras have
+        arrived or been removed.
 
         :return: True if cameras changed on interface and False otherwise.
 
         If desired to get the new cameras, call
-        :meth:`~rotpy.camera.CameraList.create_from_interface`.
+        :meth:`~rotpy.camera.CameraList.create_from_interface` because existing
+        :class:`~rotpy.camera.CameraList` will not reflect the updates.
         """
         cdef cbool changed
         with nogil:
@@ -643,7 +723,7 @@ cdef class InterfaceDevice:
         return bool(changed)
 
     cpdef get_tl_node_map(self):
-        """Gets the transport layer nodemap from the interface.
+        """Gets the transport layer nodemap from this interface.
 
         :return: A :class:`~rotpy.node.NodeMap`.
         """

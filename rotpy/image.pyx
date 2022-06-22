@@ -1,3 +1,7 @@
+"""Image
+========
+
+"""
 cdef extern from "string.h" nogil:
     void *memcpy(void *, const void *, size_t)
 
@@ -8,7 +12,7 @@ from .names.spin import payload_type_names, \
     img_status_values, img_status_names, img_file_fmt_names, compression_names
 from .names.camera import PixelFormat_values, PixelFormat_names
 
-__all__ = ('Image',)
+__all__ = ('Image', 'ImageChunkData', 'ChunkDataInference')
 
 
 cdef class Image:

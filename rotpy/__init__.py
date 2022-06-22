@@ -1,8 +1,8 @@
 """RotPy Library
 ====================
 
-Project that provides python bindings for the Spinnaker SDK that provides
-access to GigE and USB camera control.
+Project that provides python bindings for the Spinnaker SDK and provides
+access to their GigE and USB cameras.
 """
 __version__ = '0.1.0.dev0'
 

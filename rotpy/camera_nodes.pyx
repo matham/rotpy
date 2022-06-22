@@ -1,10 +1,13 @@
 """Camera nodes
 ===============
 
+Lists all the pre-listed nodes of the :class:`~rotpy.camera.Camera`.
 """
 from .node cimport SpinIntNode, SpinFloatNode, SpinBoolNode, SpinStrNode, \
     SpinCommandNode, SpinRegisterNode, SpinEnumDefNode
 
+from .node import SpinIntNode, SpinFloatNode, SpinBoolNode, SpinStrNode, \
+    SpinCommandNode, SpinRegisterNode, SpinEnumDefNode
 import rotpy.names.camera
 import rotpy.names.tl
 import rotpy.names.spin
@@ -14,7 +17,24 @@ __all__ = ('CameraNodes', 'TLDevNodes', 'TLStreamNodes')
 
 
 cdef class CameraNodes:
-    """All the camera nodes.
+    """Lists all the pre-listed nodes of the :class:`~rotpy.camera.Camera`.
+
+    .. warning::
+
+        Do **not** create a :class:`CameraNodes` manually, rather get it
+        from :attr:`~rotpy.camera.Camera.camera_nodes` that is automatically
+        created when the camera is instantiated.
+
+    .. note::
+
+        Even though the nodes are pre-listed, it is simply a convenience and
+        the same nodes can be gotten by name through
+        :class:`~rotpy.node.NodeMap`. Additionally, you must check that the
+        node is actually available, readable etc, even if it's pre-listed.
+
+        Some nodes are available before :meth:`~rotpy.camera.Camera.init_cam`,
+        but other nodes, even those pre-listed, become available only after
+        :meth:`~rotpy.camera.Camera.init_cam`.
     """
 
     def __cinit__(self, camera):
@@ -12286,7 +12306,25 @@ cdef class CameraNodes:
 
 
 cdef class TLDevNodes:
-    """All the camera transport layer device nodes.
+    """Lists all the pre-listed nodes of the :class:`~rotpy.camera.Camera`
+    transport layer device.
+
+    .. warning::
+
+        Do **not** create a :class:`TLDevNodes` manually, rather get it
+        from :attr:`~rotpy.camera.Camera.tl_dev_nodes` that is automatically
+        created when the camera is instantiated.
+
+    .. note::
+
+        Even though the nodes are pre-listed, it is simply a convenience and
+        the same nodes can be gotten by name through
+        :class:`~rotpy.node.NodeMap`. Additionally, you must check that the
+        node is actually available, readable etc, even if it's pre-listed.
+
+        Some nodes are available before :meth:`~rotpy.camera.Camera.init_cam`,
+        but other nodes, even those pre-listed, become available only after
+        :meth:`~rotpy.camera.Camera.init_cam`.
     """
 
     def __cinit__(self, camera):
@@ -13030,7 +13068,25 @@ cdef class TLDevNodes:
 
 
 cdef class TLStreamNodes:
-    """All the camera transport layer stream nodes.
+    """Lists all the pre-listed nodes of the :class:`~rotpy.camera.Camera`
+    transport layer stream.
+
+    .. warning::
+
+        Do **not** create a :class:`TLStreamNodes` manually, rather get it
+        from :attr:`~rotpy.camera.Camera.tl_stream_nodes` that is automatically
+        created when the camera is instantiated.
+
+    .. note::
+
+        Even though the nodes are pre-listed, it is simply a convenience and
+        the same nodes can be gotten by name through
+        :class:`~rotpy.node.NodeMap`. Additionally, you must check that the
+        node is actually available, readable etc, even if it's pre-listed.
+
+        Some nodes are available before :meth:`~rotpy.camera.Camera.init_cam`,
+        but other nodes, even those pre-listed, become available only after
+        :meth:`~rotpy.camera.Camera.init_cam`.
     """
 
     def __cinit__(self, camera):

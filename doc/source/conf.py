@@ -57,6 +57,8 @@ html_static_path = ['_static']
 
 add_module_names = False
 
+autodoc_member_order = 'bysource'
+
 
 def setup(app):
     from sphinx.ext.autodoc import DataDocumenter, ModuleDocumenter

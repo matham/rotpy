@@ -1,3 +1,7 @@
+"""Node
+=======
+
+"""
 from .names.geni import InterfaceType_names, InterfaceType_values,\
     AccessMode_names, AccessMode_values, NameSpace_values, Visibility_names, \
     Visibility_values, CachingMode_names, CachingMode_values, \
@@ -5,6 +9,13 @@ from .names.geni import InterfaceType_names, InterfaceType_values,\
 from array import array
 
 cimport cpython.array
+
+__all__ = (
+    'NodeMap', 'SpinBaseNode', 'SpinSelectorNode', 'SpinNode', 'SpinValueNode',
+    'SpinIntNode', 'SpinFloatNode', 'SpinBoolNode', 'SpinStrNode',
+    'SpinCommandNode', 'SpinRegisterNode', 'SpinEnumNode', 'SpinEnumDefNode',
+    'SpinEnumItemNode', 'SpinTreeNode', 'SpinPortNode',
+)
 
 cdef dict node_cls_map = {
     InterfaceType_names['Value']: SpinValueNode,
@@ -221,7 +232,7 @@ cdef class SpinBaseNode:
         return AccessMode_values[n]
 
     cpdef is_readable(self):
-        """Returns whether the node is readable.
+        """Returns whether the node is readable (i.e. RW or RO).
         """
         cdef EAccessMode n
         with nogil:
@@ -229,7 +240,7 @@ cdef class SpinBaseNode:
         return RO == n or RW == n
 
     cpdef is_writable(self):
-        """Returns whether the node is writable.
+        """Returns whether the node is writable (i.e. RW or WO).
         """
         cdef EAccessMode n
         with nogil:
@@ -237,7 +248,7 @@ cdef class SpinBaseNode:
         return WO == n or RW == n
 
     cpdef is_implemented(self):
-        """Returns whether the node is implemented.
+        """Returns whether the node is implemented (i.e. not NI).
         """
         cdef EAccessMode n
         with nogil:
@@ -245,7 +256,8 @@ cdef class SpinBaseNode:
         return NI != n
 
     cpdef is_available(self):
-        """Returns whether the node is available.
+        """Returns whether the node is available (i.e. it's implemented and
+        available - not NI and not NA).
         """
         cdef EAccessMode n
         with nogil:

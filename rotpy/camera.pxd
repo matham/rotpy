@@ -55,8 +55,47 @@ cdef class Camera:
     cdef object _user_buf
 
     cdef public rotpy.camera_nodes.CameraNodes camera_nodes
+    """The pre-listed camera nodes from :class:`~rotpy.camera_nodes.CameraNodes`.
+
+    Use this property to get a pre-instantiated
+    :class:`~rotpy.camera_nodes.CameraNodes` because
+    :class:`~rotpy.camera_nodes.CameraNodes` is not user instantiable.
+
+    .. note::
+
+        Remember to check whether each of the pre-listed nodes are
+        :meth:`~rotpy.node.SpinBaseNode.is_available`,
+        :meth:`~rotpy.node.SpinBaseNode.is_readable`,
+        :meth:`~rotpy.node.SpinBaseNode.is_writable` etc.
+    """
     cdef public rotpy.camera_nodes.TLDevNodes tl_dev_nodes
+    """The pre-listed transport layer device nodes from :class:`~rotpy.camera_nodes.TLDevNodes`.
+
+    Use this property to get a pre-instantiated
+    :class:`~rotpy.camera_nodes.TLDevNodes` because
+    :class:`~rotpy.camera_nodes.TLDevNodes` is not user instantiable.
+
+    .. note::
+
+        Remember to check whether each of the pre-listed nodes are
+        :meth:`~rotpy.node.SpinBaseNode.is_available`,
+        :meth:`~rotpy.node.SpinBaseNode.is_readable`,
+        :meth:`~rotpy.node.SpinBaseNode.is_writable` etc.
+    """
     cdef public rotpy.camera_nodes.TLStreamNodes tl_stream_nodes
+    """The pre-listed transport layer streaming nodes from :class:`~rotpy.camera_nodes.TLStreamNodes`.
+
+    Use this property to get a pre-instantiated
+    :class:`~rotpy.camera_nodes.TLStreamNodes` because
+    :class:`~rotpy.camera_nodes.TLStreamNodes` is not user instantiable.
+
+    .. note::
+
+        Remember to check whether each of the pre-listed nodes are
+        :meth:`~rotpy.node.SpinBaseNode.is_available`,
+        :meth:`~rotpy.node.SpinBaseNode.is_readable`,
+        :meth:`~rotpy.node.SpinBaseNode.is_writable` etc.
+    """
 
     cdef object set_camera_by_index(self, CameraList cam_list, unsigned int index)
     cdef object set_camera_by_serial(self, CameraList cam_list, bytes serial)

@@ -2,4 +2,8 @@
   Getting Started
 ####################
 
-../../README.rst
+
+.. toctree::
+   :maxdepth: 2
+
+   README.rst

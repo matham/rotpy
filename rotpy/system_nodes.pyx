@@ -1,10 +1,15 @@
 """System nodes
 ===============
 
+Lists all the pre-listed nodes of the :class:`~rotpy.system.SpinSystem` and
+:class:`~rotpy.system.InterfaceDevice`.
+
 """
 from .node cimport SpinIntNode, SpinFloatNode, SpinBoolNode, SpinStrNode, \
     SpinCommandNode, SpinRegisterNode, SpinEnumDefNode
 
+from .node import SpinIntNode, SpinFloatNode, SpinBoolNode, SpinStrNode, \
+    SpinCommandNode, SpinRegisterNode, SpinEnumDefNode
 import rotpy.names.camera
 import rotpy.names.tl
 import rotpy.names.spin
@@ -14,7 +19,20 @@ __all__ = ('SystemNodes', 'InterfaceNodes')
 
 
 cdef class SystemNodes:
-    """All the system nodes.
+    """Lists all the pre-listed nodes of the :class:`~rotpy.system.SpinSystem`.
+
+    .. warning::
+
+        Do **not** create a :class:`SystemNodes` manually, rather get it
+        from :attr:`~rotpy.system.SpinSystem.system_nodes` that is automatically
+        created when the system is instantiated.
+
+    .. note::
+
+        Even though the nodes are pre-listed, it is simply a convenience and
+        the same nodes can be gotten by name through
+        :class:`~rotpy.node.NodeMap`. Additionally, you must check that the
+        node is actually available, readable etc, even if it's pre-listed.
     """
 
     def __cinit__(self, system):
@@ -486,7 +504,21 @@ cdef class SystemNodes:
 
 
 cdef class InterfaceNodes:
-    """All the interface device nodes.
+    """Lists all the pre-listed nodes of the
+    :class:`~rotpy.system.InterfaceDevice`.
+
+    .. warning::
+
+        Do **not** create a :class:`InterfaceNodes` manually, rather get it
+        from :attr:`~rotpy.system.InterfaceDevice.interface_nodes` that is
+        automatically created when the interface is instantiated.
+
+    .. note::
+
+        Even though the nodes are pre-listed, it is simply a convenience and
+        the same nodes can be gotten by name through
+        :class:`~rotpy.node.NodeMap`. Additionally, you must check that the
+        node is actually available, readable etc, even if it's pre-listed.
     """
 
     def __cinit__(self, interface):

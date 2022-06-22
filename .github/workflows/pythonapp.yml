@@ -40,6 +40,7 @@ jobs:
 
     - name: Generate docs
       run: |
+        cp README.rst doc/source/
         cd doc
         make html
 
