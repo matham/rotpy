@@ -16,7 +16,7 @@ jobs:
       id: get-deps
       with:
         path: spinnaker/
-        key: spinnaker-docs-1
+        key: spinnaker-docs-0
 
     - name: Get dependencies
       if: steps.get-deps.outputs.cache-hit != 'true'
