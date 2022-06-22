@@ -19,9 +19,10 @@ Getting an image from a GigE camera
 .. code-block:: python
 
     >>> from rotpy.system import SpinSystem
+    >>> from rotpy.camera import CameraList
     >>> # get a system ref and a list of all attached cameras
     >>> system = SpinSystem()
-    >>> cameras = system.create_camera_list(update_cams=True, update_interfaces=True)
+    >>> cameras = CameraList.create_from_system(system, update_cams=True, update_interfaces=True)
     >>> cameras.get_size()
         1
     >>> # get the camera attached from the list

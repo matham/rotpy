@@ -19,9 +19,9 @@ cdef class EventHandlerBase:
 cdef class LoggingEventHandler(EventHandlerBase):
     """NDC is Nested Diagnostic Context."""
 
-    def __init__(self, callback):
-        super().__init__()
+    cdef set_callback(self, SpinSystem system, callback):
         self._callback = callback
+        self._system = system
 
         self._handler.SetCallback(
             <PyObject*>self,
@@ -45,15 +45,16 @@ cdef class LoggingEventHandler(EventHandlerBase):
                 'priority': item.GetPriorityName().decode(),
                 'priority_num': item.GetPriority(),
             }
-            self._callback(data)
+            self._callback(self, self._system, data)
 
 
 cdef class SystemEventHandler(EventHandlerBase):
 
-    def __init__(self, callback_arrival, callback_removal):
-        super().__init__()
+    cdef set_callback(
+            self, SpinSystem system, callback_arrival, callback_removal):
         self._callback_arrival = callback_arrival
         self._callback_removal = callback_removal
+        self._system = system
 
         self._handler.SetCallback(
             <PyObject*>self,
@@ -65,21 +66,25 @@ cdef class SystemEventHandler(EventHandlerBase):
         with gil:
             if self._callback_arrival is None:
                 return
-            self._callback_arrival(interface.c_str().decode())
+            self._callback_arrival(
+                self, self._system, interface.c_str().decode())
 
     cdef void handler_callback_removal(self, cstr interface) nogil except *:
         with gil:
             if self._callback_removal is None:
                 return
-            self._callback_removal(interface.c_str().decode())
+            self._callback_removal(
+                self, self._system, interface.c_str().decode())
 
 
 cdef class InterfaceEventHandler(EventHandlerBase):
 
-    def __init__(self, callback_arrival, callback_removal):
-        super().__init__()
+    cdef set_callback(
+            self, object interface_or_sys, callback_arrival,
+            callback_removal):
         self._callback_arrival = callback_arrival
         self._callback_removal = callback_removal
+        self._interface_or_sys = interface_or_sys
 
         self._handler.SetCallback(
             <PyObject*>self,
@@ -91,13 +96,13 @@ cdef class InterfaceEventHandler(EventHandlerBase):
         with gil:
             if self._callback_arrival is None:
                 return
-            self._callback_arrival(serial)
+            self._callback_arrival(self, self._interface_or_sys, serial)
 
     cdef void handler_callback_removal(self, uint64_t serial) nogil except *:
         with gil:
             if self._callback_removal is None:
                 return
-            self._callback_removal(serial)
+            self._callback_removal(self, self._interface_or_sys, serial)
 
 
 cdef class SpinSystem:
@@ -151,6 +156,7 @@ cdef class SpinSystem:
         """
         with nogil:
             self._system.get().UnregisterAllLoggingEventHandlers()
+        self._log_handlers.clear()
 
     cpdef get_in_use(self):
         """Checks if the system is in use by any interface or camera objects.
@@ -182,24 +188,38 @@ cdef class SpinSystem:
 
         return node_map
 
-    cpdef attach_event_handler(self, SystemEventHandler handler):
-        """Registers an event handler for the system to get interface
-        arrival/removal events.
+    cpdef attach_event_handler(
+            self, callback_arrival=None, callback_removal=None):
+        """Registers the system callbacks to get interface arrival/removal
+        events.
 
-        :param handler: The :class:`SystemEventHandler` to handle the events.
+        :param callback_arrival: A function that will be called upon interface
+            arrival events. If it's ``None``, arrival events will be ignored.
+            See :class:`SystemEventHandler` for the function signature.
+        :param callback_removal: A function that will be called upon interface
+            removal events. If it's ``None``, removal events will be ignored.
+            See :class:`SystemEventHandler` for the function signature.
+        :returns: A :class:`SystemEventHandler` instance representing the
+            callbacks.
 
-        The ``handler`` will receive the system events while it is registered.
+        The callbacks will receive the system events while they are registered,
+        possibly even before this function returns(?) and could potentially
+        be called by external threads. It's best not to do any work in it.
         """
-        if handler in self._sys_handlers:
-            raise ValueError("Handler is already attached to the system")
+        cdef SystemEventHandler handler = SystemEventHandler()
+        handler.set_callback(self, callback_arrival, callback_removal)
 
-        with nogil:
-            self._system.get().RegisterEventHandler(handler._handler)
         self._sys_handlers.add(handler)
+        try:
+            with nogil:
+                self._system.get().RegisterEventHandler(handler._handler)
+        except:
+            self._sys_handlers.remove(handler)
+            raise
+        return handler
 
     cpdef detach_event_handler(self, SystemEventHandler handler):
-        """Detaches the event handler previously attached with
-        :meth:`attach_event_handler`.
+        """Detaches the event handler returned by :meth:`attach_event_handler`.
 
         :param handler: The :class:`SystemEventHandler` that handled the events.
         """
@@ -211,33 +231,48 @@ cdef class SpinSystem:
         self._sys_handlers.remove(handler)
 
     cpdef attach_interface_event_handler(
-            self, InterfaceEventHandler handler, cbool update=True):
-        """Registers the event handler for all available interfaces that are
-        found on the system. If new interfaces are detected by the system after
-        this call, those interfaces will be automatically registered with this
-        event.
+            self, callback_arrival=None, callback_removal=None,
+            cbool update=True):
+        """Registers device arrival and removal events for all
+        interfaces that are found on the system. If new interfaces are detected
+        by the system after this call, those interfaces will be automatically
+        registered with this event.
 
-        :param handler: The :class:`InterfaceEventHandler` to handle the events.
+        :param callback_arrival: A function that will be called upon device
+            arrival events. If it's ``None``, arrival events will be ignored.
+            See :class:`InterfaceEventHandler` for the function signature.
+        :param callback_removal: A function that will be called upon device
+            removal events. If it's ``None``, removal events will be ignored.
+            See :class:`InterfaceEventHandler` for the function signature.
         :param update: Whether to update the interface list before attaching
             event for the available interfaces on the system.
+        :returns: A :class:`InterfaceEventHandler` instance representing the
+            callbacks.
 
         .. note::
 
             Only GEV interface arrivals and removals are currently handled.
 
-        The ``handler`` will receive the interface events while it is
-        registered.
+        The callbacks will receive the interface events while they are
+        registered,
+        possibly even before this function returns(?) and could potentially
+        be called by external threads. It's best not to do any work in it.
         """
-        if handler in self._interface_handlers:
-            raise ValueError("Handler is already attached to the interfaces")
+        cdef InterfaceEventHandler handler = InterfaceEventHandler()
+        handler.set_callback(self, callback_arrival, callback_removal)
 
-        with nogil:
-            self._system.get().RegisterInterfaceEventHandler(
-                handler._handler, update)
         self._interface_handlers.add(handler)
+        try:
+            with nogil:
+                self._system.get().RegisterInterfaceEventHandler(
+                    handler._handler, update)
+        except:
+            self._interface_handlers.remove(handler)
+            raise
+        return handler
 
     cpdef detach_interface_event_handler(self, InterfaceEventHandler handler):
-        """Detaches the event handler previously attached with
+        """Detaches the event handler previously returned by
         :meth:`attach_interface_event_handler`.
 
         :param handler: The :class:`InterfaceEventHandler` that handled the
@@ -250,23 +285,32 @@ cdef class SpinSystem:
             self._system.get().UnregisterInterfaceEventHandler(handler._handler)
         self._interface_handlers.remove(handler)
 
-    cpdef attach_log_event_handler(self, LoggingEventHandler handler):
-        """Registers the event handler for the logging system.
+    cpdef attach_log_event_handler(self, callback):
+        """Registers the callback to get logging events from system.
 
-        :param handler: The :class:`LoggingEventHandler` to handle the events.
+        :param callback: A function that will be called upon logging events.
+            See :class:`LoggingEventHandler` for the function signature.
+        :returns: A :class:`LoggingEventHandler` instance representing the
+            callback.
 
-        The ``handler`` will receive the events while it is registered.
+        The ``callback`` will receive the events while it is registered,
+        possibly even before this function returns(?) and could potentially
+        be called by external threads. It's best not to do any work in it.
         """
-        if handler in self._log_handlers:
-            raise ValueError(
-                "Handler is already attached to the logging system")
+        cdef LoggingEventHandler handler = LoggingEventHandler()
+        handler.set_callback(self, callback)
 
-        with nogil:
-            self._system.get().RegisterLoggingEventHandler(handler._handler)
         self._log_handlers.add(handler)
+        try:
+            with nogil:
+                self._system.get().RegisterLoggingEventHandler(handler._handler)
+        except:
+            self._log_handlers.remove(handler)
+            raise
+        return handler
 
     cpdef detach_log_event_handler(self, LoggingEventHandler handler):
-        """Detaches the event handler previously attached with
+        """Detaches an event handler returned by
         :meth:`attach_log_event_handler`.
 
         :param handler: The :class:`LoggingEventHandler` that handled the
@@ -443,28 +487,43 @@ cdef class InterfaceDevice:
         self._interface_set = 1
         self._dev_list = dev_list
 
-    cpdef attach_event_handler(self, InterfaceEventHandler handler):
-        """Registers an event handler for the interface.
+    cpdef attach_event_handler(
+            self, callback_arrival=None, callback_removal=None):
+        """Registers device arrival and removal events for the interface.
 
-        :param handler: The :class:`InterfaceEventHandler` to handle the events.
+        :param callback_arrival: A function that will be called upon device
+            arrival events. If it's ``None``, arrival events will be ignored.
+            See :class:`InterfaceEventHandler` for the function signature.
+        :param callback_removal: A function that will be called upon device
+            removal events. If it's ``None``, removal events will be ignored.
+            See :class:`InterfaceEventHandler` for the function signature.
+        :returns: A :class:`InterfaceEventHandler` instance representing the
+            callbacks.
 
-        The ``handler`` will receive the interface events while it is
-        registered.
+        The callbacks will receive the interface events while they are
+        registered,
+        possibly even before this function returns(?) and could potentially
+        be called by external threads. It's best not to do any work in it.
 
         Event handlers are automatically cleaned up when an interface is
         removed, and must be registered to interfaces as they arrive. Note that
         GEV interfaces experience arrival/removal events when the IP information
         changes, similar to GEV cameras.
         """
-        if handler in self._event_handlers:
-            raise ValueError("Handler is already attached to the system")
+        cdef InterfaceEventHandler handler = InterfaceEventHandler()
+        handler.set_callback(self, callback_arrival, callback_removal)
 
-        with nogil:
-            self._interface.get().RegisterEventHandler(handler._handler)
         self._event_handlers.add(handler)
+        try:
+            with nogil:
+                self._interface.get().RegisterEventHandler(handler._handler)
+        except:
+            self._event_handlers.remove(handler)
+            raise
+        return handler
 
     cpdef detach_event_handler(self, InterfaceEventHandler handler):
-        """Detaches the event handler previously attached with
+        """Detaches the event handler previously returned by
         :meth:`attach_event_handler`.
 
         :param handler: The :class:`InterfaceEventHandler` that handled the

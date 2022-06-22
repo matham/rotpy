@@ -8,8 +8,10 @@ from .node cimport NodeMap
 cdef class DeviceEventHandler(rotpy.system.EventHandlerBase):
 
     cdef object _callback
+    cdef Camera _camera
     cdef RotpyDeviceEventHandler _handler
 
+    cdef set_callback(self, Camera camera, callback, str event_name=*)
     cpdef get_event_metadata(self)
     cpdef get_event_data(self, str event_name)
     cdef void handler_callback(self, const gcstring* event) nogil except*
@@ -18,8 +20,10 @@ cdef class DeviceEventHandler(rotpy.system.EventHandlerBase):
 cdef class ImageEventHandler(rotpy.system.EventHandlerBase):
 
     cdef object _callback
+    cdef Camera _camera
     cdef RotpyImageEventHandler _handler
 
+    cdef set_callback(self, Camera camera, callback)
     cdef void handler_callback(self, ImagePtr image_ptr) nogil except*
 
 
@@ -64,9 +68,9 @@ cdef class Camera:
     cpdef write_port(self, uint64_t address, const unsigned char[:] data)
     cpdef begin_acquisition(self)
     cpdef end_acquisition(self)
-    cpdef attach_device_event_handler(self, DeviceEventHandler handler, str name=*)
+    cpdef attach_device_event_handler(self, callback, str name=*)
     cpdef detach_device_event_handler(self, DeviceEventHandler handler)
-    cpdef attach_image_event_handler(self, ImageEventHandler handler)
+    cpdef attach_image_event_handler(self, callback)
     cpdef detach_image_event_handler(self, ImageEventHandler handler)
     cpdef get_buffer_ownership(self)
     cpdef set_buffer_ownership(self, str ownership)

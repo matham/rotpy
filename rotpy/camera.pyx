@@ -17,8 +17,7 @@ __all__ = ('DeviceEventHandler', 'ImageEventHandler', 'CameraList', 'Camera')
 
 cdef class DeviceEventHandler(rotpy.system.EventHandlerBase):
 
-    def __init__(self, callback, str event_name=''):
-        super().__init__()
+    cdef set_callback(self, Camera camera, callback, str event_name=''):
 
         cdef bytes name_b = event_name.encode()
         cdef size_t n = len(event_name)
@@ -26,6 +25,7 @@ cdef class DeviceEventHandler(rotpy.system.EventHandlerBase):
         cdef gcstring s
 
         self._callback = callback
+        self._camera = camera
 
         if event_name:
             s.assign(name_c, n)
@@ -98,14 +98,14 @@ cdef class DeviceEventHandler(rotpy.system.EventHandlerBase):
         with gil:
             if self._callback is None:
                 return
-            self._callback(msg.decode())
+            self._callback(self, self._camera, msg.decode())
 
 
 cdef class ImageEventHandler(rotpy.system.EventHandlerBase):
 
-    def __init__(self, callback):
-        super().__init__()
+    cdef set_callback(self, Camera camera, callback):
         self._callback = callback
+        self._camera = camera
 
         self._handler.SetCallback(
             <PyObject*>self, <void (*)(void *, ImagePtr) nogil>
@@ -118,7 +118,9 @@ cdef class ImageEventHandler(rotpy.system.EventHandlerBase):
         with gil:
             if self._callback is None:
                 return
-            self._callback(rotpy.image.Image.create_from_camera(image_ptr))
+            self._callback(
+                self, self._camera,
+                rotpy.image.Image.create_from_camera(image_ptr))
 
 
 cdef class CameraList:
@@ -400,40 +402,50 @@ cdef class Camera:
         with nogil:
             self._camera.get().EndAcquisition()
 
-    cpdef attach_device_event_handler(
-            self, DeviceEventHandler handler, str name=''):
-        """Registers an event handler for the camera device.
+    cpdef attach_device_event_handler(self, callback, str name=''):
+        """Registers the callback to get events from camera.
 
-        :param handler: The :class:`DeviceEventHandler` to handle the events.
+        :param callback: A function that will be called upon camera events.
+            See :class:`DeviceEventHandler` for the function signature.
         :param name: An optional event name. If empty (the default), all events
             will be handled.
+        :returns: A :class:`DeviceEventHandler` instance representing the
+            callback.
 
-        The ``handler`` will receive the camera events while it is registered.
+        The ``callback`` will receive the camera events while it is registered,
+        possibly even before this function returns(?) and could potentially
+        be called by external threads. It's best not to do any work in it.
 
         .. warning::
 
             The camera has to be initialized first with :meth:`init_cam` before
-            registering handlers for events.
+            registering callbacks for events.
         """
+        cdef DeviceEventHandler handler = DeviceEventHandler()
+        handler.set_callback(self, callback, name)
+
         cdef bytes name_b = name.encode()
         cdef size_t n = len(name)
         cdef const char * name_c = name_b
         cdef gcstring name_s
 
-        if handler in self._dev_handlers:
-            raise ValueError("Handler is already attached to the system")
-
-        with nogil:
-            if n:
-                name_s.assign(name_c, n)
-                self._camera.get().RegisterEventHandler(
-                    handler._handler, name_s)
-            else:
-                self._camera.get().RegisterEventHandler(handler._handler)
         self._dev_handlers.add(handler)
+        try:
+            with nogil:
+                if n:
+                    name_s.assign(name_c, n)
+                    self._camera.get().RegisterEventHandler(
+                        handler._handler, name_s)
+                else:
+                    self._camera.get().RegisterEventHandler(handler._handler)
+        except:
+            self._dev_handlers.remove(handler)
+            raise
+
+        return handler
 
     cpdef detach_device_event_handler(self, DeviceEventHandler handler):
-        """Detaches the event handler previously attached with
+        """Detaches an event handler previously returned by
         :meth:`attach_device_event_handler`.
 
         :param handler: The :class:`DeviceEventHandler` that handled the events.
@@ -452,27 +464,38 @@ cdef class Camera:
             self._camera.get().UnregisterEventHandler(handler._handler)
         self._dev_handlers.remove(handler)
 
-    cpdef attach_image_event_handler(self, ImageEventHandler handler):
-        """Registers an event handler for camera images.
+    cpdef attach_image_event_handler(self, callback):
+        """Registers the callback to get called on new camera images.
 
-        :param handler: The :class:`ImageEventHandler` to handle the events.
+        :param callback: A function that will be called upon new images.
+            See :class:`ImageEventHandler` for the function signature.
+        :returns: A :class:`ImageEventHandler` instance representing the
+            callback.
 
-        The ``handler`` will receive the camera images while it is registered.
+        The ``callback`` will receive the camera images while it is registered,
+        possibly even before this function returns(?) and could potentially
+        be called by external threads. It's best not to do any work in it.
 
         .. warning::
 
             The camera has to be initialized first with :meth:`init_cam` before
             registering handlers for images.
         """
-        if handler in self._image_handlers:
-            raise ValueError("Handler is already attached to the system")
+        cdef ImageEventHandler handler = ImageEventHandler()
+        handler.set_callback(self, callback)
 
-        with nogil:
-            self._camera.get().RegisterEventHandler(handler._handler)
         self._image_handlers.add(handler)
+        try:
+            with nogil:
+                self._camera.get().RegisterEventHandler(handler._handler)
+        except:
+            self._image_handlers.remove(handler)
+            raise
+
+        return handler
 
     cpdef detach_image_event_handler(self, ImageEventHandler handler):
-        """Detaches the event handler previously attached with
+        """Detaches an event handler previously returned by
         :meth:`attach_image_event_handler`.
 
         :param handler: The :class:`ImageEventHandler` that handled the events.

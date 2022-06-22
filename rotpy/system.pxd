@@ -10,8 +10,10 @@ cdef class EventHandlerBase:
 cdef class LoggingEventHandler(EventHandlerBase):
 
     cdef object _callback
+    cdef SpinSystem _system
     cdef RotpyLoggingEventHandler _handler
 
+    cdef set_callback(self, SpinSystem system, callback)
     cdef void handler_callback(self, const LoggingEventDataPtr event) nogil except*
 
 
@@ -19,8 +21,10 @@ cdef class SystemEventHandler(EventHandlerBase):
 
     cdef object _callback_arrival
     cdef object _callback_removal
+    cdef SpinSystem _system
     cdef RotpySystemEventHandler _handler
 
+    cdef set_callback(self, SpinSystem system, callback_arrival, callback_removal)
     cdef void handler_callback_arrival(self, cstr interface) nogil except*
     cdef void handler_callback_removal(self, cstr interface) nogil except*
 
@@ -29,8 +33,10 @@ cdef class InterfaceEventHandler(EventHandlerBase):
 
     cdef object _callback_arrival
     cdef object _callback_removal
+    cdef object _interface_or_sys
     cdef RotpyInterfaceEventHandler _handler
 
+    cdef set_callback(self, object interface_or_sys, callback_arrival, callback_removal)
     cdef void handler_callback_arrival(self, uint64_t serial) nogil except*
     cdef void handler_callback_removal(self, uint64_t serial) nogil except*
 
@@ -51,12 +57,12 @@ cdef class SpinSystem:
     cpdef get_in_use(self)
     cpdef get_library_version(self)
     cpdef get_tl_node_map(self)
-    cpdef attach_event_handler(self, SystemEventHandler handler)
+    cpdef attach_event_handler(self, callback_arrival=*, callback_removal=*)
     cpdef detach_event_handler(self, SystemEventHandler handler)
     cpdef attach_interface_event_handler(
-            self, InterfaceEventHandler handler, cbool update=*)
+            self, callback_arrival=*, callback_removal=*, cbool update=*)
     cpdef detach_interface_event_handler(self, InterfaceEventHandler handler)
-    cpdef attach_log_event_handler(self, LoggingEventHandler handler)
+    cpdef attach_log_event_handler(self, callback)
     cpdef detach_log_event_handler(self, LoggingEventHandler handler)
     cpdef send_command(
             self, unsigned int device_key, unsigned int group_key,
@@ -89,7 +95,7 @@ cdef class InterfaceDevice:
     cdef public rotpy.system_nodes.InterfaceNodes interface_nodes
 
     cdef object set_interface(self, InterfaceDeviceList dev_list, unsigned int index)
-    cpdef attach_event_handler(self, InterfaceEventHandler handler)
+    cpdef attach_event_handler(self, callback_arrival=*, callback_removal=*)
     cpdef detach_event_handler(self, InterfaceEventHandler handler)
     cpdef get_in_use(self)
     cpdef send_command(
