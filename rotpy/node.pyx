@@ -266,7 +266,7 @@ cdef class SpinSelectorNode(SpinBaseNode):
         self._sel_handle = NULL
 
     cdef void set_handle(self, object source, IBase* handle) except *:
-        SpinBaseNode.set_handle(self, object, handle)
+        SpinBaseNode.set_handle(self, source, handle)
         self._sel_handle = dynamic_cast[ISelectorPointer](handle)
 
     cpdef is_selector(self):
@@ -319,7 +319,7 @@ cdef class SpinNode(SpinSelectorNode):
         self._node_handle = NULL
 
     cdef void set_handle(self, object source, IBase* handle) except *:
-        SpinSelectorNode.set_handle(self, object, handle)
+        SpinSelectorNode.set_handle(self, source, handle)
         self._node_handle = dynamic_cast[INodePointer](handle)
 
     cpdef dict get_metadata(self):
@@ -631,7 +631,7 @@ cdef class SpinValueNode(SpinNode):
         self._value_handle = NULL
 
     cdef void set_handle(self, object source, IBase* handle) except *:
-        SpinNode.set_handle(self, object, handle)
+        SpinNode.set_handle(self, source, handle)
         self._value_handle = dynamic_cast[IValuePointer](handle)
 
     cpdef get_node_value_as_str(
@@ -679,7 +679,7 @@ cdef class SpinIntNode(SpinValueNode):
         self._handle = NULL
 
     cdef void set_handle(self, object source, IBase* handle) except *:
-        SpinValueNode.set_handle(self, object, handle)
+        SpinValueNode.set_handle(self, source, handle)
         self._handle = dynamic_cast[IIntegerPointer](handle)
 
     cpdef get_node_value(self, cbool verify=False, cbool ignore_cache=False):
@@ -795,7 +795,7 @@ cdef class SpinFloatNode(SpinValueNode):
         self._handle = NULL
 
     cdef void set_handle(self, object source, IBase* handle) except *:
-        SpinValueNode.set_handle(self, object, handle)
+        SpinValueNode.set_handle(self, source, handle)
         self._handle = dynamic_cast[IFloatPointer](handle)
 
     cpdef get_node_value(self, cbool verify=False, cbool ignore_cache=False):
@@ -937,7 +937,7 @@ cdef class SpinBoolNode(SpinValueNode):
         self._handle = NULL
 
     cdef void set_handle(self, object source, IBase* handle) except *:
-        SpinValueNode.set_handle(self, object, handle)
+        SpinValueNode.set_handle(self, source, handle)
         self._handle = dynamic_cast[IBooleanPointer](handle)
 
     cpdef get_node_value(self, cbool verify=False, cbool ignore_cache=False):
@@ -968,7 +968,7 @@ cdef class SpinStrNode(SpinValueNode):
         self._handle = NULL
 
     cdef void set_handle(self, object source, IBase* handle) except *:
-        SpinValueNode.set_handle(self, object, handle)
+        SpinValueNode.set_handle(self, source, handle)
         self._handle = dynamic_cast[IStringPointer](handle)
 
     cpdef get_node_value(self, cbool verify=False, cbool ignore_cache=False):
@@ -1013,7 +1013,7 @@ cdef class SpinCommandNode(SpinValueNode):
         self._handle = NULL
 
     cdef void set_handle(self, object source, IBase* handle) except *:
-        SpinValueNode.set_handle(self, object, handle)
+        SpinValueNode.set_handle(self, source, handle)
         self._handle = dynamic_cast[ICommandPointer](handle)
 
     cpdef is_done(self, cbool verify=True):
@@ -1042,7 +1042,7 @@ cdef class SpinRegisterNode(SpinValueNode):
         self._handle = NULL
 
     cdef void set_handle(self, object source, IBase* handle) except *:
-        SpinValueNode.set_handle(self, object, handle)
+        SpinValueNode.set_handle(self, source, handle)
         self._handle = dynamic_cast[IRegisterPointer](handle)
 
     cpdef get_address(self):
@@ -1092,7 +1092,7 @@ cdef class SpinEnumNode(SpinValueNode):
         self._handle = NULL
 
     cdef void set_handle(self, object source, IBase* handle) except *:
-        SpinValueNode.set_handle(self, object, handle)
+        SpinValueNode.set_handle(self, source, handle)
         self._handle = dynamic_cast[IEnumerationPointer](handle)
 
     cpdef get_entries_names(self):
@@ -1259,7 +1259,7 @@ cdef class SpinEnumDefNode(SpinEnumNode):
         self._enum_handle = NULL
 
     cdef void set_handle(self, object source, IBase* handle) except *:
-        SpinEnumNode.set_handle(self, object, handle)
+        SpinEnumNode.set_handle(self, source, handle)
         self._enum_handle = dynamic_cast[IEnumerationTPointer](handle)
 
     cpdef get_entry_by_api_str(self, str value):
@@ -1340,7 +1340,7 @@ cdef class SpinEnumItemNode(SpinValueNode):
         self._handle = NULL
 
     cdef void set_handle(self, object source, IBase* handle) except *:
-        SpinValueNode.set_handle(self, object, handle)
+        SpinValueNode.set_handle(self, source, handle)
         self._handle = dynamic_cast[IEnumEntryPointer](handle)
 
     cpdef get_enum_num(self):
@@ -1388,7 +1388,7 @@ cdef class SpinTreeNode(SpinValueNode):
         self._handle = NULL
 
     cdef void set_handle(self, object source, IBase* handle) except *:
-        SpinValueNode.set_handle(self, object, handle)
+        SpinValueNode.set_handle(self, source, handle)
         self._handle = dynamic_cast[ICategoryPointer](handle)
 
     cpdef get_children(self):
@@ -1440,7 +1440,7 @@ cdef class SpinPortNode(SpinBaseNode):
         self._handle = NULL
 
     cdef void set_handle(self, object source, IBase* handle) except *:
-        SpinBaseNode.set_handle(self, object, handle)
+        SpinBaseNode.set_handle(self, source, handle)
         self._handle = dynamic_cast[IPortPointer](handle)
 
     cpdef write_port(self, object buffer, int64_t address):
