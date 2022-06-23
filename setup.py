@@ -94,6 +94,10 @@ setup(
     description='Cython bindings for the Spinnaker camera control API.',
     url='https://matham.github.io/rotpy/',
     long_description=long_description,
+    project_urls={
+        'Documentation': 'https://matham.github.io/rotpy/',
+        'Source': 'https://github.com/matham/rotpy/',
+    },
     classifiers=[
         'License :: OSI Approved :: MIT License',
         'Topic :: Multimedia :: Graphics :: Capture :: Digital Camera',
@@ -104,6 +108,7 @@ setup(
         'Programming Language :: Python :: 3.10',
         'Operating System :: Microsoft :: Windows',
         'Operating System :: POSIX :: Linux',
+        'Operating System :: MacOS',
         'Intended Audience :: Developers'],
     packages=find_packages(),
     package_data={
