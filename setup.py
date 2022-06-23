@@ -117,4 +117,9 @@ setup(
             '_cam_defs/*.pyx', '_cam_defs/*.pxd', '../rotpy.libs/flir-gentl/*'
         ]},
     data_files=get_wheel_data(),
-    cmdclass=cmdclass, ext_modules=ext_modules)
+    cmdclass=cmdclass, ext_modules=ext_modules,
+    extras_require={
+        'doc': ["sphinx-copybutton", "sphinx_rtd_theme", "sphinx", "cython"],
+        'test': ['pytest'],
+    }
+)

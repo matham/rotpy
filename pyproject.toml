@@ -2,16 +2,3 @@
 requires = [
     "setuptools", "wheel", "cython",
 ]
-
-
-[project.optional-dependencies]
-doc = [
-    "sphinx-copybutton",
-    "sphinx_rtd_theme",
-    "sphinx",
-    "cython"
-]
-
-test = [
-  "pytest"
-]

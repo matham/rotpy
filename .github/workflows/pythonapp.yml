@@ -16,7 +16,7 @@ jobs:
       id: get-deps
       with:
         path: spinnaker/
-        key: spinnaker-docs-2
+        key: spinnaker-docs-3
 
     - name: Get dependencies
       if: steps.get-deps.outputs.cache-hit != 'true'
@@ -38,6 +38,7 @@ jobs:
 
     - name: Generate docs
       run: |
+        cp -r spinnaker ~/spinnaker
         cp README.rst doc/source/
         cd doc
         make html
@@ -67,6 +68,8 @@ jobs:
         git add .
         git commit -a -m "Docs for git-$GITHUB_SHA"
         git push origin gh-pages -f
+
+        cp -r ~/spinnaker spinnaker
 
   linux_wheels:
     env:
