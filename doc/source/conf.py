@@ -11,6 +11,7 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import os
+import rotpy
 import sphinx_rtd_theme
 
 
@@ -27,11 +28,19 @@ author = 'Matthew Einhorn'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'sphinx_copybutton',
     'sphinx.ext.autodoc',
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
+    'sphinx.ext.intersphinx',
     "sphinx_rtd_theme",
+    'sphinx.ext.viewcode',
 ]
+
+intersphinx_mapping = {"python": ("https://docs.python.org/3", None)}
+
+version = rotpy.__version__
+release = rotpy.__version__
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -52,8 +61,19 @@ html_theme = 'sphinx_rtd_theme'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = ["_static"]
 
+html_theme_options = {
+    'collapse_navigation': False,
+}
+
+html_context = {
+    'display_github': True,
+    'github_user': 'matham',
+    'github_repo': 'rotpy',
+    'github_version': 'main',
+    "conf_py_path": "/doc/source/"
+}
 
 add_module_names = False
 

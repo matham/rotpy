@@ -33,10 +33,8 @@ jobs:
         sudo dpkg -i spinnaker/libspinnaker_*.deb
         sudo dpkg -i spinnaker/libspinnaker-dev_*.deb
 
-        python3 -m pip install --upgrade sphinx sphinx-rtd-theme cython
-
     - name: Build rotpy
-      run: python3 -m pip install -e .
+      run: python3 -m pip install -e .[doc]
 
     - name: Generate docs
       run: |

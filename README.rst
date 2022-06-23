@@ -141,7 +141,8 @@ Getting an image from a GigE camera
 System and camera properties
 ----------------------------
 
-The system and camera properties can be read and set using :py:mod:`~rotpy.node`
+The system and camera properties can be read and set using
+`node <https://matham.github.io/rotpy/node.html>`_
 objects. These nodes, each represent a camera or system property, and they
 can be integer nodes, float nodes, boolean nodes, string nodes, command
 nodes etc.
@@ -150,21 +151,28 @@ These nodes derive from Spinnaker's `GenICam <https://en.wikipedia.org/wiki/GenI
 implementation for their cameras. RotPy provides access to a generic node access API
 as well as to some pre-listed nodes available on many cameras.
 
-The generic API is accessed through the :py:class:`~rotpy.node.NodeMap` using
-e.g. :py:meth:`~rotpy.system.SpinSystem.get_tl_node_map`,
-:py:meth:`~rotpy.system.InterfaceDevice.get_tl_node_map`,
-:py:meth:`~rotpy.camera.Camera.get_node_map`, :py:meth:`~rotpy.camera.Camera.get_tl_dev_node_map`, or
-:py:meth:`~rotpy.camera.Camera.get_tl_stream_node_map`.
+The generic API is accessed through the `NodeMap <https://matham.github.io/rotpy/node.html#rotpy.node.NodeMap>`_ using
+e.g. `get_tl_node_map <https://matham.github.io/rotpy/system.html#rotpy.system.SpinSystem.get_tl_node_map>`_,
+`get_tl_node_map <https://matham.github.io/rotpy/system.html#rotpy.system.InterfaceDevice.get_tl_node_map>`_,
+`get_node_map <https://matham.github.io/rotpy/camera.html#rotpy.camera.Camera.get_node_map>`_,
+`get_tl_dev_node_map <https://matham.github.io/rotpy/camera.html#rotpy.camera.Camera.get_tl_dev_node_map>`_, or
+`get_tl_stream_node_map <https://matham.github.io/rotpy/camera.html#rotpy.camera.Camera.get_tl_stream_node_map>`_.
 
-The pre-listed nodes can be accessed through e.g. :py:attr:`~rotpy.system.SpinSystem.system_nodes`,
-:py:attr:`~rotpy.system.InterfaceDevice.interface_nodes`,
-:py:attr:`~rotpy.camera.Camera.camera_nodes`, :py:attr:`~rotpy.camera.Camera.tl_dev_nodes`, or
-:py:attr:`~rotpy.camera.Camera.tl_stream_nodes`. These link to the following respective
-objects: :py:class:`~rotpy.system_nodes.SystemNodes`, :py:class:`~rotpy.system_nodes.InterfaceNodes`,
-:py:class:`~rotpy.camera_nodes.CameraNodes`, :py:class:`~rotpy.camera_nodes.TLDevNodes`, and
-:py:class:`~rotpy.camera_nodes.TLStreamNodes`.
+The pre-listed nodes can be accessed through e.g.
+`system_nodes <https://matham.github.io/rotpy/system.html#rotpy.system.SpinSystem.system_nodes>`_,
+`interface_nodes <https://matham.github.io/rotpy/system.html#rotpy.system.InterfaceDevice.interface_nodes>`_,
+`camera_nodes <https://matham.github.io/rotpy/camera.html#rotpy.camera.Camera.camera_nodes>`_,
+`tl_dev_nodes <https://matham.github.io/rotpy/camera.html#rotpy.camera.Camera.tl_dev_nodes>`_, or
+`tl_stream_nodes <https://matham.github.io/rotpy/camera.html#rotpy.camera.Camera.tl_stream_nodes>`_.
+These link to the following respective
+objects: `SystemNodes <https://matham.github.io/rotpy/system_nodes.html#rotpy.system_nodes.SystemNodes>`_,
+`InterfaceNodes <https://matham.github.io/rotpy/system_nodes.html#rotpy.system_nodes.InterfaceNodes>`_,
+`CameraNodes <https://matham.github.io/rotpy/camera_nodes.html#rotpy.camera_nodes.CameraNodes>`_,
+`TLDevNodes <https://matham.github.io/rotpy/camera_nodes.html#rotpy.camera_nodes.TLDevNodes>`_, and
+`TLStreamNodes <https://matham.github.io/rotpy/camera_nodes.html#rotpy.camera_nodes.TLStreamNodes>`_.
 
-E.g. to access some of the system nodes using :py:attr:`~rotpy.system.SpinSystem.system_nodes`:
+E.g. to access some of the system nodes using
+`system_nodes <https://matham.github.io/rotpy/system.html#rotpy.system.SpinSystem.system_nodes>`_:
 
 .. code-block:: python
 
