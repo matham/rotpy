@@ -35,6 +35,7 @@ extensions = [
     'sphinx.ext.intersphinx',
     "sphinx_rtd_theme",
     'sphinx.ext.viewcode',
+    'autodocsumm',
 ]
 
 intersphinx_mapping = {"python": ("https://docs.python.org/3", None)}
@@ -78,6 +79,10 @@ html_context = {
 add_module_names = False
 
 autodoc_member_order = 'bysource'
+
+autodoc_default_options = {
+    'autosummary': True, 'autosummary-nosignatures': True
+}
 
 
 def setup(app):

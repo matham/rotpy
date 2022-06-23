@@ -119,7 +119,10 @@ setup(
     data_files=get_wheel_data(),
     cmdclass=cmdclass, ext_modules=ext_modules,
     extras_require={
-        'doc': ["sphinx-copybutton", "sphinx_rtd_theme", "sphinx", "cython"],
+        'doc': [
+            "sphinx-copybutton", "sphinx_rtd_theme", "sphinx", "cython",
+            "autodocsumm"
+        ],
         'test': ['pytest'],
     }
 )

@@ -7,6 +7,7 @@
 .. automodule:: rotpy.names
    :members:
    :show-inheritance:
+   :no-autosummary:
 
 
 .. toctree::
