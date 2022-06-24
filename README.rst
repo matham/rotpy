@@ -152,18 +152,18 @@ implementation for their cameras. RotPy provides access to a generic node access
 as well as to some pre-listed nodes available on many cameras.
 
 The generic API is accessed through the `NodeMap <https://matham.github.io/rotpy/node.html#rotpy.node.NodeMap>`_ using
-e.g. `get_tl_node_map <https://matham.github.io/rotpy/system.html#rotpy.system.SpinSystem.get_tl_node_map>`_,
-`get_tl_node_map <https://matham.github.io/rotpy/system.html#rotpy.system.InterfaceDevice.get_tl_node_map>`_,
-`get_node_map <https://matham.github.io/rotpy/camera.html#rotpy.camera.Camera.get_node_map>`_,
-`get_tl_dev_node_map <https://matham.github.io/rotpy/camera.html#rotpy.camera.Camera.get_tl_dev_node_map>`_, or
-`get_tl_stream_node_map <https://matham.github.io/rotpy/camera.html#rotpy.camera.Camera.get_tl_stream_node_map>`_.
+e.g. `SpinSystem.get_tl_node_map <https://matham.github.io/rotpy/system.html#rotpy.system.SpinSystem.get_tl_node_map>`_,
+`InterfaceDevice.get_tl_node_map <https://matham.github.io/rotpy/system.html#rotpy.system.InterfaceDevice.get_tl_node_map>`_,
+`Camera.get_node_map <https://matham.github.io/rotpy/camera.html#rotpy.camera.Camera.get_node_map>`_,
+`Camera.get_tl_dev_node_map <https://matham.github.io/rotpy/camera.html#rotpy.camera.Camera.get_tl_dev_node_map>`_, or
+`Camera.get_tl_stream_node_map <https://matham.github.io/rotpy/camera.html#rotpy.camera.Camera.get_tl_stream_node_map>`_.
 
 The pre-listed nodes can be accessed through e.g.
-`system_nodes <https://matham.github.io/rotpy/system.html#rotpy.system.SpinSystem.system_nodes>`_,
-`interface_nodes <https://matham.github.io/rotpy/system.html#rotpy.system.InterfaceDevice.interface_nodes>`_,
-`camera_nodes <https://matham.github.io/rotpy/camera.html#rotpy.camera.Camera.camera_nodes>`_,
-`tl_dev_nodes <https://matham.github.io/rotpy/camera.html#rotpy.camera.Camera.tl_dev_nodes>`_, or
-`tl_stream_nodes <https://matham.github.io/rotpy/camera.html#rotpy.camera.Camera.tl_stream_nodes>`_.
+`SpinSystem.system_nodes <https://matham.github.io/rotpy/system.html#rotpy.system.SpinSystem.system_nodes>`_,
+`InterfaceDevice.interface_nodes <https://matham.github.io/rotpy/system.html#rotpy.system.InterfaceDevice.interface_nodes>`_,
+`Camera.camera_nodes <https://matham.github.io/rotpy/camera.html#rotpy.camera.Camera.camera_nodes>`_,
+`Camera.tl_dev_nodes <https://matham.github.io/rotpy/camera.html#rotpy.camera.Camera.tl_dev_nodes>`_, or
+`Camera.tl_stream_nodes <https://matham.github.io/rotpy/camera.html#rotpy.camera.Camera.tl_stream_nodes>`_.
 These link to the following respective
 objects: `SystemNodes <https://matham.github.io/rotpy/system_nodes.html#rotpy.system_nodes.SystemNodes>`_,
 `InterfaceNodes <https://matham.github.io/rotpy/system_nodes.html#rotpy.system_nodes.InterfaceNodes>`_,

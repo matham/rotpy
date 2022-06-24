@@ -94,6 +94,7 @@ setup(
     description='Cython bindings for the Spinnaker camera control API.',
     url='https://matham.github.io/rotpy/',
     long_description=long_description,
+    long_description_content_type='text/x-rst',
     project_urls={
         'Documentation': 'https://matham.github.io/rotpy/',
         'Source': 'https://github.com/matham/rotpy/',
