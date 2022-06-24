@@ -593,7 +593,6 @@ cdef class InterfaceDevice:
 
         if not self._interface.IsValid():
             raise ValueError(f'Could not find interface at index "{index}"')
-        # todo: check for null
         self._interface_set = 1
         self._dev_list = dev_list
 

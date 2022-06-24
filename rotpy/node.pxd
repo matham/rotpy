@@ -168,10 +168,20 @@ cdef class SpinEnumNode(SpinValueNode):
 
 cdef class SpinEnumDefNode(SpinEnumNode):
 
-    cdef IEnumerationT[int]* _enum_handle
+    # use LUTSelectorEnums as a stand-in for all enums so the right polymorphism
+    # is selected by the compiler
+    cdef IEnumerationT[LUTSelectorEnums]* _enum_handle
 
     cdef public dict enum_names
+    """The ``xxx_names`` dictionary in :mod:`~rotpy.names` that maps the
+    Spinnaker API given name to Spinnaker API given value for all the entries
+    (items) of this enum.
+    """
     cdef public dict enum_values
+    """The ``xxx_names`` dictionary in :mod:`~rotpy.names` that maps the
+    Spinnaker API given value to Spinnaker API given name for all the entries
+    (items) of this enum.
+    """
 
     cpdef get_entry_by_api_str(self, str value)
     cpdef get_node_api_str_value(self, cbool verify=*, cbool ignore_cache=*)
@@ -185,7 +195,15 @@ cdef class SpinEnumItemNode(SpinValueNode):
     cdef IEnumEntry* _handle
 
     cdef public str enum_name
+    """For :class:`SpinEnumItemNode` created as entries of
+    :class:`SpinEnumDefNode`, it's the Spinnaker API given name of this entry
+    as listed in :attr:`SpinEnumDefNode.enum_names`.
+    """
     cdef public int enum_value
+    """For :class:`SpinEnumItemNode` created as entries of
+    :class:`SpinEnumDefNode`, it's the Spinnaker API given value of this entry
+    as listed in :attr:`SpinEnumDefNode.enum_values`.
+    """
 
     cpdef get_enum_int_value(self)
     cpdef get_enum_num(self)

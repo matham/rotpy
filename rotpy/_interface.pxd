@@ -75,5 +75,7 @@ ctypedef IEnumEntry* IEnumEntryPointer
 ctypedef IEnumeration* IEnumerationPointer
 ctypedef IPort* IPortPointer
 ctypedef ISelector* ISelectorPointer
-ctypedef IEnumerationT[int]* IEnumerationTPointer
+# use LUTSelectorEnums as a stand-in for all enums so the right polymorphism
+# is selected by the compiler
+ctypedef IEnumerationT[LUTSelectorEnums]* IEnumerationTPointer
 ctypedef INode* INodePointer

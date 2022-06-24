@@ -1,6 +1,8 @@
 """Image
 ========
 
+Image and image data/metadata returned by cameras.
+
 """
 cdef extern from "string.h" nogil:
     void *memcpy(void *, const void *, size_t)
@@ -16,6 +18,15 @@ __all__ = ('Image', 'ImageChunkData', 'ChunkDataInference')
 
 
 cdef class Image:
+    """An image and its data and metadata.
+
+    .. warning::
+
+        Do **not** create a :class:`Image` manually, rather get an image
+        from e.g. :meth:`create_empty`, :meth:`create_image`,
+        :meth:`deep_copy_image`, or from a camera with e.g.
+        :meth:`~rotpy.camera.Camera.get_next_image`.
+    """
 
     def __cinit__(self):
         self._needs_destroy = 0
@@ -34,7 +45,7 @@ cdef class Image:
 
     @staticmethod
     def create_empty() -> Image:
-        """Creates and returns an empty image.
+        """Creates and returns an empty image with no data or data buffers.
         """
         return Image.create_empty_c()
 
@@ -865,6 +876,13 @@ void CalculateStatistics(ImageStatistics& pStatistics);
 
 
 cdef class ImageChunkData:
+    """Represents some metadata about the raw :class:`Image`.
+
+    .. warning::
+
+        Do **not** create a :class:`ImageChunkData` manually, rather get an
+        instance from e.g. :meth:`Image.get_chunk_data`.
+    """
 
     def __cinit__(self):
         self._image = None
@@ -1329,6 +1347,17 @@ cdef class ImageChunkData:
 
 
 cdef class ChunkDataInference:
+    """Represents object location inference data from a :class:`Image`.
+
+    Some cameras support automatically detecting objects using pre-trained
+    machine learning algorithms, :class:`ChunkDataInference` represents
+    the inferred object detection.
+
+    .. warning::
+
+        Do **not** create a :class:`ChunkDataInference` manually, rather get an
+        instance from e.g. :meth:`ImageChunkData.get_inference_data`.
+    """
 
     def __cinit__(self):
         self.chunk = None
@@ -1364,7 +1393,8 @@ cdef class ChunkDataInference:
         return n
 
     cpdef get_box(self, uint16_t index):
-        """Returns the bounding box at ``index``.
+        """Returns the bounding box at the zero-based ``index`` that
+        is less than :meth:`get_num_boxes`.
 
         The total number of boxes is :meth:`get_num_boxes`.
 

@@ -1,6 +1,87 @@
 """Node
 =======
 
+Spinnaker uses `GenICam <https://en.wikipedia.org/wiki/GenICam>`_ to declare and
+make available the system and camera properties as well-defined nodes with a
+clear API.
+
+Each node represents a camera or system property, and they
+can be e.g. a :class:`SpinIntNode`, :class:`SpinFloatNode`,
+:class:`SpinBoolNode`, :class:`SpinStrNode`, :class:`SpinCommandNode` etc. E.g.
+a :class:`SpinIntNode` supports getting and setting a value, getting
+the optionally allowed increments, and getting the unit etc.
+
+All nodes inherit from :class:`SpinBaseNode`, but some nodes have additional
+inheritance adding more functionality. E.g. :class:`SpinIntNode` inherits from
+:class:`SpinSelectorNode`, :class:`SpinNode`, and :class:`SpinValueNode`.
+
+Node access
+-----------
+
+There are two approaches to getting access to the nodes: using the pre-listed
+nodes or getting it by name/index from a :class:`NodeMap`.
+
+You can get the pre-listed nodes for the system, interface, and camera from
+:attr:`~rotpy.system.SpinSystem.system_nodes`,
+:attr:`~rotpy.system.InterfaceDevice.interface_nodes`,
+:attr:`~rotpy.camera.Camera.camera_nodes`,
+:attr:`~rotpy.camera.Camera.tl_dev_nodes`, and
+:attr:`~rotpy.camera.Camera.tl_stream_nodes`, respectively.
+
+To use a :class:`NodeMap`, you first have to get an instance and then
+look up a node by name. Like the pre-listed nodes, you can get the node map
+for the system, interface, and camera from
+:meth:`~rotpy.system.SpinSystem.get_tl_node_map`,
+:meth:`~rotpy.system.InterfaceDevice.get_tl_node_map`,
+:meth:`~rotpy.camera.Camera.get_node_map`,
+:meth:`~rotpy.camera.Camera.get_tl_dev_node_map`, and
+:meth:`~rotpy.camera.Camera.get_tl_stream_node_map`, respectively.
+
+Pre-listed nodes operate identically as getting the node from a
+:class:`NodeMap`, except it provides these nodes as named properties with the
+same name as the node.
+
+E.g. to select whether the system enumerates USB devices, you have to get the
+node that controls this property and then set its value. Using the pre-listed
+approach on :attr:`~rotpy.system_nodes.SystemNodes.EnumerateUSBInterfaces`
+you'd do:
+
+.. code-block:: python
+
+    >>> from rotpy.system import SpinSystem
+    >>> system = SpinSystem()
+    >>> system.system_nodes.EnumerateUSBInterfaces
+    <rotpy.node.SpinBoolNode at 0x26822c20d68>
+    >>> # first make sure this node is actually available for this system
+    >>> system.system_nodes.EnumerateUSBInterfaces.is_available()
+    True
+    >>> system.system_nodes.EnumerateUSBInterfaces.get_node_value()
+    True
+    >>> system.system_nodes.EnumerateUSBInterfaces.set_node_value(False)
+
+Similarly, using a :class:`NodeMap` from
+:meth:`~rotpy.system.SpinSystem.get_tl_node_map` you'd do:
+
+.. code-block:: python
+
+    >>> from rotpy.system import SpinSystem
+    >>> system = SpinSystem()
+    >>> node_map = system.get_tl_node_map()
+    >>> node = node_map.get_node_by_name('EnumerateUSBInterfaces')
+    >>> node is not None and node.is_available()
+    True
+    >>> node.get_node_value()
+    True
+    >>> node.set_node_value(False)
+
+You can use these approaches interchangeably and on the same system.
+
+.. warning::
+
+    Remember to always check whether the node is available and
+    readable/writeable as needed. Even pre-listed nodes need to be checked,
+    and being pre-listed does not mean they are implemented for the specific
+    system/camera.
 """
 from .names.geni import InterfaceType_names, InterfaceType_values,\
     AccessMode_names, AccessMode_values, NameSpace_values, Visibility_names, \
@@ -89,8 +170,7 @@ cdef object create_node_inst(object obj, INode* handle):
 cdef class NodeMap:
     """Provides access to nodes of a camera or system.
 
-    TODO: Set all handles by default to NULL and doc which classes cannot be
-    manually created.
+    See :mode:`~rotpy.node` for details.
     """
 
     def __cinit__(self):
@@ -100,7 +180,7 @@ cdef class NodeMap:
         self._handle = handle
 
     cpdef get_nodes(self):
-        """Returns a list of the nodes in the map.
+        """Returns a list of all the nodes in the map.
 
         It only returns direct nodes of the map. If the nodes have
         children (e.g. enum class or tree) it is not recursed.
@@ -130,17 +210,16 @@ cdef class NodeMap:
         """Fires nodes which have a polling time.
 
         :param elapsed: The elapsed time.
-
-        TODO: Understand what this does.
         """
         with nogil:
             self._handle.Poll(elapsed)
 
     cpdef get_node_by_name(self, str name):
-        """Gets a node from the nodemap by name.
+        """Gets a node from the node map by name.
 
-        :param name: The name of the node.
-        :return: A :class:`Node` derived instance or None if there isn't one.
+        :param name: The string name of the node.
+        :return: A :class:`SpinBaseNode` derived instance or None if there
+            isn't one with that name.
         """
         cdef bytes name_b = name.encode()
         cdef const char * name_c = name_b
@@ -157,10 +236,11 @@ cdef class NodeMap:
         return create_node_inst(self, handle)
 
     cpdef get_node_by_index(self, size_t index):
-        """Gets a node from the nodemap by index.
+        """Gets a node from the node map using a zero-based index that is less
+        than :meth:`get_num_nodes`.
 
         :param index: The index of the node.
-        :return: A :class:`Node` derived instance.
+        :return: A :class:`SpinBaseNode` derived instance.
         """
         cdef NodeList_t items
         cdef INode* handle
@@ -213,6 +293,9 @@ cdef class NodeMap:
 
 
 cdef class SpinBaseNode:
+    """The base node class that provides functionality for checking the state
+    of the node.
+    """
 
     def __cinit__(self):
         self._base_handle = NULL
@@ -273,6 +356,10 @@ cdef class SpinBaseNode:
 
 
 cdef class SpinSelectorNode(SpinBaseNode):
+    """Provides selection functionality to the node, if the node can be used
+    to select other nodes (e.g. as a category) or if it's selectable by another
+    node.
+    """
 
     def __cinit__(self):
         self._sel_handle = NULL
@@ -282,14 +369,15 @@ cdef class SpinSelectorNode(SpinBaseNode):
         self._sel_handle = dynamic_cast[ISelectorPointer](handle)
 
     cpdef is_selector(self):
-        """Returns whether this feature selects a group of features"""
+        """Returns whether this feature selects a group of features.
+        """
         cdef cbool n
         with nogil:
             n = self._sel_handle.IsSelector()
         return bool(n)
 
     cpdef get_selected_nodes(self):
-        """Returns a list of nodes selected by this node.
+        """Returns a list of newly created node instances selected by this node.
         """
         cdef uint64_t n, i
         cdef list items = []
@@ -307,7 +395,7 @@ cdef class SpinSelectorNode(SpinBaseNode):
         return items
 
     cpdef get_selecting_nodes(self):
-        """Returns a list of nodes that select this node.
+        """Returns a list of newly created node instances that select this node.
         """
         cdef uint64_t n, i
         cdef list items = []
@@ -326,6 +414,9 @@ cdef class SpinSelectorNode(SpinBaseNode):
 
 
 cdef class SpinNode(SpinSelectorNode):
+    """Provides basic node functionality for nodes that have additional
+    functionality such as values etc.
+    """
 
     def __cinit__(self):
         self._node_handle = NULL
@@ -519,8 +610,6 @@ cdef class SpinNode(SpinSelectorNode):
 
         It returns a 3-tuple of ``(result, value, attributes)``, where result
         is a bool indicating the result of the call and the others are strings.
-
-        TODO: resolve meaning of result.
         """
         cdef bytes name_b = name.encode()
         cdef size_t n = len(name)
@@ -577,7 +666,8 @@ cdef class SpinNode(SpinSelectorNode):
         """Gets a alias node which describes the same feature in a different
         way.
 
-        :return: A :class:`Node` derived instance or None if there isn't one.
+        :return: A :class:`SpinBaseNode` derived instance or None if there isn't
+            one.
         """
         cdef INode* handle
         with nogil:
@@ -591,7 +681,8 @@ cdef class SpinNode(SpinSelectorNode):
         """Gets a alias node which describes the same feature so that it can be
         casted.
 
-        :return: A :class:`Node` derived instance or None if there isn't one.
+        :return: A :class:`SpinBaseNode` derived instance or None if there isn't
+            one.
         """
         cdef INode* handle
         with nogil:
@@ -638,6 +729,8 @@ virtual bool DeregisterCallback(CallbackHandleType hCallback) = 0;
 
 
 cdef class SpinValueNode(SpinNode):
+    """A node that represents a value e.g. a string, an integer etc.
+    """
 
     def __cinit__(self):
         self._value_handle = NULL
@@ -653,6 +746,7 @@ cdef class SpinValueNode(SpinNode):
         :param verify: Whether to verify the Range verification. The access mode
             is always checked.
         :param ignore_cache: If true the value is read ignoring any caches.
+        :returns: A string representing the node's value.
         """
         cdef gcstring s
         with nogil:
@@ -686,6 +780,8 @@ cdef class SpinValueNode(SpinNode):
 
 
 cdef class SpinIntNode(SpinValueNode):
+    """Node that represents an integer.
+    """
 
     def __cinit__(self):
         self._handle = NULL
@@ -700,6 +796,7 @@ cdef class SpinIntNode(SpinValueNode):
         :param verify: Enables Range verification. The access mode is always
             checked.
         :param ignore_cache: If true the value is read ignoring any caches.
+        :returns: The node's integer value.
         """
         cdef int64_t n
         with nogil:
@@ -765,8 +862,6 @@ cdef class SpinIntNode(SpinValueNode):
         """Gets list of valid values.
 
         :param bounded: Whether to bound the values.
-
-        TODO: what is bound? Ensure valid indexing is right.
         """
         cdef int64_autovector_t valid
         cdef list items = []
@@ -793,7 +888,7 @@ cdef class SpinIntNode(SpinValueNode):
         return Representation_values[n]
 
     cpdef get_unit(self):
-        """Gets the physical unit name.
+        """Gets the physical unit name as a string.
         """
         cdef gcstring s
         with nogil:
@@ -802,6 +897,8 @@ cdef class SpinIntNode(SpinValueNode):
 
 
 cdef class SpinFloatNode(SpinValueNode):
+    """Node that represents a floating point number.
+    """
 
     def __cinit__(self):
         self._handle = NULL
@@ -811,11 +908,12 @@ cdef class SpinFloatNode(SpinValueNode):
         self._handle = dynamic_cast[IFloatPointer](handle)
 
     cpdef get_node_value(self, cbool verify=False, cbool ignore_cache=False):
-        """Gets the value of the node.
+        """Gets the value of the node as a float.
 
         :param verify: Enables Range verification. The access mode is always
             checked.
         :param ignore_cache: If true the value is read ignoring any caches.
+        :returns: The node's floating point value.
         """
         cdef double n
         with nogil:
@@ -889,8 +987,6 @@ cdef class SpinFloatNode(SpinValueNode):
         """Gets list of valid values.
 
         :param bounded: Whether to bound the values.
-
-        TODO: what is bound? Ensure valid indexing is right.
         """
         cdef double_autovector_t valid
         cdef list items = []
@@ -917,7 +1013,7 @@ cdef class SpinFloatNode(SpinValueNode):
         return Representation_values[n]
 
     cpdef get_unit(self):
-        """Gets the physical unit name.
+        """Gets the physical unit name as a string.
         """
         cdef gcstring s
         with nogil:
@@ -944,6 +1040,8 @@ cdef class SpinFloatNode(SpinValueNode):
 
 
 cdef class SpinBoolNode(SpinValueNode):
+    """Node that represents boolean.
+    """
 
     def __cinit__(self):
         self._handle = NULL
@@ -953,11 +1051,12 @@ cdef class SpinBoolNode(SpinValueNode):
         self._handle = dynamic_cast[IBooleanPointer](handle)
 
     cpdef get_node_value(self, cbool verify=False, cbool ignore_cache=False):
-        """Gets the value of the node.
+        """Gets the value of the node as a bool.
 
         :param verify: Enables Range verification. The access mode is always
             checked.
         :param ignore_cache: If true the value is read ignoring any caches.
+        :returns: The node's boolean value.
         """
         cdef cbool n
         with nogil:
@@ -975,6 +1074,8 @@ cdef class SpinBoolNode(SpinValueNode):
 
 
 cdef class SpinStrNode(SpinValueNode):
+    """Node that represents a string.
+    """
 
     def __cinit__(self):
         self._handle = NULL
@@ -984,11 +1085,12 @@ cdef class SpinStrNode(SpinValueNode):
         self._handle = dynamic_cast[IStringPointer](handle)
 
     cpdef get_node_value(self, cbool verify=False, cbool ignore_cache=False):
-        """Gets the value of the node.
+        """Gets the value of the node as a string.
 
         :param verify: Enables Range verification. The access mode is always
             checked.
         :param ignore_cache: If true the value is read ignoring any caches.
+        :returns: The node's string value.
         """
         cdef gcstring s
         with nogil:
@@ -1011,7 +1113,7 @@ cdef class SpinStrNode(SpinValueNode):
             self._handle.SetValue(s, verify)
 
     cpdef get_max_len(self):
-        """Gets the maximum length of the string in bytes.
+        """Gets the maximum length of the node's string in bytes.
         """
         cdef int64_t n
         with nogil:
@@ -1020,6 +1122,8 @@ cdef class SpinStrNode(SpinValueNode):
 
 
 cdef class SpinCommandNode(SpinValueNode):
+    """Node that represents a command to be executed.
+    """
 
     def __cinit__(self):
         self._handle = NULL
@@ -1049,6 +1153,9 @@ cdef class SpinCommandNode(SpinValueNode):
 
 
 cdef class SpinRegisterNode(SpinValueNode):
+    """Node that represents a register that can be set to some bytes
+    representing a value.
+    """
 
     def __cinit__(self):
         self._handle = NULL
@@ -1066,12 +1173,13 @@ cdef class SpinRegisterNode(SpinValueNode):
         return n
 
     cpdef get_node_value(self, cbool verify=False, cbool allow_cache=False):
-        """Gets the register value of the node.
+        """Gets the register value of the node as a bytes object.
 
         :param verify: Whether to range verify the node. Access is always
             checked.
         :param allow_cache: Whether to allow getting the register value from
             cache.
+        :returns: The bytes object representing the node value.
         """
         cdef unsigned char[:] arr
         cdef int64_t n
@@ -1099,6 +1207,15 @@ cdef class SpinRegisterNode(SpinValueNode):
 
 
 cdef class SpinEnumNode(SpinValueNode):
+    """Node that represents an enum class.
+
+    This node can be set to a specific value from the children of this node,
+    each represented by a :class:`SpinEnumItemNode`. Each item also is
+    associated with a symbolic string name and an integer value. In addition,
+    some enums (e.g. :class:`SpinEnumDefNode`) will also have a secondary
+    integer associated with it that is defined by the Spinnaker API in
+    :mod:`~rotpy.names`.
+    """
 
     def __cinit__(self):
         self._handle = NULL
@@ -1108,7 +1225,7 @@ cdef class SpinEnumNode(SpinValueNode):
         self._handle = dynamic_cast[IEnumerationPointer](handle)
 
     cpdef get_entries_names(self):
-        """Returns a list of the enum entries string names.
+        """Returns a list of the enum entries (items) symbolic string names.
         """
         cdef StringList_t s
         cdef list items = []
@@ -1124,12 +1241,12 @@ cdef class SpinEnumNode(SpinValueNode):
 
     cpdef get_entries(self):
         """Returns a list of :class:`SpinEnumItemNode` instances that are the
-        entries of this enum class.
+        entries (items) of this enum class.
 
         .. note::
 
             Every call to this function creates a list of new
-            :class:`SpinEnumItemNode`.
+            :class:`SpinEnumItemNode` representing the items.
         """
         cdef NodeList_t entries
         cdef list items = []
@@ -1144,7 +1261,7 @@ cdef class SpinEnumNode(SpinValueNode):
         return items
 
     cpdef get_num_entries(self):
-        """Gets the number of entries of this enum class.
+        """Gets the number of entries (items) of this enum class.
         """
         cdef NodeList_t entries
         cdef size_t n
@@ -1154,9 +1271,11 @@ cdef class SpinEnumNode(SpinValueNode):
         return n
 
     cpdef get_entry_by_int_value(self, int64_t value):
-        """Gets a enum entry node from the enum class by its int value.
+        """Gets a enum entry (item) node from this enum class by its int value.
 
-        :param value: The int value of the entry to get.
+        :param value: The int value of the entry to get. This int value is the
+            node int value, not the int associated with the enum by the
+            Spinnaker API in :mod:`~rotpy.names` for some enums.
         :return: A :class:`SpinEnumItemNode` instance or None if not found.
 
         .. note::
@@ -1177,7 +1296,8 @@ cdef class SpinEnumNode(SpinValueNode):
         return entry
 
     cpdef get_entry_by_name(self, str name):
-        """Gets a enum entry node from the enum class by its string name.
+        """Gets a enum entry (item) node from the enum class by its symbolic
+        string name.
 
         :param name: The symbolic string name of the enum entry to get.
         :return: A :class:`SpinEnumItemNode` instance or None if not found.
@@ -1205,12 +1325,15 @@ cdef class SpinEnumNode(SpinValueNode):
         return entry
 
     cpdef get_node_int_value(self, cbool verify=False, cbool ignore_cache=False):
-        """Gets the int value of the enum entry that the enum is currently set
-        to.
+        """Gets the int value of the enum entry (item) that this enum is
+        currently set to.
 
         :param verify: Enables Range verification. The access mode is always
             checked.
         :param ignore_cache: If true the value is read ignoring any caches.
+        :returns: An integer. This int value is the node int value, not the int
+            associated with the enum by the Spinnaker API in :mod:`~rotpy.names`
+            for some enums.
         """
         cdef int64_t n
         with nogil:
@@ -1218,10 +1341,12 @@ cdef class SpinEnumNode(SpinValueNode):
         return n
 
     cpdef set_node_int_value(self, int64_t value, cbool verify=True):
-        """Sets the value of the enum entry that the enum is currently set
-        to, by its int.
+        """Sets the enum's current value to a enum entry (item) using the
+        entry's int value.
 
-        :param value: The value to which to set the node.
+        :param value: The int value to which to set the node. This int value is
+            the node int value, not the int associated with the enum by the
+            Spinnaker API in :mod:`~rotpy.names` for some enums.
         :param verify: Enables access mode and range verification.
         """
         with nogil:
@@ -1234,6 +1359,7 @@ cdef class SpinEnumNode(SpinValueNode):
         :param verify: Enables Range verification. The access mode is always
             checked.
         :param ignore_cache: If true the value is read ignoring any caches.
+        :returns: A :class:`SpinEnumItemNode`.
 
         .. note::
 
@@ -1253,8 +1379,7 @@ cdef class SpinEnumNode(SpinValueNode):
         return entry
 
     cpdef set_node_value(self, SpinEnumItemNode item, cbool verify=True):
-        """Sets the value of the enum entry that the enum is currently set
-        to, by an :class:`SpinEnumItemNode`.
+        """Sets the enum's current value to a :class:`SpinEnumItemNode` entry.
 
         :param item: The :class:`SpinEnumItemNode` item to which to set the
             node.
@@ -1266,6 +1391,15 @@ cdef class SpinEnumNode(SpinValueNode):
 
 
 cdef class SpinEnumDefNode(SpinEnumNode):
+    """Same as :class:`SpinEnumNode`, except that these enum instances have an
+    associated name and integer additionally defined for its entries (items) in
+    :mod:`~rotpy.names` by the Spinnaker API.
+
+    This class is also used for enum instances that are pre-listed e.g. in
+    :mod:`~rotpy.system_nodes` or :mod:`~rotpy.camera_nodes`. These pre-listed
+    enum nodes have associated names in :mod:`~rotpy.names` hence the
+    additional functionality.
+    """
 
     def __cinit__(self):
         self._enum_handle = NULL
@@ -1275,8 +1409,8 @@ cdef class SpinEnumDefNode(SpinEnumNode):
         self._enum_handle = dynamic_cast[IEnumerationTPointer](handle)
 
     cpdef get_entry_by_api_str(self, str value):
-        """Gets a enum entry node from the enum class by its API string value
-        as listed in :attr:`enum_names`.
+        """Gets a enum entry (item) node from this enum class by its Spinnaker
+        API string value as listed in :attr:`enum_names`.
 
         :param value: The string value of the entry to get as listed in
             :attr:`enum_names`.
@@ -1286,7 +1420,9 @@ cdef class SpinEnumDefNode(SpinEnumNode):
 
             Every call to this function creates a new :class:`SpinEnumItemNode`.
         """
-        cdef int n = self.enum_names[value]
+        # use LUTSelectorEnums as a stand-in for all enums so the right
+        # polymorphism is selected by the compiler
+        cdef LUTSelectorEnums n = self.enum_names[value]
         cdef SpinEnumItemNode entry
         cdef IEnumEntry* handle
 
@@ -1304,31 +1440,35 @@ cdef class SpinEnumDefNode(SpinEnumNode):
 
     cpdef get_node_api_str_value(
             self, cbool verify=False, cbool ignore_cache=False):
-        """Gets the string value of the enum entry that the enum is currently
-        set to as listed in :attr:`enum_names`.
+        """Gets the Spinnaker API string value of the enum entry that this enum
+        is currently set to as listed in :attr:`enum_names`.
 
         :param verify: Enables Range verification. The access mode is always
             checked.
         :param ignore_cache: If true the value is read ignoring any caches.
         """
-        cdef int n
+        # use LUTSelectorEnums as a stand-in for all enums so the right
+        # polymorphism is selected by the compiler
+        cdef LUTSelectorEnums n
         with nogil:
             n = self._enum_handle.GetValue(verify, ignore_cache)
         return self.enum_values[n]
 
     cpdef set_node_api_str_value(self, str value, cbool verify=True):
-        """Sets the value of the enum entry that the enum is currently set
-        to, by its string as listed in :attr:`enum_names`.
+        """Sets the value of this enum to a enum entry (item) using its
+        Spinnaker API string as listed in :attr:`enum_names`.
 
-        :param value: The string API value to which to set the node.
+        :param value: The Spinnaker API string value to which to set the node.
         :param verify: Enables access mode and range verification.
         """
-        cdef int n = self.enum_names[value]
+        # use LUTSelectorEnums as a stand-in for all enums so the right
+        # polymorphism is selected by the compiler
+        cdef LUTSelectorEnums n = self.enum_names[value]
         with nogil:
             self._enum_handle.SetValue(n, verify)
 
     cpdef set_enum_ref(self, int index, str name):
-        """Sets the value corresponding to a enum item.
+        """Sets the int value corresponding to a enum item.
         """
         cdef bytes name_b = name.encode()
         cdef size_t n = len(name)
@@ -1340,13 +1480,16 @@ cdef class SpinEnumDefNode(SpinEnumNode):
             self._enum_handle.SetEnumReference(index, name_s)
 
     cpdef set_num_enums(self, int num):
-        """Sets the number of enum values.
+        """Sets the number of enum entries (items) of this node.
         """
         with nogil:
             self._enum_handle.SetNumEnums(num)
 
 
 cdef class SpinEnumItemNode(SpinValueNode):
+    """Represents an entry (item) of a :class:`SpinEnumNode` or
+    :class:`SpinEnumDefNode` to which that node can be set to.
+    """
 
     def __cinit__(self):
         self._handle = NULL
@@ -1356,7 +1499,8 @@ cdef class SpinEnumItemNode(SpinValueNode):
         self._handle = dynamic_cast[IEnumEntryPointer](handle)
 
     cpdef get_enum_num(self):
-        """Gets the double number value associated with the entry.
+        """Gets the double (floating point) number value associated with the
+        entry.
         """
         cdef double n
         with nogil:
@@ -1364,13 +1508,13 @@ cdef class SpinEnumItemNode(SpinValueNode):
         return n
 
     cpdef get_enum_int_value(self):
-        """Gets the enum int value.
+        """Gets the enum entry (item) int value.
 
         .. note::
 
-            This is not the same int number as the "enum" number associated
-            with the entry from :mod:`rotpy.names` that is generated by the API.
-            This value is the device representation of the entry.
+            This int value is the node int value, not the :attr:`enum_value` int
+            associated with the enum by the Spinnaker API in :mod:`~rotpy.names`
+            for some enums.
         """
         cdef int64_t n
         with nogil:
@@ -1379,6 +1523,12 @@ cdef class SpinEnumItemNode(SpinValueNode):
 
     cpdef get_enum_name(self):
         """Gets the string symbolic representation of the item.
+
+        .. note::
+
+            This string is the node symbolic name, not the :attr:`enum_name`
+            associated with the enum by the Spinnaker API in :mod:`~rotpy.names`
+            for some enums.
         """
         cdef gcstring s
         with nogil:
@@ -1395,6 +1545,8 @@ cdef class SpinEnumItemNode(SpinValueNode):
 
 
 cdef class SpinTreeNode(SpinValueNode):
+    """Node that is a parent and contains other nodes as children.
+    """
 
     def __cinit__(self):
         self._handle = NULL
@@ -1405,7 +1557,12 @@ cdef class SpinTreeNode(SpinValueNode):
 
     cpdef get_children(self):
         """Returns a list of children nodes of the tree, including
-        sub-categories.
+        sub-trees.
+
+        .. note::
+
+            Every call to this method creates a list of new
+            :class:`SpinBaseNode` representing the children.
         """
         cdef uint64_t n, i
         cdef list items = []
@@ -1416,12 +1573,13 @@ cdef class SpinTreeNode(SpinValueNode):
             n = nodes.size()
 
         for i in range(n):
-            items.append(create_node_inst(self, dynamic_cast[INodePointer]((&nodes.at(i))[0])))
+            items.append(create_node_inst(
+                self, dynamic_cast[INodePointer]((&nodes.at(i))[0])))
 
         return items
 
     cpdef get_num_nodes(self):
-        """Gets the number of nodes in the tree.
+        """Gets the number of children nodes in the tree.
         """
         cdef FeatureList_t nodes
         cdef size_t n
@@ -1433,10 +1591,12 @@ cdef class SpinTreeNode(SpinValueNode):
         return n
 
     cpdef get_node_by_index(self, size_t index):
-        """Gets a node from the tree by index.
+        """Gets a node from the tree by index using a zero-based index that is
+        less than :meth:`get_num_nodes`..
 
-        :param index: The index of the node.
-        :return: A :class:`Node` derived instance.
+        :param index: The index of the child node.
+        :return: A new :class:`SpinBaseNode` derived instance representing the
+            child.
         """
         cdef FeatureList_t nodes
         cdef IValue* handle
@@ -1447,6 +1607,8 @@ cdef class SpinTreeNode(SpinValueNode):
 
 
 cdef class SpinPortNode(SpinBaseNode):
+    """Node that represents a pure data port.
+    """
 
     def __cinit__(self):
         self._handle = NULL
