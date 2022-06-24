@@ -16,7 +16,7 @@ inheritance adding more functionality. E.g. :class:`SpinIntNode` inherits from
 :class:`SpinSelectorNode`, :class:`SpinNode`, and :class:`SpinValueNode`.
 
 Node access
------------
+^^^^^^^^^^^
 
 There are two approaches to getting access to the nodes: using the pre-listed
 nodes or getting it by name/index from a :class:`NodeMap`.
@@ -170,7 +170,7 @@ cdef object create_node_inst(object obj, INode* handle):
 cdef class NodeMap:
     """Provides access to nodes of a camera or system.
 
-    See :mode:`~rotpy.node` for details.
+    See :mod:`~rotpy.node` for details.
     """
 
     def __cinit__(self):
@@ -1213,7 +1213,7 @@ cdef class SpinEnumNode(SpinValueNode):
     each represented by a :class:`SpinEnumItemNode`. Each item also is
     associated with a symbolic string name and an integer value. In addition,
     some enums (e.g. :class:`SpinEnumDefNode`) will also have a secondary
-    integer associated with it that is defined by the Spinnaker API in
+    name and integer associated with it that is defined by the Spinnaker API in
     :mod:`~rotpy.names`.
     """
 
