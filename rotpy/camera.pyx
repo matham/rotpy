@@ -808,6 +808,8 @@ cdef class Camera:
             to = round(timeout * 1000)
         with nogil:
             raw_img = self._camera.get().GetNextImage(to, stream_id)
+        if not raw_img.IsValid():
+            return None
 
         with nogil:
             incomplete = raw_img.get().IsIncomplete()
