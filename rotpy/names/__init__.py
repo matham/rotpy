@@ -5,6 +5,15 @@ Provides access to all the enums defined in the Spinnaker headers as Python
 dictionaries mapping the names to the values and the values to the names
 for easier usage.
 
+
+.. note::
+
+    When using these enums to update a :class:`~rotpy.node.SpinEnumDefNode` of
+    the camera or system, the actual device may implement more or less or
+    different items for each enum than listed here.
+    :meth:`~~rotpy.node.SpinEnumNode.get_entries_names` or the individual
+    :class:`~rotpy.node.SpinEnumItemNode` are the actual list of items available
+    for the enum.
 """
 from enum import Enum
 

@@ -195,13 +195,15 @@ cdef class SpinEnumItemNode(SpinValueNode):
 
     cdef public str enum_name
     """For :class:`SpinEnumItemNode` created as entries of
-    :class:`SpinEnumDefNode`, it's the Spinnaker API given name of this entry
-    as listed in :attr:`SpinEnumDefNode.enum_names`.
+    :class:`SpinEnumDefNode` using :meth:`SpinEnumDefNode.get_entry_by_api_str`,
+    it's the Spinnaker API given name of this entry as listed in
+    :attr:`SpinEnumDefNode.enum_names`.
     """
     cdef public int enum_value
     """For :class:`SpinEnumItemNode` created as entries of
-    :class:`SpinEnumDefNode`, it's the Spinnaker API given value of this entry
-    as listed in :attr:`SpinEnumDefNode.enum_values`.
+    :class:`SpinEnumDefNode` using :meth:`SpinEnumDefNode.get_entry_by_api_str`,
+    it's the Spinnaker API given value of this entry as listed in
+    :attr:`SpinEnumDefNode.enum_values`.
     """
 
     cpdef get_enum_int_value(self)
