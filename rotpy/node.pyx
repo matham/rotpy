@@ -1227,16 +1227,17 @@ cdef class SpinEnumNode(SpinValueNode):
     cpdef get_entries_names(self):
         """Returns a list of the enum entries (items) symbolic string names.
         """
-        cdef StringList_t s
+        cdef NodeList_t entries
         cdef list items = []
         cdef size_t n, i
 
         with nogil:
-            self._handle.GetSymbolics(s)
-            n = s.size()
+            self._handle.GetEntries(entries)
+            n = entries.size()
 
         for i in range(n):
-            items.append(s.at(i).c_str().decode())
+            items.append(dynamic_cast[IEnumEntryPointer](
+                (&entries.at(i))[0]).GetSymbolic().c_str().decode())
         return items
 
     cpdef get_entries(self):
