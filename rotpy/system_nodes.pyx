@@ -187,6 +187,10 @@ cdef class SystemNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._system._system.get().TLSystem.TLType))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[TLTypeEnum](
+                        &self._system._system.get().TLSystem.TLType)))
             node_inst.enum_names = rotpy.names.tl.TLType_names
             node_inst.enum_values = rotpy.names.tl.TLType_values
             node = self._nodes["TLType"] = node_inst
@@ -607,6 +611,10 @@ cdef class InterfaceNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._interface._interface.get().TLInterface.InterfaceType))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[InterfaceTypeEnum](
+                        &self._interface._interface.get().TLInterface.InterfaceType)))
             node_inst.enum_names = rotpy.names.tl.InterfaceType_names
             node_inst.enum_values = rotpy.names.tl.InterfaceType_values
             node = self._nodes["InterfaceType"] = node_inst
@@ -770,6 +778,10 @@ cdef class InterfaceNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._interface._interface.get().TLInterface.POEStatus))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[POEStatusEnum](
+                        &self._interface._interface.get().TLInterface.POEStatus)))
             node_inst.enum_names = rotpy.names.tl.POEStatus_names
             node_inst.enum_values = rotpy.names.tl.POEStatus_values
             node = self._nodes["POEStatus"] = node_inst
@@ -790,6 +802,10 @@ cdef class InterfaceNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._interface._interface.get().TLInterface.FilterDriverStatus))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[FilterDriverStatusEnum](
+                        &self._interface._interface.get().TLInterface.FilterDriverStatus)))
             node_inst.enum_names = rotpy.names.tl.FilterDriverStatus_names
             node_inst.enum_values = rotpy.names.tl.FilterDriverStatus_values
             node = self._nodes["FilterDriverStatus"] = node_inst
@@ -1026,6 +1042,10 @@ cdef class InterfaceNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._interface._interface.get().TLInterface.DeviceAccessStatus))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[DeviceAccessStatusEnum](
+                        &self._interface._interface.get().TLInterface.DeviceAccessStatus)))
             node_inst.enum_names = rotpy.names.tl.DeviceAccessStatus_names
             node_inst.enum_values = rotpy.names.tl.DeviceAccessStatus_values
             node = self._nodes["DeviceAccessStatus"] = node_inst

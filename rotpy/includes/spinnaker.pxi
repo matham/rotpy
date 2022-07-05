@@ -45,8 +45,7 @@ cdef extern from "SpinGenApi/Reference.h" namespace "Spinnaker::GenApi" nogil:
         void SetReference(INode * pBase) except +raise_spin_exc
 
     cdef cppclass IEnumReference:
-        void SetEnumReference(int Index, gcstring Name) except +raise_spin_exc
-        void SetNumEnums(int NumEnums) except +raise_spin_exc
+        pass
 
 
 cdef extern from "SpinGenApi/Base.h" namespace "Spinnaker::GenApi" nogil:
@@ -187,12 +186,7 @@ cdef extern from "SpinGenApi/IEnumeration.h" namespace "Spinnaker::GenApi" nogil
 
 cdef extern from "SpinGenApi/IEnumerationT.h" namespace "Spinnaker::GenApi" nogil:
     cdef cppclass IEnumerationT[EnumT](IEnumeration, IEnumReference):
-        void SetValue(EnumT Value, cbool Verify) except +raise_spin_exc
-        EnumT GetValue(cbool Verify, cbool IgnoreCache) except +raise_spin_exc
-        IEnumeration* operator=(const gcstring& ValueStr) except +raise_spin_exc
-        IEnumEntry* GetEntry(const int64_t IntValue) except +raise_spin_exc
-        IEnumEntry* GetEntry(const EnumT Value) except +raise_spin_exc
-        IEnumEntry* GetCurrentEntry(cbool Verify, cbool IgnoreCache) except +raise_spin_exc
+        pass
 
 
 cdef extern from "SpinGenApi/IEnumEntry.h" namespace "Spinnaker::GenApi" nogil:

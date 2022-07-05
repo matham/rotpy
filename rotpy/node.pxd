@@ -168,10 +168,6 @@ cdef class SpinEnumNode(SpinValueNode):
 
 cdef class SpinEnumDefNode(SpinEnumNode):
 
-    # use LUTSelectorEnums as a stand-in for all enums so the right polymorphism
-    # is selected by the compiler
-    cdef IEnumerationT[LUTSelectorEnums]* _enum_handle
-
     cdef public dict enum_names
     """The ``xxx_names`` dictionary in :mod:`~rotpy.names` that maps the
     Spinnaker API given name to Spinnaker API given value for all the entries
@@ -183,6 +179,9 @@ cdef class SpinEnumDefNode(SpinEnumNode):
     (items) of this enum.
     """
 
+    cdef RotPyEnumWrapper* _enum_wrapper
+
+    cdef set_wrapper(self, RotPyEnumWrapper* wrapper)
     cpdef get_entry_by_api_str(self, str value)
     cpdef get_node_api_str_value(self, cbool verify=*, cbool ignore_cache=*)
     cpdef set_node_api_str_value(self, str value, cbool verify=*)

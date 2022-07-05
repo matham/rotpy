@@ -1400,13 +1400,18 @@ cdef class SpinEnumDefNode(SpinEnumNode):
     enum nodes have associated names in :mod:`~rotpy.names` hence the
     additional functionality.
     """
+    pass
 
     def __cinit__(self):
-        self._enum_handle = NULL
+        self._enum_wrapper = NULL
 
-    cdef void set_handle(self, object source, IBase* handle) except *:
-        SpinEnumNode.set_handle(self, source, handle)
-        self._enum_handle = dynamic_cast[IEnumerationTPointer](handle)
+    def __dealloc__(self):
+        if self._enum_wrapper != NULL:
+            del self._enum_wrapper
+            self._enum_wrapper = NULL
+
+    cdef set_wrapper(self, RotPyEnumWrapper* wrapper):
+        self._enum_wrapper = wrapper
 
     cpdef get_entry_by_api_str(self, str value):
         """Gets a enum entry (item) node from this enum class by its Spinnaker
@@ -1422,12 +1427,12 @@ cdef class SpinEnumDefNode(SpinEnumNode):
         """
         # use LUTSelectorEnums as a stand-in for all enums so the right
         # polymorphism is selected by the compiler
-        cdef LUTSelectorEnums n = self.enum_names[value]
+        cdef int n = self.enum_names[value]
         cdef SpinEnumItemNode entry
         cdef IEnumEntry* handle
 
         with nogil:
-            handle = self._enum_handle.GetEntry(n)
+            handle = self._enum_wrapper.GetEntry(n)
 
         if handle == NULL:
             return None
@@ -1449,9 +1454,9 @@ cdef class SpinEnumDefNode(SpinEnumNode):
         """
         # use LUTSelectorEnums as a stand-in for all enums so the right
         # polymorphism is selected by the compiler
-        cdef LUTSelectorEnums n
+        cdef int n
         with nogil:
-            n = self._enum_handle.GetValue(verify, ignore_cache)
+            n = self._enum_wrapper.GetValue(verify, ignore_cache)
         return self.enum_values[n]
 
     cpdef set_node_api_str_value(self, str value, cbool verify=True):
@@ -1463,9 +1468,9 @@ cdef class SpinEnumDefNode(SpinEnumNode):
         """
         # use LUTSelectorEnums as a stand-in for all enums so the right
         # polymorphism is selected by the compiler
-        cdef LUTSelectorEnums n = self.enum_names[value]
+        cdef int n = self.enum_names[value]
         with nogil:
-            self._enum_handle.SetValue(n, verify)
+            self._enum_wrapper.SetValue(n, verify)
 
     cpdef set_enum_ref(self, int index, str name):
         """Sets the int value corresponding to a enum item.
@@ -1477,13 +1482,13 @@ cdef class SpinEnumDefNode(SpinEnumNode):
 
         with nogil:
             name_s.assign(name_c, n)
-            self._enum_handle.SetEnumReference(index, name_s)
+            self._enum_wrapper.SetEnumReference(index, name_s)
 
     cpdef set_num_enums(self, int num):
         """Sets the number of enum entries (items) of this node.
         """
         with nogil:
-            self._enum_handle.SetNumEnums(num)
+            self._enum_wrapper.SetNumEnums(num)
 
 
 cdef class SpinEnumItemNode(SpinValueNode):

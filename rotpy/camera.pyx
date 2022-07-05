@@ -788,6 +788,7 @@ cdef class Camera:
             supports multiple streams you can input the stream ID to select from
             which stream to grab images.
         :return: An :class:`~rotpy.image.Image` or None if it timed out.
+            If the image data was incomplete, a ValueError is raised.
 
         .. warning::
 

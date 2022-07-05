@@ -322,7 +322,7 @@ def parse_class_vars(filename):
 def dump_genapi_prop_cython(
         items: List[GenAPIVarSpec], ofile, prop_storage_name='_nodes',
         cam_name='_camera', handle_name='_camera', prop_prefix='',
-        name_mod='.camera'):
+        name_mod='.camera', enum_suffix='Enum'):
     """Dumps all the nodes as ``@property`` methods of a cython class.
     """
     node_cls_map = {
@@ -373,7 +373,12 @@ def dump_genapi_prop_cython(
         if node is None:
             node_inst = {node_cls_map[item.type_name]}()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
-                &self.{cam_name}.{handle_name}.get(){prop_prefix}.{item.name}))\
+                &self.{cam_name}.{handle_name}.get(){prop_prefix}.{item.name}))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[{t_name}{enum_suffix}](
+                        &self.{cam_name}.{handle_name}.get()\
+{prop_prefix}.{item.name})))\
 {enum_dict}
             node = self.{prop_storage_name}["{item.name}"] = node_inst
         return node

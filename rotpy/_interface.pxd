@@ -62,6 +62,18 @@ cdef extern from "rotpy_event.h" nogil:
         ) except +
 
 
+cdef extern from "rotpy_enum_wrapper.h" nogil:
+    cdef cppclass RotPyEnumWrapper:
+        void SetValue(int Value, cbool Verify) except +raise_spin_exc
+        int GetValue(cbool Verify, cbool IgnoreCache) except +raise_spin_exc
+        IEnumEntry * GetEntry(int Value) except +raise_spin_exc
+        void SetEnumReference(int Index, gcstring Name) except +raise_spin_exc
+        void SetNumEnums(int NumEnums) except +raise_spin_exc
+
+    cdef cppclass RotPyEnumWrapperT[SpinnakerEnumT]:
+        RotPyEnumWrapperT(IEnumerationT[SpinnakerEnumT]* handle) except+
+
+
 ctypedef IBase* IBasePointer
 ctypedef IValue* IValuePointer
 ctypedef IInteger* IIntegerPointer
@@ -75,7 +87,5 @@ ctypedef IEnumEntry* IEnumEntryPointer
 ctypedef IEnumeration* IEnumerationPointer
 ctypedef IPort* IPortPointer
 ctypedef ISelector* ISelectorPointer
-# use LUTSelectorEnums as a stand-in for all enums so the right polymorphism
-# is selected by the compiler
-ctypedef IEnumerationT[LUTSelectorEnums]* IEnumerationTPointer
 ctypedef INode* INodePointer
+ctypedef RotPyEnumWrapper* RotPyEnumWrapperPointer

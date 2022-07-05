@@ -525,6 +525,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().LUTSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[LUTSelectorEnums](
+                        &self._camera._camera.get().LUTSelector)))
             node_inst.enum_names = rotpy.names.camera.LUTSelector_names
             node_inst.enum_values = rotpy.names.camera.LUTSelector_values
             node = self._nodes["LUTSelector"] = node_inst
@@ -643,6 +647,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ExposureMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ExposureModeEnums](
+                        &self._camera._camera.get().ExposureMode)))
             node_inst.enum_names = rotpy.names.camera.ExposureMode_names
             node_inst.enum_values = rotpy.names.camera.ExposureMode_values
             node = self._nodes["ExposureMode"] = node_inst
@@ -665,6 +673,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().AcquisitionMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[AcquisitionModeEnums](
+                        &self._camera._camera.get().AcquisitionMode)))
             node_inst.enum_names = rotpy.names.camera.AcquisitionMode_names
             node_inst.enum_values = rotpy.names.camera.AcquisitionMode_values
             node = self._nodes["AcquisitionMode"] = node_inst
@@ -701,6 +713,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TriggerSource))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[TriggerSourceEnums](
+                        &self._camera._camera.get().TriggerSource)))
             node_inst.enum_names = rotpy.names.camera.TriggerSource_names
             node_inst.enum_values = rotpy.names.camera.TriggerSource_values
             node = self._nodes["TriggerSource"] = node_inst
@@ -720,6 +736,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TriggerActivation))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[TriggerActivationEnums](
+                        &self._camera._camera.get().TriggerActivation)))
             node_inst.enum_names = rotpy.names.camera.TriggerActivation_names
             node_inst.enum_values = rotpy.names.camera.TriggerActivation_values
             node = self._nodes["TriggerActivation"] = node_inst
@@ -739,6 +759,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SensorShutterMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[SensorShutterModeEnums](
+                        &self._camera._camera.get().SensorShutterMode)))
             node_inst.enum_names = rotpy.names.camera.SensorShutterMode_names
             node_inst.enum_values = rotpy.names.camera.SensorShutterMode_values
             node = self._nodes["SensorShutterMode"] = node_inst
@@ -775,6 +799,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TriggerMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[TriggerModeEnums](
+                        &self._camera._camera.get().TriggerMode)))
             node_inst.enum_names = rotpy.names.camera.TriggerMode_names
             node_inst.enum_values = rotpy.names.camera.TriggerMode_values
             node = self._nodes["TriggerMode"] = node_inst
@@ -810,6 +838,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TriggerOverlap))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[TriggerOverlapEnums](
+                        &self._camera._camera.get().TriggerOverlap)))
             node_inst.enum_names = rotpy.names.camera.TriggerOverlap_names
             node_inst.enum_values = rotpy.names.camera.TriggerOverlap_values
             node = self._nodes["TriggerOverlap"] = node_inst
@@ -829,6 +861,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TriggerSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[TriggerSelectorEnums](
+                        &self._camera._camera.get().TriggerSelector)))
             node_inst.enum_names = rotpy.names.camera.TriggerSelector_names
             node_inst.enum_values = rotpy.names.camera.TriggerSelector_values
             node = self._nodes["TriggerSelector"] = node_inst
@@ -865,6 +901,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ExposureAuto))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ExposureAutoEnums](
+                        &self._camera._camera.get().ExposureAuto)))
             node_inst.enum_names = rotpy.names.camera.ExposureAuto_names
             node_inst.enum_values = rotpy.names.camera.ExposureAuto_values
             node = self._nodes["ExposureAuto"] = node_inst
@@ -1050,6 +1090,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().EventSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[EventSelectorEnums](
+                        &self._camera._camera.get().EventSelector)))
             node_inst.enum_names = rotpy.names.camera.EventSelector_names
             node_inst.enum_values = rotpy.names.camera.EventSelector_values
             node = self._nodes["EventSelector"] = node_inst
@@ -1151,6 +1195,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().EventNotification))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[EventNotificationEnums](
+                        &self._camera._camera.get().EventNotification)))
             node_inst.enum_names = rotpy.names.camera.EventNotification_names
             node_inst.enum_values = rotpy.names.camera.EventNotification_values
             node = self._nodes["EventNotification"] = node_inst
@@ -1186,6 +1234,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().LogicBlockSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[LogicBlockSelectorEnums](
+                        &self._camera._camera.get().LogicBlockSelector)))
             node_inst.enum_names = rotpy.names.camera.LogicBlockSelector_names
             node_inst.enum_values = rotpy.names.camera.LogicBlockSelector_values
             node = self._nodes["LogicBlockSelector"] = node_inst
@@ -1205,6 +1257,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().LogicBlockLUTInputActivation))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[LogicBlockLUTInputActivationEnums](
+                        &self._camera._camera.get().LogicBlockLUTInputActivation)))
             node_inst.enum_names = rotpy.names.camera.LogicBlockLUTInputActivation_names
             node_inst.enum_values = rotpy.names.camera.LogicBlockLUTInputActivation_values
             node = self._nodes["LogicBlockLUTInputActivation"] = node_inst
@@ -1224,6 +1280,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().LogicBlockLUTInputSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[LogicBlockLUTInputSelectorEnums](
+                        &self._camera._camera.get().LogicBlockLUTInputSelector)))
             node_inst.enum_names = rotpy.names.camera.LogicBlockLUTInputSelector_names
             node_inst.enum_values = rotpy.names.camera.LogicBlockLUTInputSelector_values
             node = self._nodes["LogicBlockLUTInputSelector"] = node_inst
@@ -1243,6 +1303,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().LogicBlockLUTInputSource))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[LogicBlockLUTInputSourceEnums](
+                        &self._camera._camera.get().LogicBlockLUTInputSource)))
             node_inst.enum_names = rotpy.names.camera.LogicBlockLUTInputSource_names
             node_inst.enum_values = rotpy.names.camera.LogicBlockLUTInputSource_values
             node = self._nodes["LogicBlockLUTInputSource"] = node_inst
@@ -1295,6 +1359,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().LogicBlockLUTSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[LogicBlockLUTSelectorEnums](
+                        &self._camera._camera.get().LogicBlockLUTSelector)))
             node_inst.enum_names = rotpy.names.camera.LogicBlockLUTSelector_names
             node_inst.enum_values = rotpy.names.camera.LogicBlockLUTSelector_values
             node = self._nodes["LogicBlockLUTSelector"] = node_inst
@@ -1351,6 +1419,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ColorTransformationSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ColorTransformationSelectorEnums](
+                        &self._camera._camera.get().ColorTransformationSelector)))
             node_inst.enum_names = rotpy.names.camera.ColorTransformationSelector_names
             node_inst.enum_values = rotpy.names.camera.ColorTransformationSelector_values
             node = self._nodes["ColorTransformationSelector"] = node_inst
@@ -1373,6 +1445,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().RgbTransformLightSource))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[RgbTransformLightSourceEnums](
+                        &self._camera._camera.get().RgbTransformLightSource)))
             node_inst.enum_names = rotpy.names.camera.RgbTransformLightSource_names
             node_inst.enum_values = rotpy.names.camera.RgbTransformLightSource_values
             node = self._nodes["RgbTransformLightSource"] = node_inst
@@ -1425,6 +1501,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ColorTransformationValueSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ColorTransformationValueSelectorEnums](
+                        &self._camera._camera.get().ColorTransformationValueSelector)))
             node_inst.enum_names = rotpy.names.camera.ColorTransformationValueSelector_names
             node_inst.enum_values = rotpy.names.camera.ColorTransformationValueSelector_values
             node = self._nodes["ColorTransformationValueSelector"] = node_inst
@@ -1573,6 +1653,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceRegistersEndianness))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[DeviceRegistersEndiannessEnums](
+                        &self._camera._camera.get().DeviceRegistersEndianness)))
             node_inst.enum_names = rotpy.names.camera.DeviceRegistersEndianness_names
             node_inst.enum_values = rotpy.names.camera.DeviceRegistersEndianness_values
             node = self._nodes["DeviceRegistersEndianness"] = node_inst
@@ -1673,6 +1757,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceScanType))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[DeviceScanTypeEnums](
+                        &self._camera._camera.get().DeviceScanType)))
             node_inst.enum_names = rotpy.names.camera.DeviceScanType_names
             node_inst.enum_values = rotpy.names.camera.DeviceScanType_values
             node = self._nodes["DeviceScanType"] = node_inst
@@ -1709,6 +1797,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceCharacterSet))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[DeviceCharacterSetEnums](
+                        &self._camera._camera.get().DeviceCharacterSet)))
             node_inst.enum_names = rotpy.names.camera.DeviceCharacterSet_names
             node_inst.enum_values = rotpy.names.camera.DeviceCharacterSet_values
             node = self._nodes["DeviceCharacterSet"] = node_inst
@@ -1779,6 +1871,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceTLType))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[DeviceTLTypeEnums](
+                        &self._camera._camera.get().DeviceTLType)))
             node_inst.enum_names = rotpy.names.camera.DeviceTLType_names
             node_inst.enum_values = rotpy.names.camera.DeviceTLType_values
             node = self._nodes["DeviceTLType"] = node_inst
@@ -1814,6 +1910,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DevicePowerSupplySelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[DevicePowerSupplySelectorEnums](
+                        &self._camera._camera.get().DevicePowerSupplySelector)))
             node_inst.enum_names = rotpy.names.camera.DevicePowerSupplySelector_names
             node_inst.enum_values = rotpy.names.camera.DevicePowerSupplySelector_values
             node = self._nodes["DevicePowerSupplySelector"] = node_inst
@@ -1882,6 +1982,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceTemperatureSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[DeviceTemperatureSelectorEnums](
+                        &self._camera._camera.get().DeviceTemperatureSelector)))
             node_inst.enum_names = rotpy.names.camera.DeviceTemperatureSelector_names
             node_inst.enum_values = rotpy.names.camera.DeviceTemperatureSelector_values
             node = self._nodes["DeviceTemperatureSelector"] = node_inst
@@ -2033,6 +2137,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceIndicatorMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[DeviceIndicatorModeEnums](
+                        &self._camera._camera.get().DeviceIndicatorMode)))
             node_inst.enum_names = rotpy.names.camera.DeviceIndicatorMode_names
             node_inst.enum_values = rotpy.names.camera.DeviceIndicatorMode_values
             node = self._nodes["DeviceIndicatorMode"] = node_inst
@@ -2111,6 +2219,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().AutoExposureControlPriority))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[AutoExposureControlPriorityEnums](
+                        &self._camera._camera.get().AutoExposureControlPriority)))
             node_inst.enum_names = rotpy.names.camera.AutoExposureControlPriority_names
             node_inst.enum_values = rotpy.names.camera.AutoExposureControlPriority_values
             node = self._nodes["AutoExposureControlPriority"] = node_inst
@@ -2258,6 +2370,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().AutoExposureMeteringMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[AutoExposureMeteringModeEnums](
+                        &self._camera._camera.get().AutoExposureMeteringMode)))
             node_inst.enum_names = rotpy.names.camera.AutoExposureMeteringMode_names
             node_inst.enum_values = rotpy.names.camera.AutoExposureMeteringMode_values
             node = self._nodes["AutoExposureMeteringMode"] = node_inst
@@ -2363,6 +2479,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().BalanceWhiteAutoProfile))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[BalanceWhiteAutoProfileEnums](
+                        &self._camera._camera.get().BalanceWhiteAutoProfile)))
             node_inst.enum_names = rotpy.names.camera.BalanceWhiteAutoProfile_names
             node_inst.enum_values = rotpy.names.camera.BalanceWhiteAutoProfile_values
             node = self._nodes["BalanceWhiteAutoProfile"] = node_inst
@@ -2383,6 +2503,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().AutoAlgorithmSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[AutoAlgorithmSelectorEnums](
+                        &self._camera._camera.get().AutoAlgorithmSelector)))
             node_inst.enum_names = rotpy.names.camera.AutoAlgorithmSelector_names
             node_inst.enum_values = rotpy.names.camera.AutoAlgorithmSelector_values
             node = self._nodes["AutoAlgorithmSelector"] = node_inst
@@ -2405,6 +2529,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().AutoExposureTargetGreyValueAuto))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[AutoExposureTargetGreyValueAutoEnums](
+                        &self._camera._camera.get().AutoExposureTargetGreyValueAuto)))
             node_inst.enum_names = rotpy.names.camera.AutoExposureTargetGreyValueAuto_names
             node_inst.enum_values = rotpy.names.camera.AutoExposureTargetGreyValueAuto_values
             node = self._nodes["AutoExposureTargetGreyValueAuto"] = node_inst
@@ -2447,6 +2575,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().AutoExposureLightingMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[AutoExposureLightingModeEnums](
+                        &self._camera._camera.get().AutoExposureLightingMode)))
             node_inst.enum_names = rotpy.names.camera.AutoExposureLightingMode_names
             node_inst.enum_values = rotpy.names.camera.AutoExposureLightingMode_values
             node = self._nodes["AutoExposureLightingMode"] = node_inst
@@ -2751,6 +2883,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().GevIEEE1588Status))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[GevIEEE1588StatusEnums](
+                        &self._camera._camera.get().GevIEEE1588Status)))
             node_inst.enum_names = rotpy.names.camera.GevIEEE1588Status_names
             node_inst.enum_values = rotpy.names.camera.GevIEEE1588Status_values
             node = self._nodes["GevIEEE1588Status"] = node_inst
@@ -2901,6 +3037,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().GevIEEE1588Mode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[GevIEEE1588ModeEnums](
+                        &self._camera._camera.get().GevIEEE1588Mode)))
             node_inst.enum_names = rotpy.names.camera.GevIEEE1588Mode_names
             node_inst.enum_values = rotpy.names.camera.GevIEEE1588Mode_values
             node = self._nodes["GevIEEE1588Mode"] = node_inst
@@ -3021,6 +3161,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().GevIEEE1588ClockAccuracy))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[GevIEEE1588ClockAccuracyEnums](
+                        &self._camera._camera.get().GevIEEE1588ClockAccuracy)))
             node_inst.enum_names = rotpy.names.camera.GevIEEE1588ClockAccuracy_names
             node_inst.enum_values = rotpy.names.camera.GevIEEE1588ClockAccuracy_values
             node = self._nodes["GevIEEE1588ClockAccuracy"] = node_inst
@@ -3072,6 +3216,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().GevCCP))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[GevCCPEnums](
+                        &self._camera._camera.get().GevCCP)))
             node_inst.enum_names = rotpy.names.camera.GevCCP_names
             node_inst.enum_values = rotpy.names.camera.GevCCP_values
             node = self._nodes["GevCCP"] = node_inst
@@ -3173,6 +3321,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().GevSupportedOptionSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[GevSupportedOptionSelectorEnums](
+                        &self._camera._camera.get().GevSupportedOptionSelector)))
             node_inst.enum_names = rotpy.names.camera.GevSupportedOptionSelector_names
             node_inst.enum_values = rotpy.names.camera.GevSupportedOptionSelector_values
             node = self._nodes["GevSupportedOptionSelector"] = node_inst
@@ -3324,6 +3476,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().BlackLevelSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[BlackLevelSelectorEnums](
+                        &self._camera._camera.get().BlackLevelSelector)))
             node_inst.enum_names = rotpy.names.camera.BlackLevelSelector_names
             node_inst.enum_values = rotpy.names.camera.BlackLevelSelector_values
             node = self._nodes["BlackLevelSelector"] = node_inst
@@ -3414,6 +3570,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().BalanceWhiteAuto))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[BalanceWhiteAutoEnums](
+                        &self._camera._camera.get().BalanceWhiteAuto)))
             node_inst.enum_names = rotpy.names.camera.BalanceWhiteAuto_names
             node_inst.enum_values = rotpy.names.camera.BalanceWhiteAuto_values
             node = self._nodes["BalanceWhiteAuto"] = node_inst
@@ -3458,6 +3618,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().GainAuto))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[GainAutoEnums](
+                        &self._camera._camera.get().GainAuto)))
             node_inst.enum_names = rotpy.names.camera.GainAuto_names
             node_inst.enum_values = rotpy.names.camera.GainAuto_values
             node = self._nodes["GainAuto"] = node_inst
@@ -3514,6 +3678,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().BalanceRatioSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[BalanceRatioSelectorEnums](
+                        &self._camera._camera.get().BalanceRatioSelector)))
             node_inst.enum_names = rotpy.names.camera.BalanceRatioSelector_names
             node_inst.enum_values = rotpy.names.camera.BalanceRatioSelector_values
             node = self._nodes["BalanceRatioSelector"] = node_inst
@@ -3534,6 +3702,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().GainSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[GainSelectorEnums](
+                        &self._camera._camera.get().GainSelector)))
             node_inst.enum_names = rotpy.names.camera.GainSelector_names
             node_inst.enum_values = rotpy.names.camera.GainSelector_values
             node = self._nodes["GainSelector"] = node_inst
@@ -3673,6 +3845,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DefectCorrectionMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[DefectCorrectionModeEnums](
+                        &self._camera._camera.get().DefectCorrectionMode)))
             node_inst.enum_names = rotpy.names.camera.DefectCorrectionMode_names
             node_inst.enum_values = rotpy.names.camera.DefectCorrectionMode_values
             node = self._nodes["DefectCorrectionMode"] = node_inst
@@ -3795,6 +3971,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().UserSetSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[UserSetSelectorEnums](
+                        &self._camera._camera.get().UserSetSelector)))
             node_inst.enum_names = rotpy.names.camera.UserSetSelector_names
             node_inst.enum_values = rotpy.names.camera.UserSetSelector_values
             node = self._nodes["UserSetSelector"] = node_inst
@@ -3832,6 +4012,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().UserSetDefault))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[UserSetDefaultEnums](
+                        &self._camera._camera.get().UserSetDefault)))
             node_inst.enum_names = rotpy.names.camera.UserSetDefault_names
             node_inst.enum_values = rotpy.names.camera.UserSetDefault_values
             node = self._nodes["UserSetDefault"] = node_inst
@@ -3852,6 +4036,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SerialPortBaudRate))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[SerialPortBaudRateEnums](
+                        &self._camera._camera.get().SerialPortBaudRate)))
             node_inst.enum_names = rotpy.names.camera.SerialPortBaudRate_names
             node_inst.enum_values = rotpy.names.camera.SerialPortBaudRate_values
             node = self._nodes["SerialPortBaudRate"] = node_inst
@@ -3888,6 +4076,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SerialPortParity))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[SerialPortParityEnums](
+                        &self._camera._camera.get().SerialPortParity)))
             node_inst.enum_names = rotpy.names.camera.SerialPortParity_names
             node_inst.enum_values = rotpy.names.camera.SerialPortParity_values
             node = self._nodes["SerialPortParity"] = node_inst
@@ -3941,6 +4133,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SerialPortSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[SerialPortSelectorEnums](
+                        &self._camera._camera.get().SerialPortSelector)))
             node_inst.enum_names = rotpy.names.camera.SerialPortSelector_names
             node_inst.enum_values = rotpy.names.camera.SerialPortSelector_values
             node = self._nodes["SerialPortSelector"] = node_inst
@@ -3961,6 +4157,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SerialPortStopBits))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[SerialPortStopBitsEnums](
+                        &self._camera._camera.get().SerialPortStopBits)))
             node_inst.enum_names = rotpy.names.camera.SerialPortStopBits_names
             node_inst.enum_values = rotpy.names.camera.SerialPortStopBits_values
             node = self._nodes["SerialPortStopBits"] = node_inst
@@ -4047,6 +4247,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SerialPortSource))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[SerialPortSourceEnums](
+                        &self._camera._camera.get().SerialPortSource)))
             node_inst.enum_names = rotpy.names.camera.SerialPortSource_names
             node_inst.enum_values = rotpy.names.camera.SerialPortSource_values
             node = self._nodes["SerialPortSource"] = node_inst
@@ -4099,6 +4303,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SequencerMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[SequencerModeEnums](
+                        &self._camera._camera.get().SequencerMode)))
             node_inst.enum_names = rotpy.names.camera.SequencerMode_names
             node_inst.enum_values = rotpy.names.camera.SequencerMode_values
             node = self._nodes["SequencerMode"] = node_inst
@@ -4118,6 +4326,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SequencerConfigurationValid))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[SequencerConfigurationValidEnums](
+                        &self._camera._camera.get().SequencerConfigurationValid)))
             node_inst.enum_names = rotpy.names.camera.SequencerConfigurationValid_names
             node_inst.enum_values = rotpy.names.camera.SequencerConfigurationValid_values
             node = self._nodes["SequencerConfigurationValid"] = node_inst
@@ -4138,6 +4350,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SequencerSetValid))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[SequencerSetValidEnums](
+                        &self._camera._camera.get().SequencerSetValid)))
             node_inst.enum_names = rotpy.names.camera.SequencerSetValid_names
             node_inst.enum_values = rotpy.names.camera.SequencerSetValid_values
             node = self._nodes["SequencerSetValid"] = node_inst
@@ -4173,6 +4389,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SequencerTriggerActivation))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[SequencerTriggerActivationEnums](
+                        &self._camera._camera.get().SequencerTriggerActivation)))
             node_inst.enum_names = rotpy.names.camera.SequencerTriggerActivation_names
             node_inst.enum_values = rotpy.names.camera.SequencerTriggerActivation_values
             node = self._nodes["SequencerTriggerActivation"] = node_inst
@@ -4192,6 +4412,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SequencerConfigurationMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[SequencerConfigurationModeEnums](
+                        &self._camera._camera.get().SequencerConfigurationMode)))
             node_inst.enum_names = rotpy.names.camera.SequencerConfigurationMode_names
             node_inst.enum_values = rotpy.names.camera.SequencerConfigurationMode_values
             node = self._nodes["SequencerConfigurationMode"] = node_inst
@@ -4229,6 +4453,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SequencerTriggerSource))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[SequencerTriggerSourceEnums](
+                        &self._camera._camera.get().SequencerTriggerSource)))
             node_inst.enum_names = rotpy.names.camera.SequencerTriggerSource_names
             node_inst.enum_values = rotpy.names.camera.SequencerTriggerSource_values
             node = self._nodes["SequencerTriggerSource"] = node_inst
@@ -4400,6 +4628,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TransferQueueMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[TransferQueueModeEnums](
+                        &self._camera._camera.get().TransferQueueMode)))
             node_inst.enum_names = rotpy.names.camera.TransferQueueMode_names
             node_inst.enum_values = rotpy.names.camera.TransferQueueMode_values
             node = self._nodes["TransferQueueMode"] = node_inst
@@ -4422,6 +4654,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TransferOperationMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[TransferOperationModeEnums](
+                        &self._camera._camera.get().TransferOperationMode)))
             node_inst.enum_names = rotpy.names.camera.TransferOperationMode_names
             node_inst.enum_values = rotpy.names.camera.TransferOperationMode_values
             node = self._nodes["TransferOperationMode"] = node_inst
@@ -4480,6 +4716,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TransferControlMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[TransferControlModeEnums](
+                        &self._camera._camera.get().TransferControlMode)))
             node_inst.enum_names = rotpy.names.camera.TransferControlMode_names
             node_inst.enum_values = rotpy.names.camera.TransferControlMode_values
             node = self._nodes["TransferControlMode"] = node_inst
@@ -4660,6 +4900,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkGainSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ChunkGainSelectorEnums](
+                        &self._camera._camera.get().ChunkGainSelector)))
             node_inst.enum_names = rotpy.names.camera.ChunkGainSelector_names
             node_inst.enum_values = rotpy.names.camera.ChunkGainSelector_values
             node = self._nodes["ChunkGainSelector"] = node_inst
@@ -4679,6 +4923,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ChunkSelectorEnums](
+                        &self._camera._camera.get().ChunkSelector)))
             node_inst.enum_names = rotpy.names.camera.ChunkSelector_names
             node_inst.enum_values = rotpy.names.camera.ChunkSelector_values
             node = self._nodes["ChunkSelector"] = node_inst
@@ -4698,6 +4946,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkBlackLevelSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ChunkBlackLevelSelectorEnums](
+                        &self._camera._camera.get().ChunkBlackLevelSelector)))
             node_inst.enum_names = rotpy.names.camera.ChunkBlackLevelSelector_names
             node_inst.enum_values = rotpy.names.camera.ChunkBlackLevelSelector_values
             node = self._nodes["ChunkBlackLevelSelector"] = node_inst
@@ -4765,6 +5017,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkPixelFormat))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ChunkPixelFormatEnums](
+                        &self._camera._camera.get().ChunkPixelFormat)))
             node_inst.enum_names = rotpy.names.camera.ChunkPixelFormat_names
             node_inst.enum_values = rotpy.names.camera.ChunkPixelFormat_values
             node = self._nodes["ChunkPixelFormat"] = node_inst
@@ -4933,6 +5189,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().FileOperationStatus))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[FileOperationStatusEnums](
+                        &self._camera._camera.get().FileOperationStatus)))
             node_inst.enum_names = rotpy.names.camera.FileOperationStatus_names
             node_inst.enum_values = rotpy.names.camera.FileOperationStatus_values
             node = self._nodes["FileOperationStatus"] = node_inst
@@ -4970,6 +5230,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().FileOpenMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[FileOpenModeEnums](
+                        &self._camera._camera.get().FileOpenMode)))
             node_inst.enum_names = rotpy.names.camera.FileOpenMode_names
             node_inst.enum_values = rotpy.names.camera.FileOpenMode_values
             node = self._nodes["FileOpenMode"] = node_inst
@@ -5007,6 +5271,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().FileOperationSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[FileOperationSelectorEnums](
+                        &self._camera._camera.get().FileOperationSelector)))
             node_inst.enum_names = rotpy.names.camera.FileOperationSelector_names
             node_inst.enum_values = rotpy.names.camera.FileOperationSelector_values
             node = self._nodes["FileOperationSelector"] = node_inst
@@ -5027,6 +5295,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().FileSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[FileSelectorEnums](
+                        &self._camera._camera.get().FileSelector)))
             node_inst.enum_names = rotpy.names.camera.FileSelector_names
             node_inst.enum_values = rotpy.names.camera.FileSelector_values
             node = self._nodes["FileSelector"] = node_inst
@@ -5063,6 +5335,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().BinningSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[BinningSelectorEnums](
+                        &self._camera._camera.get().BinningSelector)))
             node_inst.enum_names = rotpy.names.camera.BinningSelector_names
             node_inst.enum_values = rotpy.names.camera.BinningSelector_values
             node = self._nodes["BinningSelector"] = node_inst
@@ -5172,6 +5448,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TestPatternGeneratorSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[TestPatternGeneratorSelectorEnums](
+                        &self._camera._camera.get().TestPatternGeneratorSelector)))
             node_inst.enum_names = rotpy.names.camera.TestPatternGeneratorSelector_names
             node_inst.enum_values = rotpy.names.camera.TestPatternGeneratorSelector_values
             node = self._nodes["TestPatternGeneratorSelector"] = node_inst
@@ -5210,6 +5490,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CompressionSaturationPriority))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[CompressionSaturationPriorityEnums](
+                        &self._camera._camera.get().CompressionSaturationPriority)))
             node_inst.enum_names = rotpy.names.camera.CompressionSaturationPriority_names
             node_inst.enum_values = rotpy.names.camera.CompressionSaturationPriority_values
             node = self._nodes["CompressionSaturationPriority"] = node_inst
@@ -5268,6 +5552,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TestPattern))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[TestPatternEnums](
+                        &self._camera._camera.get().TestPattern)))
             node_inst.enum_names = rotpy.names.camera.TestPattern_names
             node_inst.enum_values = rotpy.names.camera.TestPattern_values
             node = self._nodes["TestPattern"] = node_inst
@@ -5288,6 +5576,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().PixelColorFilter))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[PixelColorFilterEnums](
+                        &self._camera._camera.get().PixelColorFilter)))
             node_inst.enum_names = rotpy.names.camera.PixelColorFilter_names
             node_inst.enum_values = rotpy.names.camera.PixelColorFilter_values
             node = self._nodes["PixelColorFilter"] = node_inst
@@ -5326,6 +5618,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().AdcBitDepth))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[AdcBitDepthEnums](
+                        &self._camera._camera.get().AdcBitDepth)))
             node_inst.enum_names = rotpy.names.camera.AdcBitDepth_names
             node_inst.enum_values = rotpy.names.camera.AdcBitDepth_values
             node = self._nodes["AdcBitDepth"] = node_inst
@@ -5367,6 +5663,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DecimationHorizontalMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[DecimationHorizontalModeEnums](
+                        &self._camera._camera.get().DecimationHorizontalMode)))
             node_inst.enum_names = rotpy.names.camera.DecimationHorizontalMode_names
             node_inst.enum_values = rotpy.names.camera.DecimationHorizontalMode_values
             node = self._nodes["DecimationHorizontalMode"] = node_inst
@@ -5386,6 +5686,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().BinningVerticalMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[BinningVerticalModeEnums](
+                        &self._camera._camera.get().BinningVerticalMode)))
             node_inst.enum_names = rotpy.names.camera.BinningVerticalMode_names
             node_inst.enum_values = rotpy.names.camera.BinningVerticalMode_values
             node = self._nodes["BinningVerticalMode"] = node_inst
@@ -5459,6 +5763,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().PixelSize))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[PixelSizeEnums](
+                        &self._camera._camera.get().PixelSize)))
             node_inst.enum_names = rotpy.names.camera.PixelSize_names
             node_inst.enum_values = rotpy.names.camera.PixelSize_values
             node = self._nodes["PixelSize"] = node_inst
@@ -5495,6 +5803,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DecimationSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[DecimationSelectorEnums](
+                        &self._camera._camera.get().DecimationSelector)))
             node_inst.enum_names = rotpy.names.camera.DecimationSelector_names
             node_inst.enum_values = rotpy.names.camera.DecimationSelector_values
             node = self._nodes["DecimationSelector"] = node_inst
@@ -5548,6 +5860,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ImageCompressionMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ImageCompressionModeEnums](
+                        &self._camera._camera.get().ImageCompressionMode)))
             node_inst.enum_names = rotpy.names.camera.ImageCompressionMode_names
             node_inst.enum_values = rotpy.names.camera.ImageCompressionMode_values
             node = self._nodes["ImageCompressionMode"] = node_inst
@@ -5603,6 +5919,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().BinningHorizontalMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[BinningHorizontalModeEnums](
+                        &self._camera._camera.get().BinningHorizontalMode)))
             node_inst.enum_names = rotpy.names.camera.BinningHorizontalMode_names
             node_inst.enum_values = rotpy.names.camera.BinningHorizontalMode_values
             node = self._nodes["BinningHorizontalMode"] = node_inst
@@ -5622,6 +5942,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().PixelFormat))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[PixelFormatEnums](
+                        &self._camera._camera.get().PixelFormat)))
             node_inst.enum_names = rotpy.names.camera.PixelFormat_names
             node_inst.enum_values = rotpy.names.camera.PixelFormat_values
             node = self._nodes["PixelFormat"] = node_inst
@@ -5660,6 +5984,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DecimationVerticalMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[DecimationVerticalModeEnums](
+                        &self._camera._camera.get().DecimationVerticalMode)))
             node_inst.enum_names = rotpy.names.camera.DecimationVerticalMode_names
             node_inst.enum_values = rotpy.names.camera.DecimationVerticalMode_values
             node = self._nodes["DecimationVerticalMode"] = node_inst
@@ -5762,6 +6090,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().LineMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[LineModeEnums](
+                        &self._camera._camera.get().LineMode)))
             node_inst.enum_names = rotpy.names.camera.LineMode_names
             node_inst.enum_values = rotpy.names.camera.LineMode_values
             node = self._nodes["LineMode"] = node_inst
@@ -5782,6 +6114,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().LineSource))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[LineSourceEnums](
+                        &self._camera._camera.get().LineSource)))
             node_inst.enum_names = rotpy.names.camera.LineSource_names
             node_inst.enum_values = rotpy.names.camera.LineSource_values
             node = self._nodes["LineSource"] = node_inst
@@ -5801,6 +6137,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().LineInputFilterSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[LineInputFilterSelectorEnums](
+                        &self._camera._camera.get().LineInputFilterSelector)))
             node_inst.enum_names = rotpy.names.camera.LineInputFilterSelector_names
             node_inst.enum_values = rotpy.names.camera.LineInputFilterSelector_values
             node = self._nodes["LineInputFilterSelector"] = node_inst
@@ -5857,6 +6197,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().UserOutputSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[UserOutputSelectorEnums](
+                        &self._camera._camera.get().UserOutputSelector)))
             node_inst.enum_names = rotpy.names.camera.UserOutputSelector_names
             node_inst.enum_values = rotpy.names.camera.UserOutputSelector_values
             node = self._nodes["UserOutputSelector"] = node_inst
@@ -5893,6 +6237,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().LineFormat))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[LineFormatEnums](
+                        &self._camera._camera.get().LineFormat)))
             node_inst.enum_names = rotpy.names.camera.LineFormat_names
             node_inst.enum_values = rotpy.names.camera.LineFormat_values
             node = self._nodes["LineFormat"] = node_inst
@@ -5932,6 +6280,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().LineSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[LineSelectorEnums](
+                        &self._camera._camera.get().LineSelector)))
             node_inst.enum_names = rotpy.names.camera.LineSelector_names
             node_inst.enum_values = rotpy.names.camera.LineSelector_values
             node = self._nodes["LineSelector"] = node_inst
@@ -5951,6 +6303,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ExposureActiveMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ExposureActiveModeEnums](
+                        &self._camera._camera.get().ExposureActiveMode)))
             node_inst.enum_names = rotpy.names.camera.ExposureActiveMode_names
             node_inst.enum_values = rotpy.names.camera.ExposureActiveMode_values
             node = self._nodes["ExposureActiveMode"] = node_inst
@@ -6004,6 +6360,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CounterTriggerActivation))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[CounterTriggerActivationEnums](
+                        &self._camera._camera.get().CounterTriggerActivation)))
             node_inst.enum_names = rotpy.names.camera.CounterTriggerActivation_names
             node_inst.enum_values = rotpy.names.camera.CounterTriggerActivation_values
             node = self._nodes["CounterTriggerActivation"] = node_inst
@@ -6039,6 +6399,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CounterSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[CounterSelectorEnums](
+                        &self._camera._camera.get().CounterSelector)))
             node_inst.enum_names = rotpy.names.camera.CounterSelector_names
             node_inst.enum_values = rotpy.names.camera.CounterSelector_values
             node = self._nodes["CounterSelector"] = node_inst
@@ -6074,6 +6438,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CounterStatus))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[CounterStatusEnums](
+                        &self._camera._camera.get().CounterStatus)))
             node_inst.enum_names = rotpy.names.camera.CounterStatus_names
             node_inst.enum_values = rotpy.names.camera.CounterStatus_values
             node = self._nodes["CounterStatus"] = node_inst
@@ -6093,6 +6461,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CounterTriggerSource))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[CounterTriggerSourceEnums](
+                        &self._camera._camera.get().CounterTriggerSource)))
             node_inst.enum_names = rotpy.names.camera.CounterTriggerSource_names
             node_inst.enum_values = rotpy.names.camera.CounterTriggerSource_values
             node = self._nodes["CounterTriggerSource"] = node_inst
@@ -6129,6 +6501,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CounterResetSource))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[CounterResetSourceEnums](
+                        &self._camera._camera.get().CounterResetSource)))
             node_inst.enum_names = rotpy.names.camera.CounterResetSource_names
             node_inst.enum_values = rotpy.names.camera.CounterResetSource_values
             node = self._nodes["CounterResetSource"] = node_inst
@@ -6148,6 +6524,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CounterEventSource))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[CounterEventSourceEnums](
+                        &self._camera._camera.get().CounterEventSource)))
             node_inst.enum_names = rotpy.names.camera.CounterEventSource_names
             node_inst.enum_values = rotpy.names.camera.CounterEventSource_values
             node = self._nodes["CounterEventSource"] = node_inst
@@ -6167,6 +6547,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CounterEventActivation))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[CounterEventActivationEnums](
+                        &self._camera._camera.get().CounterEventActivation)))
             node_inst.enum_names = rotpy.names.camera.CounterEventActivation_names
             node_inst.enum_values = rotpy.names.camera.CounterEventActivation_values
             node = self._nodes["CounterEventActivation"] = node_inst
@@ -6203,6 +6587,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CounterResetActivation))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[CounterResetActivationEnums](
+                        &self._camera._camera.get().CounterResetActivation)))
             node_inst.enum_names = rotpy.names.camera.CounterResetActivation_names
             node_inst.enum_values = rotpy.names.camera.CounterResetActivation_values
             node = self._nodes["CounterResetActivation"] = node_inst
@@ -6222,6 +6610,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceType))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[DeviceTypeEnums](
+                        &self._camera._camera.get().DeviceType)))
             node_inst.enum_names = rotpy.names.camera.DeviceType_names
             node_inst.enum_values = rotpy.names.camera.DeviceType_values
             node = self._nodes["DeviceType"] = node_inst
@@ -6523,6 +6915,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceConnectionStatus))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[DeviceConnectionStatusEnums](
+                        &self._camera._camera.get().DeviceConnectionStatus)))
             node_inst.enum_names = rotpy.names.camera.DeviceConnectionStatus_names
             node_inst.enum_values = rotpy.names.camera.DeviceConnectionStatus_values
             node = self._nodes["DeviceConnectionStatus"] = node_inst
@@ -6561,6 +6957,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceLinkThroughputLimitMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[DeviceLinkThroughputLimitModeEnums](
+                        &self._camera._camera.get().DeviceLinkThroughputLimitMode)))
             node_inst.enum_names = rotpy.names.camera.DeviceLinkThroughputLimitMode_names
             node_inst.enum_values = rotpy.names.camera.DeviceLinkThroughputLimitMode_values
             node = self._nodes["DeviceLinkThroughputLimitMode"] = node_inst
@@ -6597,6 +6997,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceLinkHeartbeatMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[DeviceLinkHeartbeatModeEnums](
+                        &self._camera._camera.get().DeviceLinkHeartbeatMode)))
             node_inst.enum_names = rotpy.names.camera.DeviceLinkHeartbeatMode_names
             node_inst.enum_values = rotpy.names.camera.DeviceLinkHeartbeatMode_values
             node = self._nodes["DeviceLinkHeartbeatMode"] = node_inst
@@ -6666,6 +7070,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceStreamChannelType))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[DeviceStreamChannelTypeEnums](
+                        &self._camera._camera.get().DeviceStreamChannelType)))
             node_inst.enum_names = rotpy.names.camera.DeviceStreamChannelType_names
             node_inst.enum_values = rotpy.names.camera.DeviceStreamChannelType_values
             node = self._nodes["DeviceStreamChannelType"] = node_inst
@@ -6702,6 +7110,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceStreamChannelEndianness))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[DeviceStreamChannelEndiannessEnums](
+                        &self._camera._camera.get().DeviceStreamChannelEndianness)))
             node_inst.enum_names = rotpy.names.camera.DeviceStreamChannelEndianness_names
             node_inst.enum_values = rotpy.names.camera.DeviceStreamChannelEndianness_values
             node = self._nodes["DeviceStreamChannelEndianness"] = node_inst
@@ -6840,6 +7252,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceClockSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[DeviceClockSelectorEnums](
+                        &self._camera._camera.get().DeviceClockSelector)))
             node_inst.enum_names = rotpy.names.camera.DeviceClockSelector_names
             node_inst.enum_values = rotpy.names.camera.DeviceClockSelector_values
             node = self._nodes["DeviceClockSelector"] = node_inst
@@ -6875,6 +7291,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceSerialPortSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[DeviceSerialPortSelectorEnums](
+                        &self._camera._camera.get().DeviceSerialPortSelector)))
             node_inst.enum_names = rotpy.names.camera.DeviceSerialPortSelector_names
             node_inst.enum_values = rotpy.names.camera.DeviceSerialPortSelector_values
             node = self._nodes["DeviceSerialPortSelector"] = node_inst
@@ -6895,6 +7315,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceSerialPortBaudRate))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[DeviceSerialPortBaudRateEnums](
+                        &self._camera._camera.get().DeviceSerialPortBaudRate)))
             node_inst.enum_names = rotpy.names.camera.DeviceSerialPortBaudRate_names
             node_inst.enum_values = rotpy.names.camera.DeviceSerialPortBaudRate_values
             node = self._nodes["DeviceSerialPortBaudRate"] = node_inst
@@ -6930,6 +7354,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SensorTaps))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[SensorTapsEnums](
+                        &self._camera._camera.get().SensorTaps)))
             node_inst.enum_names = rotpy.names.camera.SensorTaps_names
             node_inst.enum_values = rotpy.names.camera.SensorTaps_values
             node = self._nodes["SensorTaps"] = node_inst
@@ -6950,6 +7378,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SensorDigitizationTaps))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[SensorDigitizationTapsEnums](
+                        &self._camera._camera.get().SensorDigitizationTaps)))
             node_inst.enum_names = rotpy.names.camera.SensorDigitizationTaps_names
             node_inst.enum_values = rotpy.names.camera.SensorDigitizationTaps_values
             node = self._nodes["SensorDigitizationTaps"] = node_inst
@@ -6972,6 +7404,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().RegionSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[RegionSelectorEnums](
+                        &self._camera._camera.get().RegionSelector)))
             node_inst.enum_names = rotpy.names.camera.RegionSelector_names
             node_inst.enum_values = rotpy.names.camera.RegionSelector_values
             node = self._nodes["RegionSelector"] = node_inst
@@ -6991,6 +7427,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().RegionMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[RegionModeEnums](
+                        &self._camera._camera.get().RegionMode)))
             node_inst.enum_names = rotpy.names.camera.RegionMode_names
             node_inst.enum_values = rotpy.names.camera.RegionMode_values
             node = self._nodes["RegionMode"] = node_inst
@@ -7010,6 +7450,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().RegionDestination))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[RegionDestinationEnums](
+                        &self._camera._camera.get().RegionDestination)))
             node_inst.enum_names = rotpy.names.camera.RegionDestination_names
             node_inst.enum_values = rotpy.names.camera.RegionDestination_values
             node = self._nodes["RegionDestination"] = node_inst
@@ -7029,6 +7473,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ImageComponentSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ImageComponentSelectorEnums](
+                        &self._camera._camera.get().ImageComponentSelector)))
             node_inst.enum_names = rotpy.names.camera.ImageComponentSelector_names
             node_inst.enum_values = rotpy.names.camera.ImageComponentSelector_values
             node = self._nodes["ImageComponentSelector"] = node_inst
@@ -7081,6 +7529,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().PixelFormatInfoSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[PixelFormatInfoSelectorEnums](
+                        &self._camera._camera.get().PixelFormatInfoSelector)))
             node_inst.enum_names = rotpy.names.camera.PixelFormatInfoSelector_names
             node_inst.enum_values = rotpy.names.camera.PixelFormatInfoSelector_values
             node = self._nodes["PixelFormatInfoSelector"] = node_inst
@@ -7117,6 +7569,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().Deinterlacing))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[DeinterlacingEnums](
+                        &self._camera._camera.get().Deinterlacing)))
             node_inst.enum_names = rotpy.names.camera.Deinterlacing_names
             node_inst.enum_values = rotpy.names.camera.Deinterlacing_values
             node = self._nodes["Deinterlacing"] = node_inst
@@ -7138,6 +7594,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ImageCompressionRateOption))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ImageCompressionRateOptionEnums](
+                        &self._camera._camera.get().ImageCompressionRateOption)))
             node_inst.enum_names = rotpy.names.camera.ImageCompressionRateOption_names
             node_inst.enum_values = rotpy.names.camera.ImageCompressionRateOption_values
             node = self._nodes["ImageCompressionRateOption"] = node_inst
@@ -7191,6 +7651,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ImageCompressionJPEGFormatOption))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ImageCompressionJPEGFormatOptionEnums](
+                        &self._camera._camera.get().ImageCompressionJPEGFormatOption)))
             node_inst.enum_names = rotpy.names.camera.ImageCompressionJPEGFormatOption_names
             node_inst.enum_values = rotpy.names.camera.ImageCompressionJPEGFormatOption_values
             node = self._nodes["ImageCompressionJPEGFormatOption"] = node_inst
@@ -7247,6 +7711,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().AcquisitionStatusSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[AcquisitionStatusSelectorEnums](
+                        &self._camera._camera.get().AcquisitionStatusSelector)))
             node_inst.enum_names = rotpy.names.camera.AcquisitionStatusSelector_names
             node_inst.enum_values = rotpy.names.camera.AcquisitionStatusSelector_values
             node = self._nodes["AcquisitionStatusSelector"] = node_inst
@@ -7317,6 +7785,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ExposureTimeMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ExposureTimeModeEnums](
+                        &self._camera._camera.get().ExposureTimeMode)))
             node_inst.enum_names = rotpy.names.camera.ExposureTimeMode_names
             node_inst.enum_values = rotpy.names.camera.ExposureTimeMode_values
             node = self._nodes["ExposureTimeMode"] = node_inst
@@ -7338,6 +7810,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ExposureTimeSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ExposureTimeSelectorEnums](
+                        &self._camera._camera.get().ExposureTimeSelector)))
             node_inst.enum_names = rotpy.names.camera.ExposureTimeSelector_names
             node_inst.enum_values = rotpy.names.camera.ExposureTimeSelector_values
             node = self._nodes["ExposureTimeSelector"] = node_inst
@@ -7359,6 +7835,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().GainAutoBalance))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[GainAutoBalanceEnums](
+                        &self._camera._camera.get().GainAutoBalance)))
             node_inst.enum_names = rotpy.names.camera.GainAutoBalance_names
             node_inst.enum_values = rotpy.names.camera.GainAutoBalance_values
             node = self._nodes["GainAutoBalance"] = node_inst
@@ -7379,6 +7859,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().BlackLevelAuto))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[BlackLevelAutoEnums](
+                        &self._camera._camera.get().BlackLevelAuto)))
             node_inst.enum_names = rotpy.names.camera.BlackLevelAuto_names
             node_inst.enum_values = rotpy.names.camera.BlackLevelAuto_values
             node = self._nodes["BlackLevelAuto"] = node_inst
@@ -7400,6 +7884,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().BlackLevelAutoBalance))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[BlackLevelAutoBalanceEnums](
+                        &self._camera._camera.get().BlackLevelAutoBalance)))
             node_inst.enum_names = rotpy.names.camera.BlackLevelAutoBalance_names
             node_inst.enum_values = rotpy.names.camera.BlackLevelAutoBalance_values
             node = self._nodes["BlackLevelAutoBalance"] = node_inst
@@ -7419,6 +7907,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().WhiteClipSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[WhiteClipSelectorEnums](
+                        &self._camera._camera.get().WhiteClipSelector)))
             node_inst.enum_names = rotpy.names.camera.WhiteClipSelector_names
             node_inst.enum_values = rotpy.names.camera.WhiteClipSelector_values
             node = self._nodes["WhiteClipSelector"] = node_inst
@@ -7514,6 +8006,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TimerSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[TimerSelectorEnums](
+                        &self._camera._camera.get().TimerSelector)))
             node_inst.enum_names = rotpy.names.camera.TimerSelector_names
             node_inst.enum_values = rotpy.names.camera.TimerSelector_values
             node = self._nodes["TimerSelector"] = node_inst
@@ -7600,6 +8096,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TimerStatus))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[TimerStatusEnums](
+                        &self._camera._camera.get().TimerStatus)))
             node_inst.enum_names = rotpy.names.camera.TimerStatus_names
             node_inst.enum_values = rotpy.names.camera.TimerStatus_values
             node = self._nodes["TimerStatus"] = node_inst
@@ -7619,6 +8119,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TimerTriggerSource))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[TimerTriggerSourceEnums](
+                        &self._camera._camera.get().TimerTriggerSource)))
             node_inst.enum_names = rotpy.names.camera.TimerTriggerSource_names
             node_inst.enum_values = rotpy.names.camera.TimerTriggerSource_values
             node = self._nodes["TimerTriggerSource"] = node_inst
@@ -7638,6 +8142,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TimerTriggerActivation))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[TimerTriggerActivationEnums](
+                        &self._camera._camera.get().TimerTriggerActivation)))
             node_inst.enum_names = rotpy.names.camera.TimerTriggerActivation_names
             node_inst.enum_values = rotpy.names.camera.TimerTriggerActivation_values
             node = self._nodes["TimerTriggerActivation"] = node_inst
@@ -7657,6 +8165,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().EncoderSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[EncoderSelectorEnums](
+                        &self._camera._camera.get().EncoderSelector)))
             node_inst.enum_names = rotpy.names.camera.EncoderSelector_names
             node_inst.enum_values = rotpy.names.camera.EncoderSelector_values
             node = self._nodes["EncoderSelector"] = node_inst
@@ -7677,6 +8189,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().EncoderSourceA))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[EncoderSourceAEnums](
+                        &self._camera._camera.get().EncoderSourceA)))
             node_inst.enum_names = rotpy.names.camera.EncoderSourceA_names
             node_inst.enum_values = rotpy.names.camera.EncoderSourceA_values
             node = self._nodes["EncoderSourceA"] = node_inst
@@ -7697,6 +8213,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().EncoderSourceB))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[EncoderSourceBEnums](
+                        &self._camera._camera.get().EncoderSourceB)))
             node_inst.enum_names = rotpy.names.camera.EncoderSourceB_names
             node_inst.enum_values = rotpy.names.camera.EncoderSourceB_values
             node = self._nodes["EncoderSourceB"] = node_inst
@@ -7717,6 +8237,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().EncoderMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[EncoderModeEnums](
+                        &self._camera._camera.get().EncoderMode)))
             node_inst.enum_names = rotpy.names.camera.EncoderMode_names
             node_inst.enum_values = rotpy.names.camera.EncoderMode_values
             node = self._nodes["EncoderMode"] = node_inst
@@ -7754,6 +8278,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().EncoderOutputMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[EncoderOutputModeEnums](
+                        &self._camera._camera.get().EncoderOutputMode)))
             node_inst.enum_names = rotpy.names.camera.EncoderOutputMode_names
             node_inst.enum_values = rotpy.names.camera.EncoderOutputMode_values
             node = self._nodes["EncoderOutputMode"] = node_inst
@@ -7773,6 +8301,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().EncoderStatus))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[EncoderStatusEnums](
+                        &self._camera._camera.get().EncoderStatus)))
             node_inst.enum_names = rotpy.names.camera.EncoderStatus_names
             node_inst.enum_values = rotpy.names.camera.EncoderStatus_values
             node = self._nodes["EncoderStatus"] = node_inst
@@ -7809,6 +8341,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().EncoderResetSource))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[EncoderResetSourceEnums](
+                        &self._camera._camera.get().EncoderResetSource)))
             node_inst.enum_names = rotpy.names.camera.EncoderResetSource_names
             node_inst.enum_values = rotpy.names.camera.EncoderResetSource_values
             node = self._nodes["EncoderResetSource"] = node_inst
@@ -7828,6 +8364,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().EncoderResetActivation))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[EncoderResetActivationEnums](
+                        &self._camera._camera.get().EncoderResetActivation)))
             node_inst.enum_names = rotpy.names.camera.EncoderResetActivation_names
             node_inst.enum_values = rotpy.names.camera.EncoderResetActivation_values
             node = self._nodes["EncoderResetActivation"] = node_inst
@@ -7901,6 +8441,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SoftwareSignalSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[SoftwareSignalSelectorEnums](
+                        &self._camera._camera.get().SoftwareSignalSelector)))
             node_inst.enum_names = rotpy.names.camera.SoftwareSignalSelector_names
             node_inst.enum_values = rotpy.names.camera.SoftwareSignalSelector_values
             node = self._nodes["SoftwareSignalSelector"] = node_inst
@@ -7939,6 +8483,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ActionUnconditionalMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ActionUnconditionalModeEnums](
+                        &self._camera._camera.get().ActionUnconditionalMode)))
             node_inst.enum_names = rotpy.names.camera.ActionUnconditionalMode_names
             node_inst.enum_values = rotpy.names.camera.ActionUnconditionalMode_values
             node = self._nodes["ActionUnconditionalMode"] = node_inst
@@ -10413,6 +10961,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().SourceSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[SourceSelectorEnums](
+                        &self._camera._camera.get().SourceSelector)))
             node_inst.enum_names = rotpy.names.camera.SourceSelector_names
             node_inst.enum_values = rotpy.names.camera.SourceSelector_values
             node = self._nodes["SourceSelector"] = node_inst
@@ -10433,6 +10985,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TransferSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[TransferSelectorEnums](
+                        &self._camera._camera.get().TransferSelector)))
             node_inst.enum_names = rotpy.names.camera.TransferSelector_names
             node_inst.enum_values = rotpy.names.camera.TransferSelector_values
             node = self._nodes["TransferSelector"] = node_inst
@@ -10526,6 +11082,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TransferTriggerSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[TransferTriggerSelectorEnums](
+                        &self._camera._camera.get().TransferTriggerSelector)))
             node_inst.enum_names = rotpy.names.camera.TransferTriggerSelector_names
             node_inst.enum_values = rotpy.names.camera.TransferTriggerSelector_values
             node = self._nodes["TransferTriggerSelector"] = node_inst
@@ -10545,6 +11105,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TransferTriggerMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[TransferTriggerModeEnums](
+                        &self._camera._camera.get().TransferTriggerMode)))
             node_inst.enum_names = rotpy.names.camera.TransferTriggerMode_names
             node_inst.enum_values = rotpy.names.camera.TransferTriggerMode_values
             node = self._nodes["TransferTriggerMode"] = node_inst
@@ -10564,6 +11128,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TransferTriggerSource))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[TransferTriggerSourceEnums](
+                        &self._camera._camera.get().TransferTriggerSource)))
             node_inst.enum_names = rotpy.names.camera.TransferTriggerSource_names
             node_inst.enum_values = rotpy.names.camera.TransferTriggerSource_values
             node = self._nodes["TransferTriggerSource"] = node_inst
@@ -10583,6 +11151,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TransferTriggerActivation))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[TransferTriggerActivationEnums](
+                        &self._camera._camera.get().TransferTriggerActivation)))
             node_inst.enum_names = rotpy.names.camera.TransferTriggerActivation_names
             node_inst.enum_values = rotpy.names.camera.TransferTriggerActivation_values
             node = self._nodes["TransferTriggerActivation"] = node_inst
@@ -10602,6 +11174,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TransferStatusSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[TransferStatusSelectorEnums](
+                        &self._camera._camera.get().TransferStatusSelector)))
             node_inst.enum_names = rotpy.names.camera.TransferStatusSelector_names
             node_inst.enum_values = rotpy.names.camera.TransferStatusSelector_values
             node = self._nodes["TransferStatusSelector"] = node_inst
@@ -10639,6 +11215,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TransferComponentSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[TransferComponentSelectorEnums](
+                        &self._camera._camera.get().TransferComponentSelector)))
             node_inst.enum_names = rotpy.names.camera.TransferComponentSelector_names
             node_inst.enum_values = rotpy.names.camera.TransferComponentSelector_values
             node = self._nodes["TransferComponentSelector"] = node_inst
@@ -10676,6 +11256,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().Scan3dDistanceUnit))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[Scan3dDistanceUnitEnums](
+                        &self._camera._camera.get().Scan3dDistanceUnit)))
             node_inst.enum_names = rotpy.names.camera.Scan3dDistanceUnit_names
             node_inst.enum_values = rotpy.names.camera.Scan3dDistanceUnit_values
             node = self._nodes["Scan3dDistanceUnit"] = node_inst
@@ -10695,6 +11279,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().Scan3dCoordinateSystem))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[Scan3dCoordinateSystemEnums](
+                        &self._camera._camera.get().Scan3dCoordinateSystem)))
             node_inst.enum_names = rotpy.names.camera.Scan3dCoordinateSystem_names
             node_inst.enum_values = rotpy.names.camera.Scan3dCoordinateSystem_values
             node = self._nodes["Scan3dCoordinateSystem"] = node_inst
@@ -10715,6 +11303,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().Scan3dOutputMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[Scan3dOutputModeEnums](
+                        &self._camera._camera.get().Scan3dOutputMode)))
             node_inst.enum_names = rotpy.names.camera.Scan3dOutputMode_names
             node_inst.enum_values = rotpy.names.camera.Scan3dOutputMode_values
             node = self._nodes["Scan3dOutputMode"] = node_inst
@@ -10734,6 +11326,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().Scan3dCoordinateSystemReference))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[Scan3dCoordinateSystemReferenceEnums](
+                        &self._camera._camera.get().Scan3dCoordinateSystemReference)))
             node_inst.enum_names = rotpy.names.camera.Scan3dCoordinateSystemReference_names
             node_inst.enum_values = rotpy.names.camera.Scan3dCoordinateSystemReference_values
             node = self._nodes["Scan3dCoordinateSystemReference"] = node_inst
@@ -10754,6 +11350,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().Scan3dCoordinateSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[Scan3dCoordinateSelectorEnums](
+                        &self._camera._camera.get().Scan3dCoordinateSelector)))
             node_inst.enum_names = rotpy.names.camera.Scan3dCoordinateSelector_names
             node_inst.enum_values = rotpy.names.camera.Scan3dCoordinateSelector_values
             node = self._nodes["Scan3dCoordinateSelector"] = node_inst
@@ -10875,6 +11475,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().Scan3dCoordinateTransformSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[Scan3dCoordinateTransformSelectorEnums](
+                        &self._camera._camera.get().Scan3dCoordinateTransformSelector)))
             node_inst.enum_names = rotpy.names.camera.Scan3dCoordinateTransformSelector_names
             node_inst.enum_values = rotpy.names.camera.Scan3dCoordinateTransformSelector_values
             node = self._nodes["Scan3dCoordinateTransformSelector"] = node_inst
@@ -10915,6 +11519,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().Scan3dCoordinateReferenceSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[Scan3dCoordinateReferenceSelectorEnums](
+                        &self._camera._camera.get().Scan3dCoordinateReferenceSelector)))
             node_inst.enum_names = rotpy.names.camera.Scan3dCoordinateReferenceSelector_names
             node_inst.enum_values = rotpy.names.camera.Scan3dCoordinateReferenceSelector_values
             node = self._nodes["Scan3dCoordinateReferenceSelector"] = node_inst
@@ -10971,6 +11579,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkImageComponent))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ChunkImageComponentEnums](
+                        &self._camera._camera.get().ChunkImageComponent)))
             node_inst.enum_names = rotpy.names.camera.ChunkImageComponent_names
             node_inst.enum_values = rotpy.names.camera.ChunkImageComponent_values
             node = self._nodes["ChunkImageComponent"] = node_inst
@@ -11057,6 +11669,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkCounterSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ChunkCounterSelectorEnums](
+                        &self._camera._camera.get().ChunkCounterSelector)))
             node_inst.enum_names = rotpy.names.camera.ChunkCounterSelector_names
             node_inst.enum_values = rotpy.names.camera.ChunkCounterSelector_values
             node = self._nodes["ChunkCounterSelector"] = node_inst
@@ -11093,6 +11709,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkTimerSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ChunkTimerSelectorEnums](
+                        &self._camera._camera.get().ChunkTimerSelector)))
             node_inst.enum_names = rotpy.names.camera.ChunkTimerSelector_names
             node_inst.enum_values = rotpy.names.camera.ChunkTimerSelector_values
             node = self._nodes["ChunkTimerSelector"] = node_inst
@@ -11129,6 +11749,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkEncoderSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ChunkEncoderSelectorEnums](
+                        &self._camera._camera.get().ChunkEncoderSelector)))
             node_inst.enum_names = rotpy.names.camera.ChunkEncoderSelector_names
             node_inst.enum_values = rotpy.names.camera.ChunkEncoderSelector_values
             node = self._nodes["ChunkEncoderSelector"] = node_inst
@@ -11183,6 +11807,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkEncoderStatus))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ChunkEncoderStatusEnums](
+                        &self._camera._camera.get().ChunkEncoderStatus)))
             node_inst.enum_names = rotpy.names.camera.ChunkEncoderStatus_names
             node_inst.enum_values = rotpy.names.camera.ChunkEncoderStatus_values
             node = self._nodes["ChunkEncoderStatus"] = node_inst
@@ -11203,6 +11831,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkExposureTimeSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ChunkExposureTimeSelectorEnums](
+                        &self._camera._camera.get().ChunkExposureTimeSelector)))
             node_inst.enum_names = rotpy.names.camera.ChunkExposureTimeSelector_names
             node_inst.enum_values = rotpy.names.camera.ChunkExposureTimeSelector_values
             node = self._nodes["ChunkExposureTimeSelector"] = node_inst
@@ -11238,6 +11870,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkSourceID))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ChunkSourceIDEnums](
+                        &self._camera._camera.get().ChunkSourceID)))
             node_inst.enum_names = rotpy.names.camera.ChunkSourceID_names
             node_inst.enum_values = rotpy.names.camera.ChunkSourceID_values
             node = self._nodes["ChunkSourceID"] = node_inst
@@ -11257,6 +11893,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkRegionID))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ChunkRegionIDEnums](
+                        &self._camera._camera.get().ChunkRegionID)))
             node_inst.enum_names = rotpy.names.camera.ChunkRegionID_names
             node_inst.enum_values = rotpy.names.camera.ChunkRegionID_values
             node = self._nodes["ChunkRegionID"] = node_inst
@@ -11293,6 +11933,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkTransferStreamID))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ChunkTransferStreamIDEnums](
+                        &self._camera._camera.get().ChunkTransferStreamID)))
             node_inst.enum_names = rotpy.names.camera.ChunkTransferStreamID_names
             node_inst.enum_values = rotpy.names.camera.ChunkTransferStreamID_values
             node = self._nodes["ChunkTransferStreamID"] = node_inst
@@ -11344,6 +11988,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkScan3dDistanceUnit))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ChunkScan3dDistanceUnitEnums](
+                        &self._camera._camera.get().ChunkScan3dDistanceUnit)))
             node_inst.enum_names = rotpy.names.camera.ChunkScan3dDistanceUnit_names
             node_inst.enum_values = rotpy.names.camera.ChunkScan3dDistanceUnit_values
             node = self._nodes["ChunkScan3dDistanceUnit"] = node_inst
@@ -11363,6 +12011,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkScan3dOutputMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ChunkScan3dOutputModeEnums](
+                        &self._camera._camera.get().ChunkScan3dOutputMode)))
             node_inst.enum_names = rotpy.names.camera.ChunkScan3dOutputMode_names
             node_inst.enum_values = rotpy.names.camera.ChunkScan3dOutputMode_values
             node = self._nodes["ChunkScan3dOutputMode"] = node_inst
@@ -11382,6 +12034,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkScan3dCoordinateSystem))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ChunkScan3dCoordinateSystemEnums](
+                        &self._camera._camera.get().ChunkScan3dCoordinateSystem)))
             node_inst.enum_names = rotpy.names.camera.ChunkScan3dCoordinateSystem_names
             node_inst.enum_values = rotpy.names.camera.ChunkScan3dCoordinateSystem_values
             node = self._nodes["ChunkScan3dCoordinateSystem"] = node_inst
@@ -11402,6 +12058,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkScan3dCoordinateSystemReference))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ChunkScan3dCoordinateSystemReferenceEnums](
+                        &self._camera._camera.get().ChunkScan3dCoordinateSystemReference)))
             node_inst.enum_names = rotpy.names.camera.ChunkScan3dCoordinateSystemReference_names
             node_inst.enum_values = rotpy.names.camera.ChunkScan3dCoordinateSystemReference_values
             node = self._nodes["ChunkScan3dCoordinateSystemReference"] = node_inst
@@ -11421,6 +12081,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkScan3dCoordinateSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ChunkScan3dCoordinateSelectorEnums](
+                        &self._camera._camera.get().ChunkScan3dCoordinateSelector)))
             node_inst.enum_names = rotpy.names.camera.ChunkScan3dCoordinateSelector_names
             node_inst.enum_values = rotpy.names.camera.ChunkScan3dCoordinateSelector_values
             node = self._nodes["ChunkScan3dCoordinateSelector"] = node_inst
@@ -11542,6 +12206,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkScan3dCoordinateTransformSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ChunkScan3dCoordinateTransformSelectorEnums](
+                        &self._camera._camera.get().ChunkScan3dCoordinateTransformSelector)))
             node_inst.enum_names = rotpy.names.camera.ChunkScan3dCoordinateTransformSelector_names
             node_inst.enum_values = rotpy.names.camera.ChunkScan3dCoordinateTransformSelector_values
             node = self._nodes["ChunkScan3dCoordinateTransformSelector"] = node_inst
@@ -11578,6 +12246,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ChunkScan3dCoordinateReferenceSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ChunkScan3dCoordinateReferenceSelectorEnums](
+                        &self._camera._camera.get().ChunkScan3dCoordinateReferenceSelector)))
             node_inst.enum_names = rotpy.names.camera.ChunkScan3dCoordinateReferenceSelector_names
             node_inst.enum_values = rotpy.names.camera.ChunkScan3dCoordinateReferenceSelector_values
             node = self._nodes["ChunkScan3dCoordinateReferenceSelector"] = node_inst
@@ -11634,6 +12306,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().DeviceTapGeometry))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[DeviceTapGeometryEnums](
+                        &self._camera._camera.get().DeviceTapGeometry)))
             node_inst.enum_names = rotpy.names.camera.DeviceTapGeometry_names
             node_inst.enum_values = rotpy.names.camera.DeviceTapGeometry_values
             node = self._nodes["DeviceTapGeometry"] = node_inst
@@ -11654,6 +12330,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().GevPhysicalLinkConfiguration))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[GevPhysicalLinkConfigurationEnums](
+                        &self._camera._camera.get().GevPhysicalLinkConfiguration)))
             node_inst.enum_names = rotpy.names.camera.GevPhysicalLinkConfiguration_names
             node_inst.enum_values = rotpy.names.camera.GevPhysicalLinkConfiguration_values
             node = self._nodes["GevPhysicalLinkConfiguration"] = node_inst
@@ -11673,6 +12353,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().GevCurrentPhysicalLinkConfiguration))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[GevCurrentPhysicalLinkConfigurationEnums](
+                        &self._camera._camera.get().GevCurrentPhysicalLinkConfiguration)))
             node_inst.enum_names = rotpy.names.camera.GevCurrentPhysicalLinkConfiguration_names
             node_inst.enum_values = rotpy.names.camera.GevCurrentPhysicalLinkConfiguration_values
             node = self._nodes["GevCurrentPhysicalLinkConfiguration"] = node_inst
@@ -11742,6 +12426,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().GevIPConfigurationStatus))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[GevIPConfigurationStatusEnums](
+                        &self._camera._camera.get().GevIPConfigurationStatus)))
             node_inst.enum_names = rotpy.names.camera.GevIPConfigurationStatus_names
             node_inst.enum_values = rotpy.names.camera.GevIPConfigurationStatus_values
             node = self._nodes["GevIPConfigurationStatus"] = node_inst
@@ -11779,6 +12467,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().GevGVCPExtendedStatusCodesSelector))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[GevGVCPExtendedStatusCodesSelectorEnums](
+                        &self._camera._camera.get().GevGVCPExtendedStatusCodesSelector)))
             node_inst.enum_names = rotpy.names.camera.GevGVCPExtendedStatusCodesSelector_names
             node_inst.enum_values = rotpy.names.camera.GevGVCPExtendedStatusCodesSelector_values
             node = self._nodes["GevGVCPExtendedStatusCodesSelector"] = node_inst
@@ -11831,6 +12523,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().GevGVSPExtendedIDMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[GevGVSPExtendedIDModeEnums](
+                        &self._camera._camera.get().GevGVSPExtendedIDMode)))
             node_inst.enum_names = rotpy.names.camera.GevGVSPExtendedIDMode_names
             node_inst.enum_values = rotpy.names.camera.GevGVSPExtendedIDMode_values
             node = self._nodes["GevGVSPExtendedIDMode"] = node_inst
@@ -12009,6 +12705,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ClConfiguration))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ClConfigurationEnums](
+                        &self._camera._camera.get().ClConfiguration)))
             node_inst.enum_names = rotpy.names.camera.ClConfiguration_names
             node_inst.enum_values = rotpy.names.camera.ClConfiguration_values
             node = self._nodes["ClConfiguration"] = node_inst
@@ -12030,6 +12730,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().ClTimeSlotsCount))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[ClTimeSlotsCountEnums](
+                        &self._camera._camera.get().ClTimeSlotsCount)))
             node_inst.enum_names = rotpy.names.camera.ClTimeSlotsCount_names
             node_inst.enum_values = rotpy.names.camera.ClTimeSlotsCount_values
             node = self._nodes["ClTimeSlotsCount"] = node_inst
@@ -12050,6 +12754,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CxpLinkConfigurationStatus))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[CxpLinkConfigurationStatusEnums](
+                        &self._camera._camera.get().CxpLinkConfigurationStatus)))
             node_inst.enum_names = rotpy.names.camera.CxpLinkConfigurationStatus_names
             node_inst.enum_values = rotpy.names.camera.CxpLinkConfigurationStatus_values
             node = self._nodes["CxpLinkConfigurationStatus"] = node_inst
@@ -12070,6 +12778,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CxpLinkConfigurationPreferred))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[CxpLinkConfigurationPreferredEnums](
+                        &self._camera._camera.get().CxpLinkConfigurationPreferred)))
             node_inst.enum_names = rotpy.names.camera.CxpLinkConfigurationPreferred_names
             node_inst.enum_values = rotpy.names.camera.CxpLinkConfigurationPreferred_values
             node = self._nodes["CxpLinkConfigurationPreferred"] = node_inst
@@ -12095,6 +12807,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CxpLinkConfiguration))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[CxpLinkConfigurationEnums](
+                        &self._camera._camera.get().CxpLinkConfiguration)))
             node_inst.enum_names = rotpy.names.camera.CxpLinkConfiguration_names
             node_inst.enum_values = rotpy.names.camera.CxpLinkConfiguration_values
             node = self._nodes["CxpLinkConfiguration"] = node_inst
@@ -12131,6 +12847,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CxpConnectionTestMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[CxpConnectionTestModeEnums](
+                        &self._camera._camera.get().CxpConnectionTestMode)))
             node_inst.enum_names = rotpy.names.camera.CxpConnectionTestMode_names
             node_inst.enum_values = rotpy.names.camera.CxpConnectionTestMode_values
             node = self._nodes["CxpConnectionTestMode"] = node_inst
@@ -12234,6 +12954,10 @@ cdef class CameraNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().CxpPoCxpStatus))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[CxpPoCxpStatusEnums](
+                        &self._camera._camera.get().CxpPoCxpStatus)))
             node_inst.enum_names = rotpy.names.camera.CxpPoCxpStatus_names
             node_inst.enum_values = rotpy.names.camera.CxpPoCxpStatus_values
             node = self._nodes["CxpPoCxpStatus"] = node_inst
@@ -12435,6 +13159,10 @@ cdef class TLDevNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TLDevice.DeviceType))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[DeviceTypeEnum](
+                        &self._camera._camera.get().TLDevice.DeviceType)))
             node_inst.enum_names = rotpy.names.tl.DeviceType_names
             node_inst.enum_values = rotpy.names.tl.DeviceType_values
             node = self._nodes["DeviceType"] = node_inst
@@ -12472,6 +13200,10 @@ cdef class TLDevNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TLDevice.DeviceAccessStatus))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[DeviceAccessStatusEnum](
+                        &self._camera._camera.get().TLDevice.DeviceAccessStatus)))
             node_inst.enum_names = rotpy.names.tl.DeviceAccessStatus_names
             node_inst.enum_values = rotpy.names.tl.DeviceAccessStatus_values
             node = self._nodes["DeviceAccessStatus"] = node_inst
@@ -12555,6 +13287,10 @@ cdef class TLDevNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TLDevice.GevCCP))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[GevCCPEnum](
+                        &self._camera._camera.get().TLDevice.GevCCP)))
             node_inst.enum_names = rotpy.names.tl.GevCCP_names
             node_inst.enum_values = rotpy.names.tl.GevCCP_values
             node = self._nodes["GevCCP"] = node_inst
@@ -12574,6 +13310,10 @@ cdef class TLDevNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TLDevice.GUIXMLLocation))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[GUIXMLLocationEnum](
+                        &self._camera._camera.get().TLDevice.GUIXMLLocation)))
             node_inst.enum_names = rotpy.names.tl.GUIXMLLocation_names
             node_inst.enum_values = rotpy.names.tl.GUIXMLLocation_values
             node = self._nodes["GUIXMLLocation"] = node_inst
@@ -12609,6 +13349,10 @@ cdef class TLDevNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TLDevice.GenICamXMLLocation))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[GenICamXMLLocationEnum](
+                        &self._camera._camera.get().TLDevice.GenICamXMLLocation)))
             node_inst.enum_names = rotpy.names.tl.GenICamXMLLocation_names
             node_inst.enum_values = rotpy.names.tl.GenICamXMLLocation_values
             node = self._nodes["GenICamXMLLocation"] = node_inst
@@ -12978,6 +13722,10 @@ cdef class TLDevNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TLDevice.DeviceEndianessMechanism))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[DeviceEndianessMechanismEnum](
+                        &self._camera._camera.get().TLDevice.DeviceEndianessMechanism)))
             node_inst.enum_names = rotpy.names.tl.DeviceEndianessMechanism_names
             node_inst.enum_values = rotpy.names.tl.DeviceEndianessMechanism_values
             node = self._nodes["DeviceEndianessMechanism"] = node_inst
@@ -13029,6 +13777,10 @@ cdef class TLDevNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TLDevice.DeviceCurrentSpeed))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[DeviceCurrentSpeedEnum](
+                        &self._camera._camera.get().TLDevice.DeviceCurrentSpeed)))
             node_inst.enum_names = rotpy.names.tl.DeviceCurrentSpeed_names
             node_inst.enum_values = rotpy.names.tl.DeviceCurrentSpeed_values
             node = self._nodes["DeviceCurrentSpeed"] = node_inst
@@ -13156,6 +13908,10 @@ cdef class TLStreamNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TLStream.StreamType))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[StreamTypeEnum](
+                        &self._camera._camera.get().TLStream.StreamType)))
             node_inst.enum_names = rotpy.names.tl.StreamType_names
             node_inst.enum_values = rotpy.names.tl.StreamType_values
             node = self._nodes["StreamType"] = node_inst
@@ -13175,6 +13931,10 @@ cdef class TLStreamNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TLStream.StreamMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[StreamModeEnum](
+                        &self._camera._camera.get().TLStream.StreamMode)))
             node_inst.enum_names = rotpy.names.tl.StreamMode_names
             node_inst.enum_values = rotpy.names.tl.StreamMode_values
             node = self._nodes["StreamMode"] = node_inst
@@ -13248,6 +14008,10 @@ cdef class TLStreamNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TLStream.StreamBufferCountMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[StreamBufferCountModeEnum](
+                        &self._camera._camera.get().TLStream.StreamBufferCountMode)))
             node_inst.enum_names = rotpy.names.tl.StreamBufferCountMode_names
             node_inst.enum_values = rotpy.names.tl.StreamBufferCountMode_values
             node = self._nodes["StreamBufferCountMode"] = node_inst
@@ -13267,6 +14031,10 @@ cdef class TLStreamNodes:
             node_inst = SpinEnumDefNode()
             node_inst.set_handle(self, dynamic_cast[IBasePointer](
                 &self._camera._camera.get().TLStream.StreamBufferHandlingMode))
+            node_inst.set_wrapper(
+                dynamic_cast[RotPyEnumWrapperPointer](
+                    new RotPyEnumWrapperT[StreamBufferHandlingModeEnum](
+                        &self._camera._camera.get().TLStream.StreamBufferHandlingMode)))
             node_inst.enum_names = rotpy.names.tl.StreamBufferHandlingMode_names
             node_inst.enum_values = rotpy.names.tl.StreamBufferHandlingMode_values
             node = self._nodes["StreamBufferHandlingMode"] = node_inst
