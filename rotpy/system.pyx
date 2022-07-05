@@ -60,7 +60,7 @@ class SpinnakerAPIException(Exception):
         self.spin_build_time = spin_build_time
         self.spin_line_num = spin_line_num
         self.spin_error_code = spin_error_code
-        self.spin_error_name = error_code_values[spin_error_code]
+        self.spin_error_name = error_code_values.get(spin_error_code, 'Unknown')
 
 
 cdef class EventHandlerBase:
