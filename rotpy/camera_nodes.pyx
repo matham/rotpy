@@ -4,7 +4,7 @@
 Lists all the pre-listed nodes of the :class:`~rotpy.camera.Camera`.
 """
 from .node cimport SpinIntNode, SpinFloatNode, SpinBoolNode, SpinStrNode, \
-    SpinCommandNode, SpinRegisterNode, SpinEnumDefNode
+    SpinCommandNode, SpinRegisterNode, SpinEnumDefNode, SpinBaseNode
 
 from .node import SpinIntNode, SpinFloatNode, SpinBoolNode, SpinStrNode, \
     SpinCommandNode, SpinRegisterNode, SpinEnumDefNode
@@ -24,6 +24,10 @@ cdef class CameraNodes:
         Do **not** create a :class:`CameraNodes` manually, rather get it
         from :attr:`~rotpy.camera.Camera.camera_nodes` that is automatically
         created when the camera is instantiated.
+
+    .. warning::
+
+        Once the associated camera is freed, the nodes are not valid anymore.
 
     .. note::
 
@@ -460,6 +464,13 @@ cdef class CameraNodes:
 
     def __init__(self, camera):
         pass
+
+    cdef clear_camera(self):
+        cdef SpinBaseNode node
+        for node in self._nodes.values():
+            node.clear_handle()
+        self._nodes = {}
+        self._camera = None
 
     @property
     def LUTIndex(self) -> SpinIntNode:
@@ -13039,6 +13050,10 @@ cdef class TLDevNodes:
         from :attr:`~rotpy.camera.Camera.tl_dev_nodes` that is automatically
         created when the camera is instantiated.
 
+    .. warning::
+
+        Once the associated camera is freed, the nodes are not valid anymore.
+
     .. note::
 
         Even though the nodes are pre-listed, it is simply a convenience and
@@ -13080,6 +13095,13 @@ cdef class TLDevNodes:
 
     def __init__(self, camera):
         pass
+
+    cdef clear_camera(self):
+        cdef SpinBaseNode node
+        for node in self._nodes.values():
+            node.clear_handle()
+        self._nodes = {}
+        self._camera = None
 
     @property
     def DeviceID(self) -> SpinStrNode:
@@ -13829,6 +13851,10 @@ cdef class TLStreamNodes:
         from :attr:`~rotpy.camera.Camera.tl_stream_nodes` that is automatically
         created when the camera is instantiated.
 
+    .. warning::
+
+        Once the associated camera is freed, the nodes are not valid anymore.
+
     .. note::
 
         Even though the nodes are pre-listed, it is simply a convenience and
@@ -13877,6 +13903,13 @@ cdef class TLStreamNodes:
 
     def __init__(self, camera):
         pass
+
+    cdef clear_camera(self):
+        cdef SpinBaseNode node
+        for node in self._nodes.values():
+            node.clear_handle()
+        self._nodes = {}
+        self._camera = None
 
     @property
     def StreamID(self) -> SpinStrNode:

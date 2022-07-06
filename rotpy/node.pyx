@@ -98,21 +98,6 @@ __all__ = (
     'SpinEnumItemNode', 'SpinTreeNode', 'SpinPortNode',
 )
 
-cdef dict node_cls_map = {
-    InterfaceType_names['Value']: SpinValueNode,
-    InterfaceType_names['Base']: SpinBaseNode,
-    InterfaceType_names['Integer']: SpinIntNode,
-    InterfaceType_names['Boolean']: SpinBoolNode,
-    InterfaceType_names['Command']: SpinCommandNode,
-    InterfaceType_names['Float']: SpinFloatNode,
-    InterfaceType_names['String']: SpinStrNode,
-    InterfaceType_names['Register']: SpinRegisterNode,
-    InterfaceType_names['Category']: SpinTreeNode,
-    InterfaceType_names['Enumeration']: SpinEnumNode,
-    InterfaceType_names['EnumEntry']: SpinEnumItemNode,
-    InterfaceType_names['Port']: SpinPortNode,
-}
-
 
 ctypedef fused NodeBases:
     SpinBaseNode
@@ -305,10 +290,16 @@ cdef class SpinBaseNode:
         self._base_handle = handle
         self._handle_src = source
 
+    cdef clear_handle(self):
+        self._base_handle = NULL
+        self._handle_src = None
+
     cpdef get_access_mode(self):
         """Gets the access mode of the node as a string from
         :attr:`~rotpy.names.geni.AccessMode_names`.
         """
+        if self._base_handle == NULL:
+            raise TypeError('Invalid node')
         cdef EAccessMode n
         with nogil:
             n = self._base_handle.GetAccessMode()
@@ -317,6 +308,8 @@ cdef class SpinBaseNode:
     cpdef is_readable(self):
         """Returns whether the node is readable (i.e. RW or RO).
         """
+        if self._base_handle == NULL:
+            raise TypeError('Invalid node')
         cdef EAccessMode n
         with nogil:
             n = self._base_handle.GetAccessMode()
@@ -325,6 +318,8 @@ cdef class SpinBaseNode:
     cpdef is_writable(self):
         """Returns whether the node is writable (i.e. RW or WO).
         """
+        if self._base_handle == NULL:
+            raise TypeError('Invalid node')
         cdef EAccessMode n
         with nogil:
             n = self._base_handle.GetAccessMode()
@@ -333,6 +328,8 @@ cdef class SpinBaseNode:
     cpdef is_implemented(self):
         """Returns whether the node is implemented (i.e. not NI).
         """
+        if self._base_handle == NULL:
+            raise TypeError('Invalid node')
         cdef EAccessMode n
         with nogil:
             n = self._base_handle.GetAccessMode()
@@ -342,6 +339,8 @@ cdef class SpinBaseNode:
         """Returns whether the node is available (i.e. it's implemented and
         available - not NI and not NA).
         """
+        if self._base_handle == NULL:
+            raise TypeError('Invalid node')
         cdef EAccessMode n
         with nogil:
             n = self._base_handle.GetAccessMode()
@@ -368,9 +367,15 @@ cdef class SpinSelectorNode(SpinBaseNode):
         SpinBaseNode.set_handle(self, source, handle)
         self._sel_handle = dynamic_cast[ISelectorPointer](handle)
 
+    cdef clear_handle(self):
+        SpinBaseNode.clear_handle(self)
+        self._sel_handle = NULL
+
     cpdef is_selector(self):
         """Returns whether this feature selects a group of features.
         """
+        if self._sel_handle == NULL:
+            raise TypeError('Invalid node')
         cdef cbool n
         with nogil:
             n = self._sel_handle.IsSelector()
@@ -379,6 +384,8 @@ cdef class SpinSelectorNode(SpinBaseNode):
     cpdef get_selected_nodes(self):
         """Returns a list of newly created node instances selected by this node.
         """
+        if self._sel_handle == NULL:
+            raise TypeError('Invalid node')
         cdef uint64_t n, i
         cdef list items = []
         cdef FeatureList_t nodes
@@ -397,6 +404,8 @@ cdef class SpinSelectorNode(SpinBaseNode):
     cpdef get_selecting_nodes(self):
         """Returns a list of newly created node instances that select this node.
         """
+        if self._sel_handle == NULL:
+            raise TypeError('Invalid node')
         cdef uint64_t n, i
         cdef list items = []
         cdef FeatureList_t nodes
@@ -425,6 +434,10 @@ cdef class SpinNode(SpinSelectorNode):
         SpinSelectorNode.set_handle(self, source, handle)
         self._node_handle = dynamic_cast[INodePointer](handle)
 
+    cdef clear_handle(self):
+        SpinSelectorNode.clear_handle(self)
+        self._node_handle = NULL
+
     cpdef dict get_metadata(self):
         """Returns a dict of metadata of the node.
 
@@ -452,6 +465,8 @@ cdef class SpinNode(SpinSelectorNode):
     cpdef is_cachable(self):
         """Checks whether the node value is cacheable.
         """
+        if self._node_handle == NULL:
+            raise TypeError('Invalid node')
         cdef cbool n
         with nogil:
             n = self._node_handle.IsCachable()
@@ -461,6 +476,8 @@ cdef class SpinNode(SpinSelectorNode):
         """Gets whether the AccessMode can be cached, as a string from
         :attr:`~rotpy.names.geni.YesNo_names`.
         """
+        if self._node_handle == NULL:
+            raise TypeError('Invalid node')
         cdef EYesNo n
         with nogil:
             n = self._node_handle.IsAccessModeCacheable()
@@ -469,6 +486,8 @@ cdef class SpinNode(SpinSelectorNode):
     cpdef is_streamable(self):
         """Checks whether the node value is streamable.
         """
+        if self._node_handle == NULL:
+            raise TypeError('Invalid node')
         cdef cbool n
         with nogil:
             n = self._node_handle.IsStreamable()
@@ -477,6 +496,8 @@ cdef class SpinNode(SpinSelectorNode):
     cpdef is_deprecated(self):
         """Checks whether the node should not be used any more.
         """
+        if self._node_handle == NULL:
+            raise TypeError('Invalid node')
         cdef cbool n
         with nogil:
             n = self._node_handle.IsDeprecated()
@@ -486,6 +507,8 @@ cdef class SpinNode(SpinSelectorNode):
         """Checks whether the node can be reached via category nodes from a
         category node named "Root".
         """
+        if self._node_handle == NULL:
+            raise TypeError('Invalid node')
         cdef cbool n
         with nogil:
             n = self._node_handle.IsFeature()
@@ -494,6 +517,8 @@ cdef class SpinNode(SpinSelectorNode):
     cpdef get_dev_name(self):
         """Gets the name of the device.
         """
+        if self._node_handle == NULL:
+            raise TypeError('Invalid node')
         cdef gcstring s
         with nogil:
             s = self._node_handle.GetDeviceName()
@@ -502,6 +527,8 @@ cdef class SpinNode(SpinSelectorNode):
     cpdef get_event_id(self):
         """Gets the event ID of the node.
         """
+        if self._node_handle == NULL:
+            raise TypeError('Invalid node')
         cdef gcstring s
         with nogil:
             s = self._node_handle.GetEventID()
@@ -512,6 +539,8 @@ cdef class SpinNode(SpinSelectorNode):
 
         Optionally fully qualified
         """
+        if self._node_handle == NULL:
+            raise TypeError('Invalid node')
         cdef gcstring s
         with nogil:
             s = self._node_handle.GetName(fully_qualified)
@@ -521,6 +550,8 @@ cdef class SpinNode(SpinSelectorNode):
         """Gets the namespace of the node as a string from
         :attr:`~rotpy.names.geni.NameSpace_names`.
         """
+        if self._node_handle == NULL:
+            raise TypeError('Invalid node')
         cdef ENameSpace n
         with nogil:
             n = self._node_handle.GetNameSpace()
@@ -530,6 +561,8 @@ cdef class SpinNode(SpinSelectorNode):
         """Gets the recommended visibility of the node as a string from
         :attr:`~rotpy.names.geni.Visibility_names`.
         """
+        if self._node_handle == NULL:
+            raise TypeError('Invalid node')
         cdef EVisibility n
         with nogil:
             n = self._node_handle.GetVisibility()
@@ -540,6 +573,8 @@ cdef class SpinNode(SpinSelectorNode):
 
         Fires the callback on this and all dependent nodes
         """
+        if self._node_handle == NULL:
+            raise TypeError('Invalid node')
         with nogil:
             self._node_handle.InvalidateNode()
 
@@ -547,6 +582,8 @@ cdef class SpinNode(SpinSelectorNode):
         """Gets the caching mode of the node as a string from
         :attr:`~rotpy.names.geni.CachingMode_names`.
         """
+        if self._node_handle == NULL:
+            raise TypeError('Invalid node')
         cdef ECachingMode n
         with nogil:
             n = self._node_handle.GetCachingMode()
@@ -555,6 +592,8 @@ cdef class SpinNode(SpinSelectorNode):
     cpdef get_short_description(self):
         """Gets a short description of the node.
         """
+        if self._node_handle == NULL:
+            raise TypeError('Invalid node')
         cdef gcstring s
         with nogil:
             s = self._node_handle.GetToolTip()
@@ -563,6 +602,8 @@ cdef class SpinNode(SpinSelectorNode):
     cpdef get_description(self):
         """Gets a longer description of the node.
         """
+        if self._node_handle == NULL:
+            raise TypeError('Invalid node')
         cdef gcstring s
         with nogil:
             s = self._node_handle.GetDescription()
@@ -571,6 +612,8 @@ cdef class SpinNode(SpinSelectorNode):
     cpdef get_display_name(self):
         """Gets the display name of the node (whitespace possible).
         """
+        if self._node_handle == NULL:
+            raise TypeError('Invalid node')
         cdef gcstring s
         with nogil:
             s = self._node_handle.GetDisplayName()
@@ -579,6 +622,8 @@ cdef class SpinNode(SpinSelectorNode):
     cpdef get_doc_url(self):
         """Gets a URL pointing to the documentation of that feature.
         """
+        if self._node_handle == NULL:
+            raise TypeError('Invalid node')
         cdef gcstring s
         with nogil:
             s = self._node_handle.GetDocuURL()
@@ -588,6 +633,8 @@ cdef class SpinNode(SpinSelectorNode):
         """Returns a list of the names of all properties set during
         initialization.
         """
+        if self._node_handle == NULL:
+            raise TypeError('Invalid node')
         cdef gcstring_vector v
         cdef size_t n
         cdef size_t i
@@ -611,6 +658,8 @@ cdef class SpinNode(SpinSelectorNode):
         It returns a 3-tuple of ``(result, value, attributes)``, where result
         is a bool indicating the result of the call and the others are strings.
         """
+        if self._node_handle == NULL:
+            raise TypeError('Invalid node')
         cdef bytes name_b = name.encode()
         cdef size_t n = len(name)
         cdef const char * name_c = name_b
@@ -629,6 +678,8 @@ cdef class SpinNode(SpinSelectorNode):
         """Gets the node type of the node as a string from
         :attr:`~rotpy.names.geni.InterfaceType_values`.
         """
+        if self._node_handle == NULL:
+            raise TypeError('Invalid node')
         cdef EInterfaceType n
         with nogil:
             n = self._node_handle.GetPrincipalInterfaceType()
@@ -637,6 +688,8 @@ cdef class SpinNode(SpinSelectorNode):
     cpdef get_polling_time(self):
         """Gets recommended polling time (for non-cacheable nodes).
         """
+        if self._node_handle == NULL:
+            raise TypeError('Invalid node')
         cdef int64_t n
         with nogil:
             n = self._node_handle.GetPollingTime()
@@ -647,6 +700,8 @@ cdef class SpinNode(SpinSelectorNode):
 
         ``mode`` is s string from :attr:`~rotpy.names.geni.AccessMode_names`.
         """
+        if self._node_handle == NULL:
+            raise TypeError('Invalid node')
         cdef EAccessMode n = AccessMode_names[mode]
 
         with nogil:
@@ -657,6 +712,8 @@ cdef class SpinNode(SpinSelectorNode):
 
         ``mode`` is s string from :attr:`~rotpy.names.geni.Visibility_names`.
         """
+        if self._node_handle == NULL:
+            raise TypeError('Invalid node')
         cdef EVisibility n = Visibility_names[visibility]
 
         with nogil:
@@ -669,6 +726,8 @@ cdef class SpinNode(SpinSelectorNode):
         :return: A :class:`SpinBaseNode` derived instance or None if there isn't
             one.
         """
+        if self._node_handle == NULL:
+            raise TypeError('Invalid node')
         cdef INode* handle
         with nogil:
             handle = self._node_handle.GetAlias()
@@ -684,6 +743,8 @@ cdef class SpinNode(SpinSelectorNode):
         :return: A :class:`SpinBaseNode` derived instance or None if there isn't
             one.
         """
+        if self._node_handle == NULL:
+            raise TypeError('Invalid node')
         cdef INode* handle
         with nogil:
             handle = self._node_handle.GetCastAlias()
@@ -695,6 +756,8 @@ cdef class SpinNode(SpinSelectorNode):
     cpdef set_ref(self, SpinNode node):
         """Sets the implementation to a reference node.
         """
+        if self._node_handle == NULL:
+            raise TypeError('Invalid node')
         with nogil:
             self._node_handle.SetReference(node._node_handle)
 
@@ -739,6 +802,10 @@ cdef class SpinValueNode(SpinNode):
         SpinNode.set_handle(self, source, handle)
         self._value_handle = dynamic_cast[IValuePointer](handle)
 
+    cdef clear_handle(self):
+        SpinNode.clear_handle(self)
+        self._value_handle = NULL
+
     cpdef get_node_value_as_str(
             self, cbool verify=False, cbool ignore_cache=False):
         """Gets the value of the node, independent of the type, as a string.
@@ -748,6 +815,8 @@ cdef class SpinValueNode(SpinNode):
         :param ignore_cache: If true the value is read ignoring any caches.
         :returns: A string representing the node's value.
         """
+        if self._value_handle == NULL:
+            raise TypeError('Invalid node')
         cdef gcstring s
         with nogil:
             s = self._value_handle.ToString(verify, ignore_cache)
@@ -760,6 +829,8 @@ cdef class SpinValueNode(SpinNode):
             ensure that the value of the string is appropriate to the node type.
         :param verify: Whether to verify the node access mode and range.
         """
+        if self._value_handle == NULL:
+            raise TypeError('Invalid node')
         cdef bytes value_b = value.encode()
         cdef size_t n = len(value)
         cdef const char* msg = value_b
@@ -773,6 +844,8 @@ cdef class SpinValueNode(SpinNode):
         """Checks if the value comes from cache or is requested from another
         node.
         """
+        if self._value_handle == NULL:
+            raise TypeError('Invalid node')
         cdef cbool n
         with nogil:
             n = self._value_handle.IsValueCacheValid()
@@ -790,6 +863,10 @@ cdef class SpinIntNode(SpinValueNode):
         SpinValueNode.set_handle(self, source, handle)
         self._handle = dynamic_cast[IIntegerPointer](handle)
 
+    cdef clear_handle(self):
+        SpinValueNode.clear_handle(self)
+        self._handle = NULL
+
     cpdef get_node_value(self, cbool verify=False, cbool ignore_cache=False):
         """Gets the value of the node.
 
@@ -798,6 +875,8 @@ cdef class SpinIntNode(SpinValueNode):
         :param ignore_cache: If true the value is read ignoring any caches.
         :returns: The node's integer value.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef int64_t n
         with nogil:
             n = self._handle.GetValue(verify, ignore_cache)
@@ -809,12 +888,16 @@ cdef class SpinIntNode(SpinValueNode):
         :param value: The value to which to set the node.
         :param verify: Enables access mode and range verification.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         with nogil:
             self._handle.SetValue(value, verify)
 
     cpdef get_min_value(self):
         """Gets the minimum allowed value of the node.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef int64_t n
         with nogil:
             n = self._handle.GetMin()
@@ -823,6 +906,8 @@ cdef class SpinIntNode(SpinValueNode):
     cpdef get_max_value(self):
         """Gets the maximum allowed value of the node.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef int64_t n
         with nogil:
             n = self._handle.GetMax()
@@ -831,12 +916,16 @@ cdef class SpinIntNode(SpinValueNode):
     cpdef set_min_value(self, int64_t value):
         """Sets the minimum allowed value of the node.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         with nogil:
             self._handle.ImposeMin(value)
 
     cpdef set_max_value(self, int64_t value):
         """Sets the maximum allowed value of the node.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         with nogil:
             self._handle.ImposeMax(value)
 
@@ -844,6 +933,8 @@ cdef class SpinIntNode(SpinValueNode):
         """Gets the increment mode string of the node as listed in
         :attr:`~rotpy.names.geni.IncMode_names.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef EIncMode n
         with nogil:
             n = self._handle.GetIncMode()
@@ -853,6 +944,8 @@ cdef class SpinIntNode(SpinValueNode):
         """Gets the increment value of the node. All possible values must be
         divisible by this.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef int64_t n
         with nogil:
             n = self._handle.GetInc()
@@ -863,6 +956,8 @@ cdef class SpinIntNode(SpinValueNode):
 
         :param bounded: Whether to bound the values.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef int64_autovector_t valid
         cdef list items = []
         cdef size_t n, i
@@ -882,6 +977,8 @@ cdef class SpinIntNode(SpinValueNode):
 
         It returns a name from :attr:`~rotpy.names.geni.Representation_names`
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef ERepresentation n
         with nogil:
             n = self._handle.GetRepresentation()
@@ -890,6 +987,8 @@ cdef class SpinIntNode(SpinValueNode):
     cpdef get_unit(self):
         """Gets the physical unit name as a string.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef gcstring s
         with nogil:
             s = self._handle.GetUnit()
@@ -907,6 +1006,10 @@ cdef class SpinFloatNode(SpinValueNode):
         SpinValueNode.set_handle(self, source, handle)
         self._handle = dynamic_cast[IFloatPointer](handle)
 
+    cdef clear_handle(self):
+        SpinValueNode.clear_handle(self)
+        self._handle = NULL
+
     cpdef get_node_value(self, cbool verify=False, cbool ignore_cache=False):
         """Gets the value of the node as a float.
 
@@ -915,6 +1018,8 @@ cdef class SpinFloatNode(SpinValueNode):
         :param ignore_cache: If true the value is read ignoring any caches.
         :returns: The node's floating point value.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef double n
         with nogil:
             n = self._handle.GetValue(verify, ignore_cache)
@@ -926,12 +1031,16 @@ cdef class SpinFloatNode(SpinValueNode):
         :param value: The value to which to set the node.
         :param verify: Enables access mode and range verification.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         with nogil:
             self._handle.SetValue(value, verify)
 
     cpdef get_min_value(self):
         """Gets the minimum allowed value of the node.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef double n
         with nogil:
             n = self._handle.GetMin()
@@ -940,6 +1049,8 @@ cdef class SpinFloatNode(SpinValueNode):
     cpdef get_max_value(self):
         """Gets the maximum allowed value of the node.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef double n
         with nogil:
             n = self._handle.GetMax()
@@ -948,18 +1059,24 @@ cdef class SpinFloatNode(SpinValueNode):
     cpdef set_min_value(self, double value):
         """Sets the minimum allowed value of the node.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         with nogil:
             self._handle.ImposeMin(value)
 
     cpdef set_max_value(self, double value):
         """Sets the maximum allowed value of the node.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         with nogil:
             self._handle.ImposeMax(value)
 
     cpdef has_increment(self):
         """Gets whether the float has a constant increment.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef cbool n
         with nogil:
             n = self._handle.HasInc()
@@ -969,6 +1086,8 @@ cdef class SpinFloatNode(SpinValueNode):
         """Gets the increment mode string of the node as listed in
         :attr:`~rotpy.names.geni.IncMode_names.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef EIncMode n
         with nogil:
             n = self._handle.GetIncMode()
@@ -978,6 +1097,8 @@ cdef class SpinFloatNode(SpinValueNode):
         """Gets the increment value of the node. All possible values must be
         divisible by this.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef double n
         with nogil:
             n = self._handle.GetInc()
@@ -988,6 +1109,8 @@ cdef class SpinFloatNode(SpinValueNode):
 
         :param bounded: Whether to bound the values.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef double_autovector_t valid
         cdef list items = []
         cdef size_t n, i
@@ -1007,6 +1130,8 @@ cdef class SpinFloatNode(SpinValueNode):
 
         It returns a name from :attr:`~rotpy.names.geni.Representation_names`
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef ERepresentation n
         with nogil:
             n = self._handle.GetRepresentation()
@@ -1015,6 +1140,8 @@ cdef class SpinFloatNode(SpinValueNode):
     cpdef get_unit(self):
         """Gets the physical unit name as a string.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef gcstring s
         with nogil:
             s = self._handle.GetUnit()
@@ -1025,6 +1152,8 @@ cdef class SpinFloatNode(SpinValueNode):
 
         It returns a name from :attr:`~rotpy.names.geni.DisplayNotation_names`
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef EDisplayNotation n
         with nogil:
             n = self._handle.GetDisplayNotation()
@@ -1033,6 +1162,8 @@ cdef class SpinFloatNode(SpinValueNode):
     cpdef get_display_precision(self):
         """Gets the precision to be used when converting the float to a string.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef int64_t n
         with nogil:
             n = self._handle.GetDisplayPrecision()
@@ -1050,6 +1181,10 @@ cdef class SpinBoolNode(SpinValueNode):
         SpinValueNode.set_handle(self, source, handle)
         self._handle = dynamic_cast[IBooleanPointer](handle)
 
+    cdef clear_handle(self):
+        SpinValueNode.clear_handle(self)
+        self._handle = NULL
+
     cpdef get_node_value(self, cbool verify=False, cbool ignore_cache=False):
         """Gets the value of the node as a bool.
 
@@ -1058,6 +1193,8 @@ cdef class SpinBoolNode(SpinValueNode):
         :param ignore_cache: If true the value is read ignoring any caches.
         :returns: The node's boolean value.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef cbool n
         with nogil:
             n = self._handle.GetValue(verify, ignore_cache)
@@ -1069,6 +1206,8 @@ cdef class SpinBoolNode(SpinValueNode):
         :param value: The value to which to set the node.
         :param verify: Enables access mode and range verification.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         with nogil:
             self._handle.SetValue(value, verify)
 
@@ -1084,6 +1223,10 @@ cdef class SpinStrNode(SpinValueNode):
         SpinValueNode.set_handle(self, source, handle)
         self._handle = dynamic_cast[IStringPointer](handle)
 
+    cdef clear_handle(self):
+        SpinValueNode.clear_handle(self)
+        self._handle = NULL
+
     cpdef get_node_value(self, cbool verify=False, cbool ignore_cache=False):
         """Gets the value of the node as a string.
 
@@ -1092,6 +1235,8 @@ cdef class SpinStrNode(SpinValueNode):
         :param ignore_cache: If true the value is read ignoring any caches.
         :returns: The node's string value.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef gcstring s
         with nogil:
             s = self._handle.GetValue(verify, ignore_cache)
@@ -1103,6 +1248,8 @@ cdef class SpinStrNode(SpinValueNode):
         :param value: The value to which to set the node.
         :param verify: Enables access mode and range verification.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef bytes value_b = value.encode()
         cdef const char * value_c = value_b
         cdef size_t n = len(value_b)
@@ -1115,6 +1262,8 @@ cdef class SpinStrNode(SpinValueNode):
     cpdef get_max_len(self):
         """Gets the maximum length of the node's string in bytes.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef int64_t n
         with nogil:
             n = self._handle.GetMaxLength()
@@ -1132,12 +1281,18 @@ cdef class SpinCommandNode(SpinValueNode):
         SpinValueNode.set_handle(self, source, handle)
         self._handle = dynamic_cast[ICommandPointer](handle)
 
+    cdef clear_handle(self):
+        SpinValueNode.clear_handle(self)
+        self._handle = NULL
+
     cpdef is_done(self, cbool verify=True):
         """Gets whether the command is executed.
 
         :param verify: Enables Range verification. The access mode is always
             checked.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef cbool n
         with nogil:
             n = self._handle.IsDone(verify)
@@ -1148,6 +1303,8 @@ cdef class SpinCommandNode(SpinValueNode):
 
         :param verify: Enables access mode and range verification.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         with nogil:
             self._handle.Execute(verify)
 
@@ -1164,9 +1321,15 @@ cdef class SpinRegisterNode(SpinValueNode):
         SpinValueNode.set_handle(self, source, handle)
         self._handle = dynamic_cast[IRegisterPointer](handle)
 
+    cdef clear_handle(self):
+        SpinValueNode.clear_handle(self)
+        self._handle = NULL
+
     cpdef get_address(self):
         """Gets the address of the register node.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef int64_t n
         with nogil:
             n = self._handle.GetAddress()
@@ -1181,6 +1344,8 @@ cdef class SpinRegisterNode(SpinValueNode):
             cache.
         :returns: The bytes object representing the node value.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef unsigned char[:] arr
         cdef int64_t n
         with nogil:
@@ -1200,6 +1365,8 @@ cdef class SpinRegisterNode(SpinValueNode):
         :param buffer: A array/bytes type buffer to which to set the node.
         :param verify: Whether to range and access verify the node.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef int64_t n = len(buffer)
         cdef const unsigned char[:] buf = buffer
         with nogil:
@@ -1224,9 +1391,15 @@ cdef class SpinEnumNode(SpinValueNode):
         SpinValueNode.set_handle(self, source, handle)
         self._handle = dynamic_cast[IEnumerationPointer](handle)
 
+    cdef clear_handle(self):
+        SpinValueNode.clear_handle(self)
+        self._handle = NULL
+
     cpdef get_entries_names(self):
         """Returns a list of the enum entries (items) symbolic string names.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef NodeList_t entries
         cdef list items = []
         cdef size_t n, i
@@ -1249,6 +1422,8 @@ cdef class SpinEnumNode(SpinValueNode):
             Every call to this function creates a list of new
             :class:`SpinEnumItemNode` representing the items.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef NodeList_t entries
         cdef list items = []
         cdef size_t n, i
@@ -1264,6 +1439,8 @@ cdef class SpinEnumNode(SpinValueNode):
     cpdef get_num_entries(self):
         """Gets the number of entries (items) of this enum class.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef NodeList_t entries
         cdef size_t n
         with nogil:
@@ -1283,6 +1460,8 @@ cdef class SpinEnumNode(SpinValueNode):
 
             Every call to this function creates a new :class:`SpinEnumItemNode`.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef SpinEnumItemNode entry
         cdef IEnumEntry* handle
 
@@ -1307,6 +1486,8 @@ cdef class SpinEnumNode(SpinValueNode):
 
             Every call to this function creates a new :class:`SpinEnumItemNode`.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef SpinEnumItemNode entry
         cdef IEnumEntry* handle
         cdef bytes name_b = name.encode()
@@ -1336,6 +1517,8 @@ cdef class SpinEnumNode(SpinValueNode):
             associated with the enum by the Spinnaker API in :mod:`~rotpy.names`
             for some enums.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef int64_t n
         with nogil:
             n = self._handle.GetIntValue(verify, ignore_cache)
@@ -1350,6 +1533,8 @@ cdef class SpinEnumNode(SpinValueNode):
             Spinnaker API in :mod:`~rotpy.names` for some enums.
         :param verify: Enables access mode and range verification.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         with nogil:
             self._handle.SetIntValue(value, verify)
 
@@ -1366,6 +1551,8 @@ cdef class SpinEnumNode(SpinValueNode):
 
             Every call to this function creates a new :class:`SpinEnumItemNode`.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef SpinEnumItemNode entry
         cdef IEnumEntry* handle
 
@@ -1386,6 +1573,8 @@ cdef class SpinEnumNode(SpinValueNode):
             node.
         :param verify: Enables access mode and range verification.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef int64_t value = item.get_enum_int_value()
         with nogil:
             self._handle.SetIntValue(value, verify)
@@ -1401,7 +1590,6 @@ cdef class SpinEnumDefNode(SpinEnumNode):
     enum nodes have associated names in :mod:`~rotpy.names` hence the
     additional functionality.
     """
-    pass
 
     def __cinit__(self):
         self._enum_wrapper = NULL
@@ -1413,6 +1601,12 @@ cdef class SpinEnumDefNode(SpinEnumNode):
 
     cdef set_wrapper(self, RotPyEnumWrapper* wrapper):
         self._enum_wrapper = wrapper
+
+    cdef clear_handle(self):
+        SpinEnumNode.clear_handle(self)
+        if self._enum_wrapper != NULL:
+            del self._enum_wrapper
+            self._enum_wrapper = NULL
 
     cpdef get_entry_by_api_str(self, str value):
         """Gets a enum entry (item) node from this enum class by its Spinnaker
@@ -1426,6 +1620,8 @@ cdef class SpinEnumDefNode(SpinEnumNode):
 
             Every call to this function creates a new :class:`SpinEnumItemNode`.
         """
+        if self._enum_wrapper == NULL:
+            raise TypeError('Invalid node')
         # use LUTSelectorEnums as a stand-in for all enums so the right
         # polymorphism is selected by the compiler
         cdef int n = self.enum_names[value]
@@ -1453,6 +1649,8 @@ cdef class SpinEnumDefNode(SpinEnumNode):
             checked.
         :param ignore_cache: If true the value is read ignoring any caches.
         """
+        if self._enum_wrapper == NULL:
+            raise TypeError('Invalid node')
         # use LUTSelectorEnums as a stand-in for all enums so the right
         # polymorphism is selected by the compiler
         cdef int n
@@ -1467,6 +1665,8 @@ cdef class SpinEnumDefNode(SpinEnumNode):
         :param value: The Spinnaker API string value to which to set the node.
         :param verify: Enables access mode and range verification.
         """
+        if self._enum_wrapper == NULL:
+            raise TypeError('Invalid node')
         # use LUTSelectorEnums as a stand-in for all enums so the right
         # polymorphism is selected by the compiler
         cdef int n = self.enum_names[value]
@@ -1476,6 +1676,8 @@ cdef class SpinEnumDefNode(SpinEnumNode):
     cpdef set_enum_ref(self, int index, str name):
         """Sets the int value corresponding to a enum item.
         """
+        if self._enum_wrapper == NULL:
+            raise TypeError('Invalid node')
         cdef bytes name_b = name.encode()
         cdef size_t n = len(name)
         cdef const char * name_c = name_b
@@ -1488,6 +1690,8 @@ cdef class SpinEnumDefNode(SpinEnumNode):
     cpdef set_num_enums(self, int num):
         """Sets the number of enum entries (items) of this node.
         """
+        if self._enum_wrapper == NULL:
+            raise TypeError('Invalid node')
         with nogil:
             self._enum_wrapper.SetNumEnums(num)
 
@@ -1504,10 +1708,16 @@ cdef class SpinEnumItemNode(SpinValueNode):
         SpinValueNode.set_handle(self, source, handle)
         self._handle = dynamic_cast[IEnumEntryPointer](handle)
 
+    cdef clear_handle(self):
+        SpinValueNode.clear_handle(self)
+        self._handle = NULL
+
     cpdef get_enum_num(self):
         """Gets the double (floating point) number value associated with the
         entry.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef double n
         with nogil:
             n = self._handle.GetNumericValue()
@@ -1522,6 +1732,8 @@ cdef class SpinEnumItemNode(SpinValueNode):
             associated with the enum by the Spinnaker API in :mod:`~rotpy.names`
             for some enums.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef int64_t n
         with nogil:
             n = self._handle.GetValue()
@@ -1536,6 +1748,8 @@ cdef class SpinEnumItemNode(SpinValueNode):
             associated with the enum by the Spinnaker API in :mod:`~rotpy.names`
             for some enums.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef gcstring s
         with nogil:
             s = self._handle.GetSymbolic()
@@ -1544,6 +1758,8 @@ cdef class SpinEnumItemNode(SpinValueNode):
     cpdef is_self_clearing(self):
         """Returns whether the corresponding entry is self clearing.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef cbool n
         with nogil:
             n = self._handle.IsSelfClearing()
@@ -1561,6 +1777,10 @@ cdef class SpinTreeNode(SpinValueNode):
         SpinValueNode.set_handle(self, source, handle)
         self._handle = dynamic_cast[ICategoryPointer](handle)
 
+    cdef clear_handle(self):
+        SpinValueNode.clear_handle(self)
+        self._handle = NULL
+
     cpdef get_children(self):
         """Returns a list of children nodes of the tree, including
         sub-trees.
@@ -1570,6 +1790,8 @@ cdef class SpinTreeNode(SpinValueNode):
             Every call to this method creates a list of new
             :class:`SpinBaseNode` representing the children.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef uint64_t n, i
         cdef list items = []
         cdef FeatureList_t nodes
@@ -1587,6 +1809,8 @@ cdef class SpinTreeNode(SpinValueNode):
     cpdef get_num_nodes(self):
         """Gets the number of children nodes in the tree.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef FeatureList_t nodes
         cdef size_t n
 
@@ -1604,6 +1828,8 @@ cdef class SpinTreeNode(SpinValueNode):
         :return: A new :class:`SpinBaseNode` derived instance representing the
             child.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef FeatureList_t nodes
         cdef IValue* handle
         with nogil:
@@ -1623,12 +1849,18 @@ cdef class SpinPortNode(SpinBaseNode):
         SpinBaseNode.set_handle(self, source, handle)
         self._handle = dynamic_cast[IPortPointer](handle)
 
+    cdef clear_handle(self):
+        SpinBaseNode.clear_handle(self)
+        self._handle = NULL
+
     cpdef write_port(self, object buffer, int64_t address):
         """Writes a chunk of bytes to the port.
 
         :param buffer: A array/bytes type buffer to write.
         :param address: The port address.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef int64_t n = len(buffer)
         cdef const unsigned char[:] buf = buffer
         with nogil:
@@ -1641,6 +1873,8 @@ cdef class SpinPortNode(SpinBaseNode):
         :param n: The number of bytes to read
         :return: Bytes object.
         """
+        if self._handle == NULL:
+            raise TypeError('Invalid node')
         cdef unsigned char[:] arr
         buffer = array('B', b'\0' * n)
         arr = buffer

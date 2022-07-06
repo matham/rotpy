@@ -6,7 +6,7 @@ Lists all the pre-listed nodes of the :class:`~rotpy.system.SpinSystem` and
 
 """
 from .node cimport SpinIntNode, SpinFloatNode, SpinBoolNode, SpinStrNode, \
-    SpinCommandNode, SpinRegisterNode, SpinEnumDefNode
+    SpinCommandNode, SpinRegisterNode, SpinEnumDefNode, SpinBaseNode
 
 from .node import SpinIntNode, SpinFloatNode, SpinBoolNode, SpinStrNode, \
     SpinCommandNode, SpinRegisterNode, SpinEnumDefNode
@@ -26,6 +26,10 @@ cdef class SystemNodes:
         Do **not** create a :class:`SystemNodes` manually, rather get it
         from :attr:`~rotpy.system.SpinSystem.system_nodes` that is automatically
         created when the system is instantiated.
+
+    .. warning::
+
+        Once the associated system is freed, the nodes are not valid anymore.
 
     .. note::
 
@@ -59,6 +63,13 @@ cdef class SystemNodes:
 
     def __init__(self, system):
         pass
+
+    cdef clear_system(self):
+        cdef SpinBaseNode node
+        for node in self._nodes.values():
+            node.clear_handle()
+        self._nodes = {}
+        self._system = None
 
     @property
     def TLID(self) -> SpinStrNode:
@@ -517,6 +528,10 @@ cdef class InterfaceNodes:
         from :attr:`~rotpy.system.InterfaceDevice.interface_nodes` that is
         automatically created when the interface is instantiated.
 
+    .. warning::
+
+        Once the associated interface is freed, the nodes are not valid anymore.
+
     .. note::
 
         Even though the nodes are pre-listed, it is simply a convenience and
@@ -563,6 +578,13 @@ cdef class InterfaceNodes:
 
     def __init__(self, interface):
         pass
+
+    cdef clear_interface(self):
+        cdef SpinBaseNode node
+        for node in self._nodes.values():
+            node.clear_handle()
+        self._nodes = {}
+        self._interface = None
 
     @property
     def InterfaceID(self) -> SpinStrNode:

@@ -100,6 +100,7 @@ cdef class Camera:
     cdef object set_camera_by_index(self, CameraList cam_list, unsigned int index)
     cdef object set_camera_by_serial(self, CameraList cam_list, bytes serial)
     cdef object set_camera_by_dev_id(self, CameraList cam_list, bytes dev_id)
+    cpdef release(self)
     cpdef init_cam(self)
     cpdef deinit_cam(self)
     cpdef get_access_mode(self)

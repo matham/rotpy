@@ -7,6 +7,8 @@ cdef class CameraNodes:
     cdef rotpy.camera.Camera _camera
     cdef dict _nodes
 
+    cdef clear_camera(self)
+
     cdef public list bool_nodes
     """A list of all the names of the bool nodes.
     """
@@ -35,6 +37,8 @@ cdef class TLDevNodes:
     cdef rotpy.camera.Camera _camera
     cdef dict _nodes
 
+    cdef clear_camera(self)
+
     cdef public list bool_nodes
     """A list of all the names of the bool nodes.
     """
@@ -62,6 +66,8 @@ cdef class TLStreamNodes:
 
     cdef rotpy.camera.Camera _camera
     cdef dict _nodes
+
+    cdef clear_camera(self)
 
     cdef public list bool_nodes
     """A list of all the names of the bool nodes.

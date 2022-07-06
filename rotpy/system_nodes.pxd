@@ -7,6 +7,8 @@ cdef class SystemNodes:
     cdef rotpy.system.SpinSystem _system
     cdef dict _nodes
 
+    cdef clear_system(self)
+
     cdef public list bool_nodes
     """A list of all the names of the bool nodes.
     """
@@ -34,6 +36,8 @@ cdef class InterfaceNodes:
 
     cdef rotpy.system.InterfaceDevice _interface
     cdef dict _nodes
+
+    cdef clear_interface(self)
 
     cdef public list bool_nodes
     """A list of all the names of the bool nodes.

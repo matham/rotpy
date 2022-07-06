@@ -28,6 +28,7 @@ cdef class SpinBaseNode:
     cpdef is_implemented(self)
     cpdef is_available(self)
     cpdef is_visible(self, str visibility, str max_visibility)
+    cdef clear_handle(self)
 
 
 cdef class SpinSelectorNode(SpinBaseNode):

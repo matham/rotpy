@@ -383,6 +383,16 @@ cdef class Camera:
         self._cam_list = cam_list
         self._cam_set = 1
 
+    cpdef release(self):
+        """Releases the camera's resources, including the nodes.
+
+        Once called, non of the pre-listed node are valid and other camera
+        methods should not be called.
+        """
+        self.camera_nodes.clear_camera()
+        self.tl_dev_nodes.clear_camera()
+        self.tl_stream_nodes.clear_camera()
+
     cpdef init_cam(self):
         """Initializes a camera, allowing for much more interaction, including
         more properties.

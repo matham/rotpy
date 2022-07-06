@@ -64,6 +64,7 @@ cdef class SpinSystem:
         :meth:`~rotpy.node.SpinBaseNode.is_writable` etc.
     """
 
+    cpdef release(self)
     cpdef set_logging_level(self, str level)
     cpdef get_logging_level(self)
     cpdef detach_all_log_handlers(self)
@@ -121,6 +122,7 @@ cdef class InterfaceDevice:
     """
 
     cdef object set_interface(self, InterfaceDeviceList dev_list, unsigned int index)
+    cpdef release(self)
     cpdef attach_event_handler(self, callback_arrival=*, callback_removal=*)
     cpdef detach_event_handler(self, InterfaceEventHandler handler)
     cpdef get_in_use(self)
