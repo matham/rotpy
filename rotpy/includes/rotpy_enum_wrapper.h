@@ -11,7 +11,7 @@ interface RotPyEnumWrapper
 {
     public:
         RotPyEnumWrapper(){};
-        ~RotPyEnumWrapper(){};
+        virtual ~RotPyEnumWrapper(){};
 
         virtual void SetEnumReference(int Index, Spinnaker::GenICam::gcstring Name) = 0;
         virtual void SetNumEnums(int NumEnums) = 0;
@@ -28,20 +28,21 @@ class RotPyEnumWrapperT: virtual public RotPyEnumWrapper
         RotPyEnumWrapperT(Spinnaker::GenApi::IEnumerationT<SpinnakerEnumT>* handle){
             m_handle = handle;
         }
+        ~RotPyEnumWrapperT(){};
 
-        virtual void SetEnumReference(int Index, Spinnaker::GenICam::gcstring Name){
+        void SetEnumReference(int Index, Spinnaker::GenICam::gcstring Name){
             m_handle->SetEnumReference(Index, Name);
         }
-        virtual void SetNumEnums(int NumEnums){
+        void SetNumEnums(int NumEnums){
             m_handle->SetNumEnums(NumEnums);
         }
-        virtual void SetValue(int Value, bool Verify){
+        void SetValue(int Value, bool Verify){
             m_handle->SetValue((SpinnakerEnumT)Value, Verify);
         }
-        virtual int GetValue(bool Verify, bool IgnoreCache){
+        int GetValue(bool Verify, bool IgnoreCache){
             return (int)m_handle->GetValue(Verify, IgnoreCache);
         }
-        virtual Spinnaker::GenApi::IEnumEntry* GetEntry(int Value){
+        Spinnaker::GenApi::IEnumEntry* GetEntry(int Value){
             return m_handle->GetEntry((SpinnakerEnumT)Value);
         }
 
