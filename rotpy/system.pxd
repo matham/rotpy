@@ -64,7 +64,6 @@ cdef class SpinSystem:
         :meth:`~rotpy.node.SpinBaseNode.is_writable` etc.
     """
 
-    cpdef release(self)
     cpdef set_logging_level(self, str level)
     cpdef get_logging_level(self)
     cpdef detach_all_log_handlers(self)

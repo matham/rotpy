@@ -214,23 +214,6 @@ cdef class SpinSystem:
             with nogil:
                 self._system.get().ReleaseInstance()
 
-    cpdef release(self):
-        """Releases the system's resources, including its nodes.
-
-        Once called, non of the pre-listed node are valid and other system
-        methods should not be called.
-
-        .. warning::
-
-            If any cameras or interfaces are still in use, this will raise
-            an error.
-        """
-        self.system_nodes.clear_system()
-        if self._system_set:
-            with nogil:
-                self._system.get().ReleaseInstance()
-            self._system_set = 0
-
     cpdef set_logging_level(self, str level):
         """Sets the logging level for all logging events on the system.
         Logging events below such level will not trigger callbacks

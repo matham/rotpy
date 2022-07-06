@@ -138,7 +138,6 @@ Getting an image from a GigE camera
         313344
     >>> camera.deinit_cam()
     >>> camera.release()
-    >>> system.release()
 
 System and camera properties
 ----------------------------
@@ -199,7 +198,6 @@ E.g. to access some of the system nodes using
     '1'
     >>> system.system_nodes.EnumerateUSBInterfaces.get_short_description()
     'Enables or disables enumeration of USB Interfaces.'
-    >>> system.release()
 
 We can similarly use the node map to get the same node if it's available:
 
@@ -215,7 +213,6 @@ We can similarly use the node map to get the same node if it's available:
     True
     >>> node.get_description()
     'Enables or disables enumeration of USB Interfaces.'
-    >>> system.release()
 
 Similarly, for the camera, we can use the pre-listed nodes:
 
@@ -303,7 +300,6 @@ removal on any interface, or on specific interfaces. E.g. to be notified on any 
     Arrived: 36548975
     Removed: 36548975
     >>> system.detach_interface_event_handler(handler)
-    >>> system.release()
 
 Logging handler
 ^^^^^^^^^^^^^^^
@@ -338,7 +334,6 @@ We can also register logging event handlers to get any logging events on the sys
     Log: GenTLCallback DEBUG GenTL Trace: system.cpp, line 535, GenTL::System::UpdateInterfaceList
     >>> # now detach the handler
     >>> system.detach_log_event_handler(handler)
-    >>> system.release()
 
 Camera image handler
 ^^^^^^^^^^^^^^^^^^^^
@@ -370,7 +365,6 @@ device, as opposed to polling for new images:
     >>> camera.detach_image_event_handler(handler)
     >>> camera.deinit_cam()
     >>> camera.release()
-    >>> system.release()
 
 Camera events
 ^^^^^^^^^^^^^
@@ -411,4 +405,3 @@ We can also register a callback that is called on camera events. E.g.:
     >>> camera.detach_device_event_handler(handler)
     >>> camera.deinit_cam()
     >>> camera.release()
-    >>> system.release()
