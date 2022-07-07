@@ -139,6 +139,78 @@ Getting an image from a GigE camera
     >>> camera.deinit_cam()
     >>> camera.release()
 
+Configuring and getting an image from a USB3 camera
+---------------------------------------------------
+
+.. code-block:: python
+
+    >>> from rotpy.system import SpinSystem
+    >>> from rotpy.camera import CameraList
+    >>> # create system/camera list instance and create the camera by serial number
+    >>> system = SpinSystem()
+    >>> cameras = CameraList.create_from_system(system, True, True)
+    >>> cameras.get_size()
+    1
+    >>> camera = cameras.create_camera_by_serial('87785435')
+    >>> # init so we can read the pixel format node
+    >>> camera.init_cam()
+    >>> # the names of the pixel formats available for the camera
+    >>> camera.camera_nodes.PixelFormat.get_entries_names()
+    ['Mono8',
+     'Mono12Packed',
+     'Mono12p',
+     'Mono16',
+     'BayerGR8',
+     ...,
+     'BayerBG16',
+     'YCbCr411_8_CbYYCrYY',
+     'YCbCr422_8_CbYCrY',
+     'YCbCr8_CbYCr',
+     'RGB8']
+    >>> # the current one is BayerRG8
+    >>> node = camera.camera_nodes.PixelFormat.get_node_value()
+    >>> node
+    <rotpy.node.SpinEnumItemNode at 0x236edec43c8>
+    >>> node.get_enum_name()
+    'BayerRG8'
+    >>> # instead set it to RGB8
+    >>> camera.camera_nodes.PixelFormat.set_node_value_from_str('RGB8')
+    >>> camera.camera_nodes.PixelFormat.get_node_value().get_enum_name()
+    'RGB8'
+    >>> # set acquired image height to 800 pixels
+    >>> camera.camera_nodes.Height.get_node_value()
+    1200
+    >>> camera.camera_nodes.Height.set_node_value(800)
+    >>> camera.camera_nodes.Height.get_node_value()
+    800
+    >>> camera.camera_nodes.Height.get_max_value()
+    1200
+    >>> # get the current framerate
+    >>> camera.camera_nodes.AcquisitionFrameRate.is_readable()
+    True
+    >>> camera.camera_nodes.AcquisitionFrameRate.get_node_value()
+    42.7807502746582
+    >>> # get one image and copy and release it so we don't tie up the buffers
+    >>> camera.begin_acquisition()
+    >>> image_cam = camera.get_next_image()
+    >>> image = image_cam.deep_copy_image(image_cam)
+    >>> image_cam.release()
+    >>> camera.end_acquisition()
+    >>> # get some image metadat
+    >>> image.get_frame_timestamp() / 1e9
+    512.51940629
+    >>> image.get_height()
+    800
+    >>> image.get_buffer_size()
+    4608000
+    >>> 1920*800*3
+    4608000
+    >>> image.get_pix_fmt()
+    'RGB8'
+    >>> # cleanup
+    >>> camera.deinit_cam()
+    >>> camera.release()
+
 System and camera properties
 ----------------------------
 
