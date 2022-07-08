@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image &mdash; RotPy 0.2.1.dev0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Node" href="node.html" />
+    <link rel="prev" title="Camera" href="camera.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> RotPy
+          </a>
+              <div class="version">
+                0.2.1.dev0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="README.html">RotPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="README.html#pre-compiled-wheels">Pre-compiled wheels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="README.html#from-source">From source</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="README.html#getting-an-image-from-a-gige-camera">Getting an image from a GigE camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="README.html#configuring-and-getting-an-image-from-a-usb3-camera">Configuring and getting an image from a USB3 camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="README.html#system-and-camera-properties">System and camera properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="README.html#attaching-event-handlers">Attaching event handlers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="README.html#camera-detection-events">Camera detection events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="README.html#logging-handler">Logging handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="README.html#camera-image-handler">Camera image handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="README.html#camera-events">Camera events</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">The RotPy API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="rotpy.html">RotPy Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system.html">System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="camera.html">Camera</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="node.html">Node</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="node.html#node-access">Node access</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="names/api.html">Enums</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="names/api.html#enum-names">Enum names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="names/spin.html">Spinnaker enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="names/camera.html">Camera enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="names/tl.html">Transport layer enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="names/geni.html">GenAPI enums</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="system_nodes.html">System nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="camera_nodes.html">Camera nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">Utilities</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RotPy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="api.html">The RotPy API</a> &raquo;</li>
+      <li>Image</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/matham/rotpy/blob/main/doc/source/image.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="module-rotpy.image"></span><section id="image">
+<h1>Image<a class="headerlink" href="#image" title="Permalink to this headline"></a></h1>
+<p>Image and image data/metadata returned by cameras.</p>
+<p><strong>Classes:</strong></p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image" title="rotpy.image.Image"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Image</span></code></a></p></td>
+<td><p>An image and its data and metadata.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData" title="rotpy.image.ImageChunkData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ImageChunkData</span></code></a></p></td>
+<td><p>Represents some metadata about the raw <a class="reference internal" href="#rotpy.image.Image" title="rotpy.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.ChunkDataInference" title="rotpy.image.ChunkDataInference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ChunkDataInference</span></code></a></p></td>
+<td><p>Represents object location inference data from a <a class="reference internal" href="#rotpy.image.Image" title="rotpy.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="rotpy.image.Image">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Image</span></span><a class="headerlink" href="#rotpy.image.Image" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>An image and its data and metadata.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do <strong>not</strong> create a <a class="reference internal" href="#rotpy.image.Image" title="rotpy.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a> manually, rather get an image
+from e.g. <a class="reference internal" href="#rotpy.image.Image.create_empty" title="rotpy.image.Image.create_empty"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_empty()</span></code></a>, <a class="reference internal" href="#rotpy.image.Image.create_image" title="rotpy.image.Image.create_image"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_image()</span></code></a>,
+<a class="reference internal" href="#rotpy.image.Image.deep_copy_image" title="rotpy.image.Image.deep_copy_image"><code class="xref py py-meth docutils literal notranslate"><span class="pre">deep_copy_image()</span></code></a>, or from a camera with e.g.
+<a class="reference internal" href="camera.html#rotpy.camera.Camera.get_next_image" title="rotpy.camera.Camera.get_next_image"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_next_image()</span></code></a>.</p>
+</div>
+<p><strong>Methods:</strong></p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image.convert_fmt" title="rotpy.image.Image.convert_fmt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convert_fmt</span></code></a></p></td>
+<td><p>Converts the image to a new pixel format and optionally using a specific algorithm and returns a new image.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.Image.create_empty" title="rotpy.image.Image.create_empty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_empty</span></code></a></p></td>
+<td><p>Creates and returns an empty image with no data or data buffers.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image.create_image" title="rotpy.image.Image.create_image"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_image</span></code></a></p></td>
+<td><p>Creates and returns an image with some pre-set properties.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.Image.deep_copy_from" title="rotpy.image.Image.deep_copy_from"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deep_copy_from</span></code></a></p></td>
+<td><p>Copies the given image into this image.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image.deep_copy_image" title="rotpy.image.Image.deep_copy_image"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deep_copy_image</span></code></a></p></td>
+<td><p>Creates and returns an image by copying all the data from the other image so they don't share buffers.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.Image.get_bits_per_pixel" title="rotpy.image.Image.get_bits_per_pixel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_bits_per_pixel</span></code></a></p></td>
+<td><p>Gets the number of bits used per pixel in the image.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image.get_buffer_size" title="rotpy.image.Image.get_buffer_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_buffer_size</span></code></a></p></td>
+<td><p>Gets the size of the buffer associated with the image in bytes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.Image.get_chunk_data" title="rotpy.image.Image.get_chunk_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_chunk_data</span></code></a></p></td>
+<td><p>Returns a <a class="reference internal" href="#rotpy.image.ImageChunkData" title="rotpy.image.ImageChunkData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageChunkData</span></code></a> of the image.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image.get_color_processing_algo" title="rotpy.image.Image.get_color_processing_algo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_color_processing_algo</span></code></a></p></td>
+<td><p>Gets the color processing algorithm of this image.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.Image.get_completed" title="rotpy.image.Image.get_completed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_completed</span></code></a></p></td>
+<td><p>Returns whether this image was incomplete.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image.get_compression_threads" title="rotpy.image.Image.get_compression_threads"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_compression_threads</span></code></a></p></td>
+<td><p>Gets the default number of threads used for image decompression during <code class="xref py py-meth docutils literal notranslate"><span class="pre">convert()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.Image.get_crc" title="rotpy.image.Image.get_crc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_crc</span></code></a></p></td>
+<td><p>Returns whether the computed checksum matches with chunk data's ImageCRC.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image.get_data_max" title="rotpy.image.Image.get_data_max"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_data_max</span></code></a></p></td>
+<td><p>Get the value which no image data will exceed.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.Image.get_data_min" title="rotpy.image.Image.get_data_min"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_data_min</span></code></a></p></td>
+<td><p>Get the value which no image data will be less than.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image.get_default_color_processing_algo" title="rotpy.image.Image.get_default_color_processing_algo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_default_color_processing_algo</span></code></a></p></td>
+<td><p>Gets the default color processing algorithm of all images (if not otherwise set).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.Image.get_frame_id" title="rotpy.image.Image.get_frame_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_frame_id</span></code></a></p></td>
+<td><p>Gets the image's acquisition frame ID.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image.get_frame_timestamp" title="rotpy.image.Image.get_frame_timestamp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_frame_timestamp</span></code></a></p></td>
+<td><p>Gets the time stamp for the image in nanoseconds.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.Image.get_height" title="rotpy.image.Image.get_height"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_height</span></code></a></p></td>
+<td><p>Gets the height of the image in pixels.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image.get_image_data" title="rotpy.image.Image.get_image_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_image_data</span></code></a></p></td>
+<td><p>Gets and copies the image data and returns it as a bytearray.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.Image.get_image_data_size" title="rotpy.image.Image.get_image_data_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_image_data_size</span></code></a></p></td>
+<td><p>Gets the size of the image and just the image - not including any additional payloads with the image.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image.get_image_id" title="rotpy.image.Image.get_image_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_image_id</span></code></a></p></td>
+<td><p>Gets a unique ID for this image.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.Image.get_in_use" title="rotpy.image.Image.get_in_use"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_in_use</span></code></a></p></td>
+<td><p>Returns whether the image is still in use by the stream.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image.get_is_compressed" title="rotpy.image.Image.get_is_compressed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_is_compressed</span></code></a></p></td>
+<td><p>Returns whether this image is compressed.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.Image.get_layout_id" title="rotpy.image.Image.get_layout_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_layout_id</span></code></a></p></td>
+<td><p>Returns the id of the chunk data layout.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image.get_num_channels" title="rotpy.image.Image.get_num_channels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_num_channels</span></code></a></p></td>
+<td><p>Gets the number of channels (depth) used in the image.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.Image.get_offset_x" title="rotpy.image.Image.get_offset_x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_offset_x</span></code></a></p></td>
+<td><p>Gets the ROI x offset in pixels for this image.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image.get_offset_y" title="rotpy.image.Image.get_offset_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_offset_y</span></code></a></p></td>
+<td><p>Gets the ROI y offset in pixels for this image.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.Image.get_padding_x" title="rotpy.image.Image.get_padding_x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_padding_x</span></code></a></p></td>
+<td><p>Gets the x padding in bytes for this image.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image.get_padding_y" title="rotpy.image.Image.get_padding_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_padding_y</span></code></a></p></td>
+<td><p>Gets the y padding in bytes for this image.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.Image.get_payload_type" title="rotpy.image.Image.get_payload_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_payload_type</span></code></a></p></td>
+<td><p>Gets the payload type that was transmitted.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image.get_pix_fmt" title="rotpy.image.Image.get_pix_fmt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pix_fmt</span></code></a></p></td>
+<td><p>Gets the image's pixel format.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.Image.get_pix_fmt_int_type" title="rotpy.image.Image.get_pix_fmt_int_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pix_fmt_int_type</span></code></a></p></td>
+<td><p>Gets the image's integer type used in the pixel format of this image.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image.get_pix_fmt_sfnc" title="rotpy.image.Image.get_pix_fmt_sfnc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pix_fmt_sfnc</span></code></a></p></td>
+<td><p>Returns a string value that represents this image's pixel format.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.Image.get_status" title="rotpy.image.Image.get_status"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_status</span></code></a></p></td>
+<td><p>Returns data integrity status of the image when it was returned from <a class="reference internal" href="camera.html#rotpy.camera.Camera.get_next_image" title="rotpy.camera.Camera.get_next_image"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_next_image()</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image.get_status_description" title="rotpy.image.Image.get_status_description"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_status_description</span></code></a></p></td>
+<td><p>Returns a string describing the meaning of the status string from <a class="reference internal" href="#rotpy.image.Image.get_status" title="rotpy.image.Image.get_status"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_status()</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.Image.get_stride" title="rotpy.image.Image.get_stride"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_stride</span></code></a></p></td>
+<td><p>Gets the stride of the image in bytes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image.get_tl_payload_type" title="rotpy.image.Image.get_tl_payload_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_tl_payload_type</span></code></a></p></td>
+<td><p>Gets the GenTL specific payload type that was transmitted.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.Image.get_tl_pix_fmt" title="rotpy.image.Image.get_tl_pix_fmt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_tl_pix_fmt</span></code></a></p></td>
+<td><p>Gets the pixel format of the image.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image.get_tl_pix_fmt_namespace" title="rotpy.image.Image.get_tl_pix_fmt_namespace"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_tl_pix_fmt_namespace</span></code></a></p></td>
+<td><p>Gets the image's underlying transport layer namespace in which this image's TL specific pixel format resides.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.Image.get_valid_payload_size" title="rotpy.image.Image.get_valid_payload_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_valid_payload_size</span></code></a></p></td>
+<td><p>Gets the size of valid data in the image payload.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image.get_width" title="rotpy.image.Image.get_width"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_width</span></code></a></p></td>
+<td><p>Gets the width of the image in pixels.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.Image.has_crc" title="rotpy.image.Image.has_crc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_crc</span></code></a></p></td>
+<td><p>Returns whether the image contains ImageCRC checksum from the chunk data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image.release" title="rotpy.image.Image.release"><code class="xref py py-obj docutils literal notranslate"><span class="pre">release</span></code></a></p></td>
+<td><p>Release the image and its data for images gotten with <a class="reference internal" href="camera.html#rotpy.camera.Camera.get_next_image" title="rotpy.camera.Camera.get_next_image"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_next_image()</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.Image.reset_image" title="rotpy.image.Image.reset_image"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reset_image</span></code></a></p></td>
+<td><p>Sets new dimensions of the image object and allocates memory if needed.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image.save_bmp" title="rotpy.image.Image.save_bmp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_bmp</span></code></a></p></td>
+<td><p>Saves the image to a bmp file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.Image.save_file" title="rotpy.image.Image.save_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_file</span></code></a></p></td>
+<td><p>Saves the image to a file, depending on the format specified.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image.save_jpeg" title="rotpy.image.Image.save_jpeg"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_jpeg</span></code></a></p></td>
+<td><p>Saves the image to a JPEG file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.Image.save_jpeg2" title="rotpy.image.Image.save_jpeg2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_jpeg2</span></code></a></p></td>
+<td><p>Saves the image to a JPEG2000 file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image.save_pgm" title="rotpy.image.Image.save_pgm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_pgm</span></code></a></p></td>
+<td><p>Saves the image to a pgm file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.Image.save_png" title="rotpy.image.Image.save_png"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_png</span></code></a></p></td>
+<td><p>Saves the image to a png file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image.save_ppm" title="rotpy.image.Image.save_ppm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_ppm</span></code></a></p></td>
+<td><p>Saves the image to a ppm file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.Image.save_tiff" title="rotpy.image.Image.save_tiff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_tiff</span></code></a></p></td>
+<td><p>Saves the image to a tiff file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.Image.set_compression_threads" title="rotpy.image.Image.set_compression_threads"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_compression_threads</span></code></a></p></td>
+<td><p>Sets the default number of threads used for image decompression during <code class="xref py py-meth docutils literal notranslate"><span class="pre">convert()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.Image.set_default_color_processing_algo" title="rotpy.image.Image.set_default_color_processing_algo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_default_color_processing_algo</span></code></a></p></td>
+<td><p>Sets the default color processing algorithm of all images (if not otherwise set).</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.convert_fmt">
+<span class="sig-name descname"><span class="pre">convert_fmt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unicode</span> <span class="pre">pix_fmt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unicode</span> <span class="pre">algorithm=u''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Image</span> <span class="pre">dest=None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#rotpy.image.Image" title="rotpy.image.Image"><span class="pre">Image</span></a></span></span><a class="headerlink" href="#rotpy.image.Image.convert_fmt" title="Permalink to this definition"></a></dt>
+<dd><p>Converts the image to a new pixel format and optionally using
+a specific algorithm and returns a new image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pix_fmt</strong> – The pixel format name string from
+<a class="reference internal" href="names/camera.html#rotpy.names.camera.PixelFormat_names" title="rotpy.names.camera.PixelFormat_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">PixelFormat_names</span></code></a>.</p></li>
+<li><p><strong>algorithm</strong> – An optional algorithm name string from
+<a class="reference internal" href="names/spin.html#rotpy.names.spin.color_processing_algo_names" title="rotpy.names.spin.color_processing_algo_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">color_processing_algo_names</span></code></a>. If empty it’s not
+set.</p></li>
+<li><p><strong>dest</strong> – Optional destination image where the converted output
+result will be stored. The destination image buffer size must be
+sufficient to store the converted image data.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A new <a class="reference internal" href="#rotpy.image.Image" title="rotpy.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a> if <code class="docutils literal notranslate"><span class="pre">dest</span></code> was not provided, otherwise
+<code class="docutils literal notranslate"><span class="pre">dest</span></code>.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Compressed images are decompressed before any further color
+processing or conversion during this call. Decompression is
+multi-threaded and defaults to utilizing one less than the number of
+concurrent threads supported by the system. It uses the number
+set in <a class="reference internal" href="#rotpy.image.Image.set_compression_threads" title="rotpy.image.Image.set_compression_threads"><code class="xref py py-meth docutils literal notranslate"><span class="pre">set_compression_threads()</span></code></a>, if set.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.create_empty">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_empty</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#rotpy.image.Image" title="rotpy.image.Image"><span class="pre">Image</span></a></span></span><a class="headerlink" href="#rotpy.image.Image.create_empty" title="Permalink to this definition"></a></dt>
+<dd><p>Creates and returns an empty image with no data or data buffers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.create_image">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">x_offset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">y_offset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unicode</span> <span class="pre">pix_fmt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unicode</span> <span class="pre">data_type=u''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_t</span> <span class="pre">data_len=0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#rotpy.image.Image" title="rotpy.image.Image"><span class="pre">Image</span></a></span></span><a class="headerlink" href="#rotpy.image.Image.create_image" title="Permalink to this definition"></a></dt>
+<dd><p>Creates and returns an image with some pre-set properties.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>width</strong> – The image width.</p></li>
+<li><p><strong>height</strong> – The image height.</p></li>
+<li><p><strong>x_offset</strong> – The x-offset of the start of the image.</p></li>
+<li><p><strong>y_offset</strong> – The y-offset of the start of the image.</p></li>
+<li><p><strong>pix_fmt</strong> – The pixel format name string from
+<a class="reference internal" href="names/camera.html#rotpy.names.camera.PixelFormat_names" title="rotpy.names.camera.PixelFormat_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">PixelFormat_names</span></code></a>.</p></li>
+<li><p><strong>data</strong> – An optional bytes buffer or array containing the data to
+initialize the image with. If None, data is not set.</p></li>
+<li><p><strong>data_type</strong> – The payload type of the data as named in
+<a class="reference internal" href="names/spin.html#rotpy.names.spin.payload_type_names" title="rotpy.names.spin.payload_type_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">payload_type_names</span></code></a> (such as compressed). See
+also <a class="reference internal" href="#rotpy.image.Image.get_payload_type" title="rotpy.image.Image.get_payload_type"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_payload_type()</span></code></a>.</p></li>
+<li><p><strong>data_len</strong> – The size of the <code class="docutils literal notranslate"><span class="pre">data</span></code> if provided. This is only used
+if the <code class="docutils literal notranslate"><span class="pre">data_type</span></code> is also given.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference internal" href="#rotpy.image.Image" title="rotpy.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note that images with chunk payload types are saved with only the
+image data preserved. Remember to specify the non-chunk equivalent
+payload type when creating images with these chunk payload types.
+For example, images need to be created with PAYLOAD_TYPE_IMAGE
+payload type if the original image had PAYLOAD_TYPE_EXTENDED_CHUNK
+payload type.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.deep_copy_from">
+<span class="sig-name descname"><span class="pre">deep_copy_from</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Image</span> <span class="pre">source</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.deep_copy_from" title="Permalink to this definition"></a></dt>
+<dd><p>Copies the given image into this image.</p>
+<p>After this operation, this and the source image contents and member
+variables will be the same. However, the images will not share a buffer.
+The source image’s buffer will not be <a class="reference internal" href="#rotpy.image.Image.release" title="rotpy.image.Image.release"><code class="xref py py-meth docutils literal notranslate"><span class="pre">release()</span></code></a> so you must
+still release it if it’s a camera acquired image.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.deep_copy_image">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">deep_copy_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Image</span> <span class="pre">image</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#rotpy.image.Image" title="rotpy.image.Image"><span class="pre">Image</span></a></span></span><a class="headerlink" href="#rotpy.image.Image.deep_copy_image" title="Permalink to this definition"></a></dt>
+<dd><p>Creates and returns an image by copying all the data from the other
+image so they don’t share buffers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_bits_per_pixel">
+<span class="sig-name descname"><span class="pre">get_bits_per_pixel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_bits_per_pixel" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the number of bits used per pixel in the image.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_buffer_size">
+<span class="sig-name descname"><span class="pre">get_buffer_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_buffer_size" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the size of the buffer associated with the image in bytes.</p>
+<p>For user created images, this function returns the size of the user
+provided data if the data size was provided when creating or setting
+the image. If the data size was not provided, the buffer size is
+calculated based on the image dimensions and pixel format.</p>
+<p>The buffer size may be large than the actual image size as returned
+by <a class="reference internal" href="#rotpy.image.Image.get_image_data_size" title="rotpy.image.Image.get_image_data_size"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_image_data_size()</span></code></a> or <a class="reference internal" href="#rotpy.image.Image.get_valid_payload_size" title="rotpy.image.Image.get_valid_payload_size"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_valid_payload_size()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_chunk_data">
+<span class="sig-name descname"><span class="pre">get_chunk_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_chunk_data" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a <a class="reference internal" href="#rotpy.image.ImageChunkData" title="rotpy.image.ImageChunkData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageChunkData</span></code></a> of the image.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <a class="reference internal" href="#rotpy.image.ImageChunkData" title="rotpy.image.ImageChunkData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageChunkData</span></code></a> is only valid until <a class="reference internal" href="#rotpy.image.Image.release" title="rotpy.image.Image.release"><code class="xref py py-meth docutils literal notranslate"><span class="pre">release()</span></code></a> is
+called.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_color_processing_algo">
+<span class="sig-name descname"><span class="pre">get_color_processing_algo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">unicode</span></span></span><a class="headerlink" href="#rotpy.image.Image.get_color_processing_algo" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the color processing algorithm of this image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The name of the color processing algorithm used
+as listed in <a class="reference internal" href="names/spin.html#rotpy.names.spin.color_processing_algo_names" title="rotpy.names.spin.color_processing_algo_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">color_processing_algo_names</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_completed">
+<span class="sig-name descname"><span class="pre">get_completed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_completed" title="Permalink to this definition"></a></dt>
+<dd><p>Returns whether this image was incomplete.</p>
+<p>An image is marked as incomplete if the transport layer received less
+data then it requested.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_compression_threads">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_compression_threads</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></span><a class="headerlink" href="#rotpy.image.Image.get_compression_threads" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the default number of threads used for image decompression
+during <code class="xref py py-meth docutils literal notranslate"><span class="pre">convert()</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_crc">
+<span class="sig-name descname"><span class="pre">get_crc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_crc" title="Permalink to this definition"></a></dt>
+<dd><p>Returns whether the computed checksum matches with chunk data’s
+ImageCRC.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_data_max">
+<span class="sig-name descname"><span class="pre">get_data_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_data_max" title="Permalink to this definition"></a></dt>
+<dd><p>Get the value which no image data will exceed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_data_min">
+<span class="sig-name descname"><span class="pre">get_data_min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_data_min" title="Permalink to this definition"></a></dt>
+<dd><p>Get the value which no image data will be less than.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_default_color_processing_algo">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_default_color_processing_algo</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#rotpy.image.Image.get_default_color_processing_algo" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the default color processing algorithm of all images (if not
+otherwise set).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The name of the color processing algorithm used by default
+as listed in <a class="reference internal" href="names/spin.html#rotpy.names.spin.color_processing_algo_names" title="rotpy.names.spin.color_processing_algo_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">color_processing_algo_names</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_frame_id">
+<span class="sig-name descname"><span class="pre">get_frame_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_frame_id" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the image’s acquisition frame ID.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_frame_timestamp">
+<span class="sig-name descname"><span class="pre">get_frame_timestamp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_frame_timestamp" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the time stamp for the image in nanoseconds.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_height">
+<span class="sig-name descname"><span class="pre">get_height</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_height" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the height of the image in pixels.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_image_data">
+<span class="sig-name descname"><span class="pre">get_image_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_image_data" title="Permalink to this definition"></a></dt>
+<dd><p>Gets and copies the image data and returns it as a bytearray.</p>
+<p>This does not include any additional payload data included with the
+image. For compressed images, the full image may be larger once
+decompressed.</p>
+<p>TODO: Consider returning memoryview of the pointer.
+TODO: Understand the format of the data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_image_data_size">
+<span class="sig-name descname"><span class="pre">get_image_data_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_image_data_size" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the size of the image and just the image - not including any
+additional payloads with the image.</p>
+<p>For chunk images, only the size of chunk image portion is reported here.
+The entire chunk data payload including the image and full payload can
+be gotten by <a class="reference internal" href="#rotpy.image.Image.get_valid_payload_size" title="rotpy.image.Image.get_valid_payload_size"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_valid_payload_size()</span></code></a>. For compressed images, this
+value may be different than the image size once decompressed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_image_id">
+<span class="sig-name descname"><span class="pre">get_image_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_image_id" title="Permalink to this definition"></a></dt>
+<dd><p>Gets a unique ID for this image.</p>
+<p>Each image in a steam will have a unique ID to help identify it.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_in_use">
+<span class="sig-name descname"><span class="pre">get_in_use</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_in_use" title="Permalink to this definition"></a></dt>
+<dd><p>Returns whether the image is still in use by the stream.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_is_compressed">
+<span class="sig-name descname"><span class="pre">get_is_compressed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_is_compressed" title="Permalink to this definition"></a></dt>
+<dd><p>Returns whether this image is compressed.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_layout_id">
+<span class="sig-name descname"><span class="pre">get_layout_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_layout_id" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the id of the chunk data layout.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_num_channels">
+<span class="sig-name descname"><span class="pre">get_num_channels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_num_channels" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the number of channels (depth) used in the image.</p>
+<p>Returns 0 if the number of channels for the given pixel format is
+unknown.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_offset_x">
+<span class="sig-name descname"><span class="pre">get_offset_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_offset_x" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the ROI x offset in pixels for this image.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_offset_y">
+<span class="sig-name descname"><span class="pre">get_offset_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_offset_y" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the ROI y offset in pixels for this image.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_padding_x">
+<span class="sig-name descname"><span class="pre">get_padding_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_padding_x" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the x padding in bytes for this image.</p>
+<p>This is the number of bytes at the end of each line to facilitate
+alignment in buffers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_padding_y">
+<span class="sig-name descname"><span class="pre">get_padding_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_padding_y" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the y padding in bytes for this image.
+This is the number of bytes at the end of each image to facilitate
+alignment in buffers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_payload_type">
+<span class="sig-name descname"><span class="pre">get_payload_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_payload_type" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the payload type that was transmitted.</p>
+<p>This is a device types specific value that identifies how the image was
+transmitted.</p>
+<p>This returns the payload type name string from
+<a class="reference internal" href="names/spin.html#rotpy.names.spin.payload_type_names" title="rotpy.names.spin.payload_type_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">payload_type_names</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_pix_fmt">
+<span class="sig-name descname"><span class="pre">get_pix_fmt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_pix_fmt" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the image’s pixel format.</p>
+<p>This returns the pixel format name string from
+<a class="reference internal" href="names/camera.html#rotpy.names.camera.PixelFormat_names" title="rotpy.names.camera.PixelFormat_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">PixelFormat_names</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_pix_fmt_int_type">
+<span class="sig-name descname"><span class="pre">get_pix_fmt_int_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_pix_fmt_int_type" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the image’s integer type used in the pixel format of this image.</p>
+<p>This returns the name string from
+<a class="reference internal" href="names/spin.html#rotpy.names.spin.pix_fmt_int_names" title="rotpy.names.spin.pix_fmt_int_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">pix_fmt_int_names</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_pix_fmt_sfnc">
+<span class="sig-name descname"><span class="pre">get_pix_fmt_sfnc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_pix_fmt_sfnc" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a string value that represents this image’s pixel format.</p>
+<p>The string is a valid SFNC name that maps to the underlying TL specific
+pixel format. This is the most generic way to identify the pixel format
+of the image.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_status">
+<span class="sig-name descname"><span class="pre">get_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_status" title="Permalink to this definition"></a></dt>
+<dd><p>Returns data integrity status of the image when it was returned from
+<a class="reference internal" href="camera.html#rotpy.camera.Camera.get_next_image" title="rotpy.camera.Camera.get_next_image"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_next_image()</span></code></a>.</p>
+<p>This returns the name string from <a class="reference internal" href="names/spin.html#rotpy.names.spin.img_status_names" title="rotpy.names.spin.img_status_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">img_status_names</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_status_description">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_status_description</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unicode</span> <span class="pre">status</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_status_description" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a string describing the meaning of the status string from
+<a class="reference internal" href="#rotpy.image.Image.get_status" title="rotpy.image.Image.get_status"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_status()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>status</strong> – A status string from
+<a class="reference internal" href="names/spin.html#rotpy.names.spin.img_status_names" title="rotpy.names.spin.img_status_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">img_status_names</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_stride">
+<span class="sig-name descname"><span class="pre">get_stride</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_stride" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the stride of the image in bytes.</p>
+<p>The stride of an image is how many bytes are in each row.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_tl_payload_type">
+<span class="sig-name descname"><span class="pre">get_tl_payload_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_tl_payload_type" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the GenTL specific payload type that was transmitted.</p>
+<p>This is a Transport Layer specific value that identifies how the image
+was transmitted.</p>
+<p>This returns the payload type name string from
+<a class="reference internal" href="names/spin.html#rotpy.names.spin.payload_type_names" title="rotpy.names.spin.payload_type_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">payload_type_names</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_tl_pix_fmt">
+<span class="sig-name descname"><span class="pre">get_tl_pix_fmt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_tl_pix_fmt" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the pixel format of the image.</p>
+<p>This is a Transport Layer specific pixel format that identifies how the
+pixels in the image should be interpreted. To understand how to
+interpret this value it is necessary to know what the transport layer
+namespace is. This can be retrieved through
+<a class="reference internal" href="#rotpy.image.Image.get_tl_pix_fmt_namespace" title="rotpy.image.Image.get_tl_pix_fmt_namespace"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_tl_pix_fmt_namespace()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_tl_pix_fmt_namespace">
+<span class="sig-name descname"><span class="pre">get_tl_pix_fmt_namespace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_tl_pix_fmt_namespace" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the image’s underlying transport layer namespace in which this
+image’s TL specific pixel format resides.</p>
+<p>This returns the name string from
+<a class="reference internal" href="names/spin.html#rotpy.names.spin.pix_fmt_namespace_names" title="rotpy.names.spin.pix_fmt_namespace_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">pix_fmt_namespace_names</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_valid_payload_size">
+<span class="sig-name descname"><span class="pre">get_valid_payload_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_valid_payload_size" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the size of valid data in the image payload.</p>
+<p>This is the actual amount of data read from the device, including any
+additional private data. A user created image has a payload size of
+zero. The value returned here can be equal to the value returned by
+<a class="reference internal" href="#rotpy.image.Image.get_image_data_size" title="rotpy.image.Image.get_image_data_size"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_image_data_size()</span></code></a> if image data is the only payload.
+Note that <a class="reference internal" href="#rotpy.image.Image.get_buffer_size" title="rotpy.image.Image.get_buffer_size"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_buffer_size()</span></code></a> returns the total size of bytes
+allocated for the image and could be equal to or greater than the size
+returned by this function.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.get_width">
+<span class="sig-name descname"><span class="pre">get_width</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.get_width" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the width of the image in pixels.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.has_crc">
+<span class="sig-name descname"><span class="pre">has_crc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.has_crc" title="Permalink to this definition"></a></dt>
+<dd><p>Returns whether the image contains ImageCRC checksum from the chunk
+data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.release">
+<span class="sig-name descname"><span class="pre">release</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.release" title="Permalink to this definition"></a></dt>
+<dd><p>Release the image and its data for images gotten with
+<a class="reference internal" href="camera.html#rotpy.camera.Camera.get_next_image" title="rotpy.camera.Camera.get_next_image"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_next_image()</span></code></a>.</p>
+<p>If the image has been returned from the camera buffer, our hold over it
+is released and the camera can reuse the buffer. If we created the
+image manually it doesn’t do anything.</p>
+<p><a class="reference internal" href="#rotpy.image.Image.release" title="rotpy.image.Image.release"><code class="xref py py-meth docutils literal notranslate"><span class="pre">release()</span></code></a> must be called to release the image if it was returned
+by the camera. Otherwise, the camera can not re-use the buffer. For
+manually created images, this is not necessary as it happens
+automatically when the image is deleted.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Once called, all image operations are invalid and image methods
+should not be called.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.reset_image">
+<span class="sig-name descname"><span class="pre">reset_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">x_offset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">int</span> <span class="pre">y_offset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unicode</span> <span class="pre">pix_fmt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unicode</span> <span class="pre">data_type=u''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_t</span> <span class="pre">data_len=0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.reset_image" title="Permalink to this definition"></a></dt>
+<dd><p>Sets new dimensions of the image object and allocates memory if
+needed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>width</strong> – The image width.</p></li>
+<li><p><strong>height</strong> – The image height.</p></li>
+<li><p><strong>x_offset</strong> – The x-offset of the start of the image.</p></li>
+<li><p><strong>y_offset</strong> – The y-offset of the start of the image.</p></li>
+<li><p><strong>pix_fmt</strong> – The pixel format name string from
+<a class="reference internal" href="names/camera.html#rotpy.names.camera.PixelFormat_names" title="rotpy.names.camera.PixelFormat_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">PixelFormat_names</span></code></a>.</p></li>
+<li><p><strong>data</strong> – An optional bytes buffer or array containing the data to
+initialize the image with. If None, memory is automatically
+allocated.</p></li>
+<li><p><strong>data_type</strong> – The optional payload type of the data as named in
+<a class="reference internal" href="names/spin.html#rotpy.names.spin.payload_type_names" title="rotpy.names.spin.payload_type_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">payload_type_names</span></code></a> (such as compressed). See
+also <a class="reference internal" href="#rotpy.image.Image.get_payload_type" title="rotpy.image.Image.get_payload_type"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_payload_type()</span></code></a>. See also <a class="reference internal" href="#rotpy.image.Image.create_image" title="rotpy.image.Image.create_image"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_image()</span></code></a>.</p></li>
+<li><p><strong>data_len</strong> – The size of the <code class="docutils literal notranslate"><span class="pre">data</span></code> if provided. This is only used
+if the <code class="docutils literal notranslate"><span class="pre">data_type</span></code> is also given.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.save_bmp">
+<span class="sig-name descname"><span class="pre">save_bmp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unicode</span> <span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bool</span> <span class="pre">indexed_color_8bit=False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.save_bmp" title="Permalink to this definition"></a></dt>
+<dd><p>Saves the image to a bmp file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – The filename.</p></li>
+<li><p><strong>indexed_color_8bit</strong> – Whether to save as a 8-bit color index bmp
+(default False).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.save_file">
+<span class="sig-name descname"><span class="pre">save_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unicode</span> <span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unicode</span> <span class="pre">file_format=u'from_file_ext'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.save_file" title="Permalink to this definition"></a></dt>
+<dd><p>Saves the image to a file, depending on the format specified.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – The filename.</p></li>
+<li><p><strong>file_format</strong> – The file format to save - it’s a string from the
+options <a class="reference internal" href="names/spin.html#rotpy.names.spin.img_file_fmt_names" title="rotpy.names.spin.img_file_fmt_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">img_file_fmt_names</span></code></a>. By default it
+guesses from the extension.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.save_jpeg">
+<span class="sig-name descname"><span class="pre">save_jpeg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unicode</span> <span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bool</span> <span class="pre">progressive=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsigned</span> <span class="pre">int</span> <span class="pre">quality=75</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.save_jpeg" title="Permalink to this definition"></a></dt>
+<dd><p>Saves the image to a JPEG file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – The filename.</p></li>
+<li><p><strong>progressive</strong> – Whether to save as a progressive JPEG (default
+False).</p></li>
+<li><p><strong>quality</strong> – JPEG image quality in range (0-100) (default 75).
+100 - Superb quality, 75 - Good quality, 50 - Normal quality, 10 -
+Poor quality.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.save_jpeg2">
+<span class="sig-name descname"><span class="pre">save_jpeg2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unicode</span> <span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsigned</span> <span class="pre">int</span> <span class="pre">quality=16</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.save_jpeg2" title="Permalink to this definition"></a></dt>
+<dd><p>Saves the image to a JPEG2000 file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – The filename.</p></li>
+<li><p><strong>quality</strong> – JPEG image quality in range (1-512) (default 16).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.save_pgm">
+<span class="sig-name descname"><span class="pre">save_pgm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unicode</span> <span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bool</span> <span class="pre">binary=True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.save_pgm" title="Permalink to this definition"></a></dt>
+<dd><p>Saves the image to a pgm file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – The filename.</p></li>
+<li><p><strong>binary</strong> – Whether to save as a binary file (default True).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.save_png">
+<span class="sig-name descname"><span class="pre">save_png</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unicode</span> <span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bool</span> <span class="pre">interlaced=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsigned</span> <span class="pre">int</span> <span class="pre">compression=6</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.save_png" title="Permalink to this definition"></a></dt>
+<dd><p>Saves the image to a png file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – The filename.</p></li>
+<li><p><strong>interlaced</strong> – Whether to save interlaced (default False).</p></li>
+<li><p><strong>compression</strong> – The compression level (default 6) (0-9). 0 is no
+compression, 9 is best compression.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.save_ppm">
+<span class="sig-name descname"><span class="pre">save_ppm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unicode</span> <span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bool</span> <span class="pre">binary=True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.save_ppm" title="Permalink to this definition"></a></dt>
+<dd><p>Saves the image to a ppm file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – The filename.</p></li>
+<li><p><strong>binary</strong> – Whether to save as a binary file (default True).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.save_tiff">
+<span class="sig-name descname"><span class="pre">save_tiff</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unicode</span> <span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unicode</span> <span class="pre">compression=u'lzw'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.save_tiff" title="Permalink to this definition"></a></dt>
+<dd><p>Saves the image to a tiff file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> – The filename.</p></li>
+<li><p><strong>compression</strong> – The compression used to save the image (default
+lzw). It’s a string from the options
+<a class="reference internal" href="names/spin.html#rotpy.names.spin.compression_names" title="rotpy.names.spin.compression_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">compression_names</span></code></a>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.set_compression_threads">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_compression_threads</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unsigned</span> <span class="pre">int</span> <span class="pre">num</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.set_compression_threads" title="Permalink to this definition"></a></dt>
+<dd><p>Sets the default number of threads used for image decompression
+during <code class="xref py py-meth docutils literal notranslate"><span class="pre">convert()</span></code>.</p>
+<p>The number of threads used is defaulted to be equal to one less than the
+number of concurrent threads supported by the system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num</strong> – Number of parallel image decompression threads set to run.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.Image.set_default_color_processing_algo">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_default_color_processing_algo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">unicode</span> <span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.Image.set_default_color_processing_algo" title="Permalink to this definition"></a></dt>
+<dd><p>Sets the default color processing algorithm of all images (if not
+otherwise set).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – The name of the color processing algorithm used by default
+as listed in <a class="reference internal" href="names/spin.html#rotpy.names.spin.color_processing_algo_names" title="rotpy.names.spin.color_processing_algo_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">color_processing_algo_names</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ImageChunkData</span></span><a class="headerlink" href="#rotpy.image.ImageChunkData" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Represents some metadata about the raw <a class="reference internal" href="#rotpy.image.Image" title="rotpy.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do <strong>not</strong> create a <a class="reference internal" href="#rotpy.image.ImageChunkData" title="rotpy.image.ImageChunkData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageChunkData</span></code></a> manually, rather get an
+instance from e.g. <a class="reference internal" href="#rotpy.image.Image.get_chunk_data" title="rotpy.image.Image.get_chunk_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Image.get_chunk_data()</span></code></a>.</p>
+</div>
+<p><strong>Methods:</strong></p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_black_level" title="rotpy.image.ImageChunkData.get_black_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_black_level</span></code></a></p></td>
+<td><p>Returns the black level used to capture the image.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_compression_mode" title="rotpy.image.ImageChunkData.get_compression_mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_compression_mode</span></code></a></p></td>
+<td><p>Returns the compression mode of the last image payload.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_compression_ratio" title="rotpy.image.ImageChunkData.get_compression_ratio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_compression_ratio</span></code></a></p></td>
+<td><p>Returns the compression ratio of the last image payload.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_counter_value" title="rotpy.image.ImageChunkData.get_counter_value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_counter_value</span></code></a></p></td>
+<td><p>Returns the value of the selected Chunk counter at the time of the FrameStart event.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_crc" title="rotpy.image.ImageChunkData.get_crc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_crc</span></code></a></p></td>
+<td><p>Returns the CRC of the image payload.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_data" title="rotpy.image.ImageChunkData.get_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_data</span></code></a></p></td>
+<td><p>Returns a dict with all the chunk data labeled with a visibility of <code class="docutils literal notranslate"><span class="pre">default</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_encoder_value" title="rotpy.image.ImageChunkData.get_encoder_value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_encoder_value</span></code></a></p></td>
+<td><p>Returns the counter's value of the selected Encoder at the time of the FrameStart in area scan mode or the counter's value at the time of the LineStart selected by ChunkScanLineSelector in LineScan mode.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_expert_data" title="rotpy.image.ImageChunkData.get_expert_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_expert_data</span></code></a></p></td>
+<td><p>Returns a dict with all the chunk data labeled with a visibility of <code class="docutils literal notranslate"><span class="pre">expert</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_exposure_end_line_status_all" title="rotpy.image.ImageChunkData.get_exposure_end_line_status_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_exposure_end_line_status_all</span></code></a></p></td>
+<td><p>Returns the status of all the I/O lines at the end of exposure event.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_exposure_time" title="rotpy.image.ImageChunkData.get_exposure_time"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_exposure_time</span></code></a></p></td>
+<td><p>Returns the exposure time used to capture the image.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_frame_id" title="rotpy.image.ImageChunkData.get_frame_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_frame_id</span></code></a></p></td>
+<td><p>Returns the image frame ID.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_gain" title="rotpy.image.ImageChunkData.get_gain"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_gain</span></code></a></p></td>
+<td><p>Returns the gain used to capture the image.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_height" title="rotpy.image.ImageChunkData.get_height"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_height</span></code></a></p></td>
+<td><p>Returns the height of the image included in the payload.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_image" title="rotpy.image.ImageChunkData.get_image"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_image</span></code></a></p></td>
+<td><p>Returns the image payload.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_inference_confidence" title="rotpy.image.ImageChunkData.get_inference_confidence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_inference_confidence</span></code></a></p></td>
+<td><p>Returns the chunk data inference confidence percentage.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_inference_data" title="rotpy.image.ImageChunkData.get_inference_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_inference_data</span></code></a></p></td>
+<td><p>Returns a <a class="reference internal" href="#rotpy.image.ChunkDataInference" title="rotpy.image.ChunkDataInference"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChunkDataInference</span></code></a> that represents the inferred labeling of various areas of the image chunk.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_inference_frame_id" title="rotpy.image.ImageChunkData.get_inference_frame_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_inference_frame_id</span></code></a></p></td>
+<td><p>Returns the frame ID associated with the most recent inference result.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_inference_result" title="rotpy.image.ImageChunkData.get_inference_result"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_inference_result</span></code></a></p></td>
+<td><p>Returns the chunk data inference result.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_line_pitch" title="rotpy.image.ImageChunkData.get_line_pitch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_line_pitch</span></code></a></p></td>
+<td><p>Returns the LinePitch of the image included in the payload.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_line_status_all" title="rotpy.image.ImageChunkData.get_line_status_all"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_line_status_all</span></code></a></p></td>
+<td><p>Returns the status of all the I/O lines at the time of the FrameStart internal event.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_offset_x" title="rotpy.image.ImageChunkData.get_offset_x"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_offset_x</span></code></a></p></td>
+<td><p>Returns the Offset X of the image included in the payload.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_offset_y" title="rotpy.image.ImageChunkData.get_offset_y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_offset_y</span></code></a></p></td>
+<td><p>Returns the Offset Y of the image included in the payload.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_part_selector" title="rotpy.image.ImageChunkData.get_part_selector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_part_selector</span></code></a></p></td>
+<td><p>Selects the part to access in chunk data in a multipart transmission.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_pixel_dynamic_range_max" title="rotpy.image.ImageChunkData.get_pixel_dynamic_range_max"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pixel_dynamic_range_max</span></code></a></p></td>
+<td><p>Returns the maximum value of dynamic range of the image included in the payload.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_pixel_dynamic_range_min" title="rotpy.image.ImageChunkData.get_pixel_dynamic_range_min"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pixel_dynamic_range_min</span></code></a></p></td>
+<td><p>Returns the minimum value of dynamic range of the image included in the payload.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_scan3d_axis_max" title="rotpy.image.ImageChunkData.get_scan3d_axis_max"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_scan3d_axis_max</span></code></a></p></td>
+<td><p>Returns the Maximum Axis value for the selected coordinate axis of the image included in the payload.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_scan3d_axis_min" title="rotpy.image.ImageChunkData.get_scan3d_axis_min"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_scan3d_axis_min</span></code></a></p></td>
+<td><p>Returns the Minimum Axis value for the selected coordinate axis of the image included in the payload.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_scan3d_coordinate_offset" title="rotpy.image.ImageChunkData.get_scan3d_coordinate_offset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_scan3d_coordinate_offset</span></code></a></p></td>
+<td><p>Returns the Offset for the selected coordinate axis of the image included in the payload.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_scan3d_coordinate_reference_value" title="rotpy.image.ImageChunkData.get_scan3d_coordinate_reference_value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_scan3d_coordinate_reference_value</span></code></a></p></td>
+<td><p>Reads the value of a position or pose coordinate for the anchor or transformed coordinate systems relative to the reference point.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_scan3d_coordinate_scale" title="rotpy.image.ImageChunkData.get_scan3d_coordinate_scale"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_scan3d_coordinate_scale</span></code></a></p></td>
+<td><p>Returns the Scale for the selected coordinate axis of the image included in the payload.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_scan3d_invalid_data_value" title="rotpy.image.ImageChunkData.get_scan3d_invalid_data_value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_scan3d_invalid_data_value</span></code></a></p></td>
+<td><p>Returns the Invalid Data Value used for the image included in the payload.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_scan3d_transform_value" title="rotpy.image.ImageChunkData.get_scan3d_transform_value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_scan3d_transform_value</span></code></a></p></td>
+<td><p>Returns the transform value.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_scan_line_selector" title="rotpy.image.ImageChunkData.get_scan_line_selector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_scan_line_selector</span></code></a></p></td>
+<td><p>Index for vector representation of one chunk value per line in an image.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_sequencer_set_active" title="rotpy.image.ImageChunkData.get_sequencer_set_active"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_sequencer_set_active</span></code></a></p></td>
+<td><p>Returns the index of the active set of the running sequencer included in the payload.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_serial_data_length" title="rotpy.image.ImageChunkData.get_serial_data_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_serial_data_length</span></code></a></p></td>
+<td><p>Returns the length of the received serial data that was included in the payload.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_stream_channel_id" title="rotpy.image.ImageChunkData.get_stream_channel_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_stream_channel_id</span></code></a></p></td>
+<td><p>Returns identifier of the stream channel used to carry the block.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_timer_value" title="rotpy.image.ImageChunkData.get_timer_value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_timer_value</span></code></a></p></td>
+<td><p>Returns the value of the selected Timer at the time of the FrameStart internal event.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_timestamp" title="rotpy.image.ImageChunkData.get_timestamp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_timestamp</span></code></a></p></td>
+<td><p>Returns the Timestamp of the image.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_timestamp_latch_value" title="rotpy.image.ImageChunkData.get_timestamp_latch_value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_timestamp_latch_value</span></code></a></p></td>
+<td><p>Returns the last Timestamp latched with the TimestampLatch command.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_transfer_block_id" title="rotpy.image.ImageChunkData.get_transfer_block_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_transfer_block_id</span></code></a></p></td>
+<td><p>Returns the unique identifier of the transfer block used to transport the payload.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_transfer_queue_current_block_count" title="rotpy.image.ImageChunkData.get_transfer_queue_current_block_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_transfer_queue_current_block_count</span></code></a></p></td>
+<td><p>Returns the current number of blocks in the transfer queue.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.ImageChunkData.get_width" title="rotpy.image.ImageChunkData.get_width"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_width</span></code></a></p></td>
+<td><p>Returns the width of the image included in the payload.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_black_level">
+<span class="sig-name descname"><span class="pre">get_black_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_black_level" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the black level used to capture the image.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">default</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_compression_mode">
+<span class="sig-name descname"><span class="pre">get_compression_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_compression_mode" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the compression mode of the last image payload.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">default</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_compression_ratio">
+<span class="sig-name descname"><span class="pre">get_compression_ratio</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_compression_ratio" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the compression ratio of the last image payload.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">default</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_counter_value">
+<span class="sig-name descname"><span class="pre">get_counter_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_counter_value" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the value of the selected Chunk counter at the time of the FrameStart event.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">Expert</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_crc">
+<span class="sig-name descname"><span class="pre">get_crc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_crc" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the CRC of the image payload.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">default</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_data">
+<span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_data" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a dict with all the chunk data labeled with a visibility of
+<code class="docutils literal notranslate"><span class="pre">default</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_encoder_value">
+<span class="sig-name descname"><span class="pre">get_encoder_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_encoder_value" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the counter’s value of the selected Encoder at the time of the FrameStart in area scan mode or the counter’s value at the time of the LineStart selected by ChunkScanLineSelector in LineScan mode.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">Expert</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_expert_data">
+<span class="sig-name descname"><span class="pre">get_expert_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_expert_data" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a dict with all the chunk data labeled with a visibility of
+<code class="docutils literal notranslate"><span class="pre">expert</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_exposure_end_line_status_all">
+<span class="sig-name descname"><span class="pre">get_exposure_end_line_status_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_exposure_end_line_status_all" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the status of all the I/O lines at the end of exposure event.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">default</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_exposure_time">
+<span class="sig-name descname"><span class="pre">get_exposure_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_exposure_time" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the exposure time used to capture the image.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">default</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_frame_id">
+<span class="sig-name descname"><span class="pre">get_frame_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_frame_id" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the image frame ID.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">default</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_gain">
+<span class="sig-name descname"><span class="pre">get_gain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_gain" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the gain used to capture the image.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">default</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_height">
+<span class="sig-name descname"><span class="pre">get_height</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_height" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the height of the image included in the payload.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">default</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_image">
+<span class="sig-name descname"><span class="pre">get_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_image" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the image payload.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">default</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_inference_confidence">
+<span class="sig-name descname"><span class="pre">get_inference_confidence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_inference_confidence" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the chunk data inference confidence percentage.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">Expert</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_inference_data">
+<span class="sig-name descname"><span class="pre">get_inference_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_inference_data" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a <a class="reference internal" href="#rotpy.image.ChunkDataInference" title="rotpy.image.ChunkDataInference"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChunkDataInference</span></code></a> that represents the inferred
+labeling of various areas of the image chunk.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_inference_frame_id">
+<span class="sig-name descname"><span class="pre">get_inference_frame_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_inference_frame_id" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the frame ID associated with the most recent inference result.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">Expert</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_inference_result">
+<span class="sig-name descname"><span class="pre">get_inference_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_inference_result" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the chunk data inference result.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">Expert</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_line_pitch">
+<span class="sig-name descname"><span class="pre">get_line_pitch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_line_pitch" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the LinePitch of the image included in the payload.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">Expert</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_line_status_all">
+<span class="sig-name descname"><span class="pre">get_line_status_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_line_status_all" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the status of all the I/O lines at the time of the FrameStart internal event.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">Expert</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_offset_x">
+<span class="sig-name descname"><span class="pre">get_offset_x</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_offset_x" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the Offset X of the image included in the payload.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">default</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_offset_y">
+<span class="sig-name descname"><span class="pre">get_offset_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_offset_y" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the Offset Y of the image included in the payload.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">default</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_part_selector">
+<span class="sig-name descname"><span class="pre">get_part_selector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_part_selector" title="Permalink to this definition"></a></dt>
+<dd><p>Selects the part to access in chunk data in a multipart transmission.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">Expert</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_pixel_dynamic_range_max">
+<span class="sig-name descname"><span class="pre">get_pixel_dynamic_range_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_pixel_dynamic_range_max" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the maximum value of dynamic range of the image included in the payload.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">Expert</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_pixel_dynamic_range_min">
+<span class="sig-name descname"><span class="pre">get_pixel_dynamic_range_min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_pixel_dynamic_range_min" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the minimum value of dynamic range of the image included in the payload.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">Expert</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_scan3d_axis_max">
+<span class="sig-name descname"><span class="pre">get_scan3d_axis_max</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_scan3d_axis_max" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the Maximum Axis value for the selected coordinate axis of the image included in the payload.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">Expert</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_scan3d_axis_min">
+<span class="sig-name descname"><span class="pre">get_scan3d_axis_min</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_scan3d_axis_min" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the Minimum Axis value for the selected coordinate axis of the image included in the payload.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">Expert</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_scan3d_coordinate_offset">
+<span class="sig-name descname"><span class="pre">get_scan3d_coordinate_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_scan3d_coordinate_offset" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the Offset for the selected coordinate axis of the image included in the payload.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">Expert</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_scan3d_coordinate_reference_value">
+<span class="sig-name descname"><span class="pre">get_scan3d_coordinate_reference_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_scan3d_coordinate_reference_value" title="Permalink to this definition"></a></dt>
+<dd><p>Reads the value of a position or pose coordinate for the anchor or transformed coordinate systems relative to the reference point.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">Expert</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_scan3d_coordinate_scale">
+<span class="sig-name descname"><span class="pre">get_scan3d_coordinate_scale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_scan3d_coordinate_scale" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the Scale for the selected coordinate axis of the image included in the payload.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">Expert</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_scan3d_invalid_data_value">
+<span class="sig-name descname"><span class="pre">get_scan3d_invalid_data_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_scan3d_invalid_data_value" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the Invalid Data Value used for the image included in the payload.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">Expert</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_scan3d_transform_value">
+<span class="sig-name descname"><span class="pre">get_scan3d_transform_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_scan3d_transform_value" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the transform value.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">Expert</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_scan_line_selector">
+<span class="sig-name descname"><span class="pre">get_scan_line_selector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_scan_line_selector" title="Permalink to this definition"></a></dt>
+<dd><p>Index for vector representation of one chunk value per line in an image.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">Expert</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_sequencer_set_active">
+<span class="sig-name descname"><span class="pre">get_sequencer_set_active</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_sequencer_set_active" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the index of the active set of the running sequencer included in the payload.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">default</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_serial_data_length">
+<span class="sig-name descname"><span class="pre">get_serial_data_length</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_serial_data_length" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the length of the received serial data that was included in the payload.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">default</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_stream_channel_id">
+<span class="sig-name descname"><span class="pre">get_stream_channel_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_stream_channel_id" title="Permalink to this definition"></a></dt>
+<dd><p>Returns identifier of the stream channel used to carry the block.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">Expert</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_timer_value">
+<span class="sig-name descname"><span class="pre">get_timer_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_timer_value" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the value of the selected Timer at the time of the FrameStart internal event.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">Expert</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_timestamp">
+<span class="sig-name descname"><span class="pre">get_timestamp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_timestamp" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the Timestamp of the image.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">default</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_timestamp_latch_value">
+<span class="sig-name descname"><span class="pre">get_timestamp_latch_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_timestamp_latch_value" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the last Timestamp latched with the TimestampLatch command.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">Expert</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_transfer_block_id">
+<span class="sig-name descname"><span class="pre">get_transfer_block_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_transfer_block_id" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the unique identifier of the transfer block used to transport the payload.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">Expert</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_transfer_queue_current_block_count">
+<span class="sig-name descname"><span class="pre">get_transfer_queue_current_block_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_transfer_queue_current_block_count" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the current number of blocks in the transfer queue.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">Expert</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ImageChunkData.get_width">
+<span class="sig-name descname"><span class="pre">get_width</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ImageChunkData.get_width" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the width of the image included in the payload.</p>
+<p>Visibility: <code class="docutils literal notranslate"><span class="pre">default</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rotpy.image.ChunkDataInference">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ChunkDataInference</span></span><a class="headerlink" href="#rotpy.image.ChunkDataInference" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Represents object location inference data from a <a class="reference internal" href="#rotpy.image.Image" title="rotpy.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a>.</p>
+<p>Some cameras support automatically detecting objects using pre-trained
+machine learning algorithms, <a class="reference internal" href="#rotpy.image.ChunkDataInference" title="rotpy.image.ChunkDataInference"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChunkDataInference</span></code></a> represents
+the inferred object detection.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do <strong>not</strong> create a <a class="reference internal" href="#rotpy.image.ChunkDataInference" title="rotpy.image.ChunkDataInference"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChunkDataInference</span></code></a> manually, rather get an
+instance from e.g. <a class="reference internal" href="#rotpy.image.ImageChunkData.get_inference_data" title="rotpy.image.ImageChunkData.get_inference_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">ImageChunkData.get_inference_data()</span></code></a>.</p>
+</div>
+<p><strong>Methods:</strong></p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.ChunkDataInference.get_box" title="rotpy.image.ChunkDataInference.get_box"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_box</span></code></a></p></td>
+<td><p>Returns the bounding box at the zero-based <code class="docutils literal notranslate"><span class="pre">index</span></code> that is less than <a class="reference internal" href="#rotpy.image.ChunkDataInference.get_num_boxes" title="rotpy.image.ChunkDataInference.get_num_boxes"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_num_boxes()</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.ChunkDataInference.get_box_size" title="rotpy.image.ChunkDataInference.get_box_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_box_size</span></code></a></p></td>
+<td><p>Returns the number of bytes allocated for one bounding box.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.ChunkDataInference.get_boxes" title="rotpy.image.ChunkDataInference.get_boxes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_boxes</span></code></a></p></td>
+<td><p>Returns a list of all the inferred boxes.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.image.ChunkDataInference.get_num_boxes" title="rotpy.image.ChunkDataInference.get_num_boxes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_num_boxes</span></code></a></p></td>
+<td><p>Returns the number of bounding boxes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.image.ChunkDataInference.get_version" title="rotpy.image.ChunkDataInference.get_version"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_version</span></code></a></p></td>
+<td><p>Returns the bounding box format version number.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ChunkDataInference.get_box">
+<span class="sig-name descname"><span class="pre">get_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uint16_t</span> <span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ChunkDataInference.get_box" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the bounding box at the zero-based <code class="docutils literal notranslate"><span class="pre">index</span></code> that
+is less than <a class="reference internal" href="#rotpy.image.ChunkDataInference.get_num_boxes" title="rotpy.image.ChunkDataInference.get_num_boxes"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_num_boxes()</span></code></a>.</p>
+<p>The total number of boxes is <a class="reference internal" href="#rotpy.image.ChunkDataInference.get_num_boxes" title="rotpy.image.ChunkDataInference.get_num_boxes"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_num_boxes()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> – The box index to get.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><p>Returns a 4-tuple of <code class="docutils literal notranslate"><span class="pre">(class,</span> <span class="pre">confidence,</span> <span class="pre">type,</span> <span class="pre">value)</span></code>,
+where <code class="docutils literal notranslate"><span class="pre">class</span></code> is the class ID of the box, <code class="docutils literal notranslate"><span class="pre">confidence</span></code> is our
+confidence in it, type is a string indicating the box type and it’s
+one of <code class="docutils literal notranslate"><span class="pre">&quot;rect&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;rotated_rect&quot;</span></code>, or <code class="docutils literal notranslate"><span class="pre">&quot;circle&quot;</span></code>. <code class="docutils literal notranslate"><span class="pre">value</span></code>
+is dependant on the type.</p>
+<p>If type is <code class="docutils literal notranslate"><span class="pre">&quot;rect&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">value</span></code> is a 4-tuple of
+<code class="docutils literal notranslate"><span class="pre">(top_left_x,</span> <span class="pre">top_left_y,</span> <span class="pre">bottom_right_x,</span> <span class="pre">bottom_right_y)</span></code>.
+If type is <code class="docutils literal notranslate"><span class="pre">&quot;rotated_rect&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">value</span></code> is a 5-tuple of
+<code class="docutils literal notranslate"><span class="pre">(top_left_x,</span> <span class="pre">top_left_y,</span> <span class="pre">bottom_right_x,</span> <span class="pre">bottom_right_y,</span>
+<span class="pre">rotation_angle)</span></code>.
+If type is <code class="docutils literal notranslate"><span class="pre">&quot;circle&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">value</span></code> is a 3-tuple of
+<code class="docutils literal notranslate"><span class="pre">(center_x,</span> <span class="pre">center_y,</span> <span class="pre">radius)</span></code>.</p>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ChunkDataInference.get_box_size">
+<span class="sig-name descname"><span class="pre">get_box_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ChunkDataInference.get_box_size" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the number of bytes allocated for one bounding box.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ChunkDataInference.get_boxes">
+<span class="sig-name descname"><span class="pre">get_boxes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ChunkDataInference.get_boxes" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of all the inferred boxes.</p>
+<p>It returns a list of tuples, where each tuple is in the format as
+returned by <a class="reference internal" href="#rotpy.image.ChunkDataInference.get_box" title="rotpy.image.ChunkDataInference.get_box"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_box()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ChunkDataInference.get_num_boxes">
+<span class="sig-name descname"><span class="pre">get_num_boxes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ChunkDataInference.get_num_boxes" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the number of bounding boxes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.image.ChunkDataInference.get_version">
+<span class="sig-name descname"><span class="pre">get_version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.image.ChunkDataInference.get_version" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the bounding box format version number.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="camera.html" class="btn btn-neutral float-left" title="Camera" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="node.html" class="btn btn-neutral float-right" title="Node" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Matthew Einhorn.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

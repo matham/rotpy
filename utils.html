@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Utilities &mdash; RotPy 0.2.1.dev0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Camera nodes" href="camera_nodes.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> RotPy
+          </a>
+              <div class="version">
+                0.2.1.dev0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="README.html">RotPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="README.html#pre-compiled-wheels">Pre-compiled wheels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="README.html#from-source">From source</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="README.html#getting-an-image-from-a-gige-camera">Getting an image from a GigE camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="README.html#configuring-and-getting-an-image-from-a-usb3-camera">Configuring and getting an image from a USB3 camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="README.html#system-and-camera-properties">System and camera properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="README.html#attaching-event-handlers">Attaching event handlers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="README.html#camera-detection-events">Camera detection events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="README.html#logging-handler">Logging handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="README.html#camera-image-handler">Camera image handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="README.html#camera-events">Camera events</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">The RotPy API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="rotpy.html">RotPy Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system.html">System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="camera.html">Camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="image.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="node.html">Node</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="node.html#node-access">Node access</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="names/api.html">Enums</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="names/api.html#enum-names">Enum names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="names/spin.html">Spinnaker enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="names/camera.html">Camera enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="names/tl.html">Transport layer enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="names/geni.html">GenAPI enums</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="system_nodes.html">System nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="camera_nodes.html">Camera nodes</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Utilities</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RotPy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="api.html">The RotPy API</a> &raquo;</li>
+      <li>Utilities</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/matham/rotpy/blob/main/doc/source/utils.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="module-rotpy.utils"></span><section id="utilities">
+<h1>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline"></a></h1>
+<p>Module for extracting cython headers from the Spinnaker headers.
+For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">header</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;E:\FLIR\Spinnaker\include\spinc\FSpinnakerC&#39;</span>
+<span class="n">content</span> <span class="o">=</span> <span class="n">parse_header</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.h&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">header</span><span class="p">))</span>
+<span class="n">dump_cython</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.h&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">header</span><span class="p">),</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.pxi&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">header</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Or to get the class nodes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">content</span> <span class="o">=</span> <span class="n">parse_class_vars</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="n">dump_genapi_var_type_prop_cython</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1">.px&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Classes:</strong></p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.utils.VariableSpec" title="rotpy.utils.VariableSpec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">VariableSpec</span></code></a></p></td>
+<td><p>Represents a variable declaration in e.g.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.utils.FunctionSpec" title="rotpy.utils.FunctionSpec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FunctionSpec</span></code></a></p></td>
+<td><p>Represents a c function prototype.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.utils.StructSpec" title="rotpy.utils.StructSpec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StructSpec</span></code></a></p></td>
+<td><p>Represents a c struct definition.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.utils.EnumSpec" title="rotpy.utils.EnumSpec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EnumSpec</span></code></a></p></td>
+<td><p>Represents a c enum definition.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.utils.EnumMemberSpec" title="rotpy.utils.EnumMemberSpec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EnumMemberSpec</span></code></a></p></td>
+<td><p>Represents a c enum member.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.utils.TypeDef" title="rotpy.utils.TypeDef"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TypeDef</span></code></a></p></td>
+<td><p>Represents a c typedef.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.utils.GenAPIVarSpec" title="rotpy.utils.GenAPIVarSpec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GenAPIVarSpec</span></code></a></p></td>
+<td><p>Represnts a Node that is a class variable in the header.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Functions:</strong></p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.utils.strip_comments" title="rotpy.utils.strip_comments"><code class="xref py py-obj docutils literal notranslate"><span class="pre">strip_comments</span></code></a></p></td>
+<td><p>Returns the headers with comments removed.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.utils.parse_prototype" title="rotpy.utils.parse_prototype"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_prototype</span></code></a></p></td>
+<td><p>Returns a <a class="reference internal" href="#rotpy.utils.FunctionSpec" title="rotpy.utils.FunctionSpec"><code class="xref py py-attr docutils literal notranslate"><span class="pre">FunctionSpec</span></code></a> instance from the input.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.utils.parse_struct" title="rotpy.utils.parse_struct"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_struct</span></code></a></p></td>
+<td><p>Returns a <a class="reference internal" href="#rotpy.utils.StructSpec" title="rotpy.utils.StructSpec"><code class="xref py py-attr docutils literal notranslate"><span class="pre">StructSpec</span></code></a> instance from the input.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.utils.parse_enum" title="rotpy.utils.parse_enum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_enum</span></code></a></p></td>
+<td><p>Returns a <a class="reference internal" href="#rotpy.utils.EnumSpec" title="rotpy.utils.EnumSpec"><code class="xref py py-attr docutils literal notranslate"><span class="pre">EnumSpec</span></code></a> instance from the input.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.utils.parse_header" title="rotpy.utils.parse_header"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_header</span></code></a></p></td>
+<td><p>Returns a list of <a class="reference internal" href="#rotpy.utils.VariableSpec" title="rotpy.utils.VariableSpec"><code class="xref py py-attr docutils literal notranslate"><span class="pre">VariableSpec</span></code></a>, <a class="reference internal" href="#rotpy.utils.FunctionSpec" title="rotpy.utils.FunctionSpec"><code class="xref py py-attr docutils literal notranslate"><span class="pre">FunctionSpec</span></code></a>, <a class="reference internal" href="#rotpy.utils.StructSpec" title="rotpy.utils.StructSpec"><code class="xref py py-attr docutils literal notranslate"><span class="pre">StructSpec</span></code></a>, <a class="reference internal" href="#rotpy.utils.EnumSpec" title="rotpy.utils.EnumSpec"><code class="xref py py-attr docutils literal notranslate"><span class="pre">EnumSpec</span></code></a>, <a class="reference internal" href="#rotpy.utils.EnumMemberSpec" title="rotpy.utils.EnumMemberSpec"><code class="xref py py-attr docutils literal notranslate"><span class="pre">EnumMemberSpec</span></code></a>, and <a class="reference internal" href="#rotpy.utils.TypeDef" title="rotpy.utils.TypeDef"><code class="xref py py-attr docutils literal notranslate"><span class="pre">TypeDef</span></code></a> instances representing the c header file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.utils.format_typedef" title="rotpy.utils.format_typedef"><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_typedef</span></code></a></p></td>
+<td><p>Generates a cython typedef from a <a class="reference internal" href="#rotpy.utils.TypeDef" title="rotpy.utils.TypeDef"><code class="xref py py-attr docutils literal notranslate"><span class="pre">TypeDef</span></code></a> instance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.utils.format_enum" title="rotpy.utils.format_enum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_enum</span></code></a></p></td>
+<td><p>Returns a cython enum from a <a class="reference internal" href="#rotpy.utils.EnumSpec" title="rotpy.utils.EnumSpec"><code class="xref py py-attr docutils literal notranslate"><span class="pre">EnumSpec</span></code></a> instance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.utils.format_variable" title="rotpy.utils.format_variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_variable</span></code></a></p></td>
+<td><p>Returns a cython variable from a <a class="reference internal" href="#rotpy.utils.VariableSpec" title="rotpy.utils.VariableSpec"><code class="xref py py-attr docutils literal notranslate"><span class="pre">VariableSpec</span></code></a> instance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.utils.format_function" title="rotpy.utils.format_function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_function</span></code></a></p></td>
+<td><p>Returns a cython function from a <a class="reference internal" href="#rotpy.utils.FunctionSpec" title="rotpy.utils.FunctionSpec"><code class="xref py py-attr docutils literal notranslate"><span class="pre">FunctionSpec</span></code></a> instance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.utils.format_struct" title="rotpy.utils.format_struct"><code class="xref py py-obj docutils literal notranslate"><span class="pre">format_struct</span></code></a></p></td>
+<td><p>Returns a cython struct from a <a class="reference internal" href="#rotpy.utils.StructSpec" title="rotpy.utils.StructSpec"><code class="xref py py-attr docutils literal notranslate"><span class="pre">StructSpec</span></code></a> instance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.utils.dump_cython" title="rotpy.utils.dump_cython"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dump_cython</span></code></a></p></td>
+<td><p>Generates a cython pxi file from the output of <a class="reference internal" href="#rotpy.utils.parse_header" title="rotpy.utils.parse_header"><code class="xref py py-func docutils literal notranslate"><span class="pre">parse_header()</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.utils.parse_class_vars" title="rotpy.utils.parse_class_vars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parse_class_vars</span></code></a></p></td>
+<td><p>Parses the variable nodes from a header.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.utils.dump_genapi_prop_cython" title="rotpy.utils.dump_genapi_prop_cython"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dump_genapi_prop_cython</span></code></a></p></td>
+<td><p>Dumps all the nodes as <code class="docutils literal notranslate"><span class="pre">&#64;property</span></code> methods of a cython class.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.utils.dump_genapi_import_prop_cython" title="rotpy.utils.dump_genapi_import_prop_cython"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dump_genapi_import_prop_cython</span></code></a></p></td>
+<td><p>Dumps all the C++ class nodes in the format to be included in a pxi file representing the header import.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.utils.dump_genapi_var_type_prop_cython" title="rotpy.utils.dump_genapi_var_type_prop_cython"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dump_genapi_var_type_prop_cython</span></code></a></p></td>
+<td><p>Dumps all the names of the nodes of a cython class and groups them into the type of node, e.g.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="rotpy.utils.VariableSpec">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">VariableSpec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pointer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.utils.VariableSpec" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
+<p>Represents a variable declaration in e.g. the definition of a function
+or its return value.</p>
+<p><strong>Attributes:</strong></p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.utils.VariableSpec.count" title="rotpy.utils.VariableSpec.count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">count</span></code></a></p></td>
+<td><p>Alias for field number 3</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.utils.VariableSpec.name" title="rotpy.utils.VariableSpec.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
+<td><p>Alias for field number 2</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.utils.VariableSpec.pointer" title="rotpy.utils.VariableSpec.pointer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pointer</span></code></a></p></td>
+<td><p>Alias for field number 1</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.utils.VariableSpec.type" title="rotpy.utils.VariableSpec.type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type</span></code></a></p></td>
+<td><p>Alias for field number 0</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.utils.VariableSpec.count">
+<span class="sig-name descname"><span class="pre">count</span></span><a class="headerlink" href="#rotpy.utils.VariableSpec.count" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.utils.VariableSpec.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#rotpy.utils.VariableSpec.name" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.utils.VariableSpec.pointer">
+<span class="sig-name descname"><span class="pre">pointer</span></span><a class="headerlink" href="#rotpy.utils.VariableSpec.pointer" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.utils.VariableSpec.type">
+<span class="sig-name descname"><span class="pre">type</span></span><a class="headerlink" href="#rotpy.utils.VariableSpec.type" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rotpy.utils.FunctionSpec">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">FunctionSpec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pointer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.utils.FunctionSpec" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
+<p>Represents a c function prototype.</p>
+<p><strong>Attributes:</strong></p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.utils.FunctionSpec.args" title="rotpy.utils.FunctionSpec.args"><code class="xref py py-obj docutils literal notranslate"><span class="pre">args</span></code></a></p></td>
+<td><p>Alias for field number 4</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.utils.FunctionSpec.dec" title="rotpy.utils.FunctionSpec.dec"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dec</span></code></a></p></td>
+<td><p>Alias for field number 0</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.utils.FunctionSpec.name" title="rotpy.utils.FunctionSpec.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
+<td><p>Alias for field number 3</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.utils.FunctionSpec.pointer" title="rotpy.utils.FunctionSpec.pointer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pointer</span></code></a></p></td>
+<td><p>Alias for field number 2</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.utils.FunctionSpec.type" title="rotpy.utils.FunctionSpec.type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type</span></code></a></p></td>
+<td><p>Alias for field number 1</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.utils.FunctionSpec.args">
+<span class="sig-name descname"><span class="pre">args</span></span><a class="headerlink" href="#rotpy.utils.FunctionSpec.args" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 4</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.utils.FunctionSpec.dec">
+<span class="sig-name descname"><span class="pre">dec</span></span><a class="headerlink" href="#rotpy.utils.FunctionSpec.dec" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.utils.FunctionSpec.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#rotpy.utils.FunctionSpec.name" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.utils.FunctionSpec.pointer">
+<span class="sig-name descname"><span class="pre">pointer</span></span><a class="headerlink" href="#rotpy.utils.FunctionSpec.pointer" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.utils.FunctionSpec.type">
+<span class="sig-name descname"><span class="pre">type</span></span><a class="headerlink" href="#rotpy.utils.FunctionSpec.type" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rotpy.utils.StructSpec">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">StructSpec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tp_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">members</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.utils.StructSpec" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
+<p>Represents a c struct definition.</p>
+<p><strong>Attributes:</strong></p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.utils.StructSpec.members" title="rotpy.utils.StructSpec.members"><code class="xref py py-obj docutils literal notranslate"><span class="pre">members</span></code></a></p></td>
+<td><p>Alias for field number 2</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.utils.StructSpec.names" title="rotpy.utils.StructSpec.names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">names</span></code></a></p></td>
+<td><p>Alias for field number 1</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.utils.StructSpec.tp_name" title="rotpy.utils.StructSpec.tp_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tp_name</span></code></a></p></td>
+<td><p>Alias for field number 0</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.utils.StructSpec.members">
+<span class="sig-name descname"><span class="pre">members</span></span><a class="headerlink" href="#rotpy.utils.StructSpec.members" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.utils.StructSpec.names">
+<span class="sig-name descname"><span class="pre">names</span></span><a class="headerlink" href="#rotpy.utils.StructSpec.names" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.utils.StructSpec.tp_name">
+<span class="sig-name descname"><span class="pre">tp_name</span></span><a class="headerlink" href="#rotpy.utils.StructSpec.tp_name" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rotpy.utils.EnumSpec">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EnumSpec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tp_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.utils.EnumSpec" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
+<p>Represents a c enum definition.</p>
+<p><strong>Attributes:</strong></p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.utils.EnumSpec.names" title="rotpy.utils.EnumSpec.names"><code class="xref py py-obj docutils literal notranslate"><span class="pre">names</span></code></a></p></td>
+<td><p>Alias for field number 1</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.utils.EnumSpec.tp_name" title="rotpy.utils.EnumSpec.tp_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tp_name</span></code></a></p></td>
+<td><p>Alias for field number 0</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.utils.EnumSpec.values" title="rotpy.utils.EnumSpec.values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">values</span></code></a></p></td>
+<td><p>Alias for field number 2</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.utils.EnumSpec.names">
+<span class="sig-name descname"><span class="pre">names</span></span><a class="headerlink" href="#rotpy.utils.EnumSpec.names" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.utils.EnumSpec.tp_name">
+<span class="sig-name descname"><span class="pre">tp_name</span></span><a class="headerlink" href="#rotpy.utils.EnumSpec.tp_name" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.utils.EnumSpec.values">
+<span class="sig-name descname"><span class="pre">values</span></span><a class="headerlink" href="#rotpy.utils.EnumSpec.values" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rotpy.utils.EnumMemberSpec">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EnumMemberSpec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.utils.EnumMemberSpec" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
+<p>Represents a c enum member.</p>
+<p><strong>Attributes:</strong></p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.utils.EnumMemberSpec.name" title="rotpy.utils.EnumMemberSpec.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
+<td><p>Alias for field number 0</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.utils.EnumMemberSpec.value" title="rotpy.utils.EnumMemberSpec.value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">value</span></code></a></p></td>
+<td><p>Alias for field number 1</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.utils.EnumMemberSpec.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#rotpy.utils.EnumMemberSpec.name" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.utils.EnumMemberSpec.value">
+<span class="sig-name descname"><span class="pre">value</span></span><a class="headerlink" href="#rotpy.utils.EnumMemberSpec.value" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rotpy.utils.TypeDef">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">TypeDef</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">body</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.utils.TypeDef" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
+<p>Represents a c typedef.</p>
+<p><strong>Attributes:</strong></p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.utils.TypeDef.body" title="rotpy.utils.TypeDef.body"><code class="xref py py-obj docutils literal notranslate"><span class="pre">body</span></code></a></p></td>
+<td><p>Alias for field number 0</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.utils.TypeDef.body">
+<span class="sig-name descname"><span class="pre">body</span></span><a class="headerlink" href="#rotpy.utils.TypeDef.body" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rotpy.utils.GenAPIVarSpec">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GenAPIVarSpec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">visibility</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_template</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.utils.GenAPIVarSpec" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
+<p>Represnts a Node that is a class variable in the header.</p>
+<p><strong>Attributes:</strong></p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.utils.GenAPIVarSpec.description" title="rotpy.utils.GenAPIVarSpec.description"><code class="xref py py-obj docutils literal notranslate"><span class="pre">description</span></code></a></p></td>
+<td><p>Alias for field number 4</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.utils.GenAPIVarSpec.name" title="rotpy.utils.GenAPIVarSpec.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></a></p></td>
+<td><p>Alias for field number 3</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.utils.GenAPIVarSpec.type_name" title="rotpy.utils.GenAPIVarSpec.type_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_name</span></code></a></p></td>
+<td><p>Alias for field number 1</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.utils.GenAPIVarSpec.type_template" title="rotpy.utils.GenAPIVarSpec.type_template"><code class="xref py py-obj docutils literal notranslate"><span class="pre">type_template</span></code></a></p></td>
+<td><p>Alias for field number 2</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.utils.GenAPIVarSpec.visibility" title="rotpy.utils.GenAPIVarSpec.visibility"><code class="xref py py-obj docutils literal notranslate"><span class="pre">visibility</span></code></a></p></td>
+<td><p>Alias for field number 0</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.utils.GenAPIVarSpec.description">
+<span class="sig-name descname"><span class="pre">description</span></span><a class="headerlink" href="#rotpy.utils.GenAPIVarSpec.description" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 4</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.utils.GenAPIVarSpec.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#rotpy.utils.GenAPIVarSpec.name" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 3</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.utils.GenAPIVarSpec.type_name">
+<span class="sig-name descname"><span class="pre">type_name</span></span><a class="headerlink" href="#rotpy.utils.GenAPIVarSpec.type_name" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.utils.GenAPIVarSpec.type_template">
+<span class="sig-name descname"><span class="pre">type_template</span></span><a class="headerlink" href="#rotpy.utils.GenAPIVarSpec.type_template" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 2</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.utils.GenAPIVarSpec.visibility">
+<span class="sig-name descname"><span class="pre">visibility</span></span><a class="headerlink" href="#rotpy.utils.GenAPIVarSpec.visibility" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rotpy.utils.strip_comments">
+<span class="sig-name descname"><span class="pre">strip_comments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">code</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rotpy/utils.html#strip_comments"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rotpy.utils.strip_comments" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the headers with comments removed.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rotpy.utils.parse_prototype">
+<span class="sig-name descname"><span class="pre">parse_prototype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prototype</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rotpy/utils.html#parse_prototype"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rotpy.utils.parse_prototype" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a <a class="reference internal" href="#rotpy.utils.FunctionSpec" title="rotpy.utils.FunctionSpec"><code class="xref py py-attr docutils literal notranslate"><span class="pre">FunctionSpec</span></code></a> instance from the input.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rotpy.utils.parse_struct">
+<span class="sig-name descname"><span class="pre">parse_struct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rotpy/utils.html#parse_struct"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rotpy.utils.parse_struct" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a <a class="reference internal" href="#rotpy.utils.StructSpec" title="rotpy.utils.StructSpec"><code class="xref py py-attr docutils literal notranslate"><span class="pre">StructSpec</span></code></a> instance from the input.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rotpy.utils.parse_enum">
+<span class="sig-name descname"><span class="pre">parse_enum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rotpy/utils.html#parse_enum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rotpy.utils.parse_enum" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a <a class="reference internal" href="#rotpy.utils.EnumSpec" title="rotpy.utils.EnumSpec"><code class="xref py py-attr docutils literal notranslate"><span class="pre">EnumSpec</span></code></a> instance from the input.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rotpy.utils.parse_header">
+<span class="sig-name descname"><span class="pre">parse_header</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rotpy/utils.html#parse_header"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rotpy.utils.parse_header" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of <a class="reference internal" href="#rotpy.utils.VariableSpec" title="rotpy.utils.VariableSpec"><code class="xref py py-attr docutils literal notranslate"><span class="pre">VariableSpec</span></code></a>, <a class="reference internal" href="#rotpy.utils.FunctionSpec" title="rotpy.utils.FunctionSpec"><code class="xref py py-attr docutils literal notranslate"><span class="pre">FunctionSpec</span></code></a>,
+<a class="reference internal" href="#rotpy.utils.StructSpec" title="rotpy.utils.StructSpec"><code class="xref py py-attr docutils literal notranslate"><span class="pre">StructSpec</span></code></a>, <a class="reference internal" href="#rotpy.utils.EnumSpec" title="rotpy.utils.EnumSpec"><code class="xref py py-attr docutils literal notranslate"><span class="pre">EnumSpec</span></code></a>, <a class="reference internal" href="#rotpy.utils.EnumMemberSpec" title="rotpy.utils.EnumMemberSpec"><code class="xref py py-attr docutils literal notranslate"><span class="pre">EnumMemberSpec</span></code></a>, and
+<a class="reference internal" href="#rotpy.utils.TypeDef" title="rotpy.utils.TypeDef"><code class="xref py py-attr docutils literal notranslate"><span class="pre">TypeDef</span></code></a> instances representing the c header file.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rotpy.utils.format_typedef">
+<span class="sig-name descname"><span class="pre">format_typedef</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">typedef</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rotpy/utils.html#format_typedef"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rotpy.utils.format_typedef" title="Permalink to this definition"></a></dt>
+<dd><p>Generates a cython typedef from a <a class="reference internal" href="#rotpy.utils.TypeDef" title="rotpy.utils.TypeDef"><code class="xref py py-attr docutils literal notranslate"><span class="pre">TypeDef</span></code></a> instance.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rotpy.utils.format_enum">
+<span class="sig-name descname"><span class="pre">format_enum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">enum_def</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rotpy/utils.html#format_enum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rotpy.utils.format_enum" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a cython enum from a <a class="reference internal" href="#rotpy.utils.EnumSpec" title="rotpy.utils.EnumSpec"><code class="xref py py-attr docutils literal notranslate"><span class="pre">EnumSpec</span></code></a> instance.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rotpy.utils.format_variable">
+<span class="sig-name descname"><span class="pre">format_variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variable</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rotpy/utils.html#format_variable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rotpy.utils.format_variable" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a cython variable from a <a class="reference internal" href="#rotpy.utils.VariableSpec" title="rotpy.utils.VariableSpec"><code class="xref py py-attr docutils literal notranslate"><span class="pre">VariableSpec</span></code></a> instance.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rotpy.utils.format_function">
+<span class="sig-name descname"><span class="pre">format_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rotpy/utils.html#format_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rotpy.utils.format_function" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a cython function from a <a class="reference internal" href="#rotpy.utils.FunctionSpec" title="rotpy.utils.FunctionSpec"><code class="xref py py-attr docutils literal notranslate"><span class="pre">FunctionSpec</span></code></a> instance.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rotpy.utils.format_struct">
+<span class="sig-name descname"><span class="pre">format_struct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">struct_def</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rotpy/utils.html#format_struct"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rotpy.utils.format_struct" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a cython struct from a <a class="reference internal" href="#rotpy.utils.StructSpec" title="rotpy.utils.StructSpec"><code class="xref py py-attr docutils literal notranslate"><span class="pre">StructSpec</span></code></a> instance.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rotpy.utils.dump_cython">
+<span class="sig-name descname"><span class="pre">dump_cython</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ofile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rotpy/utils.html#dump_cython"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rotpy.utils.dump_cython" title="Permalink to this definition"></a></dt>
+<dd><p>Generates a cython pxi file from the output of <a class="reference internal" href="#rotpy.utils.parse_header" title="rotpy.utils.parse_header"><code class="xref py py-func docutils literal notranslate"><span class="pre">parse_header()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rotpy.utils.parse_class_vars">
+<span class="sig-name descname"><span class="pre">parse_class_vars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rotpy/utils.html#parse_class_vars"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rotpy.utils.parse_class_vars" title="Permalink to this definition"></a></dt>
+<dd><p>Parses the variable nodes from a header.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rotpy.utils.dump_genapi_prop_cython">
+<span class="sig-name descname"><span class="pre">dump_genapi_prop_cython</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#rotpy.utils.GenAPIVarSpec" title="rotpy.utils.GenAPIVarSpec"><span class="pre">rotpy.utils.GenAPIVarSpec</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ofile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prop_storage_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'_nodes'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cam_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'_camera'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'_camera'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prop_prefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_mod</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.camera'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">enum_suffix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Enum'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rotpy/utils.html#dump_genapi_prop_cython"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rotpy.utils.dump_genapi_prop_cython" title="Permalink to this definition"></a></dt>
+<dd><p>Dumps all the nodes as <code class="docutils literal notranslate"><span class="pre">&#64;property</span></code> methods of a cython class.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rotpy.utils.dump_genapi_import_prop_cython">
+<span class="sig-name descname"><span class="pre">dump_genapi_import_prop_cython</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#rotpy.utils.GenAPIVarSpec" title="rotpy.utils.GenAPIVarSpec"><span class="pre">rotpy.utils.GenAPIVarSpec</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ofile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rotpy/utils.html#dump_genapi_import_prop_cython"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rotpy.utils.dump_genapi_import_prop_cython" title="Permalink to this definition"></a></dt>
+<dd><p>Dumps all the C++ class nodes in the format to be included in a pxi
+file representing the header import.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="rotpy.utils.dump_genapi_var_type_prop_cython">
+<span class="sig-name descname"><span class="pre">dump_genapi_var_type_prop_cython</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#rotpy.utils.GenAPIVarSpec" title="rotpy.utils.GenAPIVarSpec"><span class="pre">rotpy.utils.GenAPIVarSpec</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ofile</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/rotpy/utils.html#dump_genapi_var_type_prop_cython"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rotpy.utils.dump_genapi_var_type_prop_cython" title="Permalink to this definition"></a></dt>
+<dd><p>Dumps all the names of the nodes of a cython class and groups them
+into the type of node, e.g. string, float, enum etc.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="camera_nodes.html" class="btn btn-neutral float-left" title="Camera nodes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Matthew Einhorn.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

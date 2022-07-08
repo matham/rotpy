@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spinnaker enums &mdash; RotPy 0.2.1.dev0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Camera enums" href="camera.html" />
+    <link rel="prev" title="Enums" href="api.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> RotPy
+          </a>
+              <div class="version">
+                0.2.1.dev0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../README.html">RotPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../README.html#pre-compiled-wheels">Pre-compiled wheels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../README.html#from-source">From source</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../README.html#getting-an-image-from-a-gige-camera">Getting an image from a GigE camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../README.html#configuring-and-getting-an-image-from-a-usb3-camera">Configuring and getting an image from a USB3 camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../README.html#system-and-camera-properties">System and camera properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../README.html#attaching-event-handlers">Attaching event handlers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../README.html#camera-detection-events">Camera detection events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../README.html#logging-handler">Logging handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../README.html#camera-image-handler">Camera image handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../README.html#camera-events">Camera events</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">The RotPy API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../rotpy.html">RotPy Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system.html">System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../camera.html">Camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../node.html">Node</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../node.html#node-access">Node access</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="api.html">Enums</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="api.html#enum-names">Enum names</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Spinnaker enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="camera.html">Camera enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tl.html">Transport layer enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="geni.html">GenAPI enums</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../system_nodes.html">System nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../camera_nodes.html">Camera nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">Utilities</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">RotPy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../api.html">The RotPy API</a> &raquo;</li>
+          <li><a href="api.html">Enums</a> &raquo;</li>
+      <li>Spinnaker enums</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/matham/rotpy/blob/main/doc/source/names/spin.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="module-rotpy.names.spin"></span><section id="spinnaker-enums">
+<h1>Spinnaker enums<a class="headerlink" href="#spinnaker-enums" title="Permalink to this headline"></a></h1>
+<p>Provides access to all the basic Spinnaker enums.</p>
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.error_code_names">
+<span class="sig-name descname"><span class="pre">error_code_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'abort':</span> <span class="pre">-1012,</span> <span class="pre">'access':</span> <span class="pre">-2006,</span> <span class="pre">'access_denied':</span> <span class="pre">-1005,</span> <span class="pre">'bad_allocation':</span> <span class="pre">-2010,</span> <span class="pre">'buffer_too_small':</span> <span class="pre">-1016,</span> <span class="pre">'busy':</span> <span class="pre">-1022,</span> <span class="pre">'custom_id':</span> <span class="pre">-10000,</span> <span class="pre">'dynamic_cast':</span> <span class="pre">-2008,</span> <span class="pre">'error':</span> <span class="pre">-1001,</span> <span class="pre">'generic':</span> <span class="pre">-2009,</span> <span class="pre">'im_color_conversion':</span> <span class="pre">-3008,</span> <span class="pre">'im_convert':</span> <span class="pre">-3001,</span> <span class="pre">'im_copy':</span> <span class="pre">-3002,</span> <span class="pre">'im_decompression':</span> <span class="pre">-3009,</span> <span class="pre">'im_histogram_mean':</span> <span class="pre">-3006,</span> <span class="pre">'im_histogram_range':</span> <span class="pre">-3005,</span> <span class="pre">'im_malloc':</span> <span class="pre">-3003,</span> <span class="pre">'im_min_max':</span> <span class="pre">-3007,</span> <span class="pre">'im_not_supported':</span> <span class="pre">-3004,</span> <span class="pre">'invalid_address':</span> <span class="pre">-1015,</span> <span class="pre">'invalid_argument':</span> <span class="pre">-2001,</span> <span class="pre">'invalid_buffer':</span> <span class="pre">-1013,</span> <span class="pre">'invalid_handle':</span> <span class="pre">-1006,</span> <span class="pre">'invalid_id':</span> <span class="pre">-1007,</span> <span class="pre">'invalid_index':</span> <span class="pre">-1017,</span> <span class="pre">'invalid_parameter':</span> <span class="pre">-1009,</span> <span class="pre">'invalid_value':</span> <span class="pre">-1019,</span> <span class="pre">'io':</span> <span class="pre">-1010,</span> <span class="pre">'logical':</span> <span class="pre">-2005,</span> <span class="pre">'no_data':</span> <span class="pre">-1008,</span> <span class="pre">'not_available':</span> <span class="pre">-1014,</span> <span class="pre">'not_implemented':</span> <span class="pre">-1003,</span> <span class="pre">'not_initialized':</span> <span class="pre">-1002,</span> <span class="pre">'out_of_memory':</span> <span class="pre">-1021,</span> <span class="pre">'out_of_range':</span> <span class="pre">-2002,</span> <span class="pre">'parsing_chunk_data':</span> <span class="pre">-1018,</span> <span class="pre">'property':</span> <span class="pre">-2003,</span> <span class="pre">'resource_exhausted':</span> <span class="pre">-1020,</span> <span class="pre">'resource_in_use':</span> <span class="pre">-1004,</span> <span class="pre">'run_time':</span> <span class="pre">-2004,</span> <span class="pre">'success':</span> <span class="pre">0,</span> <span class="pre">'timeout':</span> <span class="pre">-2007}</span></em><a class="headerlink" href="#rotpy.names.spin.error_code_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.error_code_values">
+<span class="sig-name descname"><span class="pre">error_code_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{-10000:</span> <span class="pre">'custom_id',</span> <span class="pre">-3009:</span> <span class="pre">'im_decompression',</span> <span class="pre">-3008:</span> <span class="pre">'im_color_conversion',</span> <span class="pre">-3007:</span> <span class="pre">'im_min_max',</span> <span class="pre">-3006:</span> <span class="pre">'im_histogram_mean',</span> <span class="pre">-3005:</span> <span class="pre">'im_histogram_range',</span> <span class="pre">-3004:</span> <span class="pre">'im_not_supported',</span> <span class="pre">-3003:</span> <span class="pre">'im_malloc',</span> <span class="pre">-3002:</span> <span class="pre">'im_copy',</span> <span class="pre">-3001:</span> <span class="pre">'im_convert',</span> <span class="pre">-2010:</span> <span class="pre">'bad_allocation',</span> <span class="pre">-2009:</span> <span class="pre">'generic',</span> <span class="pre">-2008:</span> <span class="pre">'dynamic_cast',</span> <span class="pre">-2007:</span> <span class="pre">'timeout',</span> <span class="pre">-2006:</span> <span class="pre">'access',</span> <span class="pre">-2005:</span> <span class="pre">'logical',</span> <span class="pre">-2004:</span> <span class="pre">'run_time',</span> <span class="pre">-2003:</span> <span class="pre">'property',</span> <span class="pre">-2002:</span> <span class="pre">'out_of_range',</span> <span class="pre">-2001:</span> <span class="pre">'invalid_argument',</span> <span class="pre">-1022:</span> <span class="pre">'busy',</span> <span class="pre">-1021:</span> <span class="pre">'out_of_memory',</span> <span class="pre">-1020:</span> <span class="pre">'resource_exhausted',</span> <span class="pre">-1019:</span> <span class="pre">'invalid_value',</span> <span class="pre">-1018:</span> <span class="pre">'parsing_chunk_data',</span> <span class="pre">-1017:</span> <span class="pre">'invalid_index',</span> <span class="pre">-1016:</span> <span class="pre">'buffer_too_small',</span> <span class="pre">-1015:</span> <span class="pre">'invalid_address',</span> <span class="pre">-1014:</span> <span class="pre">'not_available',</span> <span class="pre">-1013:</span> <span class="pre">'invalid_buffer',</span> <span class="pre">-1012:</span> <span class="pre">'abort',</span> <span class="pre">-1010:</span> <span class="pre">'io',</span> <span class="pre">-1009:</span> <span class="pre">'invalid_parameter',</span> <span class="pre">-1008:</span> <span class="pre">'no_data',</span> <span class="pre">-1007:</span> <span class="pre">'invalid_id',</span> <span class="pre">-1006:</span> <span class="pre">'invalid_handle',</span> <span class="pre">-1005:</span> <span class="pre">'access_denied',</span> <span class="pre">-1004:</span> <span class="pre">'resource_in_use',</span> <span class="pre">-1003:</span> <span class="pre">'not_implemented',</span> <span class="pre">-1002:</span> <span class="pre">'not_initialized',</span> <span class="pre">-1001:</span> <span class="pre">'error',</span> <span class="pre">0:</span> <span class="pre">'success'}</span></em><a class="headerlink" href="#rotpy.names.spin.error_code_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.event_names">
+<span class="sig-name descname"><span class="pre">event_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'arrival_removal':</span> <span class="pre">0,</span> <span class="pre">'device':</span> <span class="pre">1,</span> <span class="pre">'device_specific':</span> <span class="pre">2,</span> <span class="pre">'interface_arrival_removal':</span> <span class="pre">6,</span> <span class="pre">'logging_event':</span> <span class="pre">4,</span> <span class="pre">'new_buffer':</span> <span class="pre">3,</span> <span class="pre">'unknown':</span> <span class="pre">5}</span></em><a class="headerlink" href="#rotpy.names.spin.event_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.event_values">
+<span class="sig-name descname"><span class="pre">event_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'arrival_removal',</span> <span class="pre">1:</span> <span class="pre">'device',</span> <span class="pre">2:</span> <span class="pre">'device_specific',</span> <span class="pre">3:</span> <span class="pre">'new_buffer',</span> <span class="pre">4:</span> <span class="pre">'logging_event',</span> <span class="pre">5:</span> <span class="pre">'unknown',</span> <span class="pre">6:</span> <span class="pre">'interface_arrival_removal'}</span></em><a class="headerlink" href="#rotpy.names.spin.event_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.pix_fmt_namespace_names">
+<span class="sig-name descname"><span class="pre">pix_fmt_namespace_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'custom_id':</span> <span class="pre">1000,</span> <span class="pre">'gev':</span> <span class="pre">1,</span> <span class="pre">'iidc':</span> <span class="pre">2,</span> <span class="pre">'pfnc_16bit':</span> <span class="pre">3,</span> <span class="pre">'pfnc_32bit':</span> <span class="pre">4,</span> <span class="pre">'unknown':</span> <span class="pre">0}</span></em><a class="headerlink" href="#rotpy.names.spin.pix_fmt_namespace_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.pix_fmt_namespace_values">
+<span class="sig-name descname"><span class="pre">pix_fmt_namespace_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'unknown',</span> <span class="pre">1:</span> <span class="pre">'gev',</span> <span class="pre">2:</span> <span class="pre">'iidc',</span> <span class="pre">3:</span> <span class="pre">'pfnc_16bit',</span> <span class="pre">4:</span> <span class="pre">'pfnc_32bit',</span> <span class="pre">1000:</span> <span class="pre">'custom_id'}</span></em><a class="headerlink" href="#rotpy.names.spin.pix_fmt_namespace_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.color_processing_algo_names">
+<span class="sig-name descname"><span class="pre">color_processing_algo_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'bilinear':</span> <span class="pre">4,</span> <span class="pre">'default':</span> <span class="pre">0,</span> <span class="pre">'directional_filter':</span> <span class="pre">8,</span> <span class="pre">'edge_sensing':</span> <span class="pre">5,</span> <span class="pre">'hq_linear':</span> <span class="pre">6,</span> <span class="pre">'ipp':</span> <span class="pre">7,</span> <span class="pre">'nearest_neighbor':</span> <span class="pre">2,</span> <span class="pre">'nearest_neighbor_avg':</span> <span class="pre">3,</span> <span class="pre">'no_color_processing':</span> <span class="pre">1,</span> <span class="pre">'rigorous':</span> <span class="pre">9,</span> <span class="pre">'weighted_directional_filter':</span> <span class="pre">10}</span></em><a class="headerlink" href="#rotpy.names.spin.color_processing_algo_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.color_processing_algo_values">
+<span class="sig-name descname"><span class="pre">color_processing_algo_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'default',</span> <span class="pre">1:</span> <span class="pre">'no_color_processing',</span> <span class="pre">2:</span> <span class="pre">'nearest_neighbor',</span> <span class="pre">3:</span> <span class="pre">'nearest_neighbor_avg',</span> <span class="pre">4:</span> <span class="pre">'bilinear',</span> <span class="pre">5:</span> <span class="pre">'edge_sensing',</span> <span class="pre">6:</span> <span class="pre">'hq_linear',</span> <span class="pre">7:</span> <span class="pre">'ipp',</span> <span class="pre">8:</span> <span class="pre">'directional_filter',</span> <span class="pre">9:</span> <span class="pre">'rigorous',</span> <span class="pre">10:</span> <span class="pre">'weighted_directional_filter'}</span></em><a class="headerlink" href="#rotpy.names.spin.color_processing_algo_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.img_file_fmt_names">
+<span class="sig-name descname"><span class="pre">img_file_fmt_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'bmp':</span> <span class="pre">2,</span> <span class="pre">'from_file_ext':</span> <span class="pre">-1,</span> <span class="pre">'image_file_format_force_32bits':</span> <span class="pre">2147483647,</span> <span class="pre">'jpeg':</span> <span class="pre">3,</span> <span class="pre">'jpeg12_c':</span> <span class="pre">8,</span> <span class="pre">'jpeg2000':</span> <span class="pre">4,</span> <span class="pre">'pgm':</span> <span class="pre">0,</span> <span class="pre">'png':</span> <span class="pre">6,</span> <span class="pre">'ppm':</span> <span class="pre">1,</span> <span class="pre">'raw':</span> <span class="pre">7,</span> <span class="pre">'tiff':</span> <span class="pre">5}</span></em><a class="headerlink" href="#rotpy.names.spin.img_file_fmt_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.img_file_fmt_values">
+<span class="sig-name descname"><span class="pre">img_file_fmt_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{-1:</span> <span class="pre">'from_file_ext',</span> <span class="pre">0:</span> <span class="pre">'pgm',</span> <span class="pre">1:</span> <span class="pre">'ppm',</span> <span class="pre">2:</span> <span class="pre">'bmp',</span> <span class="pre">3:</span> <span class="pre">'jpeg',</span> <span class="pre">4:</span> <span class="pre">'jpeg2000',</span> <span class="pre">5:</span> <span class="pre">'tiff',</span> <span class="pre">6:</span> <span class="pre">'png',</span> <span class="pre">7:</span> <span class="pre">'raw',</span> <span class="pre">8:</span> <span class="pre">'jpeg12_c',</span> <span class="pre">2147483647:</span> <span class="pre">'image_file_format_force_32bits'}</span></em><a class="headerlink" href="#rotpy.names.spin.img_file_fmt_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.img_status_names">
+<span class="sig-name descname"><span class="pre">img_status_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'chunk_data_invalid':</span> <span class="pre">11,</span> <span class="pre">'crc_check_failed':</span> <span class="pre">1,</span> <span class="pre">'data_incomplete':</span> <span class="pre">9,</span> <span class="pre">'data_overflow':</span> <span class="pre">2,</span> <span class="pre">'info_inconsistent':</span> <span class="pre">10,</span> <span class="pre">'leader_buffer_size_inconsistent':</span> <span class="pre">4,</span> <span class="pre">'missing_leader':</span> <span class="pre">7,</span> <span class="pre">'missing_packets':</span> <span class="pre">3,</span> <span class="pre">'missing_trailer':</span> <span class="pre">8,</span> <span class="pre">'no_error':</span> <span class="pre">0,</span> <span class="pre">'no_system_resources':</span> <span class="pre">12,</span> <span class="pre">'packetid_inconsistent':</span> <span class="pre">6,</span> <span class="pre">'trailer_buffer_size_inconsistent':</span> <span class="pre">5,</span> <span class="pre">'unknown_error':</span> <span class="pre">-1}</span></em><a class="headerlink" href="#rotpy.names.spin.img_status_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.img_status_values">
+<span class="sig-name descname"><span class="pre">img_status_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{-1:</span> <span class="pre">'unknown_error',</span> <span class="pre">0:</span> <span class="pre">'no_error',</span> <span class="pre">1:</span> <span class="pre">'crc_check_failed',</span> <span class="pre">2:</span> <span class="pre">'data_overflow',</span> <span class="pre">3:</span> <span class="pre">'missing_packets',</span> <span class="pre">4:</span> <span class="pre">'leader_buffer_size_inconsistent',</span> <span class="pre">5:</span> <span class="pre">'trailer_buffer_size_inconsistent',</span> <span class="pre">6:</span> <span class="pre">'packetid_inconsistent',</span> <span class="pre">7:</span> <span class="pre">'missing_leader',</span> <span class="pre">8:</span> <span class="pre">'missing_trailer',</span> <span class="pre">9:</span> <span class="pre">'data_incomplete',</span> <span class="pre">10:</span> <span class="pre">'info_inconsistent',</span> <span class="pre">11:</span> <span class="pre">'chunk_data_invalid',</span> <span class="pre">12:</span> <span class="pre">'no_system_resources'}</span></em><a class="headerlink" href="#rotpy.names.spin.img_status_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.compression_names">
+<span class="sig-name descname"><span class="pre">compression_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'adobe_deflate':</span> <span class="pre">4,</span> <span class="pre">'ccittfax3':</span> <span class="pre">5,</span> <span class="pre">'ccittfax4':</span> <span class="pre">6,</span> <span class="pre">'deflate':</span> <span class="pre">3,</span> <span class="pre">'jpeg_enc':</span> <span class="pre">8,</span> <span class="pre">'lzw':</span> <span class="pre">7,</span> <span class="pre">'none':</span> <span class="pre">1,</span> <span class="pre">'packbits':</span> <span class="pre">2}</span></em><a class="headerlink" href="#rotpy.names.spin.compression_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.compression_values">
+<span class="sig-name descname"><span class="pre">compression_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{1:</span> <span class="pre">'none',</span> <span class="pre">2:</span> <span class="pre">'packbits',</span> <span class="pre">3:</span> <span class="pre">'deflate',</span> <span class="pre">4:</span> <span class="pre">'adobe_deflate',</span> <span class="pre">5:</span> <span class="pre">'ccittfax3',</span> <span class="pre">6:</span> <span class="pre">'ccittfax4',</span> <span class="pre">7:</span> <span class="pre">'lzw',</span> <span class="pre">8:</span> <span class="pre">'jpeg_enc'}</span></em><a class="headerlink" href="#rotpy.names.spin.compression_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.stats_channel_names">
+<span class="sig-name descname"><span class="pre">stats_channel_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'blue':</span> <span class="pre">3,</span> <span class="pre">'green':</span> <span class="pre">2,</span> <span class="pre">'grey':</span> <span class="pre">0,</span> <span class="pre">'hue':</span> <span class="pre">4,</span> <span class="pre">'lightness':</span> <span class="pre">6,</span> <span class="pre">'num_statistics_channels':</span> <span class="pre">7,</span> <span class="pre">'red':</span> <span class="pre">1,</span> <span class="pre">'saturation':</span> <span class="pre">5}</span></em><a class="headerlink" href="#rotpy.names.spin.stats_channel_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.stats_channel_values">
+<span class="sig-name descname"><span class="pre">stats_channel_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'grey',</span> <span class="pre">1:</span> <span class="pre">'red',</span> <span class="pre">2:</span> <span class="pre">'green',</span> <span class="pre">3:</span> <span class="pre">'blue',</span> <span class="pre">4:</span> <span class="pre">'hue',</span> <span class="pre">5:</span> <span class="pre">'saturation',</span> <span class="pre">6:</span> <span class="pre">'lightness',</span> <span class="pre">7:</span> <span class="pre">'num_statistics_channels'}</span></em><a class="headerlink" href="#rotpy.names.spin.stats_channel_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.log_level_names">
+<span class="sig-name descname"><span class="pre">log_level_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'alert':</span> <span class="pre">100,</span> <span class="pre">'crit':</span> <span class="pre">200,</span> <span class="pre">'debug':</span> <span class="pre">700,</span> <span class="pre">'error':</span> <span class="pre">300,</span> <span class="pre">'fatal':</span> <span class="pre">0,</span> <span class="pre">'info':</span> <span class="pre">600,</span> <span class="pre">'notice':</span> <span class="pre">500,</span> <span class="pre">'notset':</span> <span class="pre">800,</span> <span class="pre">'off':</span> <span class="pre">-1,</span> <span class="pre">'warn':</span> <span class="pre">400}</span></em><a class="headerlink" href="#rotpy.names.spin.log_level_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.log_level_values">
+<span class="sig-name descname"><span class="pre">log_level_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{-1:</span> <span class="pre">'off',</span> <span class="pre">0:</span> <span class="pre">'fatal',</span> <span class="pre">100:</span> <span class="pre">'alert',</span> <span class="pre">200:</span> <span class="pre">'crit',</span> <span class="pre">300:</span> <span class="pre">'error',</span> <span class="pre">400:</span> <span class="pre">'warn',</span> <span class="pre">500:</span> <span class="pre">'notice',</span> <span class="pre">600:</span> <span class="pre">'info',</span> <span class="pre">700:</span> <span class="pre">'debug',</span> <span class="pre">800:</span> <span class="pre">'notset'}</span></em><a class="headerlink" href="#rotpy.names.spin.log_level_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.payload_type_names">
+<span class="sig-name descname"><span class="pre">payload_type_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'chunk_data':</span> <span class="pre">4,</span> <span class="pre">'chunk_data_lossless_compressed':</span> <span class="pre">1005,</span> <span class="pre">'chunk_data_lossy_compressed':</span> <span class="pre">1006,</span> <span class="pre">'chunk_only':</span> <span class="pre">8,</span> <span class="pre">'custom_id':</span> <span class="pre">1000,</span> <span class="pre">'device_specific':</span> <span class="pre">9,</span> <span class="pre">'extended_chunk':</span> <span class="pre">1001,</span> <span class="pre">'file':</span> <span class="pre">3,</span> <span class="pre">'h264':</span> <span class="pre">7,</span> <span class="pre">'image':</span> <span class="pre">1,</span> <span class="pre">'jpeg':</span> <span class="pre">5,</span> <span class="pre">'jpeg2000':</span> <span class="pre">6,</span> <span class="pre">'jpeg_lossless_compressed':</span> <span class="pre">1004,</span> <span class="pre">'lossless_compressed':</span> <span class="pre">1002,</span> <span class="pre">'lossy_compressed':</span> <span class="pre">1003,</span> <span class="pre">'multi_part':</span> <span class="pre">10,</span> <span class="pre">'raw_data':</span> <span class="pre">2,</span> <span class="pre">'unknown':</span> <span class="pre">0}</span></em><a class="headerlink" href="#rotpy.names.spin.payload_type_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.payload_type_values">
+<span class="sig-name descname"><span class="pre">payload_type_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'unknown',</span> <span class="pre">1:</span> <span class="pre">'image',</span> <span class="pre">2:</span> <span class="pre">'raw_data',</span> <span class="pre">3:</span> <span class="pre">'file',</span> <span class="pre">4:</span> <span class="pre">'chunk_data',</span> <span class="pre">5:</span> <span class="pre">'jpeg',</span> <span class="pre">6:</span> <span class="pre">'jpeg2000',</span> <span class="pre">7:</span> <span class="pre">'h264',</span> <span class="pre">8:</span> <span class="pre">'chunk_only',</span> <span class="pre">9:</span> <span class="pre">'device_specific',</span> <span class="pre">10:</span> <span class="pre">'multi_part',</span> <span class="pre">1000:</span> <span class="pre">'custom_id',</span> <span class="pre">1001:</span> <span class="pre">'extended_chunk',</span> <span class="pre">1002:</span> <span class="pre">'lossless_compressed',</span> <span class="pre">1003:</span> <span class="pre">'lossy_compressed',</span> <span class="pre">1004:</span> <span class="pre">'jpeg_lossless_compressed',</span> <span class="pre">1005:</span> <span class="pre">'chunk_data_lossless_compressed',</span> <span class="pre">1006:</span> <span class="pre">'chunk_data_lossy_compressed'}</span></em><a class="headerlink" href="#rotpy.names.spin.payload_type_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.cmd_status_names">
+<span class="sig-name descname"><span class="pre">cmd_status_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'action_late':</span> <span class="pre">32790,</span> <span class="pre">'error':</span> <span class="pre">36863,</span> <span class="pre">'no_ref_time':</span> <span class="pre">32787,</span> <span class="pre">'ok':</span> <span class="pre">0,</span> <span class="pre">'overflow':</span> <span class="pre">32789}</span></em><a class="headerlink" href="#rotpy.names.spin.cmd_status_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.cmd_status_values">
+<span class="sig-name descname"><span class="pre">cmd_status_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'ok',</span> <span class="pre">32787:</span> <span class="pre">'no_ref_time',</span> <span class="pre">32789:</span> <span class="pre">'overflow',</span> <span class="pre">32790:</span> <span class="pre">'action_late',</span> <span class="pre">36863:</span> <span class="pre">'error'}</span></em><a class="headerlink" href="#rotpy.names.spin.cmd_status_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.pix_fmt_int_names">
+<span class="sig-name descname"><span class="pre">pix_fmt_int_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'float32':</span> <span class="pre">11,</span> <span class="pre">'int16':</span> <span class="pre">10,</span> <span class="pre">'int8':</span> <span class="pre">1,</span> <span class="pre">'uint10':</span> <span class="pre">2,</span> <span class="pre">'uint10p':</span> <span class="pre">4,</span> <span class="pre">'uint12':</span> <span class="pre">5,</span> <span class="pre">'uint12p':</span> <span class="pre">7,</span> <span class="pre">'uint14':</span> <span class="pre">8,</span> <span class="pre">'uint16':</span> <span class="pre">9,</span> <span class="pre">'uint8':</span> <span class="pre">0,</span> <span class="pre">'unknown':</span> <span class="pre">12}</span></em><a class="headerlink" href="#rotpy.names.spin.pix_fmt_int_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.pix_fmt_int_values">
+<span class="sig-name descname"><span class="pre">pix_fmt_int_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'uint8',</span> <span class="pre">1:</span> <span class="pre">'int8',</span> <span class="pre">2:</span> <span class="pre">'uint10',</span> <span class="pre">4:</span> <span class="pre">'uint10p',</span> <span class="pre">5:</span> <span class="pre">'uint12',</span> <span class="pre">7:</span> <span class="pre">'uint12p',</span> <span class="pre">8:</span> <span class="pre">'uint14',</span> <span class="pre">9:</span> <span class="pre">'uint16',</span> <span class="pre">10:</span> <span class="pre">'int16',</span> <span class="pre">11:</span> <span class="pre">'float32',</span> <span class="pre">12:</span> <span class="pre">'unknown'}</span></em><a class="headerlink" href="#rotpy.names.spin.pix_fmt_int_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.buffer_owner_names">
+<span class="sig-name descname"><span class="pre">buffer_owner_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'system':</span> <span class="pre">0,</span> <span class="pre">'user':</span> <span class="pre">1}</span></em><a class="headerlink" href="#rotpy.names.spin.buffer_owner_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.buffer_owner_values">
+<span class="sig-name descname"><span class="pre">buffer_owner_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'system',</span> <span class="pre">1:</span> <span class="pre">'user'}</span></em><a class="headerlink" href="#rotpy.names.spin.buffer_owner_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.img_correction_temp_names">
+<span class="sig-name descname"><span class="pre">img_correction_temp_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'cloudy_6500k':</span> <span class="pre">4,</span> <span class="pre">'cool_fluorescent_4000k':</span> <span class="pre">2,</span> <span class="pre">'general':</span> <span class="pre">6,</span> <span class="pre">'shade_8000k':</span> <span class="pre">5,</span> <span class="pre">'sunny_5000k':</span> <span class="pre">3,</span> <span class="pre">'tungsten_2800k':</span> <span class="pre">0,</span> <span class="pre">'warm_fluorescent_3000k':</span> <span class="pre">1}</span></em><a class="headerlink" href="#rotpy.names.spin.img_correction_temp_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.img_correction_temp_values">
+<span class="sig-name descname"><span class="pre">img_correction_temp_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'tungsten_2800k',</span> <span class="pre">1:</span> <span class="pre">'warm_fluorescent_3000k',</span> <span class="pre">2:</span> <span class="pre">'cool_fluorescent_4000k',</span> <span class="pre">3:</span> <span class="pre">'sunny_5000k',</span> <span class="pre">4:</span> <span class="pre">'cloudy_6500k',</span> <span class="pre">5:</span> <span class="pre">'shade_8000k',</span> <span class="pre">6:</span> <span class="pre">'general'}</span></em><a class="headerlink" href="#rotpy.names.spin.img_correction_temp_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.img_correction_type_names">
+<span class="sig-name descname"><span class="pre">img_correction_type_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'advanced':</span> <span class="pre">1,</span> <span class="pre">'linear':</span> <span class="pre">0}</span></em><a class="headerlink" href="#rotpy.names.spin.img_correction_type_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.img_correction_type_values">
+<span class="sig-name descname"><span class="pre">img_correction_type_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'linear',</span> <span class="pre">1:</span> <span class="pre">'advanced'}</span></em><a class="headerlink" href="#rotpy.names.spin.img_correction_type_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.img_correction_sensor_names">
+<span class="sig-name descname"><span class="pre">img_correction_sensor_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'imx250':</span> <span class="pre">0}</span></em><a class="headerlink" href="#rotpy.names.spin.img_correction_sensor_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.img_correction_sensor_values">
+<span class="sig-name descname"><span class="pre">img_correction_sensor_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'imx250'}</span></em><a class="headerlink" href="#rotpy.names.spin.img_correction_sensor_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.img_correction_space_names">
+<span class="sig-name descname"><span class="pre">img_correction_space_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'off':</span> <span class="pre">0,</span> <span class="pre">'srgb':</span> <span class="pre">1}</span></em><a class="headerlink" href="#rotpy.names.spin.img_correction_space_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.img_correction_space_values">
+<span class="sig-name descname"><span class="pre">img_correction_space_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'off',</span> <span class="pre">1:</span> <span class="pre">'srgb'}</span></em><a class="headerlink" href="#rotpy.names.spin.img_correction_space_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.img_correction_app_names">
+<span class="sig-name descname"><span class="pre">img_correction_app_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'generic':</span> <span class="pre">0,</span> <span class="pre">'microscopy':</span> <span class="pre">1}</span></em><a class="headerlink" href="#rotpy.names.spin.img_correction_app_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.spin.img_correction_app_values">
+<span class="sig-name descname"><span class="pre">img_correction_app_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'generic',</span> <span class="pre">1:</span> <span class="pre">'microscopy'}</span></em><a class="headerlink" href="#rotpy.names.spin.img_correction_app_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="api.html" class="btn btn-neutral float-left" title="Enums" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="camera.html" class="btn btn-neutral float-right" title="Camera enums" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Matthew Einhorn.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

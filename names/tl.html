@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Transport layer enums &mdash; RotPy 0.2.1.dev0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="GenAPI enums" href="geni.html" />
+    <link rel="prev" title="Camera enums" href="camera.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> RotPy
+          </a>
+              <div class="version">
+                0.2.1.dev0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../README.html">RotPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../README.html#pre-compiled-wheels">Pre-compiled wheels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../README.html#from-source">From source</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../README.html#getting-an-image-from-a-gige-camera">Getting an image from a GigE camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../README.html#configuring-and-getting-an-image-from-a-usb3-camera">Configuring and getting an image from a USB3 camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../README.html#system-and-camera-properties">System and camera properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../README.html#attaching-event-handlers">Attaching event handlers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../README.html#camera-detection-events">Camera detection events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../README.html#logging-handler">Logging handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../README.html#camera-image-handler">Camera image handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../README.html#camera-events">Camera events</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">The RotPy API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../rotpy.html">RotPy Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system.html">System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../camera.html">Camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../node.html">Node</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../node.html#node-access">Node access</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="api.html">Enums</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="api.html#enum-names">Enum names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spin.html">Spinnaker enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="camera.html">Camera enums</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Transport layer enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="geni.html">GenAPI enums</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../system_nodes.html">System nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../camera_nodes.html">Camera nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">Utilities</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">RotPy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../api.html">The RotPy API</a> &raquo;</li>
+          <li><a href="api.html">Enums</a> &raquo;</li>
+      <li>Transport layer enums</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/matham/rotpy/blob/main/doc/source/names/tl.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="module-rotpy.names.tl"></span><section id="transport-layer-enums">
+<h1>Transport layer enums<a class="headerlink" href="#transport-layer-enums" title="Permalink to this headline"></a></h1>
+<p>Provides access to all the transport-layer-related enums.</p>
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.StreamType_names">
+<span class="sig-name descname"><span class="pre">StreamType_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'CameraLink':</span> <span class="pre">1,</span> <span class="pre">'CameraLinkHS':</span> <span class="pre">2,</span> <span class="pre">'CoaXPress':</span> <span class="pre">3,</span> <span class="pre">'Custom':</span> <span class="pre">5,</span> <span class="pre">'GigEVision':</span> <span class="pre">0,</span> <span class="pre">'USB3Vision':</span> <span class="pre">4}</span></em><a class="headerlink" href="#rotpy.names.tl.StreamType_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.StreamType_values">
+<span class="sig-name descname"><span class="pre">StreamType_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'GigEVision',</span> <span class="pre">1:</span> <span class="pre">'CameraLink',</span> <span class="pre">2:</span> <span class="pre">'CameraLinkHS',</span> <span class="pre">3:</span> <span class="pre">'CoaXPress',</span> <span class="pre">4:</span> <span class="pre">'USB3Vision',</span> <span class="pre">5:</span> <span class="pre">'Custom'}</span></em><a class="headerlink" href="#rotpy.names.tl.StreamType_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.StreamMode_names">
+<span class="sig-name descname"><span class="pre">StreamMode_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'LWF':</span> <span class="pre">1,</span> <span class="pre">'MVA':</span> <span class="pre">2,</span> <span class="pre">'Socket':</span> <span class="pre">0}</span></em><a class="headerlink" href="#rotpy.names.tl.StreamMode_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.StreamMode_values">
+<span class="sig-name descname"><span class="pre">StreamMode_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'Socket',</span> <span class="pre">1:</span> <span class="pre">'LWF',</span> <span class="pre">2:</span> <span class="pre">'MVA'}</span></em><a class="headerlink" href="#rotpy.names.tl.StreamMode_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.StreamBufferCountMode_names">
+<span class="sig-name descname"><span class="pre">StreamBufferCountMode_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'Auto':</span> <span class="pre">1,</span> <span class="pre">'Manual':</span> <span class="pre">0}</span></em><a class="headerlink" href="#rotpy.names.tl.StreamBufferCountMode_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.StreamBufferCountMode_values">
+<span class="sig-name descname"><span class="pre">StreamBufferCountMode_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'Manual',</span> <span class="pre">1:</span> <span class="pre">'Auto'}</span></em><a class="headerlink" href="#rotpy.names.tl.StreamBufferCountMode_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.StreamBufferHandlingMode_names">
+<span class="sig-name descname"><span class="pre">StreamBufferHandlingMode_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'NewestFirst':</span> <span class="pre">3,</span> <span class="pre">'NewestOnly':</span> <span class="pre">2,</span> <span class="pre">'OldestFirst':</span> <span class="pre">0,</span> <span class="pre">'OldestFirstOverwrite':</span> <span class="pre">1}</span></em><a class="headerlink" href="#rotpy.names.tl.StreamBufferHandlingMode_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.StreamBufferHandlingMode_values">
+<span class="sig-name descname"><span class="pre">StreamBufferHandlingMode_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'OldestFirst',</span> <span class="pre">1:</span> <span class="pre">'OldestFirstOverwrite',</span> <span class="pre">2:</span> <span class="pre">'NewestOnly',</span> <span class="pre">3:</span> <span class="pre">'NewestFirst'}</span></em><a class="headerlink" href="#rotpy.names.tl.StreamBufferHandlingMode_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.DeviceType_names">
+<span class="sig-name descname"><span class="pre">DeviceType_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'CameraLink':</span> <span class="pre">1,</span> <span class="pre">'CameraLinkHS':</span> <span class="pre">2,</span> <span class="pre">'CoaXPress':</span> <span class="pre">3,</span> <span class="pre">'Custom':</span> <span class="pre">5,</span> <span class="pre">'GigEVision':</span> <span class="pre">0,</span> <span class="pre">'USB3Vision':</span> <span class="pre">4}</span></em><a class="headerlink" href="#rotpy.names.tl.DeviceType_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.DeviceType_values">
+<span class="sig-name descname"><span class="pre">DeviceType_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'GigEVision',</span> <span class="pre">1:</span> <span class="pre">'CameraLink',</span> <span class="pre">2:</span> <span class="pre">'CameraLinkHS',</span> <span class="pre">3:</span> <span class="pre">'CoaXPress',</span> <span class="pre">4:</span> <span class="pre">'USB3Vision',</span> <span class="pre">5:</span> <span class="pre">'Custom'}</span></em><a class="headerlink" href="#rotpy.names.tl.DeviceType_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.DeviceAccessStatus_names">
+<span class="sig-name descname"><span class="pre">DeviceAccessStatus_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'Busy':</span> <span class="pre">4,</span> <span class="pre">'NoAccess':</span> <span class="pre">3,</span> <span class="pre">'OpenReadOnly':</span> <span class="pre">6,</span> <span class="pre">'OpenReadWrite':</span> <span class="pre">5,</span> <span class="pre">'ReadOnly':</span> <span class="pre">2,</span> <span class="pre">'ReadWrite':</span> <span class="pre">1,</span> <span class="pre">'Unknown':</span> <span class="pre">0}</span></em><a class="headerlink" href="#rotpy.names.tl.DeviceAccessStatus_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.DeviceAccessStatus_values">
+<span class="sig-name descname"><span class="pre">DeviceAccessStatus_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'Unknown',</span> <span class="pre">1:</span> <span class="pre">'ReadWrite',</span> <span class="pre">2:</span> <span class="pre">'ReadOnly',</span> <span class="pre">3:</span> <span class="pre">'NoAccess',</span> <span class="pre">4:</span> <span class="pre">'Busy',</span> <span class="pre">5:</span> <span class="pre">'OpenReadWrite',</span> <span class="pre">6:</span> <span class="pre">'OpenReadOnly'}</span></em><a class="headerlink" href="#rotpy.names.tl.DeviceAccessStatus_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.GevCCP_tl_names">
+<span class="sig-name descname"><span class="pre">GevCCP_tl_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'ControlAccess':</span> <span class="pre">2,</span> <span class="pre">'ExclusiveAccess':</span> <span class="pre">1,</span> <span class="pre">'OpenAccess':</span> <span class="pre">0}</span></em><a class="headerlink" href="#rotpy.names.tl.GevCCP_tl_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.GevCCP_tl_values">
+<span class="sig-name descname"><span class="pre">GevCCP_tl_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'OpenAccess',</span> <span class="pre">1:</span> <span class="pre">'ExclusiveAccess',</span> <span class="pre">2:</span> <span class="pre">'ControlAccess'}</span></em><a class="headerlink" href="#rotpy.names.tl.GevCCP_tl_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.GUIXMLLocation_names">
+<span class="sig-name descname"><span class="pre">GUIXMLLocation_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'Device':</span> <span class="pre">0,</span> <span class="pre">'Host':</span> <span class="pre">1}</span></em><a class="headerlink" href="#rotpy.names.tl.GUIXMLLocation_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.GUIXMLLocation_values">
+<span class="sig-name descname"><span class="pre">GUIXMLLocation_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'Device',</span> <span class="pre">1:</span> <span class="pre">'Host'}</span></em><a class="headerlink" href="#rotpy.names.tl.GUIXMLLocation_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.GenICamXMLLocation_names">
+<span class="sig-name descname"><span class="pre">GenICamXMLLocation_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'Device':</span> <span class="pre">0,</span> <span class="pre">'Host':</span> <span class="pre">1}</span></em><a class="headerlink" href="#rotpy.names.tl.GenICamXMLLocation_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.GenICamXMLLocation_values">
+<span class="sig-name descname"><span class="pre">GenICamXMLLocation_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'Device',</span> <span class="pre">1:</span> <span class="pre">'Host'}</span></em><a class="headerlink" href="#rotpy.names.tl.GenICamXMLLocation_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.DeviceEndianessMechanism_names">
+<span class="sig-name descname"><span class="pre">DeviceEndianessMechanism_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'Legacy':</span> <span class="pre">0,</span> <span class="pre">'Standard':</span> <span class="pre">1}</span></em><a class="headerlink" href="#rotpy.names.tl.DeviceEndianessMechanism_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.DeviceEndianessMechanism_values">
+<span class="sig-name descname"><span class="pre">DeviceEndianessMechanism_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'Legacy',</span> <span class="pre">1:</span> <span class="pre">'Standard'}</span></em><a class="headerlink" href="#rotpy.names.tl.DeviceEndianessMechanism_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.DeviceCurrentSpeed_names">
+<span class="sig-name descname"><span class="pre">DeviceCurrentSpeed_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'FullSpeed':</span> <span class="pre">2,</span> <span class="pre">'HighSpeed':</span> <span class="pre">3,</span> <span class="pre">'LowSpeed':</span> <span class="pre">1,</span> <span class="pre">'SuperSpeed':</span> <span class="pre">4,</span> <span class="pre">'UnknownSpeed':</span> <span class="pre">0}</span></em><a class="headerlink" href="#rotpy.names.tl.DeviceCurrentSpeed_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.DeviceCurrentSpeed_values">
+<span class="sig-name descname"><span class="pre">DeviceCurrentSpeed_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'UnknownSpeed',</span> <span class="pre">1:</span> <span class="pre">'LowSpeed',</span> <span class="pre">2:</span> <span class="pre">'FullSpeed',</span> <span class="pre">3:</span> <span class="pre">'HighSpeed',</span> <span class="pre">4:</span> <span class="pre">'SuperSpeed'}</span></em><a class="headerlink" href="#rotpy.names.tl.DeviceCurrentSpeed_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.InterfaceType_names">
+<span class="sig-name descname"><span class="pre">InterfaceType_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'CameraLink':</span> <span class="pre">1,</span> <span class="pre">'CameraLinkHS':</span> <span class="pre">2,</span> <span class="pre">'CoaXPress':</span> <span class="pre">3,</span> <span class="pre">'Custom':</span> <span class="pre">5,</span> <span class="pre">'GigEVision':</span> <span class="pre">0,</span> <span class="pre">'USB3Vision':</span> <span class="pre">4}</span></em><a class="headerlink" href="#rotpy.names.tl.InterfaceType_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.InterfaceType_values">
+<span class="sig-name descname"><span class="pre">InterfaceType_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'GigEVision',</span> <span class="pre">1:</span> <span class="pre">'CameraLink',</span> <span class="pre">2:</span> <span class="pre">'CameraLinkHS',</span> <span class="pre">3:</span> <span class="pre">'CoaXPress',</span> <span class="pre">4:</span> <span class="pre">'USB3Vision',</span> <span class="pre">5:</span> <span class="pre">'Custom'}</span></em><a class="headerlink" href="#rotpy.names.tl.InterfaceType_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.POEStatus_names">
+<span class="sig-name descname"><span class="pre">POEStatus_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'NotSupported':</span> <span class="pre">0,</span> <span class="pre">'PowerOff':</span> <span class="pre">1,</span> <span class="pre">'PowerOn':</span> <span class="pre">2}</span></em><a class="headerlink" href="#rotpy.names.tl.POEStatus_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.POEStatus_values">
+<span class="sig-name descname"><span class="pre">POEStatus_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'NotSupported',</span> <span class="pre">1:</span> <span class="pre">'PowerOff',</span> <span class="pre">2:</span> <span class="pre">'PowerOn'}</span></em><a class="headerlink" href="#rotpy.names.tl.POEStatus_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.FilterDriverStatus_names">
+<span class="sig-name descname"><span class="pre">FilterDriverStatus_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'Disabled':</span> <span class="pre">1,</span> <span class="pre">'Enabled':</span> <span class="pre">2,</span> <span class="pre">'NotSupported':</span> <span class="pre">0}</span></em><a class="headerlink" href="#rotpy.names.tl.FilterDriverStatus_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.FilterDriverStatus_values">
+<span class="sig-name descname"><span class="pre">FilterDriverStatus_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'NotSupported',</span> <span class="pre">1:</span> <span class="pre">'Disabled',</span> <span class="pre">2:</span> <span class="pre">'Enabled'}</span></em><a class="headerlink" href="#rotpy.names.tl.FilterDriverStatus_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.TLType_names">
+<span class="sig-name descname"><span class="pre">TLType_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'CameraLink':</span> <span class="pre">1,</span> <span class="pre">'CameraLinkHS':</span> <span class="pre">2,</span> <span class="pre">'CoaXPress':</span> <span class="pre">3,</span> <span class="pre">'Custom':</span> <span class="pre">6,</span> <span class="pre">'GigEVision':</span> <span class="pre">0,</span> <span class="pre">'Mixed':</span> <span class="pre">5,</span> <span class="pre">'USB3Vision':</span> <span class="pre">4}</span></em><a class="headerlink" href="#rotpy.names.tl.TLType_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.tl.TLType_values">
+<span class="sig-name descname"><span class="pre">TLType_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'GigEVision',</span> <span class="pre">1:</span> <span class="pre">'CameraLink',</span> <span class="pre">2:</span> <span class="pre">'CameraLinkHS',</span> <span class="pre">3:</span> <span class="pre">'CoaXPress',</span> <span class="pre">4:</span> <span class="pre">'USB3Vision',</span> <span class="pre">5:</span> <span class="pre">'Mixed',</span> <span class="pre">6:</span> <span class="pre">'Custom'}</span></em><a class="headerlink" href="#rotpy.names.tl.TLType_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="camera.html" class="btn btn-neutral float-left" title="Camera enums" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="geni.html" class="btn btn-neutral float-right" title="GenAPI enums" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Matthew Einhorn.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

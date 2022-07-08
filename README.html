@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RotPy &mdash; RotPy 0.2.1.dev0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="The RotPy API" href="api.html" />
+    <link rel="prev" title="Getting Started" href="getting_started.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> RotPy
+          </a>
+              <div class="version">
+                0.2.1.dev0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="getting_started.html">Getting Started</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">RotPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#pre-compiled-wheels">Pre-compiled wheels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#from-source">From source</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#getting-an-image-from-a-gige-camera">Getting an image from a GigE camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#configuring-and-getting-an-image-from-a-usb3-camera">Configuring and getting an image from a USB3 camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#system-and-camera-properties">System and camera properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#attaching-event-handlers">Attaching event handlers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#camera-detection-events">Camera detection events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#logging-handler">Logging handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#camera-image-handler">Camera image handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#camera-events">Camera events</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">The RotPy API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="rotpy.html">RotPy Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system.html">System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="camera.html">Camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="image.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="node.html">Node</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="node.html#node-access">Node access</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="names/api.html">Enums</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="names/api.html#enum-names">Enum names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="names/spin.html">Spinnaker enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="names/camera.html">Camera enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="names/tl.html">Transport layer enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="names/geni.html">GenAPI enums</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="system_nodes.html">System nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="camera_nodes.html">Camera nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">Utilities</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RotPy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="getting_started.html">Getting Started</a> &raquo;</li>
+      <li>RotPy</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/matham/rotpy/blob/main/doc/source/README.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="rotpy">
+<h1>RotPy<a class="headerlink" href="#rotpy" title="Permalink to this headline"></a></h1>
+<p>RotPy provides python bindings for the Spinnaker SDK
+to enable Pythonic control of Teledyne/FLIR/Point Grey USB and GigE cameras.</p>
+<p>See <a class="reference external" href="https://matham.github.io/rotpy/index.html">the website</a> for the complete <strong>documentation</strong>.</p>
+<a class="reference external image-reference" href="https://github.com/matham/rotpy/actions"><img alt="Github CI status" src="https://github.com/matham/rotpy/workflows/Python%20application/badge.svg" /></a>
+</section>
+<section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h1>
+<p>You can install RotPy using pre-compiled wheels on Windows, Linux, or Mac or by installing
+the Spinnaker SDK and then installing RotPy from source.</p>
+<p>Either way, you’ll likely need to install the <strong>Spinnaker drivers</strong> so that the cameras
+are recognized. Please download it from <a class="reference external" href="https://www.flir.com/products/spinnaker-sdk/">their website</a>
+and follow the instructions to install the drivers if the cameras are not found.</p>
+<section id="pre-compiled-wheels">
+<h2>Pre-compiled wheels<a class="headerlink" href="#pre-compiled-wheels" title="Permalink to this headline"></a></h2>
+<p>To install from the pre-compiled wheels (assuming it’s available on your platform), simply do:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">rotpy</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For Windows, if rotpy errors out saying dll not found, you probably need
+to install the
+<a class="reference external" href="https://docs.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist">Microsoft Visual C++ Redistributable</a>
+(<a class="reference external" href="https://aka.ms/vs/17/release/vc_redist.x64.exe">64-bit</a>,
+<a class="reference external" href="https://aka.ms/vs/17/release/vc_redist.x86.exe">32-bit</a>).</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>RotPy is licensed under MIT. However, the pre-compiled wheels contain some of the
+Spinnaker SDK runtime libraries which have their own license. Please see the
+license file packaged along with the binaries in the wheel.</p>
+</div>
+</section>
+<section id="from-source">
+<h2>From source<a class="headerlink" href="#from-source" title="Permalink to this headline"></a></h2>
+<p>To install RotPy from source, you need to:</p>
+<ol class="arabic">
+<li><p>Install the
+<a class="reference external" href="https://www.flir.com/products/spinnaker-sdk/">Spinnaker SDK</a> development
+libraries.</p></li>
+<li><p>Install a C++ compiler that supports C++11. E.g. on Windows Visual Studio etc.
+On Mac you may have to export the following environment variables:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">CXX</span><span class="o">=</span><span class="s2">&quot;/usr/bin/clang&quot;</span>
+<span class="n">export</span> <span class="n">CXXFLAGS</span><span class="o">=</span><span class="s2">&quot;-std=c++11&quot;</span>
+<span class="n">export</span> <span class="n">CPPFLAGS</span><span class="o">=</span><span class="s2">&quot;-std=c++11&quot;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Set the environment variables so Python can locate the Spinnaker SDK.</p>
+<ol class="arabic simple">
+<li><p>You need to set <code class="docutils literal notranslate"><span class="pre">ROTPY_INCLUDE</span></code> to the include directory, e.g. on Windows it may be something like
+<code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">ROTPY_INCLUDE=&quot;C:\Program</span> <span class="pre">Files\FLIR\Spinnaker\include&quot;</span></code>. On Linux and Mac it should typically
+be automatically found.</p></li>
+<li><p>You need to set <code class="docutils literal notranslate"><span class="pre">ROTPY_LIB</span></code> to the paths that contain the libraries and binaries. E.g. on Windows it may
+be <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">ROTPY_LIB=&quot;C:\Program</span> <span class="pre">Files\FLIR\Spinnaker\bin64\vs2015;C:\Program</span> <span class="pre">Files\FLIR\Spinnaker\lib64\vs2015&quot;</span></code>.
+On Linux and Mac, again, it should typically be automatically found.</p></li>
+</ol>
+</li>
+<li><p>Then install RotPy with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">rotpy</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">binary</span> <span class="n">rotpy</span>
+</pre></div>
+</div>
+</li>
+<li><p>At runtime, you’ll need to ensure the Spinnaker runtime binaries are on the
+system <code class="docutils literal notranslate"><span class="pre">PATH</span></code> using e.g.
+<a class="reference external" href="https://docs.python.org/3/library/os.html#os.add_dll_directory">os.add_dll_directory</a>.</p>
+<p>You may also have to set the environmental variable (depending on the OS bitness)
+<code class="docutils literal notranslate"><span class="pre">GENICAM_GENTL32_PATH</span></code>/<code class="docutils literal notranslate"><span class="pre">GENICAM_GENTL64_PATH</span></code>
+to the directory containing the <code class="docutils literal notranslate"><span class="pre">FLIR_GenTL*.cti</span></code> file as well as any or all variables
+<code class="docutils literal notranslate"><span class="pre">FLIR_GENTL32_CTI_VS140</span></code>/<code class="docutils literal notranslate"><span class="pre">FLIR_GENTL64_CTI_VS140</span></code>/<code class="docutils literal notranslate"><span class="pre">FLIR_GENTL32_CTI</span></code>/<code class="docutils literal notranslate"><span class="pre">FLIR_GENTL64_CTI</span></code>
+to the <strong>full path</strong> to the <code class="docutils literal notranslate"><span class="pre">FLIR_GenTL*.cti</span></code> file.</p>
+<p>Additionally, the <code class="docutils literal notranslate"><span class="pre">FLIR_GenTL*.cti</span></code> file containing directory may also need to be added
+to the system <code class="docutils literal notranslate"><span class="pre">PATH</span></code>. Spinnaker will raise an error if the cti file cannot be loaded.</p>
+</li>
+</ol>
+</section>
+</section>
+<section id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline"></a></h1>
+<section id="getting-an-image-from-a-gige-camera">
+<h2>Getting an image from a GigE camera<a class="headerlink" href="#getting-an-image-from-a-gige-camera" title="Permalink to this headline"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rotpy.system</span> <span class="kn">import</span> <span class="n">SpinSystem</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rotpy.camera</span> <span class="kn">import</span> <span class="n">CameraList</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># get a system ref and a list of all attached cameras</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">system</span> <span class="o">=</span> <span class="n">SpinSystem</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cameras</span> <span class="o">=</span> <span class="n">CameraList</span><span class="o">.</span><span class="n">create_from_system</span><span class="p">(</span><span class="n">system</span><span class="p">,</span> <span class="n">update_cams</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">update_interfaces</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cameras</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
+<span class="go">    1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># get the camera attached from the list</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span> <span class="o">=</span> <span class="n">cameras</span><span class="o">.</span><span class="n">create_camera_by_index</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">get_unique_id</span><span class="p">()</span>
+<span class="go">    &#39;77T45WD4A84C_86TA1684_GGGGGG14_64CW3987&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># init the camera and get one image</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">init_cam</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># get its serial number</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">camera_nodes</span><span class="o">.</span><span class="n">DeviceSerialNumber</span><span class="o">.</span><span class="n">get_node_value</span><span class="p">()</span>
+<span class="go">&#39;36548975&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">begin_acquisition</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image_cam</span> <span class="o">=</span> <span class="n">camera</span><span class="o">.</span><span class="n">get_next_image</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># we copy the image so that we can release its camera buffer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image</span> <span class="o">=</span> <span class="n">image_cam</span><span class="o">.</span><span class="n">deep_copy_image</span><span class="p">(</span><span class="n">image_cam</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image_cam</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">end_acquisition</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># save the image</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image</span><span class="o">.</span><span class="n">save_png</span><span class="p">(</span><span class="s1">&#39;image.png&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># get image metadata</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image</span><span class="o">.</span><span class="n">get_bits_per_pixel</span><span class="p">()</span>
+<span class="go">    8</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
+<span class="go">    512</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span>
+<span class="go">    612</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image</span><span class="o">.</span><span class="n">get_frame_id</span><span class="p">()</span>
+<span class="go">    1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image</span><span class="o">.</span><span class="n">get_frame_timestamp</span><span class="p">()</span>
+<span class="go">    67557050882</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image</span><span class="o">.</span><span class="n">get_pix_fmt</span><span class="p">()</span>
+<span class="go">    &#39;Mono8&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image</span><span class="o">.</span><span class="n">get_image_data_size</span><span class="p">()</span>
+<span class="go">    313344</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">get_image_data</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="go">    bytearray</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="go">    313344</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">512</span> <span class="o">*</span> <span class="mi">612</span>
+<span class="go">    313344</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">deinit_cam</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="configuring-and-getting-an-image-from-a-usb3-camera">
+<h2>Configuring and getting an image from a USB3 camera<a class="headerlink" href="#configuring-and-getting-an-image-from-a-usb3-camera" title="Permalink to this headline"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rotpy.system</span> <span class="kn">import</span> <span class="n">SpinSystem</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rotpy.camera</span> <span class="kn">import</span> <span class="n">CameraList</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># create system/camera list instance and create the camera by serial number</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">system</span> <span class="o">=</span> <span class="n">SpinSystem</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cameras</span> <span class="o">=</span> <span class="n">CameraList</span><span class="o">.</span><span class="n">create_from_system</span><span class="p">(</span><span class="n">system</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cameras</span><span class="o">.</span><span class="n">get_size</span><span class="p">()</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span> <span class="o">=</span> <span class="n">cameras</span><span class="o">.</span><span class="n">create_camera_by_serial</span><span class="p">(</span><span class="s1">&#39;87785435&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># init so we can read the pixel format node</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">init_cam</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># the names of the pixel formats available for the camera</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">camera_nodes</span><span class="o">.</span><span class="n">PixelFormat</span><span class="o">.</span><span class="n">get_entries_names</span><span class="p">()</span>
+<span class="go">[&#39;Mono8&#39;,</span>
+<span class="go"> &#39;Mono12Packed&#39;,</span>
+<span class="go"> &#39;Mono12p&#39;,</span>
+<span class="go"> &#39;Mono16&#39;,</span>
+<span class="go"> &#39;BayerGR8&#39;,</span>
+<span class="go"> ...,</span>
+<span class="go"> &#39;BayerBG16&#39;,</span>
+<span class="go"> &#39;YCbCr411_8_CbYYCrYY&#39;,</span>
+<span class="go"> &#39;YCbCr422_8_CbYCrY&#39;,</span>
+<span class="go"> &#39;YCbCr8_CbYCr&#39;,</span>
+<span class="go"> &#39;RGB8&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># the current one is BayerRG8</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">node</span> <span class="o">=</span> <span class="n">camera</span><span class="o">.</span><span class="n">camera_nodes</span><span class="o">.</span><span class="n">PixelFormat</span><span class="o">.</span><span class="n">get_node_value</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">node</span>
+<span class="go">&lt;rotpy.node.SpinEnumItemNode at 0x236edec43c8&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">node</span><span class="o">.</span><span class="n">get_enum_name</span><span class="p">()</span>
+<span class="go">&#39;BayerRG8&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># instead set it to RGB8</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">camera_nodes</span><span class="o">.</span><span class="n">PixelFormat</span><span class="o">.</span><span class="n">set_node_value_from_str</span><span class="p">(</span><span class="s1">&#39;RGB8&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">camera_nodes</span><span class="o">.</span><span class="n">PixelFormat</span><span class="o">.</span><span class="n">get_node_value</span><span class="p">()</span><span class="o">.</span><span class="n">get_enum_name</span><span class="p">()</span>
+<span class="go">&#39;RGB8&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># set acquired image height to 800 pixels</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">camera_nodes</span><span class="o">.</span><span class="n">Height</span><span class="o">.</span><span class="n">get_node_value</span><span class="p">()</span>
+<span class="go">1200</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">camera_nodes</span><span class="o">.</span><span class="n">Height</span><span class="o">.</span><span class="n">set_node_value</span><span class="p">(</span><span class="mi">800</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">camera_nodes</span><span class="o">.</span><span class="n">Height</span><span class="o">.</span><span class="n">get_node_value</span><span class="p">()</span>
+<span class="go">800</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">camera_nodes</span><span class="o">.</span><span class="n">Height</span><span class="o">.</span><span class="n">get_max_value</span><span class="p">()</span>
+<span class="go">1200</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># get the current framerate</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">camera_nodes</span><span class="o">.</span><span class="n">AcquisitionFrameRate</span><span class="o">.</span><span class="n">is_readable</span><span class="p">()</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">camera_nodes</span><span class="o">.</span><span class="n">AcquisitionFrameRate</span><span class="o">.</span><span class="n">get_node_value</span><span class="p">()</span>
+<span class="go">42.7807502746582</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># get one image and copy and release it so we don&#39;t tie up the buffers</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">begin_acquisition</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image_cam</span> <span class="o">=</span> <span class="n">camera</span><span class="o">.</span><span class="n">get_next_image</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image</span> <span class="o">=</span> <span class="n">image_cam</span><span class="o">.</span><span class="n">deep_copy_image</span><span class="p">(</span><span class="n">image_cam</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image_cam</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">end_acquisition</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># get some image metadat</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image</span><span class="o">.</span><span class="n">get_frame_timestamp</span><span class="p">()</span> <span class="o">/</span> <span class="mf">1e9</span>
+<span class="go">512.51940629</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
+<span class="go">800</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image</span><span class="o">.</span><span class="n">get_buffer_size</span><span class="p">()</span>
+<span class="go">4608000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">1920</span><span class="o">*</span><span class="mi">800</span><span class="o">*</span><span class="mi">3</span>
+<span class="go">4608000</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">image</span><span class="o">.</span><span class="n">get_pix_fmt</span><span class="p">()</span>
+<span class="go">&#39;RGB8&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># cleanup</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">deinit_cam</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="system-and-camera-properties">
+<h2>System and camera properties<a class="headerlink" href="#system-and-camera-properties" title="Permalink to this headline"></a></h2>
+<p>The system and camera properties can be read and set using
+<a class="reference external" href="https://matham.github.io/rotpy/node.html">node</a>
+objects. These nodes, each represent a camera or system property, and they
+can be integer nodes, float nodes, boolean nodes, string nodes, command
+nodes etc.</p>
+<p>These nodes derive from Spinnaker’s <a class="reference external" href="https://en.wikipedia.org/wiki/GenICam">GenICam</a>
+implementation for their cameras. RotPy provides access to a generic node access API
+as well as to some pre-listed nodes available on many cameras.</p>
+<p>The generic API is accessed through the <a class="reference external" href="https://matham.github.io/rotpy/node.html#rotpy.node.NodeMap">NodeMap</a> using
+e.g. <a class="reference external" href="https://matham.github.io/rotpy/system.html#rotpy.system.SpinSystem.get_tl_node_map">SpinSystem.get_tl_node_map</a>,
+<a class="reference external" href="https://matham.github.io/rotpy/system.html#rotpy.system.InterfaceDevice.get_tl_node_map">InterfaceDevice.get_tl_node_map</a>,
+<a class="reference external" href="https://matham.github.io/rotpy/camera.html#rotpy.camera.Camera.get_node_map">Camera.get_node_map</a>,
+<a class="reference external" href="https://matham.github.io/rotpy/camera.html#rotpy.camera.Camera.get_tl_dev_node_map">Camera.get_tl_dev_node_map</a>, or
+<a class="reference external" href="https://matham.github.io/rotpy/camera.html#rotpy.camera.Camera.get_tl_stream_node_map">Camera.get_tl_stream_node_map</a>.</p>
+<p>The pre-listed nodes can be accessed through e.g.
+<a class="reference external" href="https://matham.github.io/rotpy/system.html#rotpy.system.SpinSystem.system_nodes">SpinSystem.system_nodes</a>,
+<a class="reference external" href="https://matham.github.io/rotpy/system.html#rotpy.system.InterfaceDevice.interface_nodes">InterfaceDevice.interface_nodes</a>,
+<a class="reference external" href="https://matham.github.io/rotpy/camera.html#rotpy.camera.Camera.camera_nodes">Camera.camera_nodes</a>,
+<a class="reference external" href="https://matham.github.io/rotpy/camera.html#rotpy.camera.Camera.tl_dev_nodes">Camera.tl_dev_nodes</a>, or
+<a class="reference external" href="https://matham.github.io/rotpy/camera.html#rotpy.camera.Camera.tl_stream_nodes">Camera.tl_stream_nodes</a>.
+These link to the following respective
+objects: <a class="reference external" href="https://matham.github.io/rotpy/system_nodes.html#rotpy.system_nodes.SystemNodes">SystemNodes</a>,
+<a class="reference external" href="https://matham.github.io/rotpy/system_nodes.html#rotpy.system_nodes.InterfaceNodes">InterfaceNodes</a>,
+<a class="reference external" href="https://matham.github.io/rotpy/camera_nodes.html#rotpy.camera_nodes.CameraNodes">CameraNodes</a>,
+<a class="reference external" href="https://matham.github.io/rotpy/camera_nodes.html#rotpy.camera_nodes.TLDevNodes">TLDevNodes</a>, and
+<a class="reference external" href="https://matham.github.io/rotpy/camera_nodes.html#rotpy.camera_nodes.TLStreamNodes">TLStreamNodes</a>.</p>
+<p>E.g. to access some of the system nodes using
+<a class="reference external" href="https://matham.github.io/rotpy/system.html#rotpy.system.SpinSystem.system_nodes">system_nodes</a>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rotpy.system</span> <span class="kn">import</span> <span class="n">SpinSystem</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">system</span> <span class="o">=</span> <span class="n">SpinSystem</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># get a list of all boolean nodes</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">system</span><span class="o">.</span><span class="n">system_nodes</span><span class="o">.</span><span class="n">bool_nodes</span>
+<span class="go">[&#39;EnumerateGEVInterfaces&#39;, &#39;EnumerateUSBInterfaces&#39;, &#39;EnumerateGen2Cameras&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># let&#39;s inspect the USB node</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">system</span><span class="o">.</span><span class="n">system_nodes</span><span class="o">.</span><span class="n">EnumerateUSBInterfaces</span>
+<span class="go">&lt;rotpy.node.SpinBoolNode at 0x26822c20d68&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># first make sure this node is actually available for this system</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">system</span><span class="o">.</span><span class="n">system_nodes</span><span class="o">.</span><span class="n">EnumerateUSBInterfaces</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">system</span><span class="o">.</span><span class="n">system_nodes</span><span class="o">.</span><span class="n">EnumerateUSBInterfaces</span><span class="o">.</span><span class="n">get_node_value</span><span class="p">()</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">system</span><span class="o">.</span><span class="n">system_nodes</span><span class="o">.</span><span class="n">EnumerateUSBInterfaces</span><span class="o">.</span><span class="n">get_description</span><span class="p">()</span>
+<span class="go">&#39;Enables or disables enumeration of USB Interfaces.&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">system</span><span class="o">.</span><span class="n">system_nodes</span><span class="o">.</span><span class="n">EnumerateUSBInterfaces</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span>
+<span class="go">&#39;EnumerateUSBInterfaces&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">system</span><span class="o">.</span><span class="n">system_nodes</span><span class="o">.</span><span class="n">EnumerateUSBInterfaces</span><span class="o">.</span><span class="n">get_node_value_as_str</span><span class="p">()</span>
+<span class="go">&#39;1&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">system</span><span class="o">.</span><span class="n">system_nodes</span><span class="o">.</span><span class="n">EnumerateUSBInterfaces</span><span class="o">.</span><span class="n">get_short_description</span><span class="p">()</span>
+<span class="go">&#39;Enables or disables enumeration of USB Interfaces.&#39;</span>
+</pre></div>
+</div>
+<p>We can similarly use the node map to get the same node if it’s available:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rotpy.system</span> <span class="kn">import</span> <span class="n">SpinSystem</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">system</span> <span class="o">=</span> <span class="n">SpinSystem</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">node_map</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">get_tl_node_map</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">node</span> <span class="o">=</span> <span class="n">node_map</span><span class="o">.</span><span class="n">get_node_by_name</span><span class="p">(</span><span class="s1">&#39;EnumerateUSBInterfaces&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">node</span><span class="o">.</span><span class="n">get_node_value</span><span class="p">()</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">node</span><span class="o">.</span><span class="n">get_description</span><span class="p">()</span>
+<span class="go">&#39;Enables or disables enumeration of USB Interfaces.&#39;</span>
+</pre></div>
+</div>
+<p>Similarly, for the camera, we can use the pre-listed nodes:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># make sure to init the camera, otherwise many nodes won&#39;t be available</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">init_cam</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># check that the auto-exposure setting is available</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">camera_nodes</span><span class="o">.</span><span class="n">ExposureAuto</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">camera_nodes</span><span class="o">.</span><span class="n">ExposureAuto</span><span class="o">.</span><span class="n">get_description</span><span class="p">()</span>
+<span class="go">&#39;Sets the automatic exposure mode when Exposure Mode is Timed.&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># the auto-exposure is a enum node with children items</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">camera_nodes</span><span class="o">.</span><span class="n">ExposureAuto</span><span class="o">.</span><span class="n">get_node_value</span><span class="p">()</span>
+<span class="go">&lt;rotpy.node.SpinEnumItemNode at 0x26822c2bc18&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">camera_nodes</span><span class="o">.</span><span class="n">ExposureAuto</span><span class="o">.</span><span class="n">get_node_value</span><span class="p">()</span><span class="o">.</span><span class="n">get_enum_name</span><span class="p">()</span>
+<span class="go">&#39;Continuous&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># but we can just get the symbolic string name directly</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">camera_nodes</span><span class="o">.</span><span class="n">ExposureAuto</span><span class="o">.</span><span class="n">get_node_value_as_str</span><span class="p">()</span>
+<span class="go">&#39;Continuous&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># to see what options are available for this enum node, look in the names module</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rotpy.names.camera</span> <span class="kn">import</span> <span class="n">ExposureAuto_names</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ExposureAuto_names</span>
+<span class="go">{&#39;Off&#39;: 0, &#39;Once&#39;: 1, &#39;Continuous&#39;: 2}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># or for pre-listed enum nodes, we can get it as an attribute</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">camera_nodes</span><span class="o">.</span><span class="n">ExposureAuto</span><span class="o">.</span><span class="n">enum_names</span>
+<span class="go">{&#39;Off&#39;: 0, &#39;Once&#39;: 1, &#39;Continuous&#39;: 2}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># try setting it to an incorrect value</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">camera_nodes</span><span class="o">.</span><span class="n">ExposureAuto</span><span class="o">.</span><span class="n">set_node_value_from_str</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;ipython-input-48-d16a67f0044c&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+    <span class="n">camera</span><span class="o">.</span><span class="n">camera_nodes</span><span class="o">.</span><span class="n">ExposureAuto</span><span class="o">.</span><span class="n">set_node_value_from_str</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+  File <span class="nb">&quot;rotpy\node.pyx&quot;</span>, line <span class="m">650</span>, in <span class="n">rotpy.node.SpinValueNode.set_node_value_from_str</span>
+    <span class="n">cpdef</span> <span class="n">set_node_value_from_str</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">str</span> <span class="n">value</span><span class="p">,</span> <span class="n">cbool</span> <span class="n">verify</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+  File <span class="nb">&quot;rotpy\node.pyx&quot;</span>, line <span class="m">664</span>, in <span class="n">rotpy.node.SpinValueNode.set_node_value_from_str</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_value_handle</span><span class="o">.</span><span class="n">FromString</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">verify</span><span class="p">)</span>
+<span class="gr">RuntimeError</span>: <span class="n">Spinnaker: GenICam::InvalidArgumentException= Feature &#39;ExposureAuto&#39; : cannot convert value &#39;off&#39;, the value is invalid. : InvalidArgumentException thrown in node &#39;ExposureAuto&#39; while calling &#39;ExposureAuto.FromString()&#39; (file &#39;Enumeration.cpp&#39;, line 132) [-2001]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># now set it correctly</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">camera_nodes</span><span class="o">.</span><span class="n">ExposureAuto</span><span class="o">.</span><span class="n">set_node_value_from_str</span><span class="p">(</span><span class="s1">&#39;Off&#39;</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">camera_nodes</span><span class="o">.</span><span class="n">ExposureAuto</span><span class="o">.</span><span class="n">get_node_value_as_str</span><span class="p">()</span>
+<span class="go">&#39;Off&#39;</span>
+</pre></div>
+</div>
+<p>Similarly, we can use the node map to set the exposure back to <code class="docutils literal notranslate"><span class="pre">&quot;Continuous&quot;</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">node_map</span> <span class="o">=</span> <span class="n">camera</span><span class="o">.</span><span class="n">get_node_map</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">node</span> <span class="o">=</span> <span class="n">node_map</span><span class="o">.</span><span class="n">get_node_by_name</span><span class="p">(</span><span class="s1">&#39;ExposureAuto&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">node</span><span class="o">.</span><span class="n">get_node_value_as_str</span><span class="p">()</span>
+<span class="go">&#39;Off&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">node</span><span class="o">.</span><span class="n">set_node_value_from_str</span><span class="p">(</span><span class="s1">&#39;Continuous&#39;</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">node</span><span class="o">.</span><span class="n">get_node_value_as_str</span><span class="p">()</span>
+<span class="go">&#39;Continuous&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># now de-init the camera and the node won&#39;t be available</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">deinit_cam</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">node</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">camera_nodes</span><span class="o">.</span><span class="n">ExposureAuto</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+</section>
+<section id="attaching-event-handlers">
+<h2>Attaching event handlers<a class="headerlink" href="#attaching-event-handlers" title="Permalink to this headline"></a></h2>
+<section id="camera-detection-events">
+<h3>Camera detection events<a class="headerlink" href="#camera-detection-events" title="Permalink to this headline"></a></h3>
+<p>We can register callbacks to be called when the system detects a camera arrival or
+removal on any interface, or on specific interfaces. E.g. to be notified on any interface:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rotpy.system</span> <span class="kn">import</span> <span class="n">SpinSystem</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">system</span> <span class="o">=</span> <span class="n">SpinSystem</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># register a callback for both arrival and removal</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">arrival</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">system</span><span class="p">,</span> <span class="n">serial</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Arrived:&#39;</span><span class="p">,</span> <span class="n">serial</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">removal</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">system</span><span class="p">,</span> <span class="n">serial</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Removed:&#39;</span><span class="p">,</span> <span class="n">serial</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># register and then plug and unplug a camera twice</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">handler</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">attach_interface_event_handler</span><span class="p">(</span><span class="n">arrival</span><span class="p">,</span> <span class="n">removal</span><span class="p">,</span> <span class="n">update</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">Arrived: 36548975</span>
+<span class="go">Removed: 36548975</span>
+<span class="go">Arrived: 36548975</span>
+<span class="go">Removed: 36548975</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">system</span><span class="o">.</span><span class="n">detach_interface_event_handler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="logging-handler">
+<h3>Logging handler<a class="headerlink" href="#logging-handler" title="Permalink to this headline"></a></h3>
+<p>We can also register logging event handlers to get any logging events on the system or devices:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rotpy.system</span> <span class="kn">import</span> <span class="n">SpinSystem</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rotpy.camera</span> <span class="kn">import</span> <span class="n">CameraList</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># create system and set logging level to debug</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">system</span> <span class="o">=</span> <span class="n">SpinSystem</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">system</span><span class="o">.</span><span class="n">set_logging_level</span><span class="p">(</span><span class="s1">&#39;debug&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># create a callback that prints the message</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">log_handler</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">system</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Log:&#39;</span><span class="p">,</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;category&#39;</span><span class="p">],</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;priority&#39;</span><span class="p">],</span> <span class="n">item</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># attach the callback and do something that causes logs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">handler</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">attach_log_event_handler</span><span class="p">(</span><span class="n">log_handler</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cameras</span> <span class="o">=</span> <span class="n">CameraList</span><span class="o">.</span><span class="n">create_from_system</span><span class="p">(</span><span class="n">system</span><span class="p">,</span> <span class="n">update_cams</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">update_interfaces</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">Log: SpinnakerCallback DEBUG Spinnaker: GetCameras()</span>
+<span class="go">Log: GenTLCallback DEBUG Entering InterfaceGev::InterfaceGev()</span>
+<span class="go">Log: GenTLCallback DEBUG Leaving InterfaceGev::InterfaceGev()</span>
+<span class="go">Log: GenTLCallback DEBUG GenTL Trace: system.cpp, line 125, GenTL::EnumerateGigEInterfaces</span>
+<span class="go">Log: GenTLCallback DEBUG Entering HAL_UsbGetInterfaces()</span>
+<span class="go">Log: GenTLCallback DEBUG Enumerating host Controller PCI\VEN_8086&amp;DEV_A12F&amp;SUBSYS_06E41028&amp;REV_31\3&amp;11458735&amp;0&amp;A0</span>
+<span class="go">Log: GenTLCallback DEBUG Host Controller&#39;s child instance ID: USB\VID_8087&amp;PID_0029\5&amp;587A6F87&amp;0&amp;4</span>
+<span class="go">Log: GenTLCallback DEBUG Entering InterfaceUsb::InterfaceUsb()</span>
+<span class="go">Log: GenTLCallback DEBUG Leaving InterfaceUsb::InterfaceUsb()</span>
+<span class="go">Log: GenTLCallback DEBUG GenTL Trace: system.cpp, line 162, GenTL::EnumerateUsbInterfaces</span>
+<span class="go">Log: GenTLCallback DEBUG GenTL Trace: system.cpp, line 191, GenTL::InitializeInterfaces</span>
+<span class="go">Log: GenTLCallback DEBUG GenTL Trace: system.cpp, line 225, GenTL::System::RefreshInterfaces</span>
+<span class="go">Log: GenTLCallback DEBUG GenTL Trace: system.cpp, line 535, GenTL::System::UpdateInterfaceList</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># now detach the handler</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">system</span><span class="o">.</span><span class="n">detach_log_event_handler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="camera-image-handler">
+<h3>Camera image handler<a class="headerlink" href="#camera-image-handler" title="Permalink to this headline"></a></h3>
+<p>We can also register a callback that is called on every new image that is received from the
+device, as opposed to polling for new images:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rotpy.camera</span> <span class="kn">import</span> <span class="n">CameraList</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rotpy.system</span> <span class="kn">import</span> <span class="n">SpinSystem</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># create system and get a camera</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">system</span> <span class="o">=</span> <span class="n">SpinSystem</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cameras</span> <span class="o">=</span> <span class="n">CameraList</span><span class="o">.</span><span class="n">create_from_system</span><span class="p">(</span><span class="n">system</span><span class="p">,</span> <span class="n">update_cams</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">update_interfaces</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span> <span class="o">=</span> <span class="n">cameras</span><span class="o">.</span><span class="n">create_camera_by_index</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">init_cam</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># create an image handler that prints the frame ID and time</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">image_callback</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">camera</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Image:&#39;</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">get_frame_id</span><span class="p">(),</span> <span class="n">image</span><span class="o">.</span><span class="n">get_frame_timestamp</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># attach callback and start getting frames</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">handler</span> <span class="o">=</span> <span class="n">camera</span><span class="o">.</span><span class="n">attach_image_event_handler</span><span class="p">(</span><span class="n">image_callback</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">begin_acquisition</span><span class="p">()</span>
+<span class="go">Image: 1 388361262364</span>
+<span class="go">Image: 2 388366605529</span>
+<span class="go"> ...</span>
+<span class="go">Image: 135 389077033335</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># stop frames and printing</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">end_acquisition</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">detach_image_event_handler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">deinit_cam</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="camera-events">
+<h3>Camera events<a class="headerlink" href="#camera-events" title="Permalink to this headline"></a></h3>
+<p>We can also register a callback that is called on camera events. E.g.:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rotpy.camera</span> <span class="kn">import</span> <span class="n">CameraList</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">rotpy.system</span> <span class="kn">import</span> <span class="n">SpinSystem</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># create system and get a camera</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">system</span> <span class="o">=</span> <span class="n">SpinSystem</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cameras</span> <span class="o">=</span> <span class="n">CameraList</span><span class="o">.</span><span class="n">create_from_system</span><span class="p">(</span><span class="n">system</span><span class="p">,</span> <span class="n">update_cams</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">update_interfaces</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span> <span class="o">=</span> <span class="n">cameras</span><span class="o">.</span><span class="n">create_camera_by_index</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">init_cam</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># define the callback and attach it</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">event_callback</span><span class="p">(</span><span class="n">handler</span><span class="p">,</span> <span class="n">camera</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Event:&#39;</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">handler</span><span class="o">.</span><span class="n">get_event_data</span><span class="p">(</span><span class="n">event</span><span class="p">),</span> <span class="n">handler</span><span class="o">.</span><span class="n">get_event_metadata</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">handler</span> <span class="o">=</span> <span class="n">camera</span><span class="o">.</span><span class="n">attach_device_event_handler</span><span class="p">(</span><span class="n">event_callback</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># now use the EventSelector enum to get the enum items which</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">correspond</span> <span class="n">to</span> <span class="n">the</span> <span class="n">event</span> <span class="n">names</span> <span class="n">that</span> <span class="n">are</span> <span class="n">available</span><span class="o">.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nodes</span> <span class="o">=</span> <span class="n">camera</span><span class="o">.</span><span class="n">camera_nodes</span><span class="o">.</span><span class="n">EventSelector</span><span class="o">.</span><span class="n">get_entries</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># not all are actually available, so only activate the ones available</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nodes</span> <span class="o">=</span> <span class="p">[</span><span class="n">node</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span> <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">is_available</span><span class="p">()]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">get_enum_name</span><span class="p">())</span>
+<span class="gp">... </span>    <span class="n">camera</span><span class="o">.</span><span class="n">camera_nodes</span><span class="o">.</span><span class="n">EventSelector</span><span class="o">.</span><span class="n">set_node_value_from_str</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">get_enum_name</span><span class="p">())</span>
+<span class="gp">... </span>    <span class="n">camera</span><span class="o">.</span><span class="n">camera_nodes</span><span class="o">.</span><span class="n">EventNotification</span><span class="o">.</span><span class="n">set_node_value_from_str</span><span class="p">(</span><span class="s1">&#39;On&#39;</span><span class="p">)</span>
+<span class="go">ExposureEnd</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># this printed just ExposureEnd, indicating only this event was available</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># start acquisition so that the events occur</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">begin_acquisition</span><span class="p">()</span>
+<span class="go">Event: EventExposureEnd {&#39;frame_id&#39;: 62629213124996} (&#39;device&#39;, &#39;EventExposureEnd&#39;, 40003)</span>
+<span class="go">Event: EventExposureEnd {&#39;frame_id&#39;: 62633508092293} (&#39;device&#39;, &#39;EventExposureEnd&#39;, 40003)</span>
+<span class="gp">...</span>
+<span class="go">Event: EventExposureEnd {&#39;frame_id&#39;: 62676457765304} (&#39;device&#39;, &#39;EventExposureEnd&#39;, 40003)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">end_acquisition</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">detach_device_event_handler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">deinit_cam</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">camera</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="getting_started.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api.html" class="btn btn-neutral float-right" title="The RotPy API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Matthew Einhorn.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

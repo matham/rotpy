@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>System &mdash; RotPy 0.2.1.dev0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Camera" href="camera.html" />
+    <link rel="prev" title="RotPy Library" href="rotpy.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> RotPy
+          </a>
+              <div class="version">
+                0.2.1.dev0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="README.html">RotPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="README.html#pre-compiled-wheels">Pre-compiled wheels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="README.html#from-source">From source</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="README.html#getting-an-image-from-a-gige-camera">Getting an image from a GigE camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="README.html#configuring-and-getting-an-image-from-a-usb3-camera">Configuring and getting an image from a USB3 camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="README.html#system-and-camera-properties">System and camera properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="README.html#attaching-event-handlers">Attaching event handlers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="README.html#camera-detection-events">Camera detection events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="README.html#logging-handler">Logging handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="README.html#camera-image-handler">Camera image handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="README.html#camera-events">Camera events</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">The RotPy API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="rotpy.html">RotPy Library</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="camera.html">Camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="image.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="node.html">Node</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="node.html#node-access">Node access</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="names/api.html">Enums</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="names/api.html#enum-names">Enum names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="names/spin.html">Spinnaker enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="names/camera.html">Camera enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="names/tl.html">Transport layer enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="names/geni.html">GenAPI enums</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="system_nodes.html">System nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="camera_nodes.html">Camera nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">Utilities</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RotPy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="api.html">The RotPy API</a> &raquo;</li>
+      <li>System</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/matham/rotpy/blob/main/doc/source/system.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="module-rotpy.system"></span><section id="system">
+<h1>System<a class="headerlink" href="#system" title="Permalink to this headline"></a></h1>
+<p>Provides access to the system in hardware interfaces that have access to
+cameras.</p>
+<p><strong>Exceptions:</strong></p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.system.SpinnakerAPIException" title="rotpy.system.SpinnakerAPIException"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SpinnakerAPIException</span></code></a></p></td>
+<td><p>An exception that represents an error raised from the Spinnaker API.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Classes:</strong></p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.system.EventHandlerBase" title="rotpy.system.EventHandlerBase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EventHandlerBase</span></code></a></p></td>
+<td><p>Base class for all event handlers.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.system.LoggingEventHandler" title="rotpy.system.LoggingEventHandler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LoggingEventHandler</span></code></a></p></td>
+<td><p>A system log event handler that is returned by <a class="reference internal" href="#rotpy.system.SpinSystem.attach_log_event_handler" title="rotpy.system.SpinSystem.attach_log_event_handler"><code class="xref py py-meth docutils literal notranslate"><span class="pre">attach_log_event_handler()</span></code></a> that handles callbacks for internal Spinnaker logging events.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.system.SystemEventHandler" title="rotpy.system.SystemEventHandler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SystemEventHandler</span></code></a></p></td>
+<td><p>A system interface arrival/removal handler that is returned by <a class="reference internal" href="#rotpy.system.SpinSystem.attach_event_handler" title="rotpy.system.SpinSystem.attach_event_handler"><code class="xref py py-meth docutils literal notranslate"><span class="pre">attach_event_handler()</span></code></a> that handles callbacks for when a new hardware interface to which cameras may be attached (e.g.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.system.InterfaceEventHandler" title="rotpy.system.InterfaceEventHandler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InterfaceEventHandler</span></code></a></p></td>
+<td><p>A system/interface camera arrival/removal handler that is returned by <a class="reference internal" href="#rotpy.system.SpinSystem.attach_interface_event_handler" title="rotpy.system.SpinSystem.attach_interface_event_handler"><code class="xref py py-meth docutils literal notranslate"><span class="pre">attach_interface_event_handler()</span></code></a> and <a class="reference internal" href="#rotpy.system.InterfaceDevice.attach_event_handler" title="rotpy.system.InterfaceDevice.attach_event_handler"><code class="xref py py-meth docutils literal notranslate"><span class="pre">attach_event_handler()</span></code></a> that handles callbacks for when a camera is added or removed from the system or specific interface.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.system.SpinSystem" title="rotpy.system.SpinSystem"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SpinSystem</span></code></a></p></td>
+<td><p>A <a class="reference internal" href="#rotpy.system.SpinSystem" title="rotpy.system.SpinSystem"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpinSystem</span></code></a> provides access to interfaces and cameras attached to these interfaces across the system.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.system.InterfaceDeviceList" title="rotpy.system.InterfaceDeviceList"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InterfaceDeviceList</span></code></a></p></td>
+<td><p>Provides access to a list of the interface devices to which cameras can be attached e.g.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.system.InterfaceDevice" title="rotpy.system.InterfaceDevice"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InterfaceDevice</span></code></a></p></td>
+<td><p>A hardware interface to which cameras such as GigE, USB2/3 can be attached.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py exception">
+<dt class="sig sig-object py" id="rotpy.system.SpinnakerAPIException">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SpinnakerAPIException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spin_what</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spin_full_msg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spin_msg</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spin_file_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spin_func_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spin_build_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spin_build_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spin_line_num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spin_error_code</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.SpinnakerAPIException" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<p>An exception that represents an error raised from the Spinnaker API.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rotpy.system.EventHandlerBase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EventHandlerBase</span></span><a class="headerlink" href="#rotpy.system.EventHandlerBase" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Base class for all event handlers.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rotpy.system.LoggingEventHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">LoggingEventHandler</span></span><a class="headerlink" href="#rotpy.system.LoggingEventHandler" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#rotpy.system.EventHandlerBase" title="rotpy.system.EventHandlerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">rotpy.system.EventHandlerBase</span></code></a></p>
+<p>A system log event handler that is returned by
+<a class="reference internal" href="#rotpy.system.SpinSystem.attach_log_event_handler" title="rotpy.system.SpinSystem.attach_log_event_handler"><code class="xref py py-meth docutils literal notranslate"><span class="pre">attach_log_event_handler()</span></code></a> that handles callbacks for
+internal Spinnaker logging events.</p>
+<p>This represents a callback function that is called on each log event with
+3 positional arguments: this instance, the <a class="reference internal" href="#rotpy.system.SpinSystem" title="rotpy.system.SpinSystem"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpinSystem</span></code></a> instance that
+created this, and a dict with the log data.</p>
+<p>Some dict keys are the error <code class="docutils literal notranslate"><span class="pre">category</span></code>, the error <code class="docutils literal notranslate"><span class="pre">message</span></code>,
+the <code class="docutils literal notranslate"><span class="pre">ndc</span></code> (Nested Diagnostic Context), the <code class="docutils literal notranslate"><span class="pre">thread</span></code> in which it
+happened, the <code class="docutils literal notranslate"><span class="pre">timestamp</span></code> string, the <code class="docutils literal notranslate"><span class="pre">priority</span></code> name, and the
+<code class="docutils literal notranslate"><span class="pre">priority_num</span></code>.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rotpy.system.SystemEventHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SystemEventHandler</span></span><a class="headerlink" href="#rotpy.system.SystemEventHandler" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#rotpy.system.EventHandlerBase" title="rotpy.system.EventHandlerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">rotpy.system.EventHandlerBase</span></code></a></p>
+<p>A system interface arrival/removal handler that is returned by
+<a class="reference internal" href="#rotpy.system.SpinSystem.attach_event_handler" title="rotpy.system.SpinSystem.attach_event_handler"><code class="xref py py-meth docutils literal notranslate"><span class="pre">attach_event_handler()</span></code></a> that handles callbacks for
+when a new hardware interface to which cameras may be attached (e.g. USB
+port) is added or removed from the system.</p>
+<p>This represents an arrival and removal callback function that is each called
+respectively (if provided when it’s created), on each arrival/removal event
+with 3 positional arguments: this instance, the <a class="reference internal" href="#rotpy.system.SpinSystem" title="rotpy.system.SpinSystem"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpinSystem</span></code></a> instance
+that created this, and a string representing the interface name.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rotpy.system.InterfaceEventHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">InterfaceEventHandler</span></span><a class="headerlink" href="#rotpy.system.InterfaceEventHandler" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#rotpy.system.EventHandlerBase" title="rotpy.system.EventHandlerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">rotpy.system.EventHandlerBase</span></code></a></p>
+<p>A system/interface camera arrival/removal handler that is returned by
+<a class="reference internal" href="#rotpy.system.SpinSystem.attach_interface_event_handler" title="rotpy.system.SpinSystem.attach_interface_event_handler"><code class="xref py py-meth docutils literal notranslate"><span class="pre">attach_interface_event_handler()</span></code></a> and
+<a class="reference internal" href="#rotpy.system.InterfaceDevice.attach_event_handler" title="rotpy.system.InterfaceDevice.attach_event_handler"><code class="xref py py-meth docutils literal notranslate"><span class="pre">attach_event_handler()</span></code></a> that handles callbacks for
+when a camera is added or removed from the system or specific interface.</p>
+<p>This represents an arrival and removal callback function that is each called
+respectively (if provided when it’s created), on each arrival/removal event
+with 3 positional arguments: this instance, the <a class="reference internal" href="#rotpy.system.SpinSystem" title="rotpy.system.SpinSystem"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpinSystem</span></code></a>
+or <a class="reference internal" href="#rotpy.system.InterfaceDevice" title="rotpy.system.InterfaceDevice"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceDevice</span></code></a> instance that created this, and an integer
+representing the camera serial number.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rotpy.system.SpinSystem">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SpinSystem</span></span><a class="headerlink" href="#rotpy.system.SpinSystem" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A <a class="reference internal" href="#rotpy.system.SpinSystem" title="rotpy.system.SpinSystem"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpinSystem</span></code></a> provides access to interfaces and cameras
+attached to these interfaces across the system.</p>
+<p><strong>Methods:</strong></p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.system.SpinSystem.attach_event_handler" title="rotpy.system.SpinSystem.attach_event_handler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">attach_event_handler</span></code></a></p></td>
+<td><p>Registers the system callbacks to get interface arrival/removal events.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.system.SpinSystem.attach_interface_event_handler" title="rotpy.system.SpinSystem.attach_interface_event_handler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">attach_interface_event_handler</span></code></a></p></td>
+<td><p>Registers device arrival and removal events for all interfaces that are found on the system.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.system.SpinSystem.attach_log_event_handler" title="rotpy.system.SpinSystem.attach_log_event_handler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">attach_log_event_handler</span></code></a></p></td>
+<td><p>Registers the callback to get logging events from system.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.system.SpinSystem.create_interface_list" title="rotpy.system.SpinSystem.create_interface_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_interface_list</span></code></a></p></td>
+<td><p>Creates and returns a new <a class="reference internal" href="#rotpy.system.InterfaceDeviceList" title="rotpy.system.InterfaceDeviceList"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceDeviceList</span></code></a> for accessing interfaces on the system.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.system.SpinSystem.detach_all_log_handlers" title="rotpy.system.SpinSystem.detach_all_log_handlers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">detach_all_log_handlers</span></code></a></p></td>
+<td><p>Detaches all the attached log event handlers that have been previously attached.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.system.SpinSystem.detach_event_handler" title="rotpy.system.SpinSystem.detach_event_handler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">detach_event_handler</span></code></a></p></td>
+<td><p>Detaches the event handler returned by <a class="reference internal" href="#rotpy.system.SpinSystem.attach_event_handler" title="rotpy.system.SpinSystem.attach_event_handler"><code class="xref py py-meth docutils literal notranslate"><span class="pre">attach_event_handler()</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.system.SpinSystem.detach_interface_event_handler" title="rotpy.system.SpinSystem.detach_interface_event_handler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">detach_interface_event_handler</span></code></a></p></td>
+<td><p>Detaches the event handler previously returned by <a class="reference internal" href="#rotpy.system.SpinSystem.attach_interface_event_handler" title="rotpy.system.SpinSystem.attach_interface_event_handler"><code class="xref py py-meth docutils literal notranslate"><span class="pre">attach_interface_event_handler()</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.system.SpinSystem.detach_log_event_handler" title="rotpy.system.SpinSystem.detach_log_event_handler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">detach_log_event_handler</span></code></a></p></td>
+<td><p>Detaches an event handler returned by <a class="reference internal" href="#rotpy.system.SpinSystem.attach_log_event_handler" title="rotpy.system.SpinSystem.attach_log_event_handler"><code class="xref py py-meth docutils literal notranslate"><span class="pre">attach_log_event_handler()</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.system.SpinSystem.get_in_use" title="rotpy.system.SpinSystem.get_in_use"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_in_use</span></code></a></p></td>
+<td><p>Checks if the system is in use by any interface or camera objects.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.system.SpinSystem.get_library_version" title="rotpy.system.SpinSystem.get_library_version"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_library_version</span></code></a></p></td>
+<td><p>Gets the current Spinnaker library version as a 4 tuple of <code class="docutils literal notranslate"><span class="pre">(major,</span> <span class="pre">minor,</span> <span class="pre">type,</span> <span class="pre">build)</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.system.SpinSystem.get_logging_level" title="rotpy.system.SpinSystem.get_logging_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_logging_level</span></code></a></p></td>
+<td><p>Gets the logging level (as listed in <a class="reference internal" href="names/spin.html#rotpy.names.spin.log_level_names" title="rotpy.names.spin.log_level_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">log_level_names</span></code></a>) for all logging events on the system.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.system.SpinSystem.get_tl_node_map" title="rotpy.system.SpinSystem.get_tl_node_map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_tl_node_map</span></code></a></p></td>
+<td><p>Gets the transport layer nodemap from the system.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.system.SpinSystem.send_command" title="rotpy.system.SpinSystem.send_command"><code class="xref py py-obj docutils literal notranslate"><span class="pre">send_command</span></code></a></p></td>
+<td><p>Broadcast an Action Command to all devices on the system.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.system.SpinSystem.set_logging_level" title="rotpy.system.SpinSystem.set_logging_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_logging_level</span></code></a></p></td>
+<td><p>Sets the logging level for all logging events on the system.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.system.SpinSystem.update_camera_list" title="rotpy.system.SpinSystem.update_camera_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_camera_list</span></code></a></p></td>
+<td><p>Updates the internal list of cameras on the system, returning a bool indicating whether there has been any changes and cameras have arrived or been removed.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.system.SpinSystem.update_interface_list" title="rotpy.system.SpinSystem.update_interface_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_interface_list</span></code></a></p></td>
+<td><p>Updates the internal list of interfaces on the system.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Attributes:</strong></p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.system.SpinSystem.system_nodes" title="rotpy.system.SpinSystem.system_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">system_nodes</span></code></a></p></td>
+<td><p>system_nodes: rotpy.system_nodes.SystemNodes The pre-listed system nodes from <a class="reference internal" href="system_nodes.html#rotpy.system_nodes.SystemNodes" title="rotpy.system_nodes.SystemNodes"><code class="xref py py-class docutils literal notranslate"><span class="pre">SystemNodes</span></code></a>.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.system.SpinSystem.attach_event_handler">
+<span class="sig-name descname"><span class="pre">attach_event_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback_arrival</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback_removal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.SpinSystem.attach_event_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Registers the system callbacks to get interface arrival/removal
+events.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>callback_arrival</strong> – A function that will be called upon interface
+arrival events. If it’s <code class="docutils literal notranslate"><span class="pre">None</span></code>, arrival events will be ignored.
+See <a class="reference internal" href="#rotpy.system.SystemEventHandler" title="rotpy.system.SystemEventHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">SystemEventHandler</span></code></a> for the function signature.</p></li>
+<li><p><strong>callback_removal</strong> – A function that will be called upon interface
+removal events. If it’s <code class="docutils literal notranslate"><span class="pre">None</span></code>, removal events will be ignored.
+See <a class="reference internal" href="#rotpy.system.SystemEventHandler" title="rotpy.system.SystemEventHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">SystemEventHandler</span></code></a> for the function signature.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <a class="reference internal" href="#rotpy.system.SystemEventHandler" title="rotpy.system.SystemEventHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">SystemEventHandler</span></code></a> instance representing the
+callbacks.</p>
+</dd>
+</dl>
+<p>The callbacks will receive the system events while they are registered,
+possibly even before this function returns(?) and could potentially
+be called by external threads. It’s best not to do any work in it.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.system.SpinSystem.attach_interface_event_handler">
+<span class="sig-name descname"><span class="pre">attach_interface_event_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback_arrival=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback_removal=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bool</span> <span class="pre">update=True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.SpinSystem.attach_interface_event_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Registers device arrival and removal events for all
+interfaces that are found on the system. If new interfaces are detected
+by the system after this call, those interfaces will be automatically
+registered with this event.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>callback_arrival</strong> – A function that will be called upon device
+arrival events. If it’s <code class="docutils literal notranslate"><span class="pre">None</span></code>, arrival events will be ignored.
+See <a class="reference internal" href="#rotpy.system.InterfaceEventHandler" title="rotpy.system.InterfaceEventHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceEventHandler</span></code></a> for the function signature.</p></li>
+<li><p><strong>callback_removal</strong> – A function that will be called upon device
+removal events. If it’s <code class="docutils literal notranslate"><span class="pre">None</span></code>, removal events will be ignored.
+See <a class="reference internal" href="#rotpy.system.InterfaceEventHandler" title="rotpy.system.InterfaceEventHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceEventHandler</span></code></a> for the function signature.</p></li>
+<li><p><strong>update</strong> – Whether to update the interface list before attaching
+event for the available interfaces on the system.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <a class="reference internal" href="#rotpy.system.InterfaceEventHandler" title="rotpy.system.InterfaceEventHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceEventHandler</span></code></a> instance representing the
+callbacks.</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Only GEV interface arrivals and removals are currently handled.</p>
+</div>
+<p>The callbacks will receive the interface events while they are
+registered,
+possibly even before this function returns(?) and could potentially
+be called by external threads. It’s best not to do any work in it.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.system.SpinSystem.attach_log_event_handler">
+<span class="sig-name descname"><span class="pre">attach_log_event_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.SpinSystem.attach_log_event_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Registers the callback to get logging events from system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>callback</strong> – A function that will be called upon logging events.
+See <a class="reference internal" href="#rotpy.system.LoggingEventHandler" title="rotpy.system.LoggingEventHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoggingEventHandler</span></code></a> for the function signature.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <a class="reference internal" href="#rotpy.system.LoggingEventHandler" title="rotpy.system.LoggingEventHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoggingEventHandler</span></code></a> instance representing the
+callback.</p>
+</dd>
+</dl>
+<p>The <code class="docutils literal notranslate"><span class="pre">callback</span></code> will receive the events while it is registered,
+possibly even before this function returns(?) and could potentially
+be called by external threads. It’s best not to do any work in it.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.system.SpinSystem.create_interface_list">
+<span class="sig-name descname"><span class="pre">create_interface_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bool</span> <span class="pre">update_interfaces=True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.SpinSystem.create_interface_list" title="Permalink to this definition"></a></dt>
+<dd><p>Creates and returns a new <a class="reference internal" href="#rotpy.system.InterfaceDeviceList" title="rotpy.system.InterfaceDeviceList"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceDeviceList</span></code></a> for accessing
+interfaces on the system.</p>
+<p>This returns GigE and USB2 and USB3 interfaces. Note that on MacOS only
+active GigE interfaces will be stored in the returned interface list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>update_interfaces</strong> – Whether to update the internal interface list
+before getting the available interfaces list.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <a class="reference internal" href="#rotpy.system.InterfaceDeviceList" title="rotpy.system.InterfaceDeviceList"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceDeviceList</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.system.SpinSystem.detach_all_log_handlers">
+<span class="sig-name descname"><span class="pre">detach_all_log_handlers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.SpinSystem.detach_all_log_handlers" title="Permalink to this definition"></a></dt>
+<dd><p>Detaches all the attached log event handlers that have been
+previously attached.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.system.SpinSystem.detach_event_handler">
+<span class="sig-name descname"><span class="pre">detach_event_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">SystemEventHandler</span> <span class="pre">handler</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.SpinSystem.detach_event_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Detaches the event handler returned by <a class="reference internal" href="#rotpy.system.SpinSystem.attach_event_handler" title="rotpy.system.SpinSystem.attach_event_handler"><code class="xref py py-meth docutils literal notranslate"><span class="pre">attach_event_handler()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>handler</strong> – The <a class="reference internal" href="#rotpy.system.SystemEventHandler" title="rotpy.system.SystemEventHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">SystemEventHandler</span></code></a> that handled the events.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.system.SpinSystem.detach_interface_event_handler">
+<span class="sig-name descname"><span class="pre">detach_interface_event_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">InterfaceEventHandler</span> <span class="pre">handler</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.SpinSystem.detach_interface_event_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Detaches the event handler previously returned by
+<a class="reference internal" href="#rotpy.system.SpinSystem.attach_interface_event_handler" title="rotpy.system.SpinSystem.attach_interface_event_handler"><code class="xref py py-meth docutils literal notranslate"><span class="pre">attach_interface_event_handler()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>handler</strong> – The <a class="reference internal" href="#rotpy.system.InterfaceEventHandler" title="rotpy.system.InterfaceEventHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceEventHandler</span></code></a> that handled the
+events.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.system.SpinSystem.detach_log_event_handler">
+<span class="sig-name descname"><span class="pre">detach_log_event_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LoggingEventHandler</span> <span class="pre">handler</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.SpinSystem.detach_log_event_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Detaches an event handler returned by
+<a class="reference internal" href="#rotpy.system.SpinSystem.attach_log_event_handler" title="rotpy.system.SpinSystem.attach_log_event_handler"><code class="xref py py-meth docutils literal notranslate"><span class="pre">attach_log_event_handler()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>handler</strong> – The <a class="reference internal" href="#rotpy.system.LoggingEventHandler" title="rotpy.system.LoggingEventHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoggingEventHandler</span></code></a> that handled the
+events.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.system.SpinSystem.get_in_use">
+<span class="sig-name descname"><span class="pre">get_in_use</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.SpinSystem.get_in_use" title="Permalink to this definition"></a></dt>
+<dd><p>Checks if the system is in use by any interface or camera objects.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.system.SpinSystem.get_library_version">
+<span class="sig-name descname"><span class="pre">get_library_version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.SpinSystem.get_library_version" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the current Spinnaker library version as a 4 tuple of
+<code class="docutils literal notranslate"><span class="pre">(major,</span> <span class="pre">minor,</span> <span class="pre">type,</span> <span class="pre">build)</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.system.SpinSystem.get_logging_level">
+<span class="sig-name descname"><span class="pre">get_logging_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.SpinSystem.get_logging_level" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the logging level (as listed in
+<a class="reference internal" href="names/spin.html#rotpy.names.spin.log_level_names" title="rotpy.names.spin.log_level_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">log_level_names</span></code></a>) for all logging events on the
+system.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.system.SpinSystem.get_tl_node_map">
+<span class="sig-name descname"><span class="pre">get_tl_node_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.SpinSystem.get_tl_node_map" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the transport layer nodemap from the system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A <a class="reference internal" href="node.html#rotpy.node.NodeMap" title="rotpy.node.NodeMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeMap</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.system.SpinSystem.send_command">
+<span class="sig-name descname"><span class="pre">send_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsigned</span> <span class="pre">int</span> <span class="pre">device_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsigned</span> <span class="pre">int</span> <span class="pre">group_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsigned</span> <span class="pre">int</span> <span class="pre">group_mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsigned</span> <span class="pre">long</span> <span class="pre">long</span> <span class="pre">action_time=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsigned</span> <span class="pre">int</span> <span class="pre">num_results=0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.SpinSystem.send_command" title="Permalink to this definition"></a></dt>
+<dd><p>Broadcast an Action Command to all devices on the system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_key</strong> – The action command’s device key.</p></li>
+<li><p><strong>group_key</strong> – The action command’s group key.</p></li>
+<li><p><strong>group_mask</strong> – The action command’s group mask.</p></li>
+<li><p><strong>action_time</strong> – Time when to assert a future action. Zero (default)
+means immediate action.</p></li>
+<li><p><strong>num_results</strong> – The number of results expected in the return list.
+The value passed should be equal to the expected number of devices
+that acknowledge the command. The returned list will be the actual
+number of received results. If this is 0, the function will return
+as soon as the command has been broadcasted.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of tuples, one tuple for each item in the result.
+Each tuple is <code class="docutils literal notranslate"><span class="pre">(address,</span> <span class="pre">status)</span></code>, where <code class="docutils literal notranslate"><span class="pre">address</span></code> is the device
+address and <code class="docutils literal notranslate"><span class="pre">status</span></code> is the status string from
+<a class="reference internal" href="names/spin.html#rotpy.names.spin.cmd_status_names" title="rotpy.names.spin.cmd_status_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">cmd_status_names</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.system.SpinSystem.set_logging_level">
+<span class="sig-name descname"><span class="pre">set_logging_level</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unicode</span> <span class="pre">level</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.SpinSystem.set_logging_level" title="Permalink to this definition"></a></dt>
+<dd><p>Sets the logging level for all logging events on the system.
+Logging events below such level will not trigger callbacks</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>level</strong> – The name of the level as listed in
+<a class="reference internal" href="names/spin.html#rotpy.names.spin.log_level_names" title="rotpy.names.spin.log_level_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">log_level_names</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.system.SpinSystem.system_nodes">
+<span class="sig-name descname"><span class="pre">system_nodes</span></span><a class="headerlink" href="#rotpy.system.SpinSystem.system_nodes" title="Permalink to this definition"></a></dt>
+<dd><p>system_nodes: rotpy.system_nodes.SystemNodes
+The pre-listed system nodes from <a class="reference internal" href="system_nodes.html#rotpy.system_nodes.SystemNodes" title="rotpy.system_nodes.SystemNodes"><code class="xref py py-class docutils literal notranslate"><span class="pre">SystemNodes</span></code></a>.</p>
+<blockquote>
+<div><p>Use this property to get a pre-instantiated
+<a class="reference internal" href="system_nodes.html#rotpy.system_nodes.SystemNodes" title="rotpy.system_nodes.SystemNodes"><code class="xref py py-class docutils literal notranslate"><span class="pre">SystemNodes</span></code></a> because
+<a class="reference internal" href="system_nodes.html#rotpy.system_nodes.SystemNodes" title="rotpy.system_nodes.SystemNodes"><code class="xref py py-class docutils literal notranslate"><span class="pre">SystemNodes</span></code></a> is not user instantiable.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Remember to check whether each of the pre-listed nodes are
+<a class="reference internal" href="node.html#rotpy.node.SpinBaseNode.is_available" title="rotpy.node.SpinBaseNode.is_available"><code class="xref py py-meth docutils literal notranslate"><span class="pre">is_available()</span></code></a>,
+<a class="reference internal" href="node.html#rotpy.node.SpinBaseNode.is_readable" title="rotpy.node.SpinBaseNode.is_readable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">is_readable()</span></code></a>,
+<a class="reference internal" href="node.html#rotpy.node.SpinBaseNode.is_writable" title="rotpy.node.SpinBaseNode.is_writable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">is_writable()</span></code></a> etc.</p>
+</div>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.system.SpinSystem.update_camera_list">
+<span class="sig-name descname"><span class="pre">update_camera_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bool</span> <span class="pre">update_interfaces=True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.SpinSystem.update_camera_list" title="Permalink to this definition"></a></dt>
+<dd><p>Updates the internal list of cameras on the system, returning a bool
+indicating whether there has been any changes and cameras have arrived
+or been removed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>update_interfaces</strong> – If True, the interface lists will also be
+updated.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if cameras changed on interface and False otherwise.</p>
+</dd>
+</dl>
+<p>If desired to get the new interfaces or cameras, call
+<a class="reference internal" href="#rotpy.system.SpinSystem.create_interface_list" title="rotpy.system.SpinSystem.create_interface_list"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_interface_list()</span></code></a> or
+<a class="reference internal" href="camera.html#rotpy.camera.CameraList.create_from_system" title="rotpy.camera.CameraList.create_from_system"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_from_system()</span></code></a>, respectively
+because existing <a class="reference internal" href="camera.html#rotpy.camera.CameraList" title="rotpy.camera.CameraList"><code class="xref py py-class docutils literal notranslate"><span class="pre">CameraList</span></code></a> will not reflect the
+updates.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.system.SpinSystem.update_interface_list">
+<span class="sig-name descname"><span class="pre">update_interface_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.SpinSystem.update_interface_list" title="Permalink to this definition"></a></dt>
+<dd><p>Updates the internal list of interfaces on the system.</p>
+<p>If desired to get the new interfaces, call
+<a class="reference internal" href="#rotpy.system.SpinSystem.create_interface_list" title="rotpy.system.SpinSystem.create_interface_list"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_interface_list()</span></code></a>, existing <a class="reference internal" href="#rotpy.system.InterfaceDeviceList" title="rotpy.system.InterfaceDeviceList"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceDeviceList</span></code></a>
+will not reflect the updates.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rotpy.system.InterfaceDeviceList">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">InterfaceDeviceList</span></span><a class="headerlink" href="#rotpy.system.InterfaceDeviceList" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Provides access to a list of the interface devices to which cameras
+can be attached e.g. GigE and USB2 and USB3 interfaces.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do <strong>not</strong> create a <a class="reference internal" href="#rotpy.system.InterfaceDeviceList" title="rotpy.system.InterfaceDeviceList"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceDeviceList</span></code></a> manually, rather get it
+from <a class="reference internal" href="#rotpy.system.SpinSystem.create_interface_list" title="rotpy.system.SpinSystem.create_interface_list"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_interface_list()</span></code></a>.</p>
+</div>
+<p>Once a <a class="reference internal" href="#rotpy.system.InterfaceDeviceList" title="rotpy.system.InterfaceDeviceList"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceDeviceList</span></code></a> is created from the system,
+updating the system so it detects new interface will <strong>not</strong>
+be reflected in existing <a class="reference internal" href="#rotpy.system.InterfaceDeviceList" title="rotpy.system.InterfaceDeviceList"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceDeviceList</span></code></a>. Instead, create
+new one to access those new interfaces.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On MacOS only active GigE interfaces will be stored in the returned
+<a class="reference internal" href="#rotpy.system.InterfaceDeviceList" title="rotpy.system.InterfaceDeviceList"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceDeviceList</span></code></a>.</p>
+</div>
+<p><strong>Methods:</strong></p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.system.InterfaceDeviceList.create_interface" title="rotpy.system.InterfaceDeviceList.create_interface"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_interface</span></code></a></p></td>
+<td><p>Retrieves an interface device from this interface device list using using a zero-based index that is less than <a class="reference internal" href="#rotpy.system.InterfaceDeviceList.get_size" title="rotpy.system.InterfaceDeviceList.get_size"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_size()</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.system.InterfaceDeviceList.extend" title="rotpy.system.InterfaceDeviceList.extend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extend</span></code></a></p></td>
+<td><p>Extends this interface list with a copy of the other interface list.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.system.InterfaceDeviceList.get_size" title="rotpy.system.InterfaceDeviceList.get_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_size</span></code></a></p></td>
+<td><p>Retrieves the number of detected interface devices in the list.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.system.InterfaceDeviceList.create_interface">
+<span class="sig-name descname"><span class="pre">create_interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsigned</span> <span class="pre">int</span> <span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.InterfaceDeviceList.create_interface" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves an interface device from this interface device list using
+using a zero-based index that is less than <a class="reference internal" href="#rotpy.system.InterfaceDeviceList.get_size" title="rotpy.system.InterfaceDeviceList.get_size"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_size()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> – The index of the interface device.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <a class="reference internal" href="#rotpy.system.InterfaceDevice" title="rotpy.system.InterfaceDevice"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceDevice</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.system.InterfaceDeviceList.extend">
+<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">InterfaceDeviceList</span> <span class="pre">other</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.InterfaceDeviceList.extend" title="Permalink to this definition"></a></dt>
+<dd><p>Extends this interface list with a copy of the other interface list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>other</strong> – The other <a class="reference internal" href="#rotpy.system.InterfaceDeviceList" title="rotpy.system.InterfaceDeviceList"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceDeviceList</span></code></a> to add to us.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.system.InterfaceDeviceList.get_size">
+<span class="sig-name descname"><span class="pre">get_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.InterfaceDeviceList.get_size" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves the number of detected interface devices in the list.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rotpy.system.InterfaceDevice">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">InterfaceDevice</span></span><a class="headerlink" href="#rotpy.system.InterfaceDevice" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A hardware interface to which cameras such as GigE, USB2/3 can be
+attached.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do <strong>not</strong> create a <a class="reference internal" href="#rotpy.system.InterfaceDevice" title="rotpy.system.InterfaceDevice"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceDevice</span></code></a> manually, rather get it
+from <a class="reference internal" href="#rotpy.system.InterfaceDeviceList.create_interface" title="rotpy.system.InterfaceDeviceList.create_interface"><code class="xref py py-meth docutils literal notranslate"><span class="pre">InterfaceDeviceList.create_interface()</span></code></a>.</p>
+</div>
+<p><strong>Methods:</strong></p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.system.InterfaceDevice.attach_event_handler" title="rotpy.system.InterfaceDevice.attach_event_handler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">attach_event_handler</span></code></a></p></td>
+<td><p>Registers device arrival and removal events for this interface.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.system.InterfaceDevice.detach_event_handler" title="rotpy.system.InterfaceDevice.detach_event_handler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">detach_event_handler</span></code></a></p></td>
+<td><p>Detaches the event handler previously returned by <a class="reference internal" href="#rotpy.system.InterfaceDevice.attach_event_handler" title="rotpy.system.InterfaceDevice.attach_event_handler"><code class="xref py py-meth docutils literal notranslate"><span class="pre">attach_event_handler()</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.system.InterfaceDevice.get_in_use" title="rotpy.system.InterfaceDevice.get_in_use"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_in_use</span></code></a></p></td>
+<td><p>Returns whether this interface is in use by any camera objects.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.system.InterfaceDevice.get_is_valid" title="rotpy.system.InterfaceDevice.get_is_valid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_is_valid</span></code></a></p></td>
+<td><p>Returns whether this interface is still valid for use.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.system.InterfaceDevice.get_tl_node_map" title="rotpy.system.InterfaceDevice.get_tl_node_map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_tl_node_map</span></code></a></p></td>
+<td><p>Gets the transport layer nodemap from this interface.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.system.InterfaceDevice.release" title="rotpy.system.InterfaceDevice.release"><code class="xref py py-obj docutils literal notranslate"><span class="pre">release</span></code></a></p></td>
+<td><p>Releases the interface's resources, including its nodes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.system.InterfaceDevice.send_command" title="rotpy.system.InterfaceDevice.send_command"><code class="xref py py-obj docutils literal notranslate"><span class="pre">send_command</span></code></a></p></td>
+<td><p>Broadcast an Action Command to all devices on this interface.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.system.InterfaceDevice.update_camera_list" title="rotpy.system.InterfaceDevice.update_camera_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_camera_list</span></code></a></p></td>
+<td><p>Updates the internal list of cameras on this interface, returning a bool indicating whether there has been any changes and cameras have arrived or been removed.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Attributes:</strong></p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.system.InterfaceDevice.interface_nodes" title="rotpy.system.InterfaceDevice.interface_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">interface_nodes</span></code></a></p></td>
+<td><p>interface_nodes: rotpy.system_nodes.InterfaceNodes The pre-listed interface nodes from <a class="reference internal" href="system_nodes.html#rotpy.system_nodes.InterfaceNodes" title="rotpy.system_nodes.InterfaceNodes"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceNodes</span></code></a>.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.system.InterfaceDevice.attach_event_handler">
+<span class="sig-name descname"><span class="pre">attach_event_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback_arrival</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback_removal</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.InterfaceDevice.attach_event_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Registers device arrival and removal events for this interface.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>callback_arrival</strong> – A function that will be called upon device
+arrival events. If it’s <code class="docutils literal notranslate"><span class="pre">None</span></code>, arrival events will be ignored.
+See <a class="reference internal" href="#rotpy.system.InterfaceEventHandler" title="rotpy.system.InterfaceEventHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceEventHandler</span></code></a> for the function signature.</p></li>
+<li><p><strong>callback_removal</strong> – A function that will be called upon device
+removal events. If it’s <code class="docutils literal notranslate"><span class="pre">None</span></code>, removal events will be ignored.
+See <a class="reference internal" href="#rotpy.system.InterfaceEventHandler" title="rotpy.system.InterfaceEventHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceEventHandler</span></code></a> for the function signature.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <a class="reference internal" href="#rotpy.system.InterfaceEventHandler" title="rotpy.system.InterfaceEventHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceEventHandler</span></code></a> instance representing the
+callbacks.</p>
+</dd>
+</dl>
+<p>The callbacks will receive the interface events while they are
+registered,
+possibly even before this function returns(?) and could potentially
+be called by external threads. It’s best not to do any work in it.</p>
+<p>Event handlers are automatically cleaned up when an interface is
+removed, and must be registered to interfaces as they arrive. Note that
+GEV interfaces experience arrival/removal events when the IP information
+changes, similar to GEV cameras.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.system.InterfaceDevice.detach_event_handler">
+<span class="sig-name descname"><span class="pre">detach_event_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">InterfaceEventHandler</span> <span class="pre">handler</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.InterfaceDevice.detach_event_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Detaches the event handler previously returned by
+<a class="reference internal" href="#rotpy.system.InterfaceDevice.attach_event_handler" title="rotpy.system.InterfaceDevice.attach_event_handler"><code class="xref py py-meth docutils literal notranslate"><span class="pre">attach_event_handler()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>handler</strong> – The <a class="reference internal" href="#rotpy.system.InterfaceEventHandler" title="rotpy.system.InterfaceEventHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceEventHandler</span></code></a> that handled the
+events.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.system.InterfaceDevice.get_in_use">
+<span class="sig-name descname"><span class="pre">get_in_use</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.InterfaceDevice.get_in_use" title="Permalink to this definition"></a></dt>
+<dd><p>Returns whether this interface is in use by any camera objects.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.system.InterfaceDevice.get_is_valid">
+<span class="sig-name descname"><span class="pre">get_is_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.InterfaceDevice.get_is_valid" title="Permalink to this definition"></a></dt>
+<dd><p>Returns whether this interface is still valid for use.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.system.InterfaceDevice.get_tl_node_map">
+<span class="sig-name descname"><span class="pre">get_tl_node_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.InterfaceDevice.get_tl_node_map" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the transport layer nodemap from this interface.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A <a class="reference internal" href="node.html#rotpy.node.NodeMap" title="rotpy.node.NodeMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeMap</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.system.InterfaceDevice.interface_nodes">
+<span class="sig-name descname"><span class="pre">interface_nodes</span></span><a class="headerlink" href="#rotpy.system.InterfaceDevice.interface_nodes" title="Permalink to this definition"></a></dt>
+<dd><p>interface_nodes: rotpy.system_nodes.InterfaceNodes
+The pre-listed interface nodes from <a class="reference internal" href="system_nodes.html#rotpy.system_nodes.InterfaceNodes" title="rotpy.system_nodes.InterfaceNodes"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceNodes</span></code></a>.</p>
+<blockquote>
+<div><p>Use this property to get a pre-instantiated
+<a class="reference internal" href="system_nodes.html#rotpy.system_nodes.InterfaceNodes" title="rotpy.system_nodes.InterfaceNodes"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceNodes</span></code></a> because
+<a class="reference internal" href="system_nodes.html#rotpy.system_nodes.InterfaceNodes" title="rotpy.system_nodes.InterfaceNodes"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceNodes</span></code></a> is not user instantiable.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Remember to check whether each of the pre-listed nodes are
+<a class="reference internal" href="node.html#rotpy.node.SpinBaseNode.is_available" title="rotpy.node.SpinBaseNode.is_available"><code class="xref py py-meth docutils literal notranslate"><span class="pre">is_available()</span></code></a>,
+<a class="reference internal" href="node.html#rotpy.node.SpinBaseNode.is_readable" title="rotpy.node.SpinBaseNode.is_readable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">is_readable()</span></code></a>,
+<a class="reference internal" href="node.html#rotpy.node.SpinBaseNode.is_writable" title="rotpy.node.SpinBaseNode.is_writable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">is_writable()</span></code></a> etc.</p>
+</div>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.system.InterfaceDevice.release">
+<span class="sig-name descname"><span class="pre">release</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.InterfaceDevice.release" title="Permalink to this definition"></a></dt>
+<dd><p>Releases the interface’s resources, including its nodes.</p>
+<p>Once called, non of the pre-listed node are valid and other interface
+methods should not be called.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.system.InterfaceDevice.send_command">
+<span class="sig-name descname"><span class="pre">send_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsigned</span> <span class="pre">int</span> <span class="pre">device_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsigned</span> <span class="pre">int</span> <span class="pre">group_key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsigned</span> <span class="pre">int</span> <span class="pre">group_mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsigned</span> <span class="pre">long</span> <span class="pre">long</span> <span class="pre">action_time=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsigned</span> <span class="pre">int</span> <span class="pre">num_results=0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.InterfaceDevice.send_command" title="Permalink to this definition"></a></dt>
+<dd><p>Broadcast an Action Command to all devices on this interface.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>device_key</strong> – The action command’s device key.</p></li>
+<li><p><strong>group_key</strong> – The action command’s group key.</p></li>
+<li><p><strong>group_mask</strong> – The action command’s group mask.</p></li>
+<li><p><strong>action_time</strong> – Time when to assert a future action. Zero (default)
+means immediate action.</p></li>
+<li><p><strong>num_results</strong> – The number of results expected in the return list.
+The value passed should be equal to the expected number of devices
+that acknowledge the command. The returned list will be the actual
+number of received results. If this is 0, the function will return
+as soon as the command has been broadcasted.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of tuples, one tuple for each item in the result.
+Each tuple is <code class="docutils literal notranslate"><span class="pre">(address,</span> <span class="pre">status)</span></code>, where <code class="docutils literal notranslate"><span class="pre">address</span></code> is the device
+address and <code class="docutils literal notranslate"><span class="pre">status</span></code> is the status string from
+<a class="reference internal" href="names/spin.html#rotpy.names.spin.cmd_status_names" title="rotpy.names.spin.cmd_status_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">cmd_status_names</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.system.InterfaceDevice.update_camera_list">
+<span class="sig-name descname"><span class="pre">update_camera_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.system.InterfaceDevice.update_camera_list" title="Permalink to this definition"></a></dt>
+<dd><p>Updates the internal list of cameras on this interface, returning a
+bool indicating whether there has been any changes and cameras have
+arrived or been removed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if cameras changed on interface and False otherwise.</p>
+</dd>
+</dl>
+<p>If desired to get the new cameras, call
+<a class="reference internal" href="camera.html#rotpy.camera.CameraList.create_from_interface" title="rotpy.camera.CameraList.create_from_interface"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_from_interface()</span></code></a> because existing
+<a class="reference internal" href="camera.html#rotpy.camera.CameraList" title="rotpy.camera.CameraList"><code class="xref py py-class docutils literal notranslate"><span class="pre">CameraList</span></code></a> will not reflect the updates.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="rotpy.html" class="btn btn-neutral float-left" title="RotPy Library" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="camera.html" class="btn btn-neutral float-right" title="Camera" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Matthew Einhorn.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GenAPI enums &mdash; RotPy 0.2.1.dev0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="System nodes" href="../system_nodes.html" />
+    <link rel="prev" title="Transport layer enums" href="tl.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> RotPy
+          </a>
+              <div class="version">
+                0.2.1.dev0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../README.html">RotPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../README.html#pre-compiled-wheels">Pre-compiled wheels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../README.html#from-source">From source</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../README.html#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../README.html#getting-an-image-from-a-gige-camera">Getting an image from a GigE camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../README.html#configuring-and-getting-an-image-from-a-usb3-camera">Configuring and getting an image from a USB3 camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../README.html#system-and-camera-properties">System and camera properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../README.html#attaching-event-handlers">Attaching event handlers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../README.html#camera-detection-events">Camera detection events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../README.html#logging-handler">Logging handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../README.html#camera-image-handler">Camera image handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../README.html#camera-events">Camera events</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">The RotPy API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../rotpy.html">RotPy Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../system.html">System</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../camera.html">Camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../image.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../node.html">Node</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../node.html#node-access">Node access</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="api.html">Enums</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="api.html#enum-names">Enum names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="spin.html">Spinnaker enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="camera.html">Camera enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tl.html">Transport layer enums</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">GenAPI enums</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../system_nodes.html">System nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../camera_nodes.html">Camera nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">Utilities</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">RotPy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../api.html">The RotPy API</a> &raquo;</li>
+          <li><a href="api.html">Enums</a> &raquo;</li>
+      <li>GenAPI enums</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/matham/rotpy/blob/main/doc/source/names/geni.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="module-rotpy.names.geni"></span><section id="genapi-enums">
+<h1>GenAPI enums<a class="headerlink" href="#genapi-enums" title="Permalink to this headline"></a></h1>
+<p>Provides access to all the GenAPI-related enums.</p>
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.Sign_names">
+<span class="sig-name descname"><span class="pre">Sign_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'_undefinedsign':</span> <span class="pre">2,</span> <span class="pre">'signed':</span> <span class="pre">0,</span> <span class="pre">'unsigned':</span> <span class="pre">1}</span></em><a class="headerlink" href="#rotpy.names.geni.Sign_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.Sign_values">
+<span class="sig-name descname"><span class="pre">Sign_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'signed',</span> <span class="pre">1:</span> <span class="pre">'unsigned',</span> <span class="pre">2:</span> <span class="pre">'_undefinedsign'}</span></em><a class="headerlink" href="#rotpy.names.geni.Sign_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.AccessMode_names">
+<span class="sig-name descname"><span class="pre">AccessMode_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'NA':</span> <span class="pre">1,</span> <span class="pre">'NI':</span> <span class="pre">0,</span> <span class="pre">'RO':</span> <span class="pre">3,</span> <span class="pre">'RW':</span> <span class="pre">4,</span> <span class="pre">'WO':</span> <span class="pre">2}</span></em><a class="headerlink" href="#rotpy.names.geni.AccessMode_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.AccessMode_values">
+<span class="sig-name descname"><span class="pre">AccessMode_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'NI',</span> <span class="pre">1:</span> <span class="pre">'NA',</span> <span class="pre">2:</span> <span class="pre">'WO',</span> <span class="pre">3:</span> <span class="pre">'RO',</span> <span class="pre">4:</span> <span class="pre">'RW'}</span></em><a class="headerlink" href="#rotpy.names.geni.AccessMode_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.Visibility_names">
+<span class="sig-name descname"><span class="pre">Visibility_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'Beginner':</span> <span class="pre">0,</span> <span class="pre">'Expert':</span> <span class="pre">1,</span> <span class="pre">'Guru':</span> <span class="pre">2,</span> <span class="pre">'Invisible':</span> <span class="pre">3}</span></em><a class="headerlink" href="#rotpy.names.geni.Visibility_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.Visibility_values">
+<span class="sig-name descname"><span class="pre">Visibility_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'Beginner',</span> <span class="pre">1:</span> <span class="pre">'Expert',</span> <span class="pre">2:</span> <span class="pre">'Guru',</span> <span class="pre">3:</span> <span class="pre">'Invisible'}</span></em><a class="headerlink" href="#rotpy.names.geni.Visibility_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.CachingMode_names">
+<span class="sig-name descname"><span class="pre">CachingMode_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'NoCache':</span> <span class="pre">0,</span> <span class="pre">'WriteAround':</span> <span class="pre">2,</span> <span class="pre">'WriteThrough':</span> <span class="pre">1}</span></em><a class="headerlink" href="#rotpy.names.geni.CachingMode_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.CachingMode_values">
+<span class="sig-name descname"><span class="pre">CachingMode_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'NoCache',</span> <span class="pre">1:</span> <span class="pre">'WriteThrough',</span> <span class="pre">2:</span> <span class="pre">'WriteAround'}</span></em><a class="headerlink" href="#rotpy.names.geni.CachingMode_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.Representation_names">
+<span class="sig-name descname"><span class="pre">Representation_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'Boolean':</span> <span class="pre">2,</span> <span class="pre">'HexNumber':</span> <span class="pre">4,</span> <span class="pre">'IPV4Address':</span> <span class="pre">5,</span> <span class="pre">'Linear':</span> <span class="pre">0,</span> <span class="pre">'Logarithmic':</span> <span class="pre">1,</span> <span class="pre">'MACAddress':</span> <span class="pre">6,</span> <span class="pre">'PureNumber':</span> <span class="pre">3}</span></em><a class="headerlink" href="#rotpy.names.geni.Representation_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.Representation_values">
+<span class="sig-name descname"><span class="pre">Representation_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'Linear',</span> <span class="pre">1:</span> <span class="pre">'Logarithmic',</span> <span class="pre">2:</span> <span class="pre">'Boolean',</span> <span class="pre">3:</span> <span class="pre">'PureNumber',</span> <span class="pre">4:</span> <span class="pre">'HexNumber',</span> <span class="pre">5:</span> <span class="pre">'IPV4Address',</span> <span class="pre">6:</span> <span class="pre">'MACAddress'}</span></em><a class="headerlink" href="#rotpy.names.geni.Representation_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.Endianess_names">
+<span class="sig-name descname"><span class="pre">Endianess_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'BigEndian':</span> <span class="pre">0,</span> <span class="pre">'LittleEndian':</span> <span class="pre">1}</span></em><a class="headerlink" href="#rotpy.names.geni.Endianess_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.Endianess_values">
+<span class="sig-name descname"><span class="pre">Endianess_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'BigEndian',</span> <span class="pre">1:</span> <span class="pre">'LittleEndian'}</span></em><a class="headerlink" href="#rotpy.names.geni.Endianess_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.NameSpace_names">
+<span class="sig-name descname"><span class="pre">NameSpace_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'Custom':</span> <span class="pre">0,</span> <span class="pre">'Standard':</span> <span class="pre">1}</span></em><a class="headerlink" href="#rotpy.names.geni.NameSpace_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.NameSpace_values">
+<span class="sig-name descname"><span class="pre">NameSpace_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'Custom',</span> <span class="pre">1:</span> <span class="pre">'Standard'}</span></em><a class="headerlink" href="#rotpy.names.geni.NameSpace_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.StandardNameSpace_names">
+<span class="sig-name descname"><span class="pre">StandardNameSpace_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'CL':</span> <span class="pre">3,</span> <span class="pre">'GEV':</span> <span class="pre">1,</span> <span class="pre">'IIDC':</span> <span class="pre">2,</span> <span class="pre">'USB':</span> <span class="pre">4}</span></em><a class="headerlink" href="#rotpy.names.geni.StandardNameSpace_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.StandardNameSpace_values">
+<span class="sig-name descname"><span class="pre">StandardNameSpace_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{1:</span> <span class="pre">'GEV',</span> <span class="pre">2:</span> <span class="pre">'IIDC',</span> <span class="pre">3:</span> <span class="pre">'CL',</span> <span class="pre">4:</span> <span class="pre">'USB'}</span></em><a class="headerlink" href="#rotpy.names.geni.StandardNameSpace_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.YesNo_names">
+<span class="sig-name descname"><span class="pre">YesNo_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'No':</span> <span class="pre">0,</span> <span class="pre">'Yes':</span> <span class="pre">1}</span></em><a class="headerlink" href="#rotpy.names.geni.YesNo_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.YesNo_values">
+<span class="sig-name descname"><span class="pre">YesNo_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'No',</span> <span class="pre">1:</span> <span class="pre">'Yes'}</span></em><a class="headerlink" href="#rotpy.names.geni.YesNo_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.Slope_names">
+<span class="sig-name descname"><span class="pre">Slope_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'Automatic':</span> <span class="pre">3,</span> <span class="pre">'Decreasing':</span> <span class="pre">1,</span> <span class="pre">'Increasing':</span> <span class="pre">0,</span> <span class="pre">'Varying':</span> <span class="pre">2}</span></em><a class="headerlink" href="#rotpy.names.geni.Slope_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.Slope_values">
+<span class="sig-name descname"><span class="pre">Slope_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'Increasing',</span> <span class="pre">1:</span> <span class="pre">'Decreasing',</span> <span class="pre">2:</span> <span class="pre">'Varying',</span> <span class="pre">3:</span> <span class="pre">'Automatic'}</span></em><a class="headerlink" href="#rotpy.names.geni.Slope_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.XMLValidation_names">
+<span class="sig-name descname"><span class="pre">XMLValidation_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'All':</span> <span class="pre">4294967295,</span> <span class="pre">'Cycles':</span> <span class="pre">2,</span> <span class="pre">'Default':</span> <span class="pre">0,</span> <span class="pre">'Load':</span> <span class="pre">1,</span> <span class="pre">'SFNC':</span> <span class="pre">4}</span></em><a class="headerlink" href="#rotpy.names.geni.XMLValidation_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.XMLValidation_values">
+<span class="sig-name descname"><span class="pre">XMLValidation_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'Default',</span> <span class="pre">1:</span> <span class="pre">'Load',</span> <span class="pre">2:</span> <span class="pre">'Cycles',</span> <span class="pre">4:</span> <span class="pre">'SFNC',</span> <span class="pre">4294967295:</span> <span class="pre">'All'}</span></em><a class="headerlink" href="#rotpy.names.geni.XMLValidation_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.DisplayNotation_names">
+<span class="sig-name descname"><span class="pre">DisplayNotation_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'Automatic':</span> <span class="pre">0,</span> <span class="pre">'Fixed':</span> <span class="pre">1,</span> <span class="pre">'Scientific':</span> <span class="pre">2}</span></em><a class="headerlink" href="#rotpy.names.geni.DisplayNotation_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.DisplayNotation_values">
+<span class="sig-name descname"><span class="pre">DisplayNotation_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'Automatic',</span> <span class="pre">1:</span> <span class="pre">'Fixed',</span> <span class="pre">2:</span> <span class="pre">'Scientific'}</span></em><a class="headerlink" href="#rotpy.names.geni.DisplayNotation_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.InterfaceType_names">
+<span class="sig-name descname"><span class="pre">InterfaceType_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'Base':</span> <span class="pre">1,</span> <span class="pre">'Boolean':</span> <span class="pre">3,</span> <span class="pre">'Category':</span> <span class="pre">8,</span> <span class="pre">'Command':</span> <span class="pre">4,</span> <span class="pre">'EnumEntry':</span> <span class="pre">10,</span> <span class="pre">'Enumeration':</span> <span class="pre">9,</span> <span class="pre">'Float':</span> <span class="pre">5,</span> <span class="pre">'Integer':</span> <span class="pre">2,</span> <span class="pre">'Port':</span> <span class="pre">11,</span> <span class="pre">'Register':</span> <span class="pre">7,</span> <span class="pre">'String':</span> <span class="pre">6,</span> <span class="pre">'Value':</span> <span class="pre">0}</span></em><a class="headerlink" href="#rotpy.names.geni.InterfaceType_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.InterfaceType_values">
+<span class="sig-name descname"><span class="pre">InterfaceType_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'Value',</span> <span class="pre">1:</span> <span class="pre">'Base',</span> <span class="pre">2:</span> <span class="pre">'Integer',</span> <span class="pre">3:</span> <span class="pre">'Boolean',</span> <span class="pre">4:</span> <span class="pre">'Command',</span> <span class="pre">5:</span> <span class="pre">'Float',</span> <span class="pre">6:</span> <span class="pre">'String',</span> <span class="pre">7:</span> <span class="pre">'Register',</span> <span class="pre">8:</span> <span class="pre">'Category',</span> <span class="pre">9:</span> <span class="pre">'Enumeration',</span> <span class="pre">10:</span> <span class="pre">'EnumEntry',</span> <span class="pre">11:</span> <span class="pre">'Port'}</span></em><a class="headerlink" href="#rotpy.names.geni.InterfaceType_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.LinkType_names">
+<span class="sig-name descname"><span class="pre">LinkType_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'DependingNodes':</span> <span class="pre">4,</span> <span class="pre">'InvalidatingChildren':</span> <span class="pre">3,</span> <span class="pre">'ParentNodes':</span> <span class="pre">0,</span> <span class="pre">'ReadingChildren':</span> <span class="pre">1,</span> <span class="pre">'TerminalNodes':</span> <span class="pre">5,</span> <span class="pre">'WritingChildren':</span> <span class="pre">2}</span></em><a class="headerlink" href="#rotpy.names.geni.LinkType_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.LinkType_values">
+<span class="sig-name descname"><span class="pre">LinkType_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'ParentNodes',</span> <span class="pre">1:</span> <span class="pre">'ReadingChildren',</span> <span class="pre">2:</span> <span class="pre">'WritingChildren',</span> <span class="pre">3:</span> <span class="pre">'InvalidatingChildren',</span> <span class="pre">4:</span> <span class="pre">'DependingNodes',</span> <span class="pre">5:</span> <span class="pre">'TerminalNodes'}</span></em><a class="headerlink" href="#rotpy.names.geni.LinkType_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.IncMode_names">
+<span class="sig-name descname"><span class="pre">IncMode_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'fixedIncrement':</span> <span class="pre">1,</span> <span class="pre">'listIncrement':</span> <span class="pre">2,</span> <span class="pre">'noIncrement':</span> <span class="pre">0}</span></em><a class="headerlink" href="#rotpy.names.geni.IncMode_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.IncMode_values">
+<span class="sig-name descname"><span class="pre">IncMode_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'noIncrement',</span> <span class="pre">1:</span> <span class="pre">'fixedIncrement',</span> <span class="pre">2:</span> <span class="pre">'listIncrement'}</span></em><a class="headerlink" href="#rotpy.names.geni.IncMode_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.InputDirection_names">
+<span class="sig-name descname"><span class="pre">InputDirection_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'From':</span> <span class="pre">0,</span> <span class="pre">'None':</span> <span class="pre">2,</span> <span class="pre">'To':</span> <span class="pre">1}</span></em><a class="headerlink" href="#rotpy.names.geni.InputDirection_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.InputDirection_values">
+<span class="sig-name descname"><span class="pre">InputDirection_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{0:</span> <span class="pre">'From',</span> <span class="pre">1:</span> <span class="pre">'To',</span> <span class="pre">2:</span> <span class="pre">'None'}</span></em><a class="headerlink" href="#rotpy.names.geni.InputDirection_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.GenApiSchemaVersion_names">
+<span class="sig-name descname"><span class="pre">GenApiSchemaVersion_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'v1_0':</span> <span class="pre">1,</span> <span class="pre">'v1_1':</span> <span class="pre">2}</span></em><a class="headerlink" href="#rotpy.names.geni.GenApiSchemaVersion_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="rotpy.names.geni.GenApiSchemaVersion_values">
+<span class="sig-name descname"><span class="pre">GenApiSchemaVersion_values</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{1:</span> <span class="pre">'v1_0',</span> <span class="pre">2:</span> <span class="pre">'v1_1'}</span></em><a class="headerlink" href="#rotpy.names.geni.GenApiSchemaVersion_values" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tl.html" class="btn btn-neutral float-left" title="Transport layer enums" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../system_nodes.html" class="btn btn-neutral float-right" title="System nodes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Matthew Einhorn.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

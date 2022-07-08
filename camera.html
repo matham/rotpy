@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Camera &mdash; RotPy 0.2.1.dev0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Image" href="image.html" />
+    <link rel="prev" title="System" href="system.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> RotPy
+          </a>
+              <div class="version">
+                0.2.1.dev0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="README.html">RotPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="README.html#pre-compiled-wheels">Pre-compiled wheels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="README.html#from-source">From source</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="README.html#examples">Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="README.html#getting-an-image-from-a-gige-camera">Getting an image from a GigE camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="README.html#configuring-and-getting-an-image-from-a-usb3-camera">Configuring and getting an image from a USB3 camera</a></li>
+<li class="toctree-l3"><a class="reference internal" href="README.html#system-and-camera-properties">System and camera properties</a></li>
+<li class="toctree-l3"><a class="reference internal" href="README.html#attaching-event-handlers">Attaching event handlers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="README.html#camera-detection-events">Camera detection events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="README.html#logging-handler">Logging handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="README.html#camera-image-handler">Camera image handler</a></li>
+<li class="toctree-l4"><a class="reference internal" href="README.html#camera-events">Camera events</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">The RotPy API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="rotpy.html">RotPy Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system.html">System</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Camera</a></li>
+<li class="toctree-l2"><a class="reference internal" href="image.html">Image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="node.html">Node</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="node.html#node-access">Node access</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="names/api.html">Enums</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="names/api.html#enum-names">Enum names</a></li>
+<li class="toctree-l3"><a class="reference internal" href="names/spin.html">Spinnaker enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="names/camera.html">Camera enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="names/tl.html">Transport layer enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="names/geni.html">GenAPI enums</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="system_nodes.html">System nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="camera_nodes.html">Camera nodes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">Utilities</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">RotPy</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="api.html">The RotPy API</a> &raquo;</li>
+      <li>Camera</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/matham/rotpy/blob/main/doc/source/camera.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="module-rotpy.camera"></span><section id="camera">
+<h1>Camera<a class="headerlink" href="#camera" title="Permalink to this headline"></a></h1>
+<p>Provides access to the camera lists, the cameras, and camera related
+event handlers.</p>
+<p><strong>Classes:</strong></p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.camera.DeviceEventHandler" title="rotpy.camera.DeviceEventHandler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeviceEventHandler</span></code></a></p></td>
+<td><p>A camera event handler that is returned by <a class="reference internal" href="#rotpy.camera.Camera.attach_device_event_handler" title="rotpy.camera.Camera.attach_device_event_handler"><code class="xref py py-meth docutils literal notranslate"><span class="pre">attach_device_event_handler()</span></code></a> that handles callbacks for camera events.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.camera.ImageEventHandler" title="rotpy.camera.ImageEventHandler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ImageEventHandler</span></code></a></p></td>
+<td><p>A camera image handler that is returned by <a class="reference internal" href="#rotpy.camera.Camera.attach_image_event_handler" title="rotpy.camera.Camera.attach_image_event_handler"><code class="xref py py-meth docutils literal notranslate"><span class="pre">attach_image_event_handler()</span></code></a> that handles callbacks for camera images arrival events.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.camera.CameraList" title="rotpy.camera.CameraList"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CameraList</span></code></a></p></td>
+<td><p>Provides access to cameras enumerated by the system or interfaces as a list of cameras on the system or specific to that interface.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.camera.Camera" title="rotpy.camera.Camera"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Camera</span></code></a></p></td>
+<td><p>A Spinnaker based camera, such as GigE, USB2/3 etc.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="rotpy.camera.DeviceEventHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DeviceEventHandler</span></span><a class="headerlink" href="#rotpy.camera.DeviceEventHandler" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="system.html#rotpy.system.EventHandlerBase" title="rotpy.system.EventHandlerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">rotpy.system.EventHandlerBase</span></code></a></p>
+<p>A camera event handler that is returned by
+<a class="reference internal" href="#rotpy.camera.Camera.attach_device_event_handler" title="rotpy.camera.Camera.attach_device_event_handler"><code class="xref py py-meth docutils literal notranslate"><span class="pre">attach_device_event_handler()</span></code></a> that handles callbacks for
+camera events.</p>
+<p>This represents a callback function that is called on each event with
+3 positional arguments: this instance, the <a class="reference internal" href="#rotpy.camera.Camera" title="rotpy.camera.Camera"><code class="xref py py-class docutils literal notranslate"><span class="pre">Camera</span></code></a> instance that
+created this, and the event name string.</p>
+<p><strong>Methods:</strong></p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.camera.DeviceEventHandler.get_event_data" title="rotpy.camera.DeviceEventHandler.get_event_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_event_data</span></code></a></p></td>
+<td><p>Returns the data associated with the callback event.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.camera.DeviceEventHandler.get_event_metadata" title="rotpy.camera.DeviceEventHandler.get_event_metadata"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_event_metadata</span></code></a></p></td>
+<td><p>Returns the metadata associated with the callback event.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.DeviceEventHandler.get_event_data">
+<span class="sig-name descname"><span class="pre">get_event_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unicode</span> <span class="pre">event_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.DeviceEventHandler.get_event_data" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the data associated with the callback event.</p>
+<p>It returns a dictionary of data values or None if no data is associated
+with the event.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is only valid if called from within the callback, not once the
+callback is completed.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.DeviceEventHandler.get_event_metadata">
+<span class="sig-name descname"><span class="pre">get_event_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.DeviceEventHandler.get_event_metadata" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the metadata associated with the callback event.</p>
+<p>It returns a 3-tuple of <code class="docutils literal notranslate"><span class="pre">(event_type,</span> <span class="pre">dev_name,</span> <span class="pre">dev_event_id)</span></code>.
+Where <code class="docutils literal notranslate"><span class="pre">event_type</span></code> is the string event type from
+<a class="reference internal" href="names/spin.html#rotpy.names.spin.event_names" title="rotpy.names.spin.event_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">event_names</span></code></a>. <code class="docutils literal notranslate"><span class="pre">dev_name</span></code> is the name of the
+device event. And <code class="docutils literal notranslate"><span class="pre">dev_event_id</span></code> is the ID of the device event.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is only valid if called from within the callback, not once the
+callback is completed.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rotpy.camera.ImageEventHandler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ImageEventHandler</span></span><a class="headerlink" href="#rotpy.camera.ImageEventHandler" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="system.html#rotpy.system.EventHandlerBase" title="rotpy.system.EventHandlerBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">rotpy.system.EventHandlerBase</span></code></a></p>
+<p>A camera image handler that is returned by
+<a class="reference internal" href="#rotpy.camera.Camera.attach_image_event_handler" title="rotpy.camera.Camera.attach_image_event_handler"><code class="xref py py-meth docutils literal notranslate"><span class="pre">attach_image_event_handler()</span></code></a> that handles callbacks for
+camera images arrival events.</p>
+<p>This represents a callback function that is called every time a new image
+becomes available with 3 positional arguments: this instance, the
+<a class="reference internal" href="#rotpy.camera.Camera" title="rotpy.camera.Camera"><code class="xref py py-class docutils literal notranslate"><span class="pre">Camera</span></code></a> instance that created this, and the
+<a class="reference internal" href="image.html#rotpy.image.Image" title="rotpy.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a> instance representing the new image.</p>
+<p>Remember to <a class="reference internal" href="image.html#rotpy.image.Image.release" title="rotpy.image.Image.release"><code class="xref py py-meth docutils literal notranslate"><span class="pre">release()</span></code></a> the image quickly so that
+the buffers can be re-used by the camera.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rotpy.camera.CameraList">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">CameraList</span></span><a class="headerlink" href="#rotpy.camera.CameraList" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Provides access to cameras enumerated by the system or interfaces as a
+list of cameras on the system or specific to that interface.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do <strong>not</strong> create a <a class="reference internal" href="#rotpy.camera.CameraList" title="rotpy.camera.CameraList"><code class="xref py py-class docutils literal notranslate"><span class="pre">CameraList</span></code></a> manually, rather get it from
+<a class="reference internal" href="#rotpy.camera.CameraList.create_from_system" title="rotpy.camera.CameraList.create_from_system"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_from_system()</span></code></a> or <a class="reference internal" href="#rotpy.camera.CameraList.create_from_interface" title="rotpy.camera.CameraList.create_from_interface"><code class="xref py py-meth docutils literal notranslate"><span class="pre">create_from_interface()</span></code></a>.</p>
+</div>
+<p>Once a <a class="reference internal" href="#rotpy.camera.CameraList" title="rotpy.camera.CameraList"><code class="xref py py-class docutils literal notranslate"><span class="pre">CameraList</span></code></a> is created from the system or interface,
+updating the system or interface so it detects new cameras will <strong>not</strong>
+be reflected in existing <a class="reference internal" href="#rotpy.camera.CameraList" title="rotpy.camera.CameraList"><code class="xref py py-class docutils literal notranslate"><span class="pre">CameraList</span></code></a>. Instead, create a new one
+to access those new cameras.</p>
+<p><strong>Methods:</strong></p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.camera.CameraList.create_camera_by_dev_id" title="rotpy.camera.CameraList.create_camera_by_dev_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_camera_by_dev_id</span></code></a></p></td>
+<td><p>Retrieves a camera from this camera list using its device identifier.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.camera.CameraList.create_camera_by_index" title="rotpy.camera.CameraList.create_camera_by_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_camera_by_index</span></code></a></p></td>
+<td><p>Retrieves a camera from this camera list using a zero-based index that is less than <a class="reference internal" href="#rotpy.camera.CameraList.get_size" title="rotpy.camera.CameraList.get_size"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_size()</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.camera.CameraList.create_camera_by_serial" title="rotpy.camera.CameraList.create_camera_by_serial"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_camera_by_serial</span></code></a></p></td>
+<td><p>Retrieves a camera from this camera list using its serial number string.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.camera.CameraList.create_from_interface" title="rotpy.camera.CameraList.create_from_interface"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_from_interface</span></code></a></p></td>
+<td><p>Creates and returns a new <a class="reference internal" href="#rotpy.camera.CameraList" title="rotpy.camera.CameraList"><code class="xref py py-class docutils literal notranslate"><span class="pre">CameraList</span></code></a> for accessing the cameras on a specific interface.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.camera.CameraList.create_from_system" title="rotpy.camera.CameraList.create_from_system"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_from_system</span></code></a></p></td>
+<td><p>Creates and returns a new <a class="reference internal" href="#rotpy.camera.CameraList" title="rotpy.camera.CameraList"><code class="xref py py-class docutils literal notranslate"><span class="pre">CameraList</span></code></a> for accessing cameras across all interfaces on the system.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.camera.CameraList.extend_camera_list" title="rotpy.camera.CameraList.extend_camera_list"><code class="xref py py-obj docutils literal notranslate"><span class="pre">extend_camera_list</span></code></a></p></td>
+<td><p>Appends all the cameras from the other camera list to this list.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.camera.CameraList.get_size" title="rotpy.camera.CameraList.get_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_size</span></code></a></p></td>
+<td><p>Retrieves the number of cameras in the camera list.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.camera.CameraList.remove_camera_by_dev_id" title="rotpy.camera.CameraList.remove_camera_by_dev_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_camera_by_dev_id</span></code></a></p></td>
+<td><p>Removes a camera from this camera list using its device identifier.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.camera.CameraList.remove_camera_by_index" title="rotpy.camera.CameraList.remove_camera_by_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_camera_by_index</span></code></a></p></td>
+<td><p>Removes a camera from this camera list using its index.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.camera.CameraList.remove_camera_by_serial" title="rotpy.camera.CameraList.remove_camera_by_serial"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_camera_by_serial</span></code></a></p></td>
+<td><p>Removes a camera from this camera list using its serial number string.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.CameraList.create_camera_by_dev_id">
+<span class="sig-name descname"><span class="pre">create_camera_by_dev_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unicode</span> <span class="pre">dev_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.CameraList.create_camera_by_dev_id" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves a camera from this camera list using its device identifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dev_id</strong> – The device identifier of the camera to retrieve.
+This can be gotten from <a class="reference internal" href="#rotpy.camera.Camera.get_unique_id" title="rotpy.camera.Camera.get_unique_id"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_unique_id()</span></code></a>.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <a class="reference internal" href="#rotpy.camera.Camera" title="rotpy.camera.Camera"><code class="xref py py-class docutils literal notranslate"><span class="pre">Camera</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.CameraList.create_camera_by_index">
+<span class="sig-name descname"><span class="pre">create_camera_by_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsigned</span> <span class="pre">int</span> <span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.CameraList.create_camera_by_index" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves a camera from this camera list using a zero-based index
+that is less than <a class="reference internal" href="#rotpy.camera.CameraList.get_size" title="rotpy.camera.CameraList.get_size"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_size()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> – The index of the camera.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <a class="reference internal" href="#rotpy.camera.Camera" title="rotpy.camera.Camera"><code class="xref py py-class docutils literal notranslate"><span class="pre">Camera</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.CameraList.create_camera_by_serial">
+<span class="sig-name descname"><span class="pre">create_camera_by_serial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unicode</span> <span class="pre">serial</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.CameraList.create_camera_by_serial" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves a camera from this camera list using its serial number
+string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>serial</strong> – The serial number of the camera to retrieve.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <a class="reference internal" href="#rotpy.camera.Camera" title="rotpy.camera.Camera"><code class="xref py py-class docutils literal notranslate"><span class="pre">Camera</span></code></a>.</p>
+</dd>
+</dl>
+<p>You can get a camera’s serial number using the <code class="docutils literal notranslate"><span class="pre">&quot;DeviceSerialNumber&quot;</span></code>
+node once the camera is <a class="reference internal" href="#rotpy.camera.Camera.init_cam" title="rotpy.camera.Camera.init_cam"><code class="xref py py-meth docutils literal notranslate"><span class="pre">init_cam()</span></code></a>. It’s pre-listed
+at <a class="reference internal" href="camera_nodes.html#rotpy.camera_nodes.CameraNodes.DeviceSerialNumber" title="rotpy.camera_nodes.CameraNodes.DeviceSerialNumber"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DeviceSerialNumber</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.CameraList.create_from_interface">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_from_interface</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">InterfaceDevice</span> <span class="pre">interface</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bool</span> <span class="pre">update_cams=True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.CameraList.create_from_interface" title="Permalink to this definition"></a></dt>
+<dd><p>Creates and returns a new <a class="reference internal" href="#rotpy.camera.CameraList" title="rotpy.camera.CameraList"><code class="xref py py-class docutils literal notranslate"><span class="pre">CameraList</span></code></a> for accessing
+the cameras on a specific interface.</p>
+<p>It returns either usb3 vision or gige vision cameras depending on the
+underlying transport layer of this interface.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>interface</strong> – A <a class="reference internal" href="system.html#rotpy.system.InterfaceDevice" title="rotpy.system.InterfaceDevice"><code class="xref py py-class docutils literal notranslate"><span class="pre">InterfaceDevice</span></code></a> instance.</p></li>
+<li><p><strong>update_cams</strong> – Whether to update the interface’s internal camera
+list to detect new/removed cameras before getting the camera list.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <a class="reference internal" href="#rotpy.camera.CameraList" title="rotpy.camera.CameraList"><code class="xref py py-class docutils literal notranslate"><span class="pre">CameraList</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.CameraList.create_from_system">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create_from_system</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">SpinSystem</span> <span class="pre">system</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bool</span> <span class="pre">update_interfaces=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bool</span> <span class="pre">update_cams=True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.CameraList.create_from_system" title="Permalink to this definition"></a></dt>
+<dd><p>Creates and returns a new <a class="reference internal" href="#rotpy.camera.CameraList" title="rotpy.camera.CameraList"><code class="xref py py-class docutils literal notranslate"><span class="pre">CameraList</span></code></a> for accessing
+cameras across all interfaces on the system.</p>
+<p>This returns both GigE Vision and Usb3 Vision cameras from all
+interfaces.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>system</strong> – A <a class="reference internal" href="system.html#rotpy.system.SpinSystem" title="rotpy.system.SpinSystem"><code class="xref py py-class docutils literal notranslate"><span class="pre">SpinSystem</span></code></a> instance.</p></li>
+<li><p><strong>update_interfaces</strong> – Whether to update the system’s internal
+interface list before getting the camera list from all the
+interfaces.</p></li>
+<li><p><strong>update_cams</strong> – Whether to update the system’s internal camera list
+to detect new/removed cameras before getting the camera list.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <a class="reference internal" href="#rotpy.camera.CameraList" title="rotpy.camera.CameraList"><code class="xref py py-class docutils literal notranslate"><span class="pre">CameraList</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.CameraList.extend_camera_list">
+<span class="sig-name descname"><span class="pre">extend_camera_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CameraList</span> <span class="pre">other_list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.CameraList.extend_camera_list" title="Permalink to this definition"></a></dt>
+<dd><p>Appends all the cameras from the other camera list to this list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>other_list</strong> – The camera list to add to us.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.CameraList.get_size">
+<span class="sig-name descname"><span class="pre">get_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.CameraList.get_size" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves the number of cameras in the camera list.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.CameraList.remove_camera_by_dev_id">
+<span class="sig-name descname"><span class="pre">remove_camera_by_dev_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unicode</span> <span class="pre">dev_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.CameraList.remove_camera_by_dev_id" title="Permalink to this definition"></a></dt>
+<dd><p>Removes a camera from this camera list using its device identifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>dev_id</strong> – The device identifier of the camera to remove.
+This can be gotten from <a class="reference internal" href="#rotpy.camera.Camera.get_unique_id" title="rotpy.camera.Camera.get_unique_id"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_unique_id()</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.CameraList.remove_camera_by_index">
+<span class="sig-name descname"><span class="pre">remove_camera_by_index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsigned</span> <span class="pre">int</span> <span class="pre">index</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.CameraList.remove_camera_by_index" title="Permalink to this definition"></a></dt>
+<dd><p>Removes a camera from this camera list using its index.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>index</strong> – The index of the camera to remove.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.CameraList.remove_camera_by_serial">
+<span class="sig-name descname"><span class="pre">remove_camera_by_serial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unicode</span> <span class="pre">serial</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.CameraList.remove_camera_by_serial" title="Permalink to this definition"></a></dt>
+<dd><p>Removes a camera from this camera list using its serial number
+string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>serial</strong> – The serial number of the camera to remove.</p>
+</dd>
+</dl>
+<p>You can get a camera’s serial number using the <code class="docutils literal notranslate"><span class="pre">&quot;DeviceSerialNumber&quot;</span></code>
+node once the camera is <a class="reference internal" href="#rotpy.camera.Camera.init_cam" title="rotpy.camera.Camera.init_cam"><code class="xref py py-meth docutils literal notranslate"><span class="pre">init_cam()</span></code></a>. It’s pre-listed
+at <a class="reference internal" href="camera_nodes.html#rotpy.camera_nodes.CameraNodes.DeviceSerialNumber" title="rotpy.camera_nodes.CameraNodes.DeviceSerialNumber"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DeviceSerialNumber</span></code></a>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="rotpy.camera.Camera">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Camera</span></span><a class="headerlink" href="#rotpy.camera.Camera" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A Spinnaker based camera, such as GigE, USB2/3 etc.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do <strong>not</strong> create a <a class="reference internal" href="#rotpy.camera.Camera" title="rotpy.camera.Camera"><code class="xref py py-class docutils literal notranslate"><span class="pre">Camera</span></code></a> manually, rather get it from
+<a class="reference internal" href="#rotpy.camera.CameraList.create_camera_by_index" title="rotpy.camera.CameraList.create_camera_by_index"><code class="xref py py-meth docutils literal notranslate"><span class="pre">CameraList.create_camera_by_index()</span></code></a>,
+<a class="reference internal" href="#rotpy.camera.CameraList.create_camera_by_serial" title="rotpy.camera.CameraList.create_camera_by_serial"><code class="xref py py-meth docutils literal notranslate"><span class="pre">CameraList.create_camera_by_serial()</span></code></a>, or
+<a class="reference internal" href="#rotpy.camera.CameraList.create_camera_by_dev_id" title="rotpy.camera.CameraList.create_camera_by_dev_id"><code class="xref py py-meth docutils literal notranslate"><span class="pre">CameraList.create_camera_by_dev_id()</span></code></a>.</p>
+</div>
+<p>Before the camera can be used and most nodes are accessible, you need to
+initialize the camera using <a class="reference internal" href="#rotpy.camera.Camera.init_cam" title="rotpy.camera.Camera.init_cam"><code class="xref py py-meth docutils literal notranslate"><span class="pre">init_cam()</span></code></a>. When you’re done, call
+<a class="reference internal" href="#rotpy.camera.Camera.deinit_cam" title="rotpy.camera.Camera.deinit_cam"><code class="xref py py-meth docutils literal notranslate"><span class="pre">deinit_cam()</span></code></a>.</p>
+<p><strong>Methods:</strong></p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.camera.Camera.attach_device_event_handler" title="rotpy.camera.Camera.attach_device_event_handler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">attach_device_event_handler</span></code></a></p></td>
+<td><p>Registers the callback to get events from camera.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.camera.Camera.attach_image_event_handler" title="rotpy.camera.Camera.attach_image_event_handler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">attach_image_event_handler</span></code></a></p></td>
+<td><p>Registers the callback to get called on new camera images.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.camera.Camera.begin_acquisition" title="rotpy.camera.Camera.begin_acquisition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">begin_acquisition</span></code></a></p></td>
+<td><p>Starts the image acquisition engine from the camera.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.camera.Camera.deinit_cam" title="rotpy.camera.Camera.deinit_cam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deinit_cam</span></code></a></p></td>
+<td><p>De-initializes a camera that was initialized with <a class="reference internal" href="#rotpy.camera.Camera.init_cam" title="rotpy.camera.Camera.init_cam"><code class="xref py py-meth docutils literal notranslate"><span class="pre">init_cam()</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.camera.Camera.detach_device_event_handler" title="rotpy.camera.Camera.detach_device_event_handler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">detach_device_event_handler</span></code></a></p></td>
+<td><p>Detaches an event handler previously returned by <a class="reference internal" href="#rotpy.camera.Camera.attach_device_event_handler" title="rotpy.camera.Camera.attach_device_event_handler"><code class="xref py py-meth docutils literal notranslate"><span class="pre">attach_device_event_handler()</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.camera.Camera.detach_image_event_handler" title="rotpy.camera.Camera.detach_image_event_handler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">detach_image_event_handler</span></code></a></p></td>
+<td><p>Detaches an event handler previously returned by <a class="reference internal" href="#rotpy.camera.Camera.attach_image_event_handler" title="rotpy.camera.Camera.attach_image_event_handler"><code class="xref py py-meth docutils literal notranslate"><span class="pre">attach_image_event_handler()</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.camera.Camera.end_acquisition" title="rotpy.camera.Camera.end_acquisition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">end_acquisition</span></code></a></p></td>
+<td><p>Stops the image acquisition engine.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.camera.Camera.force_ip" title="rotpy.camera.Camera.force_ip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">force_ip</span></code></a></p></td>
+<td><p>Forces the camera to be on the same subnet as its corresponding interface (e.g.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.camera.Camera.get_access_mode" title="rotpy.camera.Camera.get_access_mode"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_access_mode</span></code></a></p></td>
+<td><p>Returns the access mode that the software has on the Camera as a string from <a class="reference internal" href="names/geni.html#rotpy.names.geni.AccessMode_names" title="rotpy.names.geni.AccessMode_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">AccessMode_names</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.camera.Camera.get_buffer_count" title="rotpy.camera.Camera.get_buffer_count"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_buffer_count</span></code></a></p></td>
+<td><p>Gets the number of user memory buffers.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.camera.Camera.get_buffer_ownership" title="rotpy.camera.Camera.get_buffer_ownership"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_buffer_ownership</span></code></a></p></td>
+<td><p>Gets data buffer ownership as a string from <a class="reference internal" href="names/spin.html#rotpy.names.spin.buffer_owner_names" title="rotpy.names.spin.buffer_owner_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">buffer_owner_names</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.camera.Camera.get_buffer_size" title="rotpy.camera.Camera.get_buffer_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_buffer_size</span></code></a></p></td>
+<td><p>Gets the size of one user memory buffer (in bytes).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.camera.Camera.get_buffer_total_size" title="rotpy.camera.Camera.get_buffer_total_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_buffer_total_size</span></code></a></p></td>
+<td><p>Gets the total size of all the user memory buffers (in bytes).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.camera.Camera.get_gui_xml" title="rotpy.camera.Camera.get_gui_xml"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_gui_xml</span></code></a></p></td>
+<td><p>Retrieves the GUI XML from the camera, that can be passed into the Spinnaker GUI framework.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.camera.Camera.get_max_packet_size" title="rotpy.camera.Camera.get_max_packet_size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_max_packet_size</span></code></a></p></td>
+<td><p>Returns the largest packet size that can be safely used on the interface that the device is connected to.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.camera.Camera.get_next_image" title="rotpy.camera.Camera.get_next_image"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_next_image</span></code></a></p></td>
+<td><p>Gets the next image that was received by the transport layer.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.camera.Camera.get_node_map" title="rotpy.camera.Camera.get_node_map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_node_map</span></code></a></p></td>
+<td><p>Gets the <a class="reference internal" href="node.html#rotpy.node.NodeMap" title="rotpy.node.NodeMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeMap</span></code></a> that is generated from a GenICam XML file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.camera.Camera.get_num_data_streams" title="rotpy.camera.Camera.get_num_data_streams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_num_data_streams</span></code></a></p></td>
+<td><p>Returns the number of streams that a device supports.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.camera.Camera.get_num_images_in_use" title="rotpy.camera.Camera.get_num_images_in_use"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_num_images_in_use</span></code></a></p></td>
+<td><p>Returns the number of images that are currently in use.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.camera.Camera.get_tl_dev_node_map" title="rotpy.camera.Camera.get_tl_dev_node_map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_tl_dev_node_map</span></code></a></p></td>
+<td><p>Gets the <a class="reference internal" href="node.html#rotpy.node.NodeMap" title="rotpy.node.NodeMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeMap</span></code></a> that is generated from a GenICam XML file for the GenTL Device module.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.camera.Camera.get_tl_stream_node_map" title="rotpy.camera.Camera.get_tl_stream_node_map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_tl_stream_node_map</span></code></a></p></td>
+<td><p>Gets the <a class="reference internal" href="node.html#rotpy.node.NodeMap" title="rotpy.node.NodeMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeMap</span></code></a> that is generated from a GenICam XML file for the GenTL Stream module.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.camera.Camera.get_unique_id" title="rotpy.camera.Camera.get_unique_id"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_unique_id</span></code></a></p></td>
+<td><p>This returns a unique id string that identifies the camera.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.camera.Camera.init_cam" title="rotpy.camera.Camera.init_cam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">init_cam</span></code></a></p></td>
+<td><p>Initializes a camera, allowing for much more interaction, including more properties.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.camera.Camera.is_init" title="rotpy.camera.Camera.is_init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_init</span></code></a></p></td>
+<td><p>Checks whether a camera is currently initialized.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.camera.Camera.is_streaming" title="rotpy.camera.Camera.is_streaming"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_streaming</span></code></a></p></td>
+<td><p>Checks whether a camera is currently streaming.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.camera.Camera.is_valid" title="rotpy.camera.Camera.is_valid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_valid</span></code></a></p></td>
+<td><p>Checks whether a camera is still valid for use.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.camera.Camera.read_port" title="rotpy.camera.Camera.read_port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_port</span></code></a></p></td>
+<td><p>Reads a remote port on a physical Camera.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.camera.Camera.release" title="rotpy.camera.Camera.release"><code class="xref py py-obj docutils literal notranslate"><span class="pre">release</span></code></a></p></td>
+<td><p>Releases the camera's resources, including the nodes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.camera.Camera.set_buffer_ownership" title="rotpy.camera.Camera.set_buffer_ownership"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_buffer_ownership</span></code></a></p></td>
+<td><p>Sets data buffer ownership from a string from <a class="reference internal" href="names/spin.html#rotpy.names.spin.buffer_owner_names" title="rotpy.names.spin.buffer_owner_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">buffer_owner_names</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.camera.Camera.set_user_buffer" title="rotpy.camera.Camera.set_user_buffer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_user_buffer</span></code></a></p></td>
+<td><p>Specify contiguous user allocated memory to use as data buffers.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.camera.Camera.set_user_buffers" title="rotpy.camera.Camera.set_user_buffers"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set_user_buffers</span></code></a></p></td>
+<td><p>Specify non-contiguous user allocated memory to use as data buffers.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.camera.Camera.write_port" title="rotpy.camera.Camera.write_port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">write_port</span></code></a></p></td>
+<td><p>Writes a remote port on a physical Camera.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Attributes:</strong></p>
+<table class="autosummary longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.camera.Camera.camera_nodes" title="rotpy.camera.Camera.camera_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">camera_nodes</span></code></a></p></td>
+<td><p>camera_nodes: rotpy.camera_nodes.CameraNodes The pre-listed camera nodes from <a class="reference internal" href="camera_nodes.html#rotpy.camera_nodes.CameraNodes" title="rotpy.camera_nodes.CameraNodes"><code class="xref py py-class docutils literal notranslate"><span class="pre">CameraNodes</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#rotpy.camera.Camera.tl_dev_nodes" title="rotpy.camera.Camera.tl_dev_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tl_dev_nodes</span></code></a></p></td>
+<td><p>tl_dev_nodes: rotpy.camera_nodes.TLDevNodes The pre-listed transport layer device nodes from <a class="reference internal" href="camera_nodes.html#rotpy.camera_nodes.TLDevNodes" title="rotpy.camera_nodes.TLDevNodes"><code class="xref py py-class docutils literal notranslate"><span class="pre">TLDevNodes</span></code></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#rotpy.camera.Camera.tl_stream_nodes" title="rotpy.camera.Camera.tl_stream_nodes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tl_stream_nodes</span></code></a></p></td>
+<td><p>tl_stream_nodes: rotpy.camera_nodes.TLStreamNodes The pre-listed transport layer streaming nodes from <a class="reference internal" href="camera_nodes.html#rotpy.camera_nodes.TLStreamNodes" title="rotpy.camera_nodes.TLStreamNodes"><code class="xref py py-class docutils literal notranslate"><span class="pre">TLStreamNodes</span></code></a>.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.attach_device_event_handler">
+<span class="sig-name descname"><span class="pre">attach_device_event_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unicode</span> <span class="pre">name=u''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.attach_device_event_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Registers the callback to get events from camera.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>callback</strong> – A function that will be called upon camera events.
+See <a class="reference internal" href="#rotpy.camera.DeviceEventHandler" title="rotpy.camera.DeviceEventHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceEventHandler</span></code></a> for the function signature.</p></li>
+<li><p><strong>name</strong> – An optional event name. If empty (the default), all events
+will be handled.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <a class="reference internal" href="#rotpy.camera.DeviceEventHandler" title="rotpy.camera.DeviceEventHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceEventHandler</span></code></a> instance representing the
+callback.</p>
+</dd>
+</dl>
+<p>The <code class="docutils literal notranslate"><span class="pre">callback</span></code> will receive the camera events while it is registered,
+possibly even before this function returns(?) and could potentially
+be called by external threads. It’s best not to do any work in it.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The camera has to be initialized first with <a class="reference internal" href="#rotpy.camera.Camera.init_cam" title="rotpy.camera.Camera.init_cam"><code class="xref py py-meth docutils literal notranslate"><span class="pre">init_cam()</span></code></a> before
+registering callbacks for events.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.attach_image_event_handler">
+<span class="sig-name descname"><span class="pre">attach_image_event_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.attach_image_event_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Registers the callback to get called on new camera images.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>callback</strong> – A function that will be called upon new images.
+See <a class="reference internal" href="#rotpy.camera.ImageEventHandler" title="rotpy.camera.ImageEventHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageEventHandler</span></code></a> for the function signature.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <a class="reference internal" href="#rotpy.camera.ImageEventHandler" title="rotpy.camera.ImageEventHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageEventHandler</span></code></a> instance representing the
+callback.</p>
+</dd>
+</dl>
+<p>The <code class="docutils literal notranslate"><span class="pre">callback</span></code> will receive the camera images while it is registered,
+possibly even before this function returns(?) and could potentially
+be called by external threads. It’s best not to do any work in it.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The camera has to be initialized first with <a class="reference internal" href="#rotpy.camera.Camera.init_cam" title="rotpy.camera.Camera.init_cam"><code class="xref py py-meth docutils literal notranslate"><span class="pre">init_cam()</span></code></a> before
+registering handlers for images.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.begin_acquisition">
+<span class="sig-name descname"><span class="pre">begin_acquisition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.begin_acquisition" title="Permalink to this definition"></a></dt>
+<dd><p>Starts the image acquisition engine from the camera.</p>
+<p>The camera must be initialized first with <a class="reference internal" href="#rotpy.camera.Camera.init_cam" title="rotpy.camera.Camera.init_cam"><code class="xref py py-meth docutils literal notranslate"><span class="pre">init_cam()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.camera_nodes">
+<span class="sig-name descname"><span class="pre">camera_nodes</span></span><a class="headerlink" href="#rotpy.camera.Camera.camera_nodes" title="Permalink to this definition"></a></dt>
+<dd><p>camera_nodes: rotpy.camera_nodes.CameraNodes
+The pre-listed camera nodes from <a class="reference internal" href="camera_nodes.html#rotpy.camera_nodes.CameraNodes" title="rotpy.camera_nodes.CameraNodes"><code class="xref py py-class docutils literal notranslate"><span class="pre">CameraNodes</span></code></a>.</p>
+<blockquote>
+<div><p>Use this property to get a pre-instantiated
+<a class="reference internal" href="camera_nodes.html#rotpy.camera_nodes.CameraNodes" title="rotpy.camera_nodes.CameraNodes"><code class="xref py py-class docutils literal notranslate"><span class="pre">CameraNodes</span></code></a> because
+<a class="reference internal" href="camera_nodes.html#rotpy.camera_nodes.CameraNodes" title="rotpy.camera_nodes.CameraNodes"><code class="xref py py-class docutils literal notranslate"><span class="pre">CameraNodes</span></code></a> is not user instantiable.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Remember to check whether each of the pre-listed nodes are
+<a class="reference internal" href="node.html#rotpy.node.SpinBaseNode.is_available" title="rotpy.node.SpinBaseNode.is_available"><code class="xref py py-meth docutils literal notranslate"><span class="pre">is_available()</span></code></a>,
+<a class="reference internal" href="node.html#rotpy.node.SpinBaseNode.is_readable" title="rotpy.node.SpinBaseNode.is_readable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">is_readable()</span></code></a>,
+<a class="reference internal" href="node.html#rotpy.node.SpinBaseNode.is_writable" title="rotpy.node.SpinBaseNode.is_writable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">is_writable()</span></code></a> etc.</p>
+</div>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.deinit_cam">
+<span class="sig-name descname"><span class="pre">deinit_cam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.deinit_cam" title="Permalink to this definition"></a></dt>
+<dd><p>De-initializes a camera that was initialized with <a class="reference internal" href="#rotpy.camera.Camera.init_cam" title="rotpy.camera.Camera.init_cam"><code class="xref py py-meth docutils literal notranslate"><span class="pre">init_cam()</span></code></a>.</p>
+<p>This should happen after you’re done with the camera.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.detach_device_event_handler">
+<span class="sig-name descname"><span class="pre">detach_device_event_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DeviceEventHandler</span> <span class="pre">handler</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.detach_device_event_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Detaches an event handler previously returned by
+<a class="reference internal" href="#rotpy.camera.Camera.attach_device_event_handler" title="rotpy.camera.Camera.attach_device_event_handler"><code class="xref py py-meth docutils literal notranslate"><span class="pre">attach_device_event_handler()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>handler</strong> – The <a class="reference internal" href="#rotpy.camera.DeviceEventHandler" title="rotpy.camera.DeviceEventHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceEventHandler</span></code></a> that handled the events.</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Event handlers should be unregistered first before calling
+<a class="reference internal" href="#rotpy.camera.Camera.deinit_cam" title="rotpy.camera.Camera.deinit_cam"><code class="xref py py-meth docutils literal notranslate"><span class="pre">deinit_cam()</span></code></a>. Otherwise an exception will be thrown in the
+<a class="reference internal" href="#rotpy.camera.Camera.deinit_cam" title="rotpy.camera.Camera.deinit_cam"><code class="xref py py-meth docutils literal notranslate"><span class="pre">deinit_cam()</span></code></a> call and require the user to unregister event
+handlers before the camera can be re-initialized again.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.detach_image_event_handler">
+<span class="sig-name descname"><span class="pre">detach_image_event_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ImageEventHandler</span> <span class="pre">handler</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.detach_image_event_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Detaches an event handler previously returned by
+<a class="reference internal" href="#rotpy.camera.Camera.attach_image_event_handler" title="rotpy.camera.Camera.attach_image_event_handler"><code class="xref py py-meth docutils literal notranslate"><span class="pre">attach_image_event_handler()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>handler</strong> – The <a class="reference internal" href="#rotpy.camera.ImageEventHandler" title="rotpy.camera.ImageEventHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageEventHandler</span></code></a> that handled the events.</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Event handlers should be unregistered first before calling
+<a class="reference internal" href="#rotpy.camera.Camera.deinit_cam" title="rotpy.camera.Camera.deinit_cam"><code class="xref py py-meth docutils literal notranslate"><span class="pre">deinit_cam()</span></code></a>. Otherwise an exception will be thrown in the
+<a class="reference internal" href="#rotpy.camera.Camera.deinit_cam" title="rotpy.camera.Camera.deinit_cam"><code class="xref py py-meth docutils literal notranslate"><span class="pre">deinit_cam()</span></code></a> call and require the user to unregister event
+handlers before the camera can be re-initialized again.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.end_acquisition">
+<span class="sig-name descname"><span class="pre">end_acquisition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.end_acquisition" title="Permalink to this definition"></a></dt>
+<dd><p>Stops the image acquisition engine.</p>
+<p>If <a class="reference internal" href="#rotpy.camera.Camera.end_acquisition" title="rotpy.camera.Camera.end_acquisition"><code class="xref py py-meth docutils literal notranslate"><span class="pre">end_acquisition()</span></code></a> is called without a prior call to
+<a class="reference internal" href="#rotpy.camera.Camera.begin_acquisition" title="rotpy.camera.Camera.begin_acquisition"><code class="xref py py-meth docutils literal notranslate"><span class="pre">begin_acquisition()</span></code></a> an error will be thrown.</p>
+<p>All Images that were acquired using <a class="reference internal" href="#rotpy.camera.Camera.get_next_image" title="rotpy.camera.Camera.get_next_image"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_next_image()</span></code></a> need to be
+<a class="reference internal" href="image.html#rotpy.image.Image.release" title="rotpy.image.Image.release"><code class="xref py py-meth docutils literal notranslate"><span class="pre">release()</span></code></a> first before calling this. All
+buffers in the input pool and output queue will be discarded when this
+is called.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.force_ip">
+<span class="sig-name descname"><span class="pre">force_ip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.force_ip" title="Permalink to this definition"></a></dt>
+<dd><p>Forces the camera to be on the same subnet as its corresponding
+interface (e.g. for gigE cameras).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.get_access_mode">
+<span class="sig-name descname"><span class="pre">get_access_mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.get_access_mode" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the access mode that the software has on the Camera as a
+string from <a class="reference internal" href="names/geni.html#rotpy.names.geni.AccessMode_names" title="rotpy.names.geni.AccessMode_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">AccessMode_names</span></code></a>.</p>
+<p>The camera does not need to be initialized before calling this function.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.get_buffer_count">
+<span class="sig-name descname"><span class="pre">get_buffer_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.get_buffer_count" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the number of user memory buffers.</p>
+<p>This will throw an exception if user memory buffer has not been set. If
+the user memory is contiguous, this will throw an exception unless
+<a class="reference internal" href="#rotpy.camera.Camera.begin_acquisition" title="rotpy.camera.Camera.begin_acquisition"><code class="xref py py-meth docutils literal notranslate"><span class="pre">begin_acquisition()</span></code></a> has been called.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.get_buffer_ownership">
+<span class="sig-name descname"><span class="pre">get_buffer_ownership</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.get_buffer_ownership" title="Permalink to this definition"></a></dt>
+<dd><p>Gets data buffer ownership as a string from
+<a class="reference internal" href="names/spin.html#rotpy.names.spin.buffer_owner_names" title="rotpy.names.spin.buffer_owner_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">buffer_owner_names</span></code></a>.</p>
+<p>The data buffers can be owned by System or User. If the system owns the
+buffers, the memory required for the buffers are allocated and freed by
+the library.  If user owns the buffers, the user is responsible for
+allocating and ultimately freeing the memory. By default, data buffers
+are owned by the library.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.get_buffer_size">
+<span class="sig-name descname"><span class="pre">get_buffer_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.get_buffer_size" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the size of one user memory buffer (in bytes).</p>
+<p>This will throw an exception if user memory buffer has not been set.
+If the user memory is contiguous, this will throw an exception unless
+<a class="reference internal" href="#rotpy.camera.Camera.begin_acquisition" title="rotpy.camera.Camera.begin_acquisition"><code class="xref py py-meth docutils literal notranslate"><span class="pre">begin_acquisition()</span></code></a> has been called. To prevent image tearing when
+working with USB3 cameras, the size of each buffer should be equal to
+<code class="docutils literal notranslate"><span class="pre">((unsigned</span> <span class="pre">int)</span> <span class="pre">(bufferSize</span> <span class="pre">+</span> <span class="pre">1024</span> <span class="pre">-</span> <span class="pre">1)</span> <span class="pre">/</span> <span class="pre">1024)</span> <span class="pre">*</span> <span class="pre">1024</span></code>
+where 1024 is the USB3 packet size.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.get_buffer_total_size">
+<span class="sig-name descname"><span class="pre">get_buffer_total_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.get_buffer_total_size" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the total size of all the user memory buffers (in bytes).</p>
+<p>This will throw an exception if user memory buffer has not been set.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.get_gui_xml">
+<span class="sig-name descname"><span class="pre">get_gui_xml</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.get_gui_xml" title="Permalink to this definition"></a></dt>
+<dd><p>Retrieves the GUI XML from the camera, that can be passed into the
+Spinnaker GUI framework.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.get_max_packet_size">
+<span class="sig-name descname"><span class="pre">get_max_packet_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.get_max_packet_size" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the largest packet size that can be safely used on the
+interface that the device is connected to.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.get_next_image">
+<span class="sig-name descname"><span class="pre">get_next_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uint64_t</span> <span class="pre">stream_id=0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.get_next_image" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the next image that was received by the transport layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timeout</strong> – Optional timeout in seconds. If not provided, it may
+wait indefinitely until an image becomes available. If provided,
+if it times out before an image is available it returns None.</p></li>
+<li><p><strong>stream_id</strong> – The stream to grab the image. Most cameras support
+one stream so the default <code class="docutils literal notranslate"><span class="pre">stream_id</span></code> is 0 but if a camera
+supports multiple streams you can input the stream ID to select from
+which stream to grab images.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An <a class="reference internal" href="image.html#rotpy.image.Image" title="rotpy.image.Image"><code class="xref py py-class docutils literal notranslate"><span class="pre">Image</span></code></a> or None if it timed out.
+If the image data was incomplete, a ValueError is raised.</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Make sure to call <a class="reference internal" href="image.html#rotpy.image.Image.release" title="rotpy.image.Image.release"><code class="xref py py-meth docutils literal notranslate"><span class="pre">release()</span></code></a> as quickly as
+possible after getting the image. Because until the image is
+released, the camera cannot re-use the buffer. So, if too many
+buffers are held, the camera may run out of buffers in which to
+store images.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.get_node_map">
+<span class="sig-name descname"><span class="pre">get_node_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.get_node_map" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the <a class="reference internal" href="node.html#rotpy.node.NodeMap" title="rotpy.node.NodeMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeMap</span></code></a> that is generated from a
+GenICam XML file.</p>
+<p>The camera must be initialized by a call to <a class="reference internal" href="#rotpy.camera.Camera.init_cam" title="rotpy.camera.Camera.init_cam"><code class="xref py py-meth docutils literal notranslate"><span class="pre">init_cam()</span></code></a> first
+before the node map can be successfully acquired.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A <a class="reference internal" href="node.html#rotpy.node.NodeMap" title="rotpy.node.NodeMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeMap</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.get_num_data_streams">
+<span class="sig-name descname"><span class="pre">get_num_data_streams</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.get_num_data_streams" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the number of streams that a device supports.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.get_num_images_in_use">
+<span class="sig-name descname"><span class="pre">get_num_images_in_use</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.get_num_images_in_use" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the number of images that are currently in use.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.get_tl_dev_node_map">
+<span class="sig-name descname"><span class="pre">get_tl_dev_node_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.get_tl_dev_node_map" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the <a class="reference internal" href="node.html#rotpy.node.NodeMap" title="rotpy.node.NodeMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeMap</span></code></a> that is generated from a
+GenICam XML file for the GenTL Device module.</p>
+<p>The camera does not need to be initialized with <a class="reference internal" href="#rotpy.camera.Camera.init_cam" title="rotpy.camera.Camera.init_cam"><code class="xref py py-meth docutils literal notranslate"><span class="pre">init_cam()</span></code></a> before
+acquiring this node map.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A <a class="reference internal" href="node.html#rotpy.node.NodeMap" title="rotpy.node.NodeMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeMap</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.get_tl_stream_node_map">
+<span class="sig-name descname"><span class="pre">get_tl_stream_node_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.get_tl_stream_node_map" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the <a class="reference internal" href="node.html#rotpy.node.NodeMap" title="rotpy.node.NodeMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeMap</span></code></a> that is generated from a
+GenICam XML file for the GenTL Stream module.</p>
+<p>The camera does not need to be initialized with <a class="reference internal" href="#rotpy.camera.Camera.init_cam" title="rotpy.camera.Camera.init_cam"><code class="xref py py-meth docutils literal notranslate"><span class="pre">init_cam()</span></code></a> before
+acquiring this node map.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A <a class="reference internal" href="node.html#rotpy.node.NodeMap" title="rotpy.node.NodeMap"><code class="xref py py-class docutils literal notranslate"><span class="pre">NodeMap</span></code></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.get_unique_id">
+<span class="sig-name descname"><span class="pre">get_unique_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.get_unique_id" title="Permalink to this definition"></a></dt>
+<dd><p>This returns a unique id string that identifies the camera.</p>
+<p>This e.g. could be the device hardware identifier on the interface etc.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.init_cam">
+<span class="sig-name descname"><span class="pre">init_cam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.init_cam" title="Permalink to this definition"></a></dt>
+<dd><p>Initializes a camera, allowing for much more interaction, including
+more properties.</p>
+<p>This is required before images can be acquired.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.is_init">
+<span class="sig-name descname"><span class="pre">is_init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.is_init" title="Permalink to this definition"></a></dt>
+<dd><p>Checks whether a camera is currently initialized.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.is_streaming">
+<span class="sig-name descname"><span class="pre">is_streaming</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.is_streaming" title="Permalink to this definition"></a></dt>
+<dd><p>Checks whether a camera is currently streaming.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.is_valid">
+<span class="sig-name descname"><span class="pre">is_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.is_valid" title="Permalink to this definition"></a></dt>
+<dd><p>Checks whether a camera is still valid for use.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.read_port">
+<span class="sig-name descname"><span class="pre">read_port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uint64_t</span> <span class="pre">address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size_t</span> <span class="pre">num_bytes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.read_port" title="Permalink to this definition"></a></dt>
+<dd><p>Reads a remote port on a physical Camera. This function can be used
+to read registers on the camera.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>address</strong> – A 64 bit address to a register on the camera.</p></li>
+<li><p><strong>num_bytes</strong> – Number of bytes to read.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An bytes object with the read bytes.</p>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Only perform direct read/write to a register if the register isn’t
+supported in the device nodemap. Otherwise the camera and nodemap
+may be left in an undefined state after the register read/write.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.release">
+<span class="sig-name descname"><span class="pre">release</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.release" title="Permalink to this definition"></a></dt>
+<dd><p>Releases the camera’s resources, including the nodes.</p>
+<p>Once called, non of the pre-listed node are valid and other camera
+methods should not be called.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.set_buffer_ownership">
+<span class="sig-name descname"><span class="pre">set_buffer_ownership</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unicode</span> <span class="pre">ownership</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.set_buffer_ownership" title="Permalink to this definition"></a></dt>
+<dd><p>Sets data buffer ownership from a string from
+<a class="reference internal" href="names/spin.html#rotpy.names.spin.buffer_owner_names" title="rotpy.names.spin.buffer_owner_names"><code class="xref py py-attr docutils literal notranslate"><span class="pre">buffer_owner_names</span></code></a>.</p>
+<p>The data buffers can be owned by System or User. If the system owns the
+buffers, the memory required for the buffers are allocated and freed by
+the library.  If user owns the buffers, the user is responsible for
+allocating and ultimately freeing the memory. By default, data buffers
+are owned by the library.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.set_user_buffer">
+<span class="sig-name descname"><span class="pre">set_user_buffer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.set_user_buffer" title="Permalink to this definition"></a></dt>
+<dd><p>Specify contiguous user allocated memory to use as data buffers.</p>
+<p>To prevent image tearing when working with USB3 cameras, the size of
+the buffer should be equal to
+<code class="docutils literal notranslate"><span class="pre">((len(buffer)</span> <span class="pre">+</span> <span class="pre">1024</span> <span class="pre">-</span> <span class="pre">1)</span> <span class="pre">//</span> <span class="pre">1024)</span> <span class="pre">*</span> <span class="pre">1024</span></code> where 1024 is the USB3
+packet size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>buffer</strong> – A memoryview such as an array, bytes, bytesarray etc.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.set_user_buffers">
+<span class="sig-name descname"><span class="pre">set_user_buffers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">buffers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uint64_t</span> <span class="pre">buffer_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.set_user_buffers" title="Permalink to this definition"></a></dt>
+<dd><p>Specify non-contiguous user allocated memory to use as data buffers.</p>
+<p>Each buffer must have enough memory to hold one image.
+To prevent image tearing when working with USB3 cameras, the size of
+each buffer should be equal to
+<code class="docutils literal notranslate"><span class="pre">((len(buffer)</span> <span class="pre">+</span> <span class="pre">1024</span> <span class="pre">-</span> <span class="pre">1)</span> <span class="pre">//</span> <span class="pre">1024)</span> <span class="pre">*</span> <span class="pre">1024</span></code> where 1024 is the USB3
+packet size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>buffers</strong> – A list of memoryviews such as arrays, bytes,
+bytesarrays etc. Each memoryview in the list will be a individual
+buffer.</p></li>
+<li><p><strong>buffer_size</strong> – The size of the smallest buffer in <code class="docutils literal notranslate"><span class="pre">buffers</span></code> in
+bytes. Individual buffer items can be larger, but not smaller.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.tl_dev_nodes">
+<span class="sig-name descname"><span class="pre">tl_dev_nodes</span></span><a class="headerlink" href="#rotpy.camera.Camera.tl_dev_nodes" title="Permalink to this definition"></a></dt>
+<dd><p>tl_dev_nodes: rotpy.camera_nodes.TLDevNodes
+The pre-listed transport layer device nodes from <a class="reference internal" href="camera_nodes.html#rotpy.camera_nodes.TLDevNodes" title="rotpy.camera_nodes.TLDevNodes"><code class="xref py py-class docutils literal notranslate"><span class="pre">TLDevNodes</span></code></a>.</p>
+<blockquote>
+<div><p>Use this property to get a pre-instantiated
+<a class="reference internal" href="camera_nodes.html#rotpy.camera_nodes.TLDevNodes" title="rotpy.camera_nodes.TLDevNodes"><code class="xref py py-class docutils literal notranslate"><span class="pre">TLDevNodes</span></code></a> because
+<a class="reference internal" href="camera_nodes.html#rotpy.camera_nodes.TLDevNodes" title="rotpy.camera_nodes.TLDevNodes"><code class="xref py py-class docutils literal notranslate"><span class="pre">TLDevNodes</span></code></a> is not user instantiable.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Remember to check whether each of the pre-listed nodes are
+<a class="reference internal" href="node.html#rotpy.node.SpinBaseNode.is_available" title="rotpy.node.SpinBaseNode.is_available"><code class="xref py py-meth docutils literal notranslate"><span class="pre">is_available()</span></code></a>,
+<a class="reference internal" href="node.html#rotpy.node.SpinBaseNode.is_readable" title="rotpy.node.SpinBaseNode.is_readable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">is_readable()</span></code></a>,
+<a class="reference internal" href="node.html#rotpy.node.SpinBaseNode.is_writable" title="rotpy.node.SpinBaseNode.is_writable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">is_writable()</span></code></a> etc.</p>
+</div>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.tl_stream_nodes">
+<span class="sig-name descname"><span class="pre">tl_stream_nodes</span></span><a class="headerlink" href="#rotpy.camera.Camera.tl_stream_nodes" title="Permalink to this definition"></a></dt>
+<dd><p>tl_stream_nodes: rotpy.camera_nodes.TLStreamNodes
+The pre-listed transport layer streaming nodes from <a class="reference internal" href="camera_nodes.html#rotpy.camera_nodes.TLStreamNodes" title="rotpy.camera_nodes.TLStreamNodes"><code class="xref py py-class docutils literal notranslate"><span class="pre">TLStreamNodes</span></code></a>.</p>
+<blockquote>
+<div><p>Use this property to get a pre-instantiated
+<a class="reference internal" href="camera_nodes.html#rotpy.camera_nodes.TLStreamNodes" title="rotpy.camera_nodes.TLStreamNodes"><code class="xref py py-class docutils literal notranslate"><span class="pre">TLStreamNodes</span></code></a> because
+<a class="reference internal" href="camera_nodes.html#rotpy.camera_nodes.TLStreamNodes" title="rotpy.camera_nodes.TLStreamNodes"><code class="xref py py-class docutils literal notranslate"><span class="pre">TLStreamNodes</span></code></a> is not user instantiable.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Remember to check whether each of the pre-listed nodes are
+<a class="reference internal" href="node.html#rotpy.node.SpinBaseNode.is_available" title="rotpy.node.SpinBaseNode.is_available"><code class="xref py py-meth docutils literal notranslate"><span class="pre">is_available()</span></code></a>,
+<a class="reference internal" href="node.html#rotpy.node.SpinBaseNode.is_readable" title="rotpy.node.SpinBaseNode.is_readable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">is_readable()</span></code></a>,
+<a class="reference internal" href="node.html#rotpy.node.SpinBaseNode.is_writable" title="rotpy.node.SpinBaseNode.is_writable"><code class="xref py py-meth docutils literal notranslate"><span class="pre">is_writable()</span></code></a> etc.</p>
+</div>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="rotpy.camera.Camera.write_port">
+<span class="sig-name descname"><span class="pre">write_port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uint64_t</span> <span class="pre">address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unsigned</span> <span class="pre">char[:]</span> <span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#rotpy.camera.Camera.write_port" title="Permalink to this definition"></a></dt>
+<dd><p>Writes a remote port on a physical Camera. This function can be used
+to write registers on the camera.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>address</strong> – A 64 bit address to a register on the camera.</p></li>
+<li><p><strong>data</strong> – Bytes or memory view-convertible bytes to write.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Only perform direct read/write to a register if the register isn’t
+supported in the device nodemap. Otherwise the camera and nodemap
+may be left in an undefined state after the register read/write.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="system.html" class="btn btn-neutral float-left" title="System" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="image.html" class="btn btn-neutral float-right" title="Image" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Matthew Einhorn.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
