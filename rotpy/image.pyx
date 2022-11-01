@@ -7,6 +7,8 @@ Image and image data/metadata returned by cameras.
 cdef extern from "string.h" nogil:
     void *memcpy(void *, const void *, size_t)
 
+from cython cimport view as cyview
+
 from .names.spin import payload_type_names, \
     payload_type_values, color_processing_algo_names, \
     color_processing_algo_values, \
@@ -390,7 +392,19 @@ cdef class Image:
         image. For compressed images, the full image may be larger once
         decompressed.
 
-        TODO: Consider returning memoryview of the pointer.
+        See also :meth:`copy_image_data` and :meth:`get_image_data_memoryview`.
+
+        For example:
+
+        .. code-block:: python
+
+            >>> image = Image.create_image(640, 480, 0, 0, 'Mono16')
+            >>> data = image.get_image_data()
+            >>> type(data)
+            <class 'bytearray'>
+            >>> len(view)
+            614400
+
         TODO: Understand the format of the data.
         """
         cdef size_t n
@@ -406,6 +420,87 @@ cdef class Image:
         memcpy(dest, buf, n)
 
         return data
+
+    cpdef get_image_data_memoryview(self):
+        """Gets the image data as a memory view of the underlying data without copying.
+        This is much more efficient than :meth:`get_image_data`, but more dangerous.
+
+        This does not include any additional payload data included with the
+        image. For compressed images, the full image may be larger once
+        decompressed.
+
+        .. warning::
+
+            You MUST ensure that this :class:`Image` instance does not go out of memory
+            and the image and buffers are not released as long as
+            the returned memory view of the array is in use. Otherwise, when
+            the original data will become invalid, usage of the memory view will crash python.
+
+        For example:
+
+        .. code-block:: python
+
+            >>> image = Image.create_image(640, 480, 0, 0, 'Mono16')
+            >>> view = image.get_image_data_memoryview()
+            >>> view
+            <rotpy.image.array object at 0x0000021CE7420B20>
+            >>> # memview is the only attribute of cython arrays
+            >>> view.memview
+            <MemoryView of 'array' object>
+            >>> view.memview.size
+            614400
+        """
+        cdef size_t n
+        cdef void* buf
+        cdef cyview.array cyarr
+
+        with nogil:
+            n = self._image.get().GetImageSize()
+            buf = self._image.get().GetData()
+
+        cyarr = cyview.array(
+            shape=(n, ), itemsize=sizeof(char), format="B", mode="c",
+            allocate_buffer=False)
+        cyarr.data = <char *>buf
+
+        return cyarr
+
+    cpdef copy_image_data(self, unsigned char[:] buffer):
+        """Copies the image data into an existing buffer, such as a numpy array
+        or a bytearray that can be re-used.
+
+        The buffer must be at least as large as the image data and must be
+        able to be used as a memory view of a unsigned bytes array.
+
+        This does not include any additional payload data included with the
+        image. For compressed images, the full image may be larger once
+        decompressed.
+
+        For example:
+
+        .. code-block:: python
+
+            >>> image = Image.create_image(640, 480, 0, 0, 'Mono16')
+            >>> buffer = bytearray(b'\0') * full_image.get_image_data_size()
+            >>> image.copy_image_data(buffer)
+            >>> buffer = np.empty(full_image.get_image_data_size(), dtype=np.uint8)
+            >>> image.copy_image_data(buffer)
+        """
+        cdef size_t n
+        cdef void* buf
+
+        if buffer is None:
+            raise ValueError('Buffer cannot be None')
+
+        with nogil:
+            n = self._image.get().GetImageSize()
+            buf = self._image.get().GetData()
+
+        if buffer.shape[0] < n:
+            raise ValueError(
+                f'Buffer size {len(buffer)} is smaller than required buffer size {n}')
+
+        memcpy(&buffer[0], buf, n)
 
     cpdef get_data_max(self):
         """Get the value which no image data will exceed.

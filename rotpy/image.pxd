@@ -31,6 +31,8 @@ cdef class Image:
     cpdef get_buffer_size(self)
     cpdef get_image_data_size(self)
     cpdef get_image_data(self)
+    cpdef get_image_data_memoryview(self)
+    cpdef copy_image_data(self, unsigned char[:] buffer)
     cpdef get_data_max(self)
     cpdef get_data_min(self)
     cpdef get_image_id(self)
