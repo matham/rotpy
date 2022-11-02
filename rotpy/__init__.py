@@ -4,7 +4,7 @@
 Project that provides python bindings for the Spinnaker SDK and provides
 access to their GigE and USB cameras.
 """
-__version__ = '0.2.1'
+__version__ = '0.2.2.dev0'
 
 import sys
 import site
